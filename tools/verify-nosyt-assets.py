@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Verify reproducible original art and common submission pitfalls without dependencies."""
 import hashlib
+import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -25,6 +27,12 @@ EXPECTED = {
     "lobby-portrait.webp": "2aebeaff4e6c0a08868e8d4e0beb4b9c42cb19798bb9f02d2e4338de8b2b502d",
 }
 
+AUDIO_SHA256 = {
+    "sounds.ogg": "3eaa7d4cc713b3eda57353ca3e85f3abe995dc6366719314255d48e935709400",
+    "sounds.m4a": "0c83547ea605043a661e1b27e61f26e0103da860908bb93ec6a1e127fe471f48",
+    "sounds.mp3": "f3ecb5abd89383d17a5778186f0d381b2d179d81dbf36dc4ae35147737535df4",
+}
+
 def main() -> None:
     failures = []
     manifest = (APP / "src/game/assets.ts").read_text()
@@ -44,6 +52,22 @@ def main() -> None:
         if f"assets/nosyt/{name}" not in manifest:
             failures.append(f"unregistered original asset: {name}")
 
+    audio_dir = APP / "static/assets/audio"
+    for name, digest in AUDIO_SHA256.items():
+        path = audio_dir / name
+        if not path.is_file():
+            failures.append(f"missing original audio: {path.relative_to(ROOT)}")
+        elif hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            failures.append(f"original audio checksum mismatch: {name}")
+    audio = json.loads((audio_dir / "sounds.json").read_text())
+    available = set(audio.get("sprite", {}))
+    sound_types = (APP / "src/game/sound.ts").read_text()
+    declared = set(re.findall(r"'((?:bgm_|sfx_|jng_|tumble_win_)[^']+)'", sound_types))
+    for name in sorted(declared - available):
+        failures.append(f"audio API references missing sound cue: {name}")
+    if len(available) != 52:
+        failures.append(f"expected 52 original sound cues, found {len(available)}")
+
     for symbol in ("h1", "h2", "h3", "h4", "h5", "l1", "l2", "l3", "l4", "l5", "wild", "scatter"):
         if f"assetKey: 'lunar_{symbol}'" not in symbols:
             failures.append(f"unmapped reel symbol: {symbol}")
@@ -58,6 +82,7 @@ def main() -> None:
         print("\n".join("FAIL: " + item for item in failures))
         raise SystemExit(1)
     print(f"PASS: {len(EXPECTED)} original assets match their recorded SHA-256 hashes")
+    print("PASS: 52 original audio cues and their three original encoded sound banks")
     print("PASS: all 12 symbol keys are mapped; no prohibited sample loader or logo placeholder")
     print("IMPORTANT: this validates asset wiring, not math certification or Studio approval")
 
