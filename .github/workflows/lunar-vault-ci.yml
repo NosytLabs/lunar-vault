@@ -1,0 +1,29 @@
+name: Lunar Vault code and asset checks
+on:
+  pull_request:
+    paths:
+      - 'apps/lunar-vault/**'
+      - 'packages/**'
+      - 'tools/**'
+      - '.github/workflows/lunar-vault-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: lunar-vault-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+      - run: corepack enable
+      - run: corepack prepare pnpm@10.5.0 --activate
+      - run: pnpm install --frozen-lockfile
+      - run: node tools/check-original-art.mjs
+      - run: python3 tools/audit-assets.py
+      - run: pnpm --filter lunar-vault build
