@@ -1,5 +1,6 @@
 import type { BaseBet } from 'utils-bet';
 import { stateMeta } from './stateMeta.svelte';
+import { stateConfig } from './stateConfig.svelte';
 
 export type Currency = string;
 export type BetToResume = BaseBet | null;
@@ -22,12 +23,16 @@ export const stateBet = $state({
 });
 
 const correctBetAmount = (value: number) => {
-	if (value <= 0) return 0;
-	const costMultiplier = betCostMultiplier();
-	if (costMultiplier === 0) return 0;
-	const max = stateBet.balanceAmount / costMultiplier;
-	if (value >= max) return max;
-	return value;
+	// Never manufacture a fractional/invalid bet by clamping to the wallet.
+	// If balance is insufficient, retain the selected valid denomination and
+	// disable play via isBetCostAvailable instead of submitting an invalid amount.
+	const options = stateConfig.betAmountOptions.filter((level) => level > 0 && Number.isFinite(level));
+	if (!options.length) return 0;
+	if (!Number.isFinite(value)) return options[0];
+	return options.reduce(
+		(best, level) => Math.abs(level - value) < Math.abs(best - value) ? level : best,
+		options[0],
+	);
 };
 
 const setBetAmount = (value: number) => {
