@@ -1,11 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-
-	import { SpineProvider, SpineTrack, SpineSlot } from 'pixi-svelte';
-
-	import { getContext } from '../game/context';
-
-	type AnimationState = 'intro' | 'idle' | 'outro';
+	import { Container, Rectangle, Sprite, Text } from 'pixi-svelte';
 
 	type Props = {
 		animationMap: {
@@ -22,25 +17,24 @@
 	};
 
 	const props: Props = $props();
-	const context = getContext();
-
-	let oncomplete = $state(() => {});
-	let animationState = $state<AnimationState>('intro');
+	const title = $derived(
+		props.animationMap.intro.startsWith('max') ? 'MAX WIN' :
+		props.animationMap.intro.startsWith('epic') ? 'EPIC WIN' :
+		props.animationMap.intro.startsWith('mega') ? 'MEGA WIN' :
+		props.animationMap.intro.startsWith('super') ? 'SUPER WIN' : 'BIG WIN',
+	);
 </script>
 
-<SpineProvider width={context.stateGameDerived.boardLayout().width} key="bigwin">
-	<SpineTrack
-		trackIndex={0}
-		animationName={props.animationMap[animationState]}
-		loop={animationState === 'idle'}
-		listener={{
-			complete: () => {
-				if (animationState === 'intro') animationState = 'idle';
-				if (animationState === 'outro') oncomplete();
-			},
-		}}
+<!-- Present the server-confirmed amount; this panel NEVER computes an outcome. -->
+<Container>
+	<Rectangle x={-357} y={-202} width={714} height={404} backgroundColor={0xc5a265} />
+	<Rectangle x={-351} y={-196} width={702} height={392} backgroundColor={0x08102a} />
+	<Sprite key="lunar_lobby_wide" anchor={0.5} width={690} height={385} alpha={0.4} />
+	<Text
+		text={title}
+		anchor={0.5}
+		y={-112}
+		style={{ fontFamily: 'Georgia, serif', fontSize: 57, fontWeight: 'bold', letterSpacing: 3, fill: 0xffe2a3 }}
 	/>
-	<SpineSlot slotName="slot_win_count">
-		{@render props.children()}
-	</SpineSlot>
-</SpineProvider>
+	{@render props.children()}
+</Container>
