@@ -1,39 +1,49 @@
 <script lang="ts">
-	import { Popup } from 'components-shared';
+	import { Popup, Button } from 'components-shared';
 	import { zIndex } from 'constants-shared/zIndex';
 	import { stateModal } from 'state-shared';
-
 	import BaseContent from './BaseContent.svelte';
+	const messages: Record<string, string> = {
+		ERR_VAL: 'The session or selected amount is unavailable. Open a valid launch link and reload.',
+		ERR_IPB: 'Balance is too low for this play. Reload to refresh the session.',
+		ERR_GLE: 'The session play limit has been reached.',
+		ERR_ACT: 'Please wait a moment, then reload to continue.',
+		ERR_GEN: 'The game service is unavailable. Reload to recover any unfinished round.',
+	};
+	const message = $derived(
+		stateModal.modal?.name === 'error'
+			? (messages[(stateModal.modal.error as { error?: string })?.error ?? ''] ??
+					'Connection interrupted. Reload to recover any unfinished round.')
+			: '',
+	);
 </script>
 
 {#if stateModal.modal?.name === 'error'}
-	<Popup zIndex={zIndex.modal} persistent onclose={() => (stateModal.modal = null)}>
-		<BaseContent maxWidth="100%">
-			{@const error = stateModal.modal?.error}
-			<span>Sorry, something went wrong.</span>
-			<div class="scrollY error-text">
-				{#if error}
-					{#if error?.error && error?.message}
-						<span>{JSON.stringify(error.error || 'unknown')}</span>
-						<p>{JSON.stringify(error.message || 'unknown')}</p>
-					{:else}
-						<p>{error}</p>
-					{/if}
-				{:else}
-					<span>unknown error</span>
-				{/if}
-			</div>
-		</BaseContent>
-	</Popup>
+	<Popup zIndex={zIndex.modal} persistent onclose={() => {}}
+		><BaseContent maxWidth="480px"
+			><h2>Unable to continue</h2>
+			<p role="alert">{message}</p>
+			<Button onclick={() => location.reload()}>Reload game</Button></BaseContent
+		></Popup
+	>
 {/if}
 
-<style lang="scss">
-	.error-text {
-		max-height: 100px;
-		max-width: 480px;
-		border-radius: 8px;
-		border: 1px solid red;
-		white-space: normal;
-		padding: 1rem;
+<style>
+	h2 {
+		color: #f2d7a4;
+		font:
+			700 24px 'Lunar Display',
+			Georgia,
+			serif;
+		text-align: center;
+	}
+	p {
+		font:
+			400 15px/1.6 'Lunar Body',
+			Arial,
+			sans-serif;
+		color: #e4eaf2;
+		text-align: center;
+		padding: 12px;
 	}
 </style>

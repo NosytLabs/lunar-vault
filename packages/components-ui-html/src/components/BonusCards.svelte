@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { stateBet, stateModal, type BetModeData } from 'state-shared';
+	import { stateBet, stateBetDerived, stateModal, type BetModeData } from 'state-shared';
 	import { Button } from 'components-shared';
 	import { getContextEventEmitter } from 'utils-event-emitter';
 	import { numberToCurrencyString } from 'utils-shared/amount';
@@ -39,6 +39,9 @@
 			{/snippet}
 
 			{#snippet price()}
+				{#if !stateBetDerived.isModeAmountAvailable(betModeData.mode)}<small
+						>Choose a lower play amount for this feature.</small
+					>{/if}
 				<div class="price">
 					{`${numberToCurrencyString(stateBet.betAmount * betModeData.costMultiplier)}`}
 				</div>
@@ -52,6 +55,7 @@
 						eventEmitter.broadcast({ type: 'soundPressGeneral' });
 					}}
 					disabled={stateBet.betAmount <= 0 ||
+						!stateBetDerived.isModeAmountAvailable(betModeData.mode) ||
 						stateBet.balanceAmount < stateBet.betAmount * betModeData.costMultiplier}
 				>
 					<BaseIcon width="100%" height="44px" border="1px solid #dfbf82;" />

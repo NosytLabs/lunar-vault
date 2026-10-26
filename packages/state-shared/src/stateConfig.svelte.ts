@@ -1,5 +1,6 @@
 export const stateConfig = $state({
 	betLimits: { min: 0, max: 0, step: 0 },
+	betModeLimits: {} as Record<string, { costMultiplier: number; maxBet: number }>,
 	jurisdiction: {
 		socialCasino: false,
 		disabledFullscreen: false,

@@ -9,6 +9,7 @@
 		stateConfig,
 		stateModal,
 		stateUi,
+		stateMeta,
 	} from 'state-shared';
 	import { API_AMOUNT_MULTIPLIER, MOST_USED_BET_INDEXES } from 'constants-shared/bet';
 
@@ -80,7 +81,7 @@
 							!Number.isSafeInteger(level) ||
 							level < minBet ||
 							level > maxBet ||
-							(stepBet > 0 && (level - minBet) % stepBet !== 0),
+							(stepBet > 0 && level % stepBet !== 0),
 					)
 				)
 					throw new Error('The session returned an invalid play-amount configuration.');
@@ -92,6 +93,25 @@
 					throw new Error('The session default amount is unavailable.');
 				stateBet.betAmount = defaultAmount;
 				stateBet.wageredBetAmount = stateBet.betAmount;
+				const modes =
+					(
+						authenticateData.config as {
+							gameModes?: Record<string, { costMultiplier: number; maxBet: number }>;
+						}
+					).gameModes ?? {};
+				stateConfig.betModeLimits = Object.fromEntries(
+					Object.entries(modes).map(([key, value]) => [key.toLowerCase(), value]),
+				);
+				for (const [key, value] of Object.entries(stateConfig.betModeLimits)) {
+					const known = stateMeta.betModeMeta[key] ?? stateMeta.betModeMeta[key.toUpperCase()];
+					if (
+						known &&
+						(known.costMultiplier !== value.costMultiplier ||
+							!Number.isSafeInteger(value.maxBet) ||
+							value.maxBet < minBet)
+					)
+						throw new Error('The session mode does not match this game version.');
+				}
 				stateConfig.betMenuOptions = stateConfig.betAmountOptions.filter((_, index) =>
 					MOST_USED_BET_INDEXES.includes(index),
 				);
