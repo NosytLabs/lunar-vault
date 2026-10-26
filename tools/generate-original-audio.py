@@ -9,7 +9,8 @@ import json, math, os, subprocess, sys
 from pathlib import Path
 import numpy as np
 
-ROOT=Path(__file__).resolve().parent
+ROOT=Path(__file__).resolve().parent.parent / 'apps/lunar-vault/static/assets/audio'
+ROOT.mkdir(parents=True, exist_ok=True)
 SR=32000
 RNG=np.random.default_rng(112358)
 
@@ -132,6 +133,8 @@ def make():
     (ROOT/'sounds.json').write_text(json.dumps(meta,indent=2)+'\n')
     assert all(a>=0 and b>0 for a,b,*_ in sprites.values())
     assert len(sprites)==len(MUSIC)+len(FX)
-    (ROOT/'REPORT.txt').write_text(f'Original synthetic audio cues: {len(sprites)}\nDuration: {position/SR:.2f}s\n\n'+ '\n'.join(f'{p.name}: {p.stat().st_size:,} bytes' for p in [ROOT/'sounds.ogg',ROOT/'sounds.mp3',ROOT/'sounds.m4a']))
-    print((ROOT/'REPORT.txt').read_text())
+    wav.unlink()  # Keep the multi-megabyte PCM intermediate out of the uploaded static site.
+    print(f"Created {len(sprites)} original cues ({position / SR:.2f}s)")
+    for name in ('sounds.ogg', 'sounds.mp3', 'sounds.m4a'):
+        print(f"{name}: {(ROOT / name).stat().st_size:,} bytes")
 if __name__ == '__main__':make()
