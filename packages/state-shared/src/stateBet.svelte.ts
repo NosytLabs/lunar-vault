@@ -1,5 +1,6 @@
 import type { BaseBet } from 'utils-bet';
 import { stateMeta } from './stateMeta.svelte';
+import { stateConfig } from './stateConfig.svelte';
 
 export type Currency = string;
 export type BetToResume = BaseBet | null;
@@ -13,6 +14,7 @@ export const stateBet = $state({
 	betToResume: null as BetToResume,
 	activeBetModeKey: 'BASE' as BetModeKey,
 	winBookEventAmount: 0,
+	replayCostMultiplier: 1,
 	autoSpinsLoss: 0,
 	autoSpinsCounter: 0,
 	autoSpinsLossLimitAmount: Infinity,
@@ -22,12 +24,7 @@ export const stateBet = $state({
 });
 
 const correctBetAmount = (value: number) => {
-	if (value <= 0) return 0;
-	const costMultiplier = betCostMultiplier();
-	if (costMultiplier === 0) return 0;
-	const max = stateBet.balanceAmount / costMultiplier;
-	if (value >= max) return max;
-	return value;
+	return stateConfig.betAmountOptions.includes(value) ? value : stateBet.betAmount;
 };
 
 const setBetAmount = (value: number) => {
@@ -49,13 +46,14 @@ const updateIsTurbo = (value: boolean, options: { persistent: boolean }) => {
 	stateBet.isTurbo = value;
 };
 
-const activeBetMode = () => stateMeta.betModeMeta?.[stateBet.activeBetModeKey.toUpperCase()]
-	?? stateMeta.betModeMeta?.[stateBet.activeBetModeKey.toLowerCase()]
-	?? null;
+const activeBetMode = () =>
+	stateMeta.betModeMeta?.[stateBet.activeBetModeKey.toUpperCase()] ??
+	stateMeta.betModeMeta?.[stateBet.activeBetModeKey.toLowerCase()] ??
+	null;
 const isContinuousBet = () => stateBet.autoSpinsCounter > 1 || stateBet.isSpaceHold;
 const timeScale = () => (stateBet.isTurbo ? 2 : 1);
 const betCostMultiplier = () =>
-	stateBetDerived.activeBetMode().type === 'activate'
+	stateBetDerived.activeBetMode()?.type === 'activate'
 		? stateBetDerived.activeBetMode().costMultiplier
 		: 1;
 const betCost = () => stateBet.betAmount * betCostMultiplier();

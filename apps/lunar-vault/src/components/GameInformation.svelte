@@ -5,7 +5,7 @@
 		H1: 'Astral Crown',
 		H2: 'Ringed World',
 		H3: 'North Star',
-		H4: 'Eclipse Eye',
+		H4: 'Celestial Lens',
 		H5: 'Astral Hourglass',
 		L1: 'Sapphire Star',
 		L2: 'Crescent Moon',
@@ -30,7 +30,7 @@
 	{#if paytable}
 		<p>
 			Values multiply the selected base play amount. Match three or more symbols from left to right
-			on one of the twenty lines. Each line pays its highest base-table combination before Wild
+			on one of the twenty lines. Each line awards its highest base-table combination before Wild
 			multipliers are applied.
 		</p>
 		<table>
@@ -38,7 +38,8 @@
 				{#each Object.entries(config.symbols).filter(([, value]) => 'paytable' in value) as [key, symbol]}
 					<tr
 						><th
-							><img src={`./assets/nosyt/${key.toLowerCase()}.svg`} alt="" />{names[key] ?? key}</th
+							><img src={`./assets/nosyt/sprites/${key.toLowerCase()}.webp`} alt="" />{names[key] ??
+								key}</th
 						><td>{payout(symbol, 3)}×</td><td>{payout(symbol, 4)}×</td><td>{payout(symbol, 5)}×</td
 						></tr
 					>
@@ -89,13 +90,27 @@
 		<h2>Controls</h2>
 		<p>
 			Spin starts a round. Stop speeds up the animation where permitted; it never changes a result.
-			Menu contains sound, settings and symbol values. Space follows session restrictions and is
-			ignored while a dialog is open. Autoplay can be cancelled without interrupting the current
-			round.
+			Use +/− or select the current amount to choose an available session level. Turbo shortens
+			eligible reel animations. Menu opens Info, Symbols, Settings and Sound. Sound toggles all
+			audio; Settings contains separate music and effects levels. Fullscreen changes the view when
+			available. Space follows session restrictions and is ignored while a dialog is open.
+		</p>
+		<p>
+			Autoplay opens settings for the number of rounds and limits; confirm before it starts. Cancel
+			it to stop future rounds while the current round completes. Select Eclipse Chamber and confirm
+			the displayed 100× amount to enter its feature. Play again repeats a replay without a new
+			play.
 		</p>
 		<p>
 			Keep a connection while playing. If the session is interrupted, reload to recover the
 			unfinished round.
+		</p>
+		<h2>Game operation</h2>
+		<p>
+			A malfunction cancels wins and plays. A stable internet connection is required. Reload after
+			disconnection to complete any unfinished round. Expected return is measured over many plays.
+			The display is illustrative and does not represent a physical device. The Remote Game Server
+			settles all awards; browser animations do not determine them. TM and © 2026 Engine.
 		</p>
 	{/if}
 </section>
@@ -107,7 +122,7 @@
 		padding: 24px;
 		color: #e4edf7;
 		font:
-			15px/1.6 'Lunar Sans',
+			15px/1.6 'Lunar Body',
 			Arial,
 			sans-serif;
 	}

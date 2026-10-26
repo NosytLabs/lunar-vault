@@ -1,4 +1,5 @@
 export const stateConfig = $state({
+	betLimits: { min: 0, max: 0, step: 0 },
 	jurisdiction: {
 		socialCasino: false,
 		disabledFullscreen: false,

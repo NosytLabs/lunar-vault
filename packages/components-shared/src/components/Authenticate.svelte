@@ -2,7 +2,14 @@
 	import { onMount, type Snippet } from 'svelte';
 
 	import { requestAuthenticate, requestReplay } from 'rgs-requests';
-	import { stateUrlDerived, stateBet, stateConfig, stateModal, stateUi } from 'state-shared';
+	import {
+		stateUrlDerived,
+		stateBet,
+		stateBetDerived,
+		stateConfig,
+		stateModal,
+		stateUi,
+	} from 'state-shared';
 	import { API_AMOUNT_MULTIPLIER, MOST_USED_BET_INDEXES } from 'constants-shared/bet';
 
 	type Props = { children: Snippet };
@@ -63,13 +70,27 @@
 					...stateConfig.jurisdiction,
 					...authenticateData.config.jurisdiction,
 				};
-				stateConfig.betAmountOptions = (authenticateData.config?.betLevels || []).map(
-					(level) => level / API_AMOUNT_MULTIPLIER,
-				);
+				const { minBet = 0, maxBet = 0, stepBet = 0 } = authenticateData.config;
+				stateConfig.betLimits = { min: minBet, max: maxBet, step: stepBet };
+				const serverLevels = authenticateData.config.betLevels || [];
+				if (
+					!serverLevels.length ||
+					serverLevels.some(
+						(level) =>
+							!Number.isSafeInteger(level) ||
+							level < minBet ||
+							level > maxBet ||
+							(stepBet > 0 && (level - minBet) % stepBet !== 0),
+					)
+				)
+					throw new Error('The session returned an invalid play-amount configuration.');
+				stateConfig.betAmountOptions = serverLevels.map((level) => level / API_AMOUNT_MULTIPLIER);
 				const defaultAmount =
 					(authenticateData.config.defaultBetLevel ?? 0) / API_AMOUNT_MULTIPLIER;
 				const levels = stateConfig.betAmountOptions;
-				stateBet.betAmount = levels.includes(defaultAmount) ? defaultAmount : (levels[0] ?? 0);
+				if (!levels.includes(defaultAmount))
+					throw new Error('The session default amount is unavailable.');
+				stateBet.betAmount = defaultAmount;
 				stateBet.wageredBetAmount = stateBet.betAmount;
 				stateConfig.betMenuOptions = stateConfig.betAmountOptions.filter((_, index) =>
 					MOST_USED_BET_INDEXES.includes(index),
@@ -77,7 +98,7 @@
 			}
 
 			// round
-			if (authenticateData?.round) {
+			if (authenticateData?.round?.active) {
 				// Example of authenticateData.round
 				// {
 				// 	"betID": 62277967,
@@ -109,7 +130,6 @@
 				}
 			}
 		} catch (error) {
-			console.error(error);
 			stateModal.modal = { name: 'error', error };
 		}
 	};
@@ -129,6 +149,11 @@
 		});
 
 		if (data) {
+			const multiplier = (data as { costMultiplier?: number }).costMultiplier;
+			stateBet.replayCostMultiplier =
+				Number.isFinite(multiplier) && multiplier! >= 1
+					? multiplier!
+					: (stateBetDerived.activeBetMode()?.costMultiplier ?? 1);
 			// @ts-ignore
 			stateBet.betToResume = {
 				...data,

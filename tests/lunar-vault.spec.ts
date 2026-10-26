@@ -71,6 +71,12 @@ async function session(
 		playGate?: Promise<void>;
 		resumeIndex?: number;
 		defaultBetMicro?: number;
+		balanceMicro?: number;
+		rgsAddress?: string;
+		resumeAmountMicro?: number;
+		replayMode?: string;
+		replayCost?: number;
+		expectAssetFailure?: boolean;
 	} = {},
 ) {
 	const calls: { path: string; body: any }[] = [];
@@ -80,7 +86,7 @@ async function session(
 	const defaultBet = options.defaultBetMicro ?? 100000;
 	const round = {
 		betID: 1,
-		amount: defaultBet,
+		amount: options.resumeAmountMicro ?? defaultBet,
 		mode: 'base',
 		payout: Math.round(book.payoutMultiplier * 100000),
 		payoutMultiplier: book.payoutMultiplier,
@@ -112,13 +118,20 @@ async function session(
 		let data: any;
 		if (path === '/wallet/authenticate')
 			data = {
-				balance: { amount: 100000000, currency: options.currency ?? 'USD' },
+				balance: { amount: options.balanceMicro ?? 100000000, currency: options.currency ?? 'USD' },
 				config: {
 					minBet: 10000,
 					maxBet: Math.max(1000000, defaultBet * 2),
 					stepBet: 10000,
 					defaultBetLevel: defaultBet,
-					betLevels: [10000, defaultBet, Math.max(1000000, defaultBet * 2)],
+					betLevels: [
+						...new Set([
+							10000,
+							defaultBet,
+							...(options.resumeAmountMicro ? [options.resumeAmountMicro] : []),
+							Math.max(1000000, defaultBet * 2),
+						]),
+					].sort((a, b) => a - b),
 					jurisdiction: options.jurisdiction ?? {},
 				},
 				...(options.resume ? { round: { ...round, active: true } } : {}),
@@ -135,15 +148,22 @@ async function session(
 			};
 		} else if (path === '/wallet/end-round')
 			data = { balance: { amount: 99900000 + round.payout, currency: options.currency ?? 'USD' } };
-		else if (path.startsWith('/bet/replay/')) data = round;
+		else if (path.startsWith('/bet/replay/'))
+			data = { ...round, costMultiplier: options.replayCost ?? 1 };
 		else if (path === '/bet/event') data = { event: '0' };
 		else throw new Error(`Unexpected RGS fixture route: ${path}`);
 		await route.fulfill({ json: data });
 	});
 	const query = options.replay
-		? 'replay=true&game=lunar_vault&version=fixture&mode=base&event=1&amount=100000'
+		? `replay=true&game=lunar_vault&version=fixture&mode=${options.replayMode ?? 'base'}&event=1&amount=100000`
 		: 'sessionID=local-fixture';
-	await page.goto(`/?rgs_url=rgs.invalid&${query}${options.query ?? ''}`);
+	await page.goto(
+		`/?rgs_url=${encodeURIComponent(options.rgsAddress ?? 'rgs.invalid')}&${query}&currency=${options.currency ?? 'USD'}${options.query ?? ''}`,
+	);
+	if (options.expectAssetFailure) {
+		await expect(page.getByRole('alert')).toContainText('Game assets could not be loaded');
+		return { calls, errors, external };
+	}
 	await expect
 		.poll(async () => (await renderedText(page)).some((n) => n.text.startsWith('TAP')), {
 			timeout: 20000,
@@ -433,4 +453,127 @@ test('wallet play uses integer micro-units for a 2.01 amount', async ({ page }) 
 	expect(amount).toBe(2010000);
 	expect(Number.isSafeInteger(amount)).toBe(true);
 	expect(s.errors).toEqual([]);
+});
+
+for (const [currency, balance, amount] of [
+	['USD', '$100.00', '$10.00'],
+	['EUR', '€100.00', '€10.00'],
+	['CAD', 'CA$100.00', 'CA$10.00'],
+	['MXN', 'MX$100.00', 'MX$10.00'],
+	['JPY', '¥100', '¥10'],
+	['XSC', '100.00 SC', '10.00 SC'],
+	['XGC', '100.00 GC', '10.00 GC'],
+])
+	test(`phone currency ${currency} uses exact server amount and native formatting`, async ({
+		page,
+	}) => {
+		await page.setViewportSize({ width: 425, height: 812 });
+		const s = await session(page, {
+			currency,
+			defaultBetMicro: 10000000,
+			query: currency.startsWith('X') ? '&social=true' : '',
+		});
+		await textNode(page, balance);
+		await textNode(page, amount);
+		await clickText(page, 'SPIN');
+		await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(1);
+		expect(s.calls.find((c) => c.path === '/wallet/play')!.body.amount).toBe(10000000);
+		await textNode(page, 'SPIN');
+		expect(s.errors).toEqual([]);
+	});
+
+test('explicit HTTPS RGS address works and unknown language falls back to English', async ({
+	page,
+}) => {
+	const s = await session(page, { rgsAddress: 'https://rgs.invalid', query: '&lang=zz' });
+	await clickText(page, 'SPIN');
+	await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(1);
+	expect(s.errors).toEqual([]);
+	expect(s.external).toEqual([]);
+});
+
+test('zero balance explains disabled spin and sends no play request', async ({ page }) => {
+	const s = await session(page, { balanceMicro: 0 });
+	await expect(page.getByRole('status')).toContainText('Insufficient balance');
+	await page.keyboard.press('Space');
+	await clickText(page, 'SPIN');
+	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
+	expect(s.errors).toEqual([]);
+});
+
+test('social game rules include the operational disclaimer without restricted terms', async ({
+	page,
+}) => {
+	const s = await session(page, { currency: 'XSC', query: '&social=true' });
+	await clickText(page, 'MENU');
+	await clickText(page, 'INFO');
+	const text = await page.locator('.information').innerText();
+	expect(text).toContain('physical device');
+	expect(text).not.toMatch(
+		/\b(bet|bets|buy|bought|cash|credit|currency|fund|gamble|money|paid|pay|pays|purchase|stake|wager|withdraw)\b/i,
+	);
+	expect(s.errors).toEqual([]);
+});
+
+test('an interrupted sprite fetch retries without entering a broken game', async ({ page }) => {
+	let attempts = 0;
+	await page.route('**/assets/nosyt/sprites/h1.webp', (route) =>
+		++attempts === 1 ? route.abort() : route.continue(),
+	);
+	const s = await session(page);
+	expect(attempts).toBe(2);
+	expect(s.errors.filter((e) => e.includes('not found in the loadedAssets'))).toEqual([]);
+	await textNode(page, 'SPIN');
+});
+
+test('active round keeps its non-default amount after recovery and on the next play', async ({
+	page,
+}) => {
+	const s = await session(page, { book: win, resume: true, resumeAmountMicro: 500000 });
+	await textNode(page, 'SPIN');
+	await textNode(page, '$0.50');
+	await clickText(page, 'SPIN');
+	await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(1);
+	expect(s.calls.find((c) => c.path === '/wallet/play')!.body.amount).toBe(500000);
+	expect(s.errors).toEqual([]);
+});
+
+test('a sub-cent award stays visible at the correct precision', async ({ page }) => {
+	const s = await session(page, { book: win, defaultBetMicro: 10000 });
+	await clickText(page, 'SPIN');
+	await textNode(page, '$0.002');
+	expect(s.errors).toEqual([]);
+});
+
+test('small social replay displays the server mode cost and exposes no wagering menu', async ({
+	page,
+}) => {
+	await page.setViewportSize({ width: 400, height: 225 });
+	const s = await session(page, {
+		replay: true,
+		replayMode: 'bonus',
+		replayCost: 42,
+		currency: 'XSC',
+		query: '&social=true',
+	});
+	await expect(page.locator('.replay-cost')).toContainText('42×');
+	await expect(page.locator('.replay-cost')).toContainText('TOTAL PLAY 4.20 SC');
+	await expect(page.getByRole('button', { name: 'Play again' })).toBeEnabled();
+	expect(s.calls.filter((c) => c.path.startsWith('/wallet/'))).toHaveLength(0);
+	expect(s.errors).toEqual([]);
+});
+
+test('a permanently missing sprite shows recovery instead of an incomplete game', async ({
+	page,
+}) => {
+	let attempts = 0;
+	await page.route('**/assets/nosyt/sprites/h1.webp', (route) => {
+		attempts++;
+		return route.abort();
+	});
+	const s = await session(page, { expectAssetFailure: true });
+	expect(attempts).toBe(3);
+	await expect(page.getByRole('button', { name: 'Reload game' })).toBeVisible();
+	expect((await renderedText(page)).some((n) => n.text === 'SPIN')).toBe(false);
+	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
 });

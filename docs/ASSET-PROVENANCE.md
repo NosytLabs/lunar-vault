@@ -21,3 +21,9 @@ Generated using the built-in tool, not a paid-provider CLI workflow. The WebP is
 - `assets/type/Cinzel-Variable.ttf`: unmodified Cinzel variable font from [google/fonts](https://github.com/google/fonts/tree/main/ofl/cinzel), SIL Open Font License 1.1, included as `Cinzel-OFL.txt`.
 - `assets/type/BarlowCondensed-{SemiBold,Bold}.ttf`: unmodified Barlow Condensed from [google/fonts](https://github.com/google/fonts/tree/main/ofl/barlowcondensed), SIL Open Font License 1.1, included as `Barlow-OFL.txt`.
 - Font families are locally registered as Lunar Display and Lunar Sans; no external font service is used. Files have not been modified or renamed internally. These fonts are licensed third-party typography, not original studio illustrations.
+
+## Raster symbol revamp
+
+All twelve original vector symbol stand-ins have been replaced by individually generated, transparent 512×512 WebP sprites under `assets/nosyt/sprites/`. The obsolete symbol SVGs are removed. Art direction uses aged brass, sapphire enamel, silver and selective violet light, with distinct instrument silhouettes. The image-generation tool produced alpha-transparent originals; `cwebp` preserved alpha during resizing/encoding. Each source was inspected for transparency and the full set was reviewed in the live game. Exact prompts and shipping paths are recorded in [lunar-sprites-v2.json](assets/lunar-sprites-v2.json). This is generated artwork requiring human originality/rights signoff, not a quality-ranking claim.
+
+The rules body now uses the unmodified normal-width Barlow Regular font under the same included OFL, while display and compact controls retain their separate typography.

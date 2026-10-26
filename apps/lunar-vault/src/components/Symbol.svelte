@@ -25,7 +25,23 @@
 	oncomplete={props.oncomplete}
 />
 
-{#if props.rawSymbol.multiplier}
+{#if props.rawSymbol.name === 'W' || props.rawSymbol.name === 'S'}
+	<Text
+		anchor={0.5}
+		x={props.x}
+		y={(props.y ?? 0) + 43}
+		text={props.rawSymbol.name === 'W' ? 'WILD' : 'ECLIPSE'}
+		style={{
+			fontFamily: 'Lunar Sans',
+			fontWeight: '700',
+			fontSize: 14,
+			letterSpacing: 2,
+			fill: 0xffe6ad,
+			stroke: { color: 0x061224, width: 3 },
+		}}
+	/>
+{/if}
+{#if (props.rawSymbol.multiplier ?? 1) > 1}
 	<Text
 		anchor={0.5}
 		x={props.x}

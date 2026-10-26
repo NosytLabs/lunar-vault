@@ -45,3 +45,11 @@ Used [Slot Casino Game Developer Skills for Stake Engine](https://github.com/ego
 The community checklist's wider RTP range and example event/request fields are not authoritative. Follow the [official Web SDK](https://github.com/engineio/web-sdk), [Math SDK](https://github.com/engineio/math-sdk) (`a6dccd86de740cc5d318079483cb6204cc5c19bc` inspected), [approval rules](https://studio.engine.io/docs/approval-guidelines) and [jurisdiction requirements](https://studio.engine.io/docs/approval-guidelines/jurisdiction-requirements). Existing SDK end-round requests and event schema are preserved. No real-money readiness, certified RTP, jurisdiction compliance or approval is claimed.
 
 Machine-readable evidence: `docs/quality/sample-books-audit.json`, `slot-ux-spec.json` and `animation-timeline.json`. The last two validate planning structure, not product certification.
+
+## Further Engine self-check and sprite revision
+
+The user supplied Engine's full self-check prompt and current documentation links. Its read-only workflow was superseded by the user's explicit request to fix and push changes. The checklist is used as evidence criteria, not as permission to claim approval.
+
+Additional fixes: all twelve symbol sprites replaced with cohesive individual raster art; normal-width rules typography; JPY native precision and exact sub-unit awards; SC/GC suffixes; explicit HTTPS RGS addresses; unknown-language English fallback; all server min/max/step/default/level values checked; active-only recovery; selected amounts no longer clamped into unsupported balance-derived fractions; replay amount and actual server cost shown with amount menus locked; general operation disclaimer; insufficient-balance explanation; bounded asset-loading retries and a recovery screen for permanent failures. A sprite load failure can no longer silently enter an incomplete game.
+
+Four pure contract tests cover fiat/social precision and RGS address construction. Expanded browser checks cover seven currencies, a non-default recovered amount, sub-cent awards, a small social replay with a differing server cost, social rules and transient/permanent asset failures. Final results and the full guideline matrix are recorded separately after the complete run. Live Engine evidence and certified math remain open.

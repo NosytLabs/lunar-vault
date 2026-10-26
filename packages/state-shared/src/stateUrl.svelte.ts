@@ -23,15 +23,20 @@ export type Key =
 const getUrlSearchParam = (key: Key) => page.url.searchParams.get(key) as string;
 
 // params for play
-const lang = () =>
-	getUrlSearchParam('lang') === 'br' ? 'pt' : (getUrlSearchParam('lang') as Language) || 'en';
+const lang = () => {
+	const requested = getUrlSearchParam('lang') === 'br' ? 'pt' : getUrlSearchParam('lang');
+	return locales.includes(requested as Language) ? (requested as Language) : 'en';
+};
 const sessionID = () => getUrlSearchParam('sessionID') || '';
 const rgsUrl = () => getUrlSearchParam('rgs_url') || '';
 const social = () => getUrlSearchParam('social') === 'true';
 
 // params for replay
 const replay = () => getUrlSearchParam('replay') === 'true';
-const amount = () => Number(getUrlSearchParam('amount')) || 0;
+const amount = () => {
+	const value = Number(getUrlSearchParam('amount'));
+	return Number.isFinite(value) && value > 0 ? value : 1000000;
+};
 const game = () => getUrlSearchParam('game') || '';
 const version = () => getUrlSearchParam('version') || '';
 const mode = () => getUrlSearchParam('mode') || '';
