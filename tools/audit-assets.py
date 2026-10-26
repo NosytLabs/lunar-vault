@@ -37,12 +37,29 @@ for xml in sorted(root.glob('apps/*/static/**/*.xml')):
     for m in re.findall(r'file="([^"]+)"', txt):
         checks+=1
         if not (xml.parent/m).exists(): issues.append(f"{xml.relative_to(root)}: missing font page {m}")
-# 5) Sound sprites JSON resources if present
+# 5) Sound sprites: validate every browser source and playback window.
 for js in sorted(root.glob('apps/*/static/assets/audio/sounds.json')):
-    try: d=json.load(open(js))
-    except Exception as e: issues.append(f"{js.relative_to(root)}: sounds.json parse error {e}"); continue
-    for r in d.get('resources',[]) if isinstance(d,dict) else []:
-        checks+=1
-        if not (js.parent/r).exists(): issues.append(f"{js.relative_to(root)}: missing audio resource {r}")
+    try:
+        d=json.loads(js.read_text())
+    except Exception as e:
+        issues.append(f"{js.relative_to(root)}: sounds.json parse error {e}")
+        continue
+    if not isinstance(d,dict):
+        issues.append(f"{js.relative_to(root)}: sounds.json is not an object")
+        continue
+    for src in d.get('src',[]):
+        checks += 1
+        # The manifest's audio paths are relative to the application's static root.
+        app_static=js.parents[2]
+        path=app_static/src.removeprefix('./')
+        if not path.exists():
+            issues.append(f"{js.relative_to(root)}: missing audio source {src}")
+    if not d.get('sprite'):
+        issues.append(f"{js.relative_to(root)}: missing sprite definitions")
+    for key, info in d.get('sprite',{}).items():
+        checks += 1
+        if not isinstance(info,list) or len(info)<2 or not all(isinstance(x,(int,float)) and x>=0 for x in info[:2]) or info[1]<=0:
+            issues.append(f"{js.relative_to(root)}: invalid sprite window {key}")
 print(f"checks={checks} issues={len(issues)}")
 for i in issues: print(i)
+if issues: sys.exit(1)
