@@ -1,88 +1,47 @@
-# Lunar Vault
+# Lunar Vault — NosytLabs Games
 
-A 5-reel, 20-line slot frontend built on the official Engine (Stake Engine)
-Web SDK — Svelte 5 + PixiJS 8, TurboRepo monorepo.
+Lunar Vault is an **in-development 5×3, 20-payline celestial slot** built on the [Engine Web SDK](https://github.com/engineio/web-sdk) (Svelte 5, PixiJS 8, TurboRepo). The original reel art, observatory environment and game-shell UI are authored for NosytLabs Games.
 
-- Provider: `nosytlabs`
-- Game name: `lunar_vault`
-- Game ID: `0_0_lunar_vault`
-- App package: `apps/lunar-vault` (forked from the SDK's `lines` sample game,
-  per the SDK docs: "start your own codebase based on this repo")
-- Live Engine documentation: https://studio.engine.io/docs
-  (note: the `docs.engine.io` subdomain returns 404; Studio hosts the docs)
+**Status: visual integration candidate; NOT approved or ready for real-money launch.** The SDK-derived game still needs an Engine-compliant production math model, replacement of residual sample audio/effects, and complete RGS/replay, small-popout and social wording QA.
 
-## Setup
+## Development
 
-Prerequisites (from the Web SDK docs): Node **22.16.0**, pnpm **10.5.0**.
+Requirements: Node 22.16.0, pnpm 10.5.0.
 
 ```bash
-pnpm install
-```
-
-## Run it locally (no RGS needed)
-
-Storybook runs the game against the sample book data in
-`apps/lunar-vault/src/stories/data/` (500 sample rounds kept in-repo;
-the upstream SDK ships 10,000):
-
-```bash
+pnpm install --frozen-lockfile
 pnpm run storybook --filter=lunar-vault
-```
-
-Then open the `MODE_BASE/book/random` story and press **Action** to play a
-round. This is the fastest way to check art, animation and layout.
-
-Dev mode (`pnpm run dev --filter=lunar-vault`) shows the SDK's auth error
-screen until it is connected to a live RGS session — that is expected; see
-the SDK README's "Run in DEV Mode" / "Launch a Game" sections.
-
-## Build the upload folder
-
-```bash
+pnpm run dev --filter=lunar-vault
 pnpm run build --filter=lunar-vault
-```
-
-Per the SDK docs, the Engine upload folder is assembled from the build
-output like this:
-
-```
-upload/
-  index.html        <- apps/lunar-vault/.svelte-kit/output/prerendered/pages/index.html
-  _app/             \
-  assets/            >- everything in apps/lunar-vault/.svelte-kit/output/client/
-  favicon.svg       /
-  loader.gif
-  stake-engine-loader.gif
-```
-
-(`apps/lunar-vault/build/` contains the same static site already assembled.)
-
-Upload via the Engine Studio **Files** page, then **Publish Game → Front
-End**, and test from the **Developer** page with **Start game session**.
-
-## Asset audit
-
-Every asset reference in the game (asset manifest URLs, Spine atlas page
-images, spritesheet images, bitmap-font pages, audio resources) can be
-checked with:
-
-```bash
 python3 tools/audit-assets.py
+python3 tools/verify-nosyt-assets.py
 ```
 
-It exits non-zero and lists any missing file. See `docs/AUDIT.md` for the
-audit that produced this repo.
+Without Engine launch credentials the regular dev game will show an authentication error, which is expected. For offline event playback use Storybook's sample-book stories under `MODE_BASE/book/random` and inspect the RGS event stream. These are **SDK sample outcomes**, not certified Lunar Vault math.
 
-## Art status
+The uploadable static frontend is assembled from the SvelteKit prerendered page plus client assets. Do not include upstream `stake-engine-loader.gif` in the visible UI. Upload and test through the Engine Studio Developer page before any submission.
 
-- Static reel symbols (H1–H5, L1–L4) are an original Lunar Vault set —
-  drawn into the existing spritesheet frames by `tools/reskin-symbols.py`
-  (frame geometry, rotations and trims are unchanged, so the manifest and
-  paytable wiring are untouched).
-- Spine win animations, background and feature screens are still the SDK
-  sample art. They are licensed sample placeholders from the SDK and must
-  be replaced with final Spine exports before an Engine review submission.
-- The server-side **math model** (reel strips, paytable weights, RTP) is
-  not part of a frontend repo: it is authored and certified on the Engine
-  side. The values in `apps/lunar-vault/src/game/config.ts` describe this
-  frontend and must match the certified math before submission.
+## What this project contains
+
+- Engine Web SDK event player, wallet integration, base and bonus UI state and replay infrastructure.
+- An original **16-asset** local art family in `apps/lunar-vault/static/assets/nosyt/`: twelve 264px reel symbols, normal and feature backdrops, portrait and wide lobby artwork.
+- Original background transition, custom framed 5×3 reel viewport, pulse/bounce win and landing animations, feature and win screens.
+- The Studio-independent test `tools/verify-nosyt-assets.py` hashes all 16 art files and verifies the bindings and disabled SDK-branded loader.
+- Cost-capped pull-request build and asset validation under `.github/workflows/lunar-vault-ci.yml`.
+- A release/QA checklist in `docs/NOSYTLABS-RELEASE-PLAN.md`.
+
+## Important blockers
+
+1. **Math** — The inherited sample `apps/lunar-vault/src/game/config.ts` currently specifies RTP `0.97` and sample max-win and mode data. **Engine requires RTP 96.0%–96.70% per mode**, and the repo does not yet contain the matching certified `index.json`, lookup CSV and game-event `.jsonl.zst`. Never change the displayed RTP without regenerating and verifying the math.
+2. **Residual sample assets** — Some original SDK audio, particle/font data and effects remain. Engine requires final original or appropriately licensed visual and audio material; complete the asset audit before asking for approval.
+3. **RGS and replay** — Authenticate, interrupted-round recovery, end-round only on active wins, balance and bet levels, multiple currencies, replay with no session, and social wording require real Studio developer-session testing.
+4. **Responsive** — Inspect and screenshot 1024×576, 800×450, 400×225 and 425×812, including a bonus or win sequence. Source changes are not a substitute for a real visual pass.
+5. **Studio submission** — Set up studio/provider account, publish matching math and frontend versions, prepare the tile in Studio Media Editor, select distribution and payment, then submit to human review.
+
+A separate **standalone prototype** made earlier in this conversation uses a **different 10-line paytable and event model**. Its math and RTP cannot be loaded into this 20-line SDK fork unchanged.
+
+Official references: [Engine docs](https://studio.engine.io/docs), [Approval](https://studio.engine.io/docs/approval-guidelines), [Math](https://studio.engine.io/docs/approval-guidelines/math-verification), [AI review](https://studio.engine.io/docs/ai-review), [Distribution](https://studio.engine.io/docs/distribution), [Payments](https://studio.engine.io/docs/payments).
+
+## Credits
+
+Original art direction and authored graphic assets: NosytLabs Games. Upstream SDK scaffold: engineio/web-sdk (see upstream license). All third-party sample material is provisional until removed or cleared for publication.
