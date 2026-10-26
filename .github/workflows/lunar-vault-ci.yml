@@ -19,7 +19,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
@@ -33,7 +33,11 @@ jobs:
       - run: node tools/check-original-art.mjs
       - run: python3 tools/audit-assets.py
       - run: pnpm run build --filter=lunar-vault
-      - run: pnpm exec playwright install --with-deps chromium
+      # This runner already supplies Chromium's shared libraries and Latin fonts.
+      # Avoid upgrading unrelated OS/font packages through a slow Ubuntu mirror.
+      - name: Install headless Chromium
+        timeout-minutes: 3
+        run: pnpm exec playwright install --only-shell chromium
       - run: pnpm run test:viewport
       - name: Upload browser evidence
         if: always()

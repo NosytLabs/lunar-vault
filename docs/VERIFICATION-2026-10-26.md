@@ -25,7 +25,7 @@ Screenshots are reviewed for the seven layouts, rules/paytable, social feature m
 
 ## Limits and outstanding checks
 
-Local execution uses macOS, Node 26.12.0, pnpm 10.5.0 and Playwright 1.64.1 Chromium. CI pins Linux and Node 22.16.0. Resizing a Chromium viewport is not physical-device, Safari or Firefox testing.
+Local execution uses macOS, Node 26.12.0, pnpm 10.5.0 and Playwright 1.64.1 Chromium. CI pins Ubuntu 24.04 and Node 22.16.0, downloading only Chromium's headless shell and using the runner's existing shared libraries/Latin fonts. Resizing a Chromium viewport is not physical-device, Safari or Firefox testing.
 
 The first Linux CI run passed 12/14 checks. Its trace showed the combined win/dialog test reaching its last scroll assertion with less than four seconds of its original 45-second total budget left; that multi-step check now has a 90-second budget. The autoplay check now holds the first fixture response until cancellation is observed, so a completed round cannot race the click on slower runners. These are test synchronization changes; gameplay assertions remain in place.
 
