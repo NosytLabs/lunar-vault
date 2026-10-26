@@ -137,6 +137,22 @@ importers:
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
 
+  apps/salmon-run:
+    dependencies:
+      svelte:
+        specifier: 5.20.5
+        version: 5.20.5
+    devDependencies:
+      '@playwright/test':
+        specifier: 1.64.1
+        version: 1.64.1
+      '@sveltejs/vite-plugin-svelte':
+        specifier: 5.0.3
+        version: 5.0.3(svelte@5.20.5)(vite@6.2.0(@types/node@26.6.5)(jiti@1.21.7)(sass-embedded@1.85.1))
+      vite:
+        specifier: 6.2.0
+        version: 6.2.0(@types/node@26.6.5)(jiti@1.21.7)(sass-embedded@1.85.1)
+
   packages/components-layout:
     dependencies:
       '@sveltejs/kit':

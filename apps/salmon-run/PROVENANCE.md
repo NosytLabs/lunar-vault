@@ -1,0 +1,12 @@
+# Salmon Run original concept assets — 2026-10-26
+
+- `public/assets/river-dawn.webp`: original image produced with the built-in OpenAI image tool, encoded to WebP at quality 86. A fantasy salmon-inspired river environment, not a species-identification illustration.
+- Six local SVG symbols (`salmon`, `reel`, `fly`, `compass`, `canoe`, `leaf`): original hand-authored geometry and gradients. No reference-game graphics or trademarks were copied.
+- Cinzel and Barlow Condensed: unmodified fonts from the official `google/fonts` repository, SIL Open Font License 1.1. Both full licenses ship in `public/assets/type`. These are licensed typography, not original studio art.
+- The attached fishing-slot screenshots informed only the broad fishing theme and readable playfield/control hierarchy. Salmon Run has original composition, palette and a different scripted river-travel concept; it does not use reference titles, characters or branded mechanics.
+
+## Exact image prompt
+
+Create an ORIGINAL premium 2D casino-game environment painting for an adult Atlantic salmon fishing game, working title Salmon Run. Wide landscape 16:9 game background. Dawn on a cold emerald and turquoise Atlantic Canadian river, smooth river stones, amber autumn birch and spruce forests, distant misty mountains, warm copper sunrise reflecting on water. Right outer quarter: a magnificent realistic Atlantic salmon leaping out of the river, silver flanks with black speckles and subtle pink iridescence, powerful natural anatomy, elegant dynamic water splash. It should be a wildlife illustration with premium polished game-art rendering, not a cartoon mascot and no human face. Far left framing: old cedar fishing dock and a beautifully detailed brass fly reel, leather tackle satchel and restrained fly-fishing details. Center 60 percent must stay visually calm, dark teal water, because a five-column three-row slot board will cover it. Keep important fish and scenery near outer edges so the center playfield remains clear. Painterly dimensional materials and dramatic but readable lighting, rich teal / burnished copper / silver palette, distinct original composition. No text, no letters, no logos, no slot reels, no existing game art, no UI, no cards, no coins, no trademarks, no fisherman characters. Completely original wildlife and landscape scene.
+
+Human originality, trademark and asset-rights review remains necessary before commercial submission. This provenance record is not legal clearance.

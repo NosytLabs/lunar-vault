@@ -75,3 +75,7 @@ See [release plan](docs/NOSYTLABS-RELEASE-PLAN.md) and [implementation status](d
 Official references: https://github.com/engineio/web-sdk and https://studio.engine.io/docs .
 
 The [revamp audit](docs/REVAMP-AUDIT-2026-10-26.md) records font/animation changes, retrigger and recovery fixes, the 600-book audit and remaining release limitations.
+
+## Separate playable fishing concept
+
+[Salmon Run](apps/salmon-run/README.md) is a separate Svelte concept with original river artwork and a six-cast feature. It uses authored scripted rounds and demo points; it is not connected to the Engine wallet or a certified math package.

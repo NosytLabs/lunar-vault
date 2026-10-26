@@ -1,0 +1,39 @@
+name: Salmon Run concept checks
+on:
+  pull_request:
+    paths:
+      - 'apps/salmon-run/**'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/salmon-run-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: salmon-run-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  concept:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+      - run: corepack enable
+      - run: corepack prepare pnpm@10.5.0 --activate
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter salmon-run build
+      - run: pnpm exec playwright install --only-shell chromium
+      - run: pnpm --filter salmon-run test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: salmon-run-concept-evidence
+          path: apps/salmon-run/test-results/
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: salmon-run-playable-concept
+          path: apps/salmon-run/dist/
+          retention-days: 7
