@@ -32,18 +32,13 @@
 			anchor={0.5}
 			width={buttonProps.sizes.width}
 			height={buttonProps.sizes.height}
-			backgroundColor={variant === 'dark' ? 0x000000 : 0xffffff}
-			{...buttonProps.disabled
-				? {
-						backgroundColor: 0xaaaaaa,
-					}
-				: {}}
-			{...active
-				? {
-						borderWidth: 10,
-						borderColor: variant === 'dark' ? 0xffffff : 0x000000,
-					}
-				: {}}
+			backgroundColor={buttonProps.disabled
+				? 0x454956
+				: variant === 'light'
+					? 0xffd486
+					: pressed ? 0x395071 : hovered ? 0x283c60 : 0x14233f}
+			borderWidth={active ? 6 : 3}
+			borderColor={active ? 0xffe1a3 : variant === 'light' ? 0xf8edce : 0xa77c4c}
 		/>
 
 		<Text
@@ -57,7 +52,7 @@
 				fontFamily: 'proxima-nova',
 				fontWeight: '600',
 				fontSize: UI_BASE_FONT_SIZE * 0.9,
-				fill: variant === 'dark' ? 0xffffff : 0x000000,
+				fill: buttonProps.disabled ? 0xc3c8d4 : variant === 'dark' ? 0xffe9bf : 0x12223a,
 			}}
 		/>
 
