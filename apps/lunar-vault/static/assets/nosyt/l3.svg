@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
+ <defs><radialGradient id="back"><stop stop-color="#17284b"/><stop offset=".62" stop-color="#08172d"/><stop offset="1" stop-color="#020913"/></radialGradient>
+ <linearGradient id="metal" x1=".15" y1="0" x2=".83" y2="1"><stop stop-color="#ceffff"/><stop offset=".35" stop-color="#5ed8da"/><stop offset=".63" stop-color="#106976"/><stop offset=".88" stop-color="#ceffff"/></linearGradient>
+ <radialGradient id="gem" cx=".25" cy=".18" r=".88"><stop stop-color="#fff"/><stop offset=".19" stop-color="#ceffff"/><stop offset=".48" stop-color="#5ed8da"/><stop offset=".91" stop-color="#106976"/></radialGradient>
+ <radialGradient id="haze"><stop stop-color="#5ed8da" stop-opacity=".35"/><stop offset="1" stop-color="#106976" stop-opacity="0"/></radialGradient>
+ <filter id="largeGlow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="13"/></filter>
+ </defs><rect x="6" y="6" width="308" height="308" rx="30" fill="url(#back)" stroke="#d7ac67" stroke-width="5"/>
+ <rect x="13" y="13" width="294" height="294" rx="23" fill="none" stroke="#80552f" stroke-width="2"/>
+ <circle cx="160" cy="160" r="147" fill="url(#haze)"/>
+ <g stroke="#e7b866" stroke-opacity=".52" fill="none"><circle cx="160" cy="160" r="127" stroke-dasharray="3 11"/><path d="M160 17 V42 M160 278 V303 M17 160 H42 M278 160 H303"/></g>
+ <g fill="#ceffff"><circle cx="51" cy="59" r="2"/><circle cx="270" cy="63" r="3"/><circle cx="44" cy="253" r="2"/><circle cx="265" cy="258" r="2"/></g>
+ <g transform="translate(160 160)"><polygon points="0.00,-98.00 14.50,-25.11 84.87,-49.00 29.00,0.00 84.87,49.00 14.50,25.11 0.00,98.00 -14.50,25.11 -84.87,49.00 -29.00,0.00 -84.87,-49.00 -14.50,-25.11" fill="url(#gem)" stroke="#d8ffff" stroke-width="7"/><circle r="37" fill="#0d5e77" stroke="#e5ffff" stroke-width="4"/><circle r="14" fill="#ffffff"/></g>
+ <g fill="none" stroke="#fff4d1" opacity=".75"><path d="M30 60 L30 36 L59 36 M261 36 L290 36 L290 60 M30 260 L30 284 L59 284 M261 284 L290 284 L290 260"/></g>
+ </svg>

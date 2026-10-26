@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
+ <defs><radialGradient id="back"><stop stop-color="#17284b"/><stop offset=".62" stop-color="#08172d"/><stop offset="1" stop-color="#020913"/></radialGradient>
+ <linearGradient id="metal" x1=".15" y1="0" x2=".83" y2="1"><stop stop-color="#dfe7ff"/><stop offset=".35" stop-color="#7c8dff"/><stop offset=".63" stop-color="#343b9d"/><stop offset=".88" stop-color="#dfe7ff"/></linearGradient>
+ <radialGradient id="gem" cx=".25" cy=".18" r=".88"><stop stop-color="#fff"/><stop offset=".19" stop-color="#dfe7ff"/><stop offset=".48" stop-color="#7c8dff"/><stop offset=".91" stop-color="#343b9d"/></radialGradient>
+ <radialGradient id="haze"><stop stop-color="#7c8dff" stop-opacity=".35"/><stop offset="1" stop-color="#343b9d" stop-opacity="0"/></radialGradient>
+ <filter id="largeGlow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="13"/></filter>
+ </defs><rect x="6" y="6" width="308" height="308" rx="30" fill="url(#back)" stroke="#d7ac67" stroke-width="5"/>
+ <rect x="13" y="13" width="294" height="294" rx="23" fill="none" stroke="#80552f" stroke-width="2"/>
+ <circle cx="160" cy="160" r="147" fill="url(#haze)"/>
+ <g stroke="#e7b866" stroke-opacity=".52" fill="none"><circle cx="160" cy="160" r="127" stroke-dasharray="3 11"/><path d="M160 17 V42 M160 278 V303 M17 160 H42 M278 160 H303"/></g>
+ <g fill="#dfe7ff"><circle cx="51" cy="59" r="2"/><circle cx="270" cy="63" r="3"/><circle cx="44" cy="253" r="2"/><circle cx="265" cy="258" r="2"/></g>
+ <g transform="translate(160 160)"><polygon points="0.00,-99.00 11.48,-27.72 70.00,-70.00 27.72,-11.48 99.00,0.00 27.72,11.48 70.00,70.00 11.48,27.72 0.00,99.00 -11.48,27.72 -70.00,70.00 -27.72,11.48 -99.00,0.00 -27.72,-11.48 -70.00,-70.00 -11.48,-27.72" fill="url(#gem)" stroke="#f0dbff" stroke-width="8"/><polygon points="0.00,-70.00 5.36,-12.93 49.50,-49.50 12.93,-5.36 70.00,0.00 12.93,5.36 49.50,49.50 5.36,12.93 0.00,70.00 -5.36,12.93 -49.50,49.50 -12.93,5.36 -70.00,0.00 -12.93,-5.36 -49.50,-49.50 -5.36,-12.93" fill="url(#metal)" stroke="#ffffff" stroke-width="3"/><circle r="21" fill="#ffffff" opacity=".85"/></g>
+ <g fill="none" stroke="#fff4d1" opacity=".75"><path d="M30 60 L30 36 L59 36 M261 36 L290 36 L290 60 M30 260 L30 284 L59 284 M261 284 L290 284 L290 260"/></g>
+ </svg>
