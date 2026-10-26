@@ -22,6 +22,21 @@ test('social amounts use suffixes and no dollar symbol', () => {
 	assert.equal(formatCurrencyAmount(10, 'XGC'), '10.00 GC');
 	assert.equal(formatCurrencyAmount(0.005, 'XSC'), '0.005 SC');
 });
+test('Engine-specific currency symbols, three decimals and IDR zero decimals are preserved', () => {
+	for (const [code, expected] of Object.entries({
+		IDR: 'Rp10',
+		KWD: 'KD10.000',
+		TND: '10.000 TND',
+		CNY: 'CN¥10.00',
+		SGD: 'SG$10.00',
+		XOF: '10 CFA',
+		XEC: '10.00 SC',
+	}))
+		assert.equal(formatCurrencyAmount(10, code), expected);
+});
+test('unknown currency codes remain visible rather than being relabelled as dollars', () => {
+	assert.equal(formatCurrencyAmount(10, 'XYZ'), '10.00 XYZ');
+});
 test('RGS address supports bare hosts and explicit HTTPS without host fallback', () => {
 	assert.equal(
 		rgsEndpoint('rgs.example.com', '/wallet/play'),

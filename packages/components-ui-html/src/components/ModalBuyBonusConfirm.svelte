@@ -1,7 +1,14 @@
 <script lang="ts">
 	import { Button, Popup } from 'components-shared';
 	import { zIndex } from 'constants-shared/zIndex';
-	import { stateBet, stateModal, stateUi, stateConfig, INFINITY_MARK } from 'state-shared';
+	import {
+		stateBet,
+		stateBetDerived,
+		stateModal,
+		stateUi,
+		stateConfig,
+		INFINITY_MARK,
+	} from 'state-shared';
 	import { getContextEventEmitter } from 'utils-event-emitter';
 
 	import BaseIcon from './BaseIcon.svelte';
@@ -18,6 +25,12 @@
 
 	const confirm = () => {
 		if (stateConfig.jurisdiction.disabledBuyFeature) return;
+		if (
+			!stateBetDerived.isModeAmountAvailable(stateBonus.selectedBetModeKey) ||
+			stateBet.betAmount * stateBonusDerived.selectedBetModeData().costMultiplier >
+				stateBet.balanceAmount
+		)
+			return;
 		stateBet.activeBetModeKey = stateBonus.selectedBetModeKey;
 
 		if (stateBonusDerived.selectedBetModeData().type === 'buy') {

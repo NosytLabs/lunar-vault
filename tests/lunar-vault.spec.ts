@@ -77,6 +77,7 @@ async function session(
 		replayMode?: string;
 		replayCost?: number;
 		expectAssetFailure?: boolean;
+		bonusMaximum?: number;
 	} = {},
 ) {
 	const calls: { path: string; body: any }[] = [];
@@ -124,6 +125,13 @@ async function session(
 					maxBet: Math.max(1000000, defaultBet * 2),
 					stepBet: 10000,
 					defaultBetLevel: defaultBet,
+					gameModes: {
+						base: { costMultiplier: 1, maxBet: Math.max(1000000, defaultBet * 2) },
+						bonus: {
+							costMultiplier: 100,
+							maxBet: options.bonusMaximum ?? Math.max(1000000, defaultBet * 2),
+						},
+					},
 					betLevels: [
 						...new Set([
 							10000,
@@ -576,4 +584,33 @@ test('a permanently missing sprite shows recovery instead of an incomplete game'
 	await expect(page.getByRole('button', { name: 'Reload game' })).toBeVisible();
 	expect((await renderedText(page)).some((n) => n.text === 'SPIN')).toBe(false);
 	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
+});
+
+test('per-mode server maximum blocks feature entry while allowing the base amount', async ({
+	page,
+}) => {
+	const s = await session(page, { bonusMaximum: 50000 });
+	await clickText(page, 'BUY BONUS');
+	await expect(page.locator('.bonus-card-wrap')).toContainText('Choose a lower play amount');
+	await expect(page.locator('.bonus-card-wrap button')).toBeDisabled();
+	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
+	await page.keyboard.press('Escape');
+	await clickText(page, 'SPIN');
+	await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(1);
+	expect(s.calls.find((c) => c.path === '/wallet/play')!.body.mode).toBe('base');
+	expect(s.errors).toEqual([]);
+});
+
+test('an invalid RGS host shows a clear failure without another destination', async ({ page }) => {
+	const requests: string[] = [];
+	page.on('request', (r) => {
+		if (!r.url().startsWith('http://127.0.0.1:4173')) requests.push(r.url());
+	});
+	await page.route('https://example.com/**', (route) =>
+		route.fulfill({ status: 400, json: { error: 'ERR_VAL', message: 'invalid request' } }),
+	);
+	await page.goto('/?sessionID=invalid&rgs_url=example.com');
+	await expect(page.getByRole('alert')).toContainText('valid launch link');
+	await expect(page.getByText('Reload game', { exact: true })).toBeVisible();
+	expect(requests).toEqual(['https://example.com/wallet/authenticate']);
 });

@@ -57,7 +57,22 @@ const betCostMultiplier = () =>
 		? stateBetDerived.activeBetMode().costMultiplier
 		: 1;
 const betCost = () => stateBet.betAmount * betCostMultiplier();
-const isBetCostAvailable = () => betCost() > 0 && betCost() <= stateBet.balanceAmount;
+const isModeAmountAvailable = (mode: string, amount = stateBet.betAmount) => {
+	const maximum = stateConfig.betModeLimits[mode.toLowerCase()]?.maxBet;
+	return (
+		amount > 0 &&
+		stateConfig.betAmountOptions.includes(amount) &&
+		(maximum === undefined || Math.round(amount * 1e6) <= maximum)
+	);
+};
+const isBetCostAvailable = () =>
+	betCost() > 0 &&
+	betCost() <= stateBet.balanceAmount &&
+	isModeAmountAvailable(activeBetMode()?.type === 'buy' ? 'base' : stateBet.activeBetModeKey);
+const canRequestBet = () =>
+	Boolean(activeBetMode()) &&
+	isModeAmountAvailable(stateBet.activeBetModeKey) &&
+	stateBet.betAmount * (activeBetMode()?.costMultiplier ?? 1) <= stateBet.balanceAmount;
 const hasAutoBetCounter = () => stateBet.autoSpinsCounter !== 0;
 
 export const stateBetDerived = {
@@ -69,5 +84,7 @@ export const stateBetDerived = {
 	timeScale,
 	betCost,
 	isBetCostAvailable,
+	isModeAmountAvailable,
+	canRequestBet,
 	hasAutoBetCounter,
 };

@@ -1,13 +1,15 @@
 import { fromPromise } from 'xstate';
 
 import { API_AMOUNT_MULTIPLIER } from 'constants-shared/bet';
-import { stateBet, stateUrlDerived, stateModal } from 'state-shared';
+import { stateBet, stateBetDerived, stateUrlDerived, stateModal } from 'state-shared';
 import { requestBet, requestEndRound } from 'rgs-requests';
 
 import type { BaseBet } from './types';
 
 const handleRequestBet = async ({ onError }: { onError: () => void }) => {
 	try {
+		if (!stateBetDerived.canRequestBet())
+			throw new Error('The selected play amount is unavailable for this session.');
 		const data = await requestBet({
 			rgsUrl: stateUrlDerived.rgsUrl(),
 			sessionID: stateUrlDerived.sessionID(),
@@ -26,21 +28,20 @@ const handleRequestBet = async ({ onError }: { onError: () => void }) => {
 			return data;
 		} else {
 			throw {
-				error: 'Empty state in data.round',
-				message: JSON.stringify({ data }),
+				error: 'ERR_GEN',
+				message: 'The session returned an incomplete round.',
 			};
 		}
 	} catch (error) {
 		onError();
 		stateBet.autoSpinsCounter = 0;
 		stateModal.modal = { name: 'error', error };
-		console.error(error);
 		throw error;
 	}
 };
 
 const handleRequestEndRound = async () => {
-	if(stateUrlDerived.replay()) return;
+	if (stateUrlDerived.replay()) return;
 
 	try {
 		const data = await requestEndRound({
@@ -56,12 +57,12 @@ const handleRequestEndRound = async () => {
 			return data;
 		} else {
 			throw {
-				error: 'Empty amount in data.balance',
-				message: JSON.stringify({ data }),
+				error: 'ERR_GEN',
+				message: 'The balance could not be restored. Reload the game.',
 			};
 		}
 	} catch (error) {
-		console.error(error);
+		stateModal.modal = { name: 'error', error };
 	}
 };
 
