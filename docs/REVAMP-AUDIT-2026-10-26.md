@@ -31,7 +31,7 @@ The inherited 97% RTP / 5,000× maximum metadata remains explicitly unverified. 
 
 ## Playthrough and verification
 
-- Production static build, asset/original-art checks, seven math regression tests and **18 local Chromium browser tests** pass.
+- Production static build, asset/original-art checks, seven math regression tests and **35 local Chromium browser tests** pass.
 - Browser coverage: seven viewports (including phone, landscape and 400×225), modal scrolling, pointer release/drag, spin locking, disabled controls, autoplay cancellation, social feature wording, bonus confirmation/cost then return to base, loss/win settlement, replay without wallet requests, unfinished-round recovery, reduced-motion complete feature and rotation, retrigger completion and mid-feature recovery. Console errors and page exceptions fail tests.
 - Manual local playthrough uses intercepted deterministic RGS responses and reviews rendered screenshots, fonts, controls and award presentation. This is not live Engine/RGS acceptance. Public current Only on Stake lobby/game pages and the user's screenshots informed hierarchy and pacing; competitor art and mechanics were not copied. A geographically restricted public game page was not bypassed, and competitor gameplay is not claimed.
 - Font loading completes before Pixi text measurement, with a retry path. Local licenses ship with the fonts. The production build is served as static files, matching the frontend delivery model.
@@ -53,3 +53,11 @@ The user supplied Engine's full self-check prompt and current documentation link
 Additional fixes: all twelve symbol sprites replaced with cohesive individual raster art; normal-width rules typography; JPY native precision and exact sub-unit awards; SC/GC suffixes; explicit HTTPS RGS addresses; unknown-language English fallback; all server min/max/step/default/level values checked; active-only recovery; selected amounts no longer clamped into unsupported balance-derived fractions; replay amount and actual server cost shown with amount menus locked; general operation disclaimer; insufficient-balance explanation; bounded asset-loading retries and a recovery screen for permanent failures. A sprite load failure can no longer silently enter an incomplete game.
 
 Four pure contract tests cover fiat/social precision and RGS address construction. Expanded browser checks cover seven currencies, a non-default recovered amount, sub-cent awards, a small social replay with a differing server cost, social rules and transient/permanent asset failures. Final results and the full guideline matrix are recorded separately after the complete run. Live Engine evidence and certified math remain open.
+
+## Final contract and raster pass
+
+All twelve reel symbols now use individually generated transparent 512px celestial sprites, with exact prompts and shipping paths in `docs/assets/lunar-sprites-v2.json`. The body font is normal-width Barlow; Cinzel and Barlow Condensed remain for display/control hierarchy. Asset loading retries bounded concurrent work and blocks entry after incomplete loading, with a readable reload screen.
+
+All 35 browser checks pass, including seven currency formats, exact sub-cent awards, active-round amount, English fallback, real replay cost, invalid-host errors and per-mode maximums. Six pure contract tests cover the full official currency map, unknown codes, meaningful wallet precision and RGS host handling. Authentication validates step divisibility, per-mode maximums and matching known costs. The request guard also enforces these limits; errors no longer expose JSON payloads.
+
+The [41-item self-check](ENGINE-SELF-CHECK-2026-10-26.md) has 29 local PASS, 7 AT RISK, 3 NEEDS A HUMAN, 1 FAIL and 1 N/A. The failure is still unmatched, out-of-band sample math; frontend tests do not resolve it. No live Engine approval or certification is claimed.

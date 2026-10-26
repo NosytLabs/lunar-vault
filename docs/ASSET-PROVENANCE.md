@@ -1,6 +1,6 @@
 # New celestial artwork — 2026-10-26
 
-All files are local under `apps/lunar-vault/static/assets/nosyt/`. No external artwork was scraped or copied. Existing original SVG symbols are retained.
+All files are local under `apps/lunar-vault/static/assets/nosyt/`. No external artwork was scraped or copied. The twelve initial SVG reel symbols have been replaced by the individual raster sprites documented below; editable SVG frame and effect ornaments remain.
 
 | File                     | Production                                                               | Use                                                |
 | ------------------------ | ------------------------------------------------------------------------ | -------------------------------------------------- |
