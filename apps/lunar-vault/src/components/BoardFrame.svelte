@@ -44,10 +44,10 @@
 	y={board.y - board.height / 2 - 83}
 	text="LUNAR VAULT"
 	style={{
-		fontFamily: 'Georgia, serif',
-		fontSize: 44,
+		fontFamily: 'Lunar Display',
+		fontSize: 55,
 		fontWeight: 'bold',
-		letterSpacing: 7,
+		letterSpacing: 4,
 		fill: 0xf4dfb0,
 		dropShadow: { color: 0x000000, blur: 6, distance: 2 },
 	}}
@@ -57,5 +57,11 @@
 	x={board.x}
 	y={board.y - board.height / 2 - 48}
 	text="THE CELESTIAL OBSERVATORY"
-	style={{ fontFamily: 'Arial, sans-serif', fontSize: 12, letterSpacing: 4, fill: 0xb6c8db }}
+	style={{
+		fontFamily: 'Lunar Sans',
+		fontSize: 15,
+		fontWeight: '600',
+		letterSpacing: 3,
+		fill: 0xb6c8db,
+	}}
 />

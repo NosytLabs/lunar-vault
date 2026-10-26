@@ -24,7 +24,7 @@ pnpm install
 ## Run it locally (no RGS needed)
 
 Storybook runs the game against the sample book data in
-`apps/lunar-vault/src/stories/data/` (500 sample rounds kept in-repo;
+`apps/lunar-vault/src/stories/data/` (600 sample rounds across base and bonus modes kept in-repo;
 the upstream SDK ships 10,000):
 
 ```bash
@@ -40,7 +40,7 @@ the SDK README's "Run in DEV Mode" / "Launch a Game" sections.
 
 ## Studio art and audio
 
-The game uses a painted observatory plus original celestial SVG symbols, frame, orbital seal and star effects. Unused sample Spine/spritesheet/bitmap-font assets have been removed. See [asset provenance and generation prompt](docs/ASSET-PROVENANCE.md).
+The game uses a painted observatory plus original celestial SVG symbols, frame, orbital seal and star effects. Locally bundled Cinzel and Barlow Condensed fonts sharpen titles, awards and controls. A compact 44px control bar supports the smallest landscape preview. Unused sample Spine/spritesheet/bitmap-font assets have been removed. See [asset provenance and generation prompt](docs/ASSET-PROVENANCE.md).
 
 A deterministic Python standard-library generator creates the 52-cue original WAV audio sprite automatically through the app’s prebuild/predev/prestorybook hooks. The generated WAV is not checked in.
 
@@ -56,6 +56,8 @@ pnpm install --frozen-lockfile
 pnpm run build --filter=lunar-vault
 pnpm exec playwright install chromium
 pnpm run test:viewport
+pnpm run audit:math
+pnpm run test:math
 node tools/release-gate.mjs # expected to fail: independent release evidence is missing
 ```
 
@@ -71,3 +73,5 @@ The built app resides under `apps/lunar-vault/build/` and includes an `index.htm
 See [release plan](docs/NOSYTLABS-RELEASE-PLAN.md) and [implementation status](docs/ART-AND-ENGINE-STATUS.md). This code is a development candidate, **not a live casino game**.
 
 Official references: https://github.com/engineio/web-sdk and https://studio.engine.io/docs .
+
+The [revamp audit](docs/REVAMP-AUDIT-2026-10-26.md) records font/animation changes, retrigger and recovery fixes, the 600-book audit and remaining release limitations.

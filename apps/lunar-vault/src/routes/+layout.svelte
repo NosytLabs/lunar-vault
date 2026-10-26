@@ -10,6 +10,13 @@
 	setContext();
 </script>
 
+<svelte:head
+	><title>Lunar Vault · NosytLabs Games</title><meta
+		name="description"
+		content="Explore the Lunar Vault celestial slot development preview."
+	/></svelte:head
+>
+
 <!-- The Engine-branded sample loader is forbidden in new submissions. -->
 <GlobalStyle>
 	<Authenticate>

@@ -60,9 +60,9 @@
 				align: 'center',
 				wordWrap: true,
 				wordWrapWidth: 115,
-				fontFamily: 'Arial, sans-serif',
-				fontWeight: '600',
-				fontSize: UI_BASE_FONT_SIZE * 0.72,
+				fontFamily: 'Lunar Sans',
+				fontWeight: '700',
+				fontSize: UI_BASE_FONT_SIZE * 0.86,
 				fill: variant === 'dark' ? 0xf5e5c4 : 0x0c1c30,
 			}}
 		/>

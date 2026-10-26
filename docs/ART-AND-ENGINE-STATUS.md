@@ -5,7 +5,7 @@ The canonical game remains the official Engine Web SDK fork in `apps/lunar-vault
 ## Presentation and interaction
 
 - A new original painted observatory, orbital seal, star flare and precisely fitted reel frame join the original celestial symbols. Backgrounds cover the canvas at every tested aspect ratio.
-- Symbol landing/win pulses and the orbital transition complete through the book event contract. Reduced motion suppresses symbol scaling and the transition. Strong effects accompany awards, not idle play.
+- Symbol landing/win pulses and the orbital transition complete through the book event contract. Reduced motion suppresses symbol scaling and the transition. Strong effects accompany large awards. The second pass adds supplied-position win paths, shorter count-ups, reduced-motion static reveals and a retrigger banner.
 - Game-owned rules and sample symbol values replace placeholder screens. Only `base` and `bonus` appear in the mode menu; inherited ante/super modes and their unsupported claims are removed from app metadata.
 - Header, board, dialog and win-count sizing are corrected. Long rules/paytables scroll from their heading; phone feature cards use readable text and an original orbital seal. Popup content renders once. A dragged/released control no longer activates unless it was pressed on that control; dialogs block spin hotkeys.
 - Server default bet levels and disabled space/turbo/autoplay/feature/slam-stop flags are respected by the affected controls. Social menus use play terminology and SDK XSC/XGC formatting.
@@ -18,7 +18,7 @@ The canonical game remains the official Engine Web SDK fork in `apps/lunar-vault
 
 The inherited `config.ts` still says 0.97 RTP, 5,000× maximum and a 100× feature cost. These values are explicitly marked **unverified sample metadata**; no number was edited to imply compliance. The sample books are not a Lunar Vault math distribution. No real-money launch readiness is claimed.
 
-See the dated [frontend verification report](VERIFICATION-2026-10-26.md) for test coverage, environment and remaining lint/device/live-RGS limitations.
+See the [revamp audit](REVAMP-AUDIT-2026-10-26.md) for the latest typography, feature and sample-math work. See the dated [frontend verification report](VERIFICATION-2026-10-26.md) for test coverage, environment and remaining lint/device/live-RGS limitations.
 
 `node tools/release-gate.mjs` intentionally exits 1. Adding a publish index or changing RTP alone cannot clear it. `docs/release-evidence.json` records missing independent reports for matched math, staging, recovery, replay, jurisdiction, asset rights, Studio media and Engine approval. A future verified entry needs a report reference, reviewer and both artifact SHA-256 values; the script does not verify the truth of those attestations or issue a certificate.
 

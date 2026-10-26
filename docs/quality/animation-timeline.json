@@ -1,0 +1,110 @@
+{
+	"name": "Lunar Vault book-driven motion",
+	"states": ["idle", "revealed", "winning", "feature", "summary"],
+	"events": ["land", "winInfo", "setWin", "freeSpinRetrigger", "freeSpinEnd"],
+	"transitions": [
+		{
+			"from": "idle",
+			"event": "land",
+			"to": "revealed"
+		},
+		{
+			"from": "revealed",
+			"event": "winInfo",
+			"to": "winning"
+		},
+		{
+			"from": "winning",
+			"event": "setWin",
+			"to": "revealed"
+		},
+		{
+			"from": "feature",
+			"event": "freeSpinRetrigger",
+			"to": "feature"
+		},
+		{
+			"from": "feature",
+			"event": "freeSpinEnd",
+			"to": "summary"
+		}
+	],
+	"timelines": [
+		{
+			"event": "land",
+			"fromState": "idle",
+			"toState": "revealed",
+			"steps": [
+				{
+					"id": "land",
+					"target": "reelSymbol",
+					"startMs": 0,
+					"durationMs": 140,
+					"easing": "easeOut"
+				}
+			]
+		},
+		{
+			"event": "winInfo",
+			"fromState": "revealed",
+			"toState": "winning",
+			"steps": [
+				{
+					"id": "winInfo",
+					"target": "winningSymbolsAndLine",
+					"startMs": 0,
+					"durationMs": 460,
+					"easing": "easeInOut"
+				}
+			]
+		},
+		{
+			"event": "setWin",
+			"fromState": "winning",
+			"toState": "revealed",
+			"steps": [
+				{
+					"id": "setWin",
+					"target": "smallCountUp",
+					"startMs": 0,
+					"durationMs": 600,
+					"easing": "linear"
+				}
+			]
+		},
+		{
+			"event": "freeSpinRetrigger",
+			"fromState": "feature",
+			"toState": "feature",
+			"steps": [
+				{
+					"id": "freeSpinRetrigger",
+					"target": "orbitExtendedBanner",
+					"startMs": 0,
+					"durationMs": 850,
+					"easing": "easeOut"
+				}
+			]
+		},
+		{
+			"event": "freeSpinEnd",
+			"fromState": "feature",
+			"toState": "summary",
+			"steps": [
+				{
+					"id": "freeSpinEnd",
+					"target": "summaryEntrance",
+					"startMs": 0,
+					"durationMs": 340,
+					"easing": "easeOut"
+				}
+			]
+		}
+	],
+	"interruption": {
+		"reels": "Only accelerate when permitted. Never change supplied board or award.",
+		"countUp": "Skip to supplied final amount. Cancel callbacks on destroy.",
+		"reducedMotion": "No scrolling reels or particle motion; 400ms static reveal hold.",
+		"modal": "Block spin hotkeys and new-round input."
+	}
+}

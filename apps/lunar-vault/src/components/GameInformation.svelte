@@ -29,8 +29,9 @@
 	</p>
 	{#if paytable}
 		<p>
-			Displayed values are sample multipliers of the base play amount. Five reels, three visible
-			rows, twenty configured lines. Outcomes and awards come from the server’s event book.
+			Values multiply the selected base play amount. Match three or more symbols from left to right
+			on one of the twenty lines. Each line pays its highest base-table combination before Wild
+			multipliers are applied.
 		</p>
 		<table>
 			<thead><tr><th>Symbol</th><th>3</th><th>4</th><th>5</th></tr></thead><tbody>
@@ -47,25 +48,54 @@
 	{:else}
 		<h2>Twenty paths through the stars</h2>
 		<p>
-			Line wins are presented on the five-reel board. Wilds carry any multiplier supplied by the
-			event book. Eclipse symbols mark the feature; the server supplies the awarded free spins and
-			their results.
+			Five reels, three visible rows and twenty lines. Match three, four or five symbols from left
+			to right on a line. Wilds substitute for ordinary symbols. Each line selects its highest
+			base-table award before multipliers are applied. Multipliers above 1× on winning Wilds are
+			added together: a 2× and a 5× Wild apply 7× to that line’s award.
 		</p>
+		<div class="paylines" aria-label="Twenty paylines">
+			{#each Object.entries(config.paylines) as [number, rows]}
+				<figure>
+					<svg
+						viewBox="0 0 110 64"
+						role="img"
+						aria-label={`Line ${number}: rows ${rows.map((row) => row + 1).join(', ')}`}
+					>
+						{#each [0, 1, 2] as row}{#each [0, 1, 2, 3, 4] as col}<circle
+									cx={7 + col * 24}
+									cy={8 + row * 24}
+									r="3"
+									fill="#41576a"
+								/>{/each}{/each}
+						<polyline
+							points={rows.map((row, col) => `${7 + col * 24},${8 + row * 24}`).join(' ')}
+							fill="none"
+							stroke="#e4bf7c"
+							stroke-width="3"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</svg>
+					<figcaption>{number}</figcaption>
+				</figure>
+			{/each}
+		</div>
 		<h2>Eclipse Chamber</h2>
 		<p>
-			The configured base mode costs 1×. The optional feature mode costs 100× the selected play
-			amount. Feature availability and permitted controls depend on the session configuration. No
-			additional boost or super modes are implemented.
+			The sample awards 8, 12 or 15 free spins for 3, 4 or 5 Eclipse symbols. An extension increases
+			the announced total without resetting completed spins. The optional feature mode costs 100×
+			the selected play amount and requires confirmation. Availability depends on the session.
 		</p>
 		<h2>Controls</h2>
 		<p>
-			Use the central control to start a round. Stop speeds up presentation where permitted; it
-			never changes the result. Open Menu for sound, settings and the sample symbol table. Space
-			follows session restrictions and is ignored while a dialog is open.
+			Spin starts a round. Stop speeds up the animation where permitted; it never changes a result.
+			Menu contains sound, settings and symbol values. Space follows session restrictions and is
+			ignored while a dialog is open. Autoplay can be cancelled without interrupting the current
+			round.
 		</p>
 		<p>
-			Server-reported results determine awards. Interrupted sessions and replays require a matching
-			Engine deployment; local fixture tests do not establish certification.
+			Keep a connection while playing. If the session is interrupted, reload to recover the
+			unfinished round.
 		</p>
 	{/if}
 </section>
@@ -77,12 +107,13 @@
 		padding: 24px;
 		color: #e4edf7;
 		font:
-			15px/1.6 Arial,
+			15px/1.6 'Lunar Sans',
+			Arial,
 			sans-serif;
 	}
 	h1,
 	h2 {
-		font-family: Georgia, serif;
+		font-family: 'Lunar Display', Georgia, serif;
 		color: #f3d9a3;
 	}
 	h1 {
@@ -103,6 +134,30 @@
 		border: 1px solid #8b7049;
 		border-radius: 10px;
 		background: #182536;
+	}
+	.paylines {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 8px;
+		margin: 18px 0;
+	}
+	.paylines figure {
+		margin: 0;
+		padding: 7px;
+		background: #0b1929;
+		border: 1px solid #516074;
+		border-radius: 8px;
+	}
+	.paylines svg {
+		width: 100%;
+		display: block;
+	}
+	.paylines figcaption {
+		font:
+			700 14px 'Lunar Sans',
+			sans-serif;
+		color: #e6cb9b;
+		text-align: center;
 	}
 	table {
 		width: 100%;
@@ -127,6 +182,10 @@
 		color: #ddc391;
 	}
 	@media (max-width: 500px) {
+		.paylines {
+			grid-template-columns: repeat(4, 1fr);
+			gap: 5px;
+		}
 		.information {
 			padding: 12px;
 			font-size: 13px;

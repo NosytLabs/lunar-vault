@@ -14,3 +14,10 @@ All files are local under `apps/lunar-vault/static/assets/nosyt/`. No external a
 Create an original premium celestial observatory environment background for the browser slot game Lunar Vault by NosytLabs. Wide landscape 16:9 composition, painterly polished fantasy game art with precise architectural detail, restrained sapphire midnight blue, aged brass and silver moonlight. An ancient astronomical vault opens onto a deep star field; elegant curved brass armillary instruments, engraved dark stone columns framing the far left and right, a luminous crescent moon near upper left, subtle violet nebula and distant planets. The center 65 percent must remain dark, calm and mostly empty because a five reel grid will cover it. Strong framing at outer edges, subtle depth and atmospheric dust, beautiful but readable at small sizes. No text, no letters, no logos, no slot reels, no symbols, no UI, no characters, no casino brand imitation. Original scene, cinematic hand-painted texture. Output image meant for direct use as a game background.
 
 Generated using the built-in tool, not a paid-provider CLI workflow. The WebP is the repository-owned shipping output. SVG source is editable. Human originality, trademark and asset-rights review remains required before submission; this provenance record is not legal clearance.
+
+## Typography and primary control — second pass
+
+- `spin-orbit.svg`: original editable SVG, a brass orbital spin control.
+- `assets/type/Cinzel-Variable.ttf`: unmodified Cinzel variable font from [google/fonts](https://github.com/google/fonts/tree/main/ofl/cinzel), SIL Open Font License 1.1, included as `Cinzel-OFL.txt`.
+- `assets/type/BarlowCondensed-{SemiBold,Bold}.ttf`: unmodified Barlow Condensed from [google/fonts](https://github.com/google/fonts/tree/main/ofl/barlowcondensed), SIL Open Font License 1.1, included as `Barlow-OFL.txt`.
+- Font families are locally registered as Lunar Display and Lunar Sans; no external font service is used. Files have not been modified or renamed internally. These fonts are licensed third-party typography, not original studio illustrations.

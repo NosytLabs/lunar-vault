@@ -1,0 +1,202 @@
+{
+	"scope": "600 SDK illustration books; unweighted and not a published distribution",
+	"theoreticalRtp": null,
+	"simulatedRtp": null,
+	"confidenceInterval": null,
+	"reason": "No authoritative reel-probability model, lookup weights or publish index exists. Re-sampling these examples cannot estimate production RTP.",
+	"modes": [
+		{
+			"mode": "base",
+			"books": 500,
+			"cost": 1,
+			"unweightedMeanPayoutX": 1.2232000000000005,
+			"unweightedNonzeroFraction": 0.596,
+			"largestSuppliedPayoutX": 53.1,
+			"featureBooks": 61,
+			"retriggerBooks": 3
+		},
+		{
+			"mode": "bonus",
+			"books": 100,
+			"cost": 100,
+			"unweightedMeanPayoutX": 5.033,
+			"unweightedNonzeroFraction": 1,
+			"largestSuppliedPayoutX": 63,
+			"featureBooks": 100,
+			"retriggerBooks": 2
+		}
+	],
+	"errors": 0,
+	"warnings": 15,
+	"byCode": {
+		"feature-symbol-mismatch": 10,
+		"offscreen-feature-symbol": 5
+	},
+	"findings": [
+		{
+			"mode": "base",
+			"book": 3,
+			"event": 7,
+			"code": "feature-symbol-mismatch",
+			"detail": {
+				"reel": 2,
+				"row": 3
+			},
+			"severity": "warning"
+		},
+		{
+			"mode": "base",
+			"book": 3,
+			"event": 7,
+			"code": "offscreen-feature-symbol",
+			"detail": {
+				"reel": 3,
+				"row": 4
+			},
+			"severity": "warning"
+		},
+		{
+			"mode": "base",
+			"book": 3,
+			"event": 7,
+			"code": "feature-symbol-mismatch",
+			"detail": {
+				"reel": 3,
+				"row": 4
+			},
+			"severity": "warning"
+		},
+		{
+			"mode": "base",
+			"book": 145,
+			"event": 38,
+			"code": "offscreen-feature-symbol",
+			"detail": {
+				"reel": 1,
+				"row": 4
+			},
+			"severity": "warning"
+		},
+		{
+			"mode": "base",
+			"book": 145,
+			"event": 38,
+			"code": "feature-symbol-mismatch",
+			"detail": {
+				"reel": 1,
+				"row": 4
+			},
+			"severity": "warning"
+		},
+		{
+			"mode": "base",
+			"book": 145,
+			"event": 38,
+			"code": "feature-symbol-mismatch",
+			"detail": {
+				"reel": 3,
+				"row": 2
+			},
+			"severity": "warning"
+		},
+		{
+			"mode": "base",
+			"book": 262,
+			"event": 24,
+			"code": "offscreen-feature-symbol",
+			"detail": {
+				"reel": 1,
+				"row": 4
+			},
+			"severity": "warning"
+		},
+		{
+			"mode": "base",
+			"book": 262,
+			"event": 24,
+			"code": "feature-symbol-mismatch",
+			"detail": {
+				"reel": 1,
+				"row": 4
+			},
+			"severity": "warning"
+		},
+		{
+			"mode": "base",
+			"book": 262,
+			"event": 24,
+			"code": "feature-symbol-mismatch",
+			"detail": {
+				"reel": 3,
+				"row": 2
+			},
+			"severity": "warning"
+		},
+		{
+			"mode": "bonus",
+			"book": 3,
+			"event": 7,
+			"code": "feature-symbol-mismatch",
+			"detail": {
+				"reel": 2,
+				"row": 3
+			},
+			"severity": "warning"
+		},
+		{
+			"mode": "bonus",
+			"book": 3,
+			"event": 7,
+			"code": "offscreen-feature-symbol",
+			"detail": {
+				"reel": 3,
+				"row": 4
+			},
+			"severity": "warning"
+		},
+		{
+			"mode": "bonus",
+			"book": 3,
+			"event": 7,
+			"code": "feature-symbol-mismatch",
+			"detail": {
+				"reel": 3,
+				"row": 4
+			},
+			"severity": "warning"
+		},
+		{
+			"mode": "bonus",
+			"book": 38,
+			"event": 33,
+			"code": "feature-symbol-mismatch",
+			"detail": {
+				"reel": 1,
+				"row": 2
+			},
+			"severity": "warning"
+		},
+		{
+			"mode": "bonus",
+			"book": 38,
+			"event": 33,
+			"code": "offscreen-feature-symbol",
+			"detail": {
+				"reel": 3,
+				"row": 4
+			},
+			"severity": "warning"
+		},
+		{
+			"mode": "bonus",
+			"book": 38,
+			"event": 33,
+			"code": "feature-symbol-mismatch",
+			"detail": {
+				"reel": 3,
+				"row": 4
+			},
+			"severity": "warning"
+		}
+	]
+}

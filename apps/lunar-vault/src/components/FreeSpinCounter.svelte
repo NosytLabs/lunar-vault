@@ -31,7 +31,9 @@
 	<FadeContainer
 		show={show && !context.stateLayoutDerived.isStacked()}
 		x={board.x}
-		y={board.y + board.height / 2 + 59}
+		y={board.y +
+			board.height / 2 +
+			(context.stateLayoutDerived.canvasSizes().height < 360 ? 28 : 59)}
 	>
 		<Rectangle
 			anchor={0.5}
@@ -48,7 +50,7 @@
 			anchor={0.5}
 			text="ECLIPSE CHAMBER"
 			style={{
-				fontFamily: 'Georgia, serif',
+				fontFamily: 'Lunar Display',
 				fontSize: 24,
 				fontWeight: 'bold',
 				fill: 0xfce1a1,
@@ -60,7 +62,7 @@
 			anchor={0.5}
 			text={`FREE SPIN ${current} / ${total}`}
 			style={{
-				fontFamily: 'Arial, sans-serif',
+				fontFamily: 'Lunar Sans',
 				fontSize: 22,
 				fontWeight: 'bold',
 				fill: 0xcbe8ff,

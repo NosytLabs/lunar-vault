@@ -53,9 +53,10 @@
 
 				<OnMount
 					onmount={async () => {
+						const complete = oncomplete;
 						await startCountUp();
 						await waitForTimeout(300);
-						oncomplete();
+						complete();
 					}}
 				/>
 
@@ -71,7 +72,7 @@
 									maxWidth={context.stateGameDerived.boardLayout().width * 0.95}
 									text={bookEventAmountToCurrencyString(countUpAmount)}
 									style={{
-										fontFamily: 'Georgia, serif',
+										fontFamily: 'Lunar Display',
 										fill: 0xffe6ae,
 										fontSize: SYMBOL_SIZE * 0.95,
 										align: 'center',
@@ -87,7 +88,7 @@
 									context.stateLayoutDerived.mainLayout().scale}
 								text={bookEventAmountToCurrencyString(countUpAmount)}
 								style={{
-									fontFamily: 'Georgia, serif',
+									fontFamily: 'Lunar Display',
 									fill: 0xffe6ae,
 									fontSize: SYMBOL_SIZE,
 									align: 'center',
@@ -99,9 +100,11 @@
 					</Container>
 				</MainContainer>
 
-				<WinCoins emit={!countUpCompleted} levelAlias={winLevelData?.alias} />
+				<WinCoins emit={isBigWin && !countUpCompleted} levelAlias={winLevelData?.alias} />
 
-				<PressToContinue onpress={() => (countUpCompleted ? oncomplete() : finishCountUp())} />
+				{#if isBigWin}<PressToContinue
+						onpress={() => (countUpCompleted ? oncomplete() : finishCountUp())}
+					/>{/if}
 			{/snippet}
 		</WinCountUpProvider>
 	{/if}

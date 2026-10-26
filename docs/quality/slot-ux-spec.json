@@ -1,0 +1,119 @@
+{
+	"name": "Lunar Vault presentation and controls",
+	"views": {
+		"desktop": "Canvas board with one primary spin control; secondary controls grouped below.",
+		"mobile": "Portrait drawer and a DOM control bar below 600\u00d7360, with primary targets at least 44 px."
+	},
+	"controls": [
+		{
+			"id": "spin",
+			"type": "spin",
+			"priority": 0
+		},
+		{
+			"id": "amount",
+			"type": "bet",
+			"priority": 1
+		},
+		{
+			"id": "balance",
+			"type": "balance",
+			"priority": 1
+		},
+		{
+			"id": "menu",
+			"type": "menu",
+			"priority": 2
+		},
+		{
+			"id": "auto",
+			"type": "autoplay",
+			"priority": 2
+		},
+		{
+			"id": "turbo",
+			"type": "turbo",
+			"priority": 2
+		},
+		{
+			"id": "sound",
+			"type": "sound",
+			"priority": 3
+		},
+		{
+			"id": "rules",
+			"type": "help",
+			"priority": 3
+		}
+	],
+	"states": [
+		{
+			"name": "idle",
+			"transitions": ["spinning", "modal"]
+		},
+		{
+			"name": "spinning",
+			"transitions": ["awarding", "feature"]
+		},
+		{
+			"name": "awarding",
+			"transitions": ["idle", "feature"]
+		},
+		{
+			"name": "feature",
+			"transitions": ["awarding", "summary"]
+		},
+		{
+			"name": "summary",
+			"transitions": ["idle"]
+		},
+		{
+			"name": "modal",
+			"transitions": ["idle"]
+		}
+	],
+	"interactions": [
+		{
+			"trigger": "press",
+			"sourceControl": "spin",
+			"targetState": "spinning",
+			"feedbackMs": 100
+		},
+		{
+			"trigger": "open",
+			"sourceControl": "menu",
+			"targetState": "modal",
+			"feedbackMs": 150
+		},
+		{
+			"trigger": "confirm",
+			"sourceControl": "amount",
+			"targetState": "idle",
+			"feedbackMs": 100
+		},
+		{
+			"trigger": "cancel",
+			"sourceControl": "auto",
+			"targetState": "spinning",
+			"feedbackMs": 100
+		},
+		{
+			"trigger": "toggle",
+			"sourceControl": "turbo",
+			"targetState": "idle",
+			"feedbackMs": 100
+		},
+		{
+			"trigger": "read",
+			"sourceControl": "rules",
+			"targetState": "modal",
+			"feedbackMs": 150
+		}
+	],
+	"accessibility": {
+		"minTouchTargetPx": 44,
+		"reducedMotionSupport": true,
+		"contrastModeSupport": true,
+		"scope": "Primary controls; screen-reader and physical-device signoff remain open."
+	}
+}

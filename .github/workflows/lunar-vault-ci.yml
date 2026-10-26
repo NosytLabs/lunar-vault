@@ -32,6 +32,8 @@ jobs:
       - run: python3 tools/generate-audio.py
       - run: node tools/check-original-art.mjs
       - run: python3 tools/audit-assets.py
+      - run: pnpm run audit:math
+      - run: pnpm run test:math
       - run: pnpm run build --filter=lunar-vault
       # This runner already supplies Chromium's shared libraries and Latin fonts.
       # Avoid upgrading unrelated OS/font packages through a slow Ubuntu mirror.

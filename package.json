@@ -16,7 +16,9 @@
 		"e2e-smoke": "turbo run e2e-smoke",
 		"e2e-mobile": "turbo run e2e-mobile",
 		"test:viewport": "playwright test",
-		"check:assets": "node tools/check-original-art.mjs && python3 tools/audit-assets.py"
+		"check:assets": "node tools/check-original-art.mjs && python3 tools/audit-assets.py",
+		"audit:math": "node --experimental-strip-types tools/audit-books.mjs",
+		"test:math": "node --experimental-strip-types --test tools/audit-books.test.mjs"
 	},
 	"dependencies": {
 		"eslint": "9.21.0",

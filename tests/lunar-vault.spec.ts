@@ -32,6 +32,18 @@ async function renderedText(page: Page) {
 		};
 		const app = (window as any).__testPixi;
 		if (app?.stage) walk(app.stage, true);
+		for (const element of document.querySelectorAll('.mini-controls button,.mini-controls span')) {
+			const box = element.getBoundingClientRect();
+			if (box.width && box.height)
+				result.push({
+					text: element.textContent!.replace(/\s+/g, ' ').trim(),
+					x: box.x,
+					y: box.y,
+					width: box.width,
+					height: box.height,
+					disabled: Boolean((element.closest('button') as HTMLButtonElement)?.disabled),
+				});
+		}
 		return result;
 	});
 }
@@ -57,23 +69,29 @@ async function session(
 		resume?: boolean;
 		replay?: boolean;
 		playGate?: Promise<void>;
+		resumeIndex?: number;
+		defaultBetMicro?: number;
 	} = {},
 ) {
 	const calls: { path: string; body: any }[] = [];
 	const errors: string[] = [];
 	const external: string[] = [];
 	const book = options.book ?? loss;
+	const defaultBet = options.defaultBetMicro ?? 100000;
 	const round = {
 		betID: 1,
-		amount: 100000,
+		amount: defaultBet,
 		mode: 'base',
-		payout: book.payoutMultiplier * 100000,
+		payout: Math.round(book.payoutMultiplier * 100000),
 		payoutMultiplier: book.payoutMultiplier,
 		active: book.payoutMultiplier > 0,
 		state: book.events,
-		event: '0',
+		event: String(options.resumeIndex ?? 0),
 	};
 	page.on('pageerror', (e) => errors.push(e.stack ?? e.message));
+	page.on('console', (message) => {
+		if (message.type() === 'error') errors.push(message.text());
+	});
 	page.on('request', (req) => {
 		if (
 			!req.url().startsWith('http://127.0.0.1:4173') &&
@@ -97,17 +115,24 @@ async function session(
 				balance: { amount: 100000000, currency: options.currency ?? 'USD' },
 				config: {
 					minBet: 10000,
-					maxBet: 1000000,
+					maxBet: Math.max(1000000, defaultBet * 2),
 					stepBet: 10000,
-					defaultBetLevel: 100000,
-					betLevels: [10000, 100000, 1000000],
+					defaultBetLevel: defaultBet,
+					betLevels: [10000, defaultBet, Math.max(1000000, defaultBet * 2)],
 					jurisdiction: options.jurisdiction ?? {},
 				},
 				...(options.resume ? { round: { ...round, active: true } } : {}),
 			};
 		else if (path === '/wallet/play') {
 			await options.playGate;
-			data = { balance: { amount: 99900000, currency: options.currency ?? 'USD' }, round };
+			const body = request.postDataJSON();
+			data = {
+				balance: {
+					amount: 100000000 - body.amount * (body.mode === 'bonus' ? 100 : 1),
+					currency: options.currency ?? 'USD',
+				},
+				round: { ...round, mode: body.mode, amount: body.amount },
+			};
 		} else if (path === '/wallet/end-round')
 			data = { balance: { amount: 99900000 + round.payout, currency: options.currency ?? 'USD' } };
 		else if (path.startsWith('/bet/replay/')) data = round;
@@ -143,6 +168,13 @@ for (const [width, height] of [
 	test(`production canvas and controls fit ${width}x${height}`, async ({ page }, info) => {
 		await page.setViewportSize({ width, height });
 		const s = await session(page);
+		expect(
+			await page.evaluate(
+				() =>
+					document.fonts.check('700 20px "Lunar Display"') &&
+					document.fonts.check('700 20px "Lunar Sans"'),
+			),
+		).toBe(true);
 		const labels = await renderedText(page);
 		for (const text of ['LUNAR VAULT', 'SPIN', 'MENU', 'BALANCE', 'WIN']) {
 			const n = labels.find((n) => n.text === text)!;
@@ -160,6 +192,14 @@ for (const [width, height] of [
 			),
 		).toBe(true);
 		await page.screenshot({ path: info.outputPath(`viewport-${width}x${height}.png`) });
+		if (width === 400)
+			for (const button of await page
+				.locator('.mini-controls > button,.mini-controls .spin')
+				.all()) {
+				const box = await button.boundingBox();
+				expect(box!.width).toBeGreaterThanOrEqual(44);
+				expect(box!.height).toBeGreaterThanOrEqual(44);
+			}
 		await clickText(page, 'SPIN');
 		await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(1);
 		await textNode(page, 'SPIN');
@@ -317,5 +357,80 @@ test('bonus completes with reduced motion and viewport rotation', async ({ page 
 	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
 	await textNode(page, 'SPIN');
 	await page.screenshot({ path: info.outputPath('feature-complete.png') });
+	expect(s.errors).toEqual([]);
+});
+
+test('feature buy confirms its cost before sending exactly one bonus request', async ({ page }) => {
+	const s = await session(page);
+	await clickText(page, 'BUY BONUS');
+	await page.getByText('CONTINUE', { exact: true }).click();
+	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
+	await expect(page.locator('.ui-popup-standard-content-wrap')).toContainText('100×');
+	await page.locator('[data-test="confirm-button"]').click();
+	await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(1);
+	expect(s.calls.find((c) => c.path === '/wallet/play')!.body).toMatchObject({
+		mode: 'bonus',
+		amount: 100000,
+	});
+	await textNode(page, 'SPIN');
+	await clickText(page, 'SPIN');
+	await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(2);
+	expect(s.calls.filter((c) => c.path === '/wallet/play')[1].body.mode).toBe('base');
+	expect(s.errors).toEqual([]);
+});
+
+test('retrigger adds spins without restarting the feature or charging again', async ({
+	page,
+}, info) => {
+	test.setTimeout(90000);
+	await page.setViewportSize({ width: 1024, height: 576 });
+	const book = books.find((b) => b.id === 3)!;
+	const s = await session(page, { book, resume: true });
+	await textNode(page, 'ECLIPSE CHAMBER');
+	await page.mouse.click(15, 540);
+	await textNode(page, 'ORBIT EXTENDED');
+	await page.screenshot({ path: info.outputPath('retrigger.png') });
+	for (let i = 0; i < 240; i++) {
+		if ((await renderedText(page)).some((n) => n.text.startsWith('TAP')))
+			await page.mouse.click(15, 540);
+		if (s.calls.some((c) => c.path === '/wallet/end-round')) break;
+		await page.waitForTimeout(250);
+	}
+	await textNode(page, 'SPIN');
+	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
+	expect(s.calls.filter((c) => c.path === '/wallet/end-round')).toHaveLength(1);
+	expect(s.errors).toEqual([]);
+});
+
+test('mid-feature resume restores totals without an entry prompt', async ({ page }) => {
+	test.setTimeout(90000);
+	await page.setViewportSize({ width: 1024, height: 576 });
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	const book = books.find((b) => b.id === 3)!;
+	const s = await session(page, { book, resume: true, resumeIndex: 9 });
+	// Both retriggers precede event 9; the restored feature total is fourteen.
+	await expect
+		.poll(async () => (await renderedText(page)).some((n) => /^FREE SPIN \d+ \/ 14$/.test(n.text)))
+		.toBe(true);
+	expect((await renderedText(page)).some((n) => n.text.startsWith('TAP'))).toBe(false);
+	for (let i = 0; i < 200; i++) {
+		if ((await renderedText(page)).some((n) => n.text.startsWith('TAP')))
+			await page.mouse.click(15, 540);
+		if (s.calls.some((c) => c.path === '/wallet/end-round')) break;
+		await page.waitForTimeout(250);
+	}
+	await textNode(page, 'SPIN');
+	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
+	expect(s.calls.filter((c) => c.path === '/wallet/end-round')).toHaveLength(1);
+	expect(s.errors).toEqual([]);
+});
+
+test('wallet play uses integer micro-units for a 2.01 amount', async ({ page }) => {
+	const s = await session(page, { defaultBetMicro: 2010000 });
+	await clickText(page, 'SPIN');
+	await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(1);
+	const amount = s.calls.find((c) => c.path === '/wallet/play')!.body.amount;
+	expect(amount).toBe(2010000);
+	expect(Number.isSafeInteger(amount)).toBe(true);
 	expect(s.errors).toEqual([]);
 });

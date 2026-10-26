@@ -18,7 +18,7 @@
 		x={context.stateLayoutDerived.mainLayout().width / 2}
 		y={context.stateLayoutDerived.mainLayout().height * 0.97}
 		style={{
-			fontFamily: 'Arial, sans-serif',
+			fontFamily: 'Lunar Sans',
 			fontSize: 21,
 			fontWeight: 'bold',
 			fill: 0xf3dbac,

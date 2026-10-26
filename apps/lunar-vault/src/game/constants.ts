@@ -130,18 +130,18 @@ const LOW_SYMBOL_SIZE = 0.9;
 const SPECIAL_SYMBOL_SIZE = 1;
 
 const SPIN_OPTIONS_SHARED = {
-	reelBounceBackSpeed: 0.15,
-	reelSpinSpeedBeforeBounce: 4,
+	reelBounceBackSpeed: 0.42,
+	reelSpinSpeedBeforeBounce: 6,
 	reelPaddingMultiplierNormal: 1.2,
-	reelPaddingMultiplierAnticipated: 10,
-	reelSpinDelay: 145,
+	reelPaddingMultiplierAnticipated: 3.4,
+	reelSpinDelay: 90,
 };
 
 export const SPIN_OPTIONS_DEFAULT = {
 	...SPIN_OPTIONS_SHARED,
-	reelPreSpinSpeed: 2,
-	reelSpinSpeed: 3,
-	reelBounceSizeMulti: 0.3,
+	reelPreSpinSpeed: 4,
+	reelSpinSpeed: 5,
+	reelBounceSizeMulti: 0.14,
 };
 
 export const SPIN_OPTIONS_FAST = {

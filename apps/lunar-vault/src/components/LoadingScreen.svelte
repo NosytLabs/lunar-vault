@@ -21,12 +21,23 @@
 			y={context.stateLayoutDerived.mainLayout().height / 2}
 		>
 			<Sprite key="lunarOrbitalSeal" anchor={0.5} width={470} height={470} alpha={0.5} />
-			<Sprite key="lunarLogo" anchor={0.5} width={440} height={132} />
+			<Text
+				anchor={0.5}
+				text="LUNAR VAULT"
+				style={{
+					fontFamily: 'Lunar Display',
+					fontSize: 68,
+					fontWeight: '700',
+					fill: 0xffe3a5,
+					letterSpacing: 4,
+					dropShadow: { color: 0x020a15, blur: 5, distance: 3 },
+				}}
+			/>
 			<Text
 				y={110}
 				anchor={0.5}
 				text="ENTER THE OBSERVATORY"
-				style={{ fontFamily: 'Arial, sans-serif', fontSize: 18, letterSpacing: 4, fill: 0xc2d9ef }}
+				style={{ fontFamily: 'Lunar Sans', fontSize: 18, letterSpacing: 4, fill: 0xc2d9ef }}
 			/>
 			{#if !context.stateApp.loaded}
 				<Rectangle
@@ -52,7 +63,7 @@
 					anchor={0.5}
 					text="PREPARING THE OBSERVATORY"
 					style={{
-						fontFamily: 'Arial, sans-serif',
+						fontFamily: 'Lunar Sans',
 						fontSize: 19,
 						fill: 0xf5e0ae,
 						letterSpacing: 2.5,

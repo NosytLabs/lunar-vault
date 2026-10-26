@@ -62,7 +62,7 @@
 
 <style lang="scss">
 	.pop-up-wrap {
-		font-family: 'Arial', sans-serif;
+		font-family: 'Lunar Sans', Arial, sans-serif;
 		touch-action: manipulation;
 		color: white;
 		position: fixed;

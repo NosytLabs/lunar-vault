@@ -1,4 +1,9 @@
 export default {
+	lunarSpinButton: {
+		type: 'sprite',
+		src: new URL('../../assets/nosyt/spin-orbit.svg', import.meta.url).href,
+		preload: true,
+	},
 	sound: {
 		type: 'audio',
 		src: new URL('../../assets/audio/sounds.json', import.meta.url).href,

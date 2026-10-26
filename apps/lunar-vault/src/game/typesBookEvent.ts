@@ -37,6 +37,9 @@ type BookEventUpdateFreeSpin = {
 	amount: number;
 	total: number;
 };
+type BookEventFreeSpinRetrigger = Omit<BookEventFreeSpinTrigger, 'type'> & {
+	type: 'freeSpinRetrigger';
+};
 
 type BookEventSetWin = {
 	index: number;
@@ -83,13 +86,12 @@ export type BookEvent =
 	| BookEventWinInfo
 	| BookEventSetTotalWin
 	| BookEventFreeSpinTrigger
+	| BookEventFreeSpinRetrigger
 	| BookEventUpdateFreeSpin
 	| BookEventCreateBonusSnapshot
 	| BookEventFinalWin
 	| BookEventSetWin
-	| BookEventFreeSpinEnd
-	// customised
-	| BookEventCreateBonusSnapshot;
+	| BookEventFreeSpinEnd;
 
 export type Bet = BetType<BookEvent>;
 export type BookEventOfType<T> = Extract<BookEvent, { type: T }>;

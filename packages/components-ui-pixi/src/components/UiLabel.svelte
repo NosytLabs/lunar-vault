@@ -20,14 +20,16 @@
 	);
 
 	const labelStyle = $derived({
-		fontFamily: 'Arial, sans-serif',
+		fontFamily: 'Lunar Sans',
+		fontWeight: '700',
 		fontSize: UI_BASE_FONT_SIZE * (compact ? 1.1 : 0.6),
 		fill: 0xc3b18d,
 	} as const);
 
 	const valueStyle = $derived({
-		fontFamily: 'Arial, sans-serif',
-		fontSize: UI_BASE_FONT_SIZE * (compact ? 1.3 : 1),
+		fontFamily: 'Lunar Sans',
+		fontWeight: '700',
+		fontSize: UI_BASE_FONT_SIZE * (compact ? 1.3 : 1.13),
 		fill: WHITE,
 	} as const);
 </script>

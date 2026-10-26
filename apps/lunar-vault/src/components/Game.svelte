@@ -4,7 +4,7 @@
 	import { EnablePixiExtension } from 'components-pixi';
 	import { EnableHotkey } from 'components-shared';
 	import { MainContainer } from 'components-layout';
-	import { App, Sprite } from 'pixi-svelte';
+	import { App, Text } from 'pixi-svelte';
 	import { stateModal } from 'state-shared';
 
 	import { UI } from 'components-ui-pixi';
@@ -27,10 +27,33 @@
 	import Transition from './Transition.svelte';
 	import ReplayControls from './ReplayControls.svelte';
 	import GameInformation from './GameInformation.svelte';
+	import WinLines from './WinLines.svelte';
+	import FeatureBanner from './FeatureBanner.svelte';
+	import { loadGameFonts } from '../game/fonts';
+	import MiniControls from './MiniControls.svelte';
+	import { stateUi } from 'state-shared';
 
 	const context = getContext();
+	const mini = $derived(
+		context.stateLayoutDerived.canvasSizes().width < 600 &&
+			context.stateLayoutDerived.canvasSizes().height < 360 &&
+			stateUi.config.mode === 'default',
+	);
 
-	onMount(() => (context.stateLayout.showLoadingScreen = true));
+	let fontsReady = $state(false);
+	let fontError = $state(false);
+	async function prepare() {
+		fontError = false;
+		try {
+			await loadGameFonts();
+		} catch {
+			fontError = true;
+			return;
+		}
+		context.stateLayout.showLoadingScreen = true;
+		fontsReady = true;
+	}
+	onMount(prepare);
 
 	context.eventEmitter.subscribeOnMount({
 		buyBonusConfirm: () => {
@@ -39,53 +62,70 @@
 	});
 </script>
 
-<App>
-	<EnableSound />
-	<EnableHotkey />
-	<EnableGameActor />
-	<EnablePixiExtension />
+{#if fontsReady}
+	<App>
+		<EnableSound />
+		<EnableHotkey />
+		<EnableGameActor />
+		<EnablePixiExtension />
 
-	<Background />
+		<Background />
 
-	{#if context.stateLayout.showLoadingScreen}
-		<LoadingScreen onloaded={() => (context.stateLayout.showLoadingScreen = false)} />
-	{:else}
-		<ResumeBet />
-		<!--
+		{#if context.stateLayout.showLoadingScreen}
+			<LoadingScreen onloaded={() => (context.stateLayout.showLoadingScreen = false)} />
+		{:else}
+			<ResumeBet />
+			<!--
 			The reason why <Sound /> is rendered after clicking the loading screen:
 			"Autoplay with sound is allowed if: The user has interacted with the domain (click, tap, etc.)."
 			Ref: https://developer.chrome.com/blog/autoplay
 		-->
-		<Sound />
+			<Sound />
 
-		<MainContainer>
-			<BoardFrame />
-		</MainContainer>
+			<MainContainer>
+				<BoardFrame />
+			</MainContainer>
 
-		<MainContainer>
-			<Board />
-			<Anticipations />
-		</MainContainer>
+			<MainContainer>
+				<Board />
+				<Anticipations />
+				<WinLines />
+			</MainContainer>
 
-		<UI>
-			{#snippet gameName()}{/snippet}
-			{#snippet logo()}
-				<Sprite
-					key="lunarLogo"
-					visible={context.stateLayoutDerived.canvasSizes().height >= 360}
-					anchor={{ x: 1, y: 0 }}
-					width={context.stateLayoutDerived.canvasSizes().width < 500 ? 116 : 160}
-					height={context.stateLayoutDerived.canvasSizes().width < 500 ? 35 : 48}
-				/>
-			{/snippet}
-		</UI>
-		<Win />
-		<FreeSpinIntro />
-		<FreeSpinCounter />
-		<FreeSpinOutro />
-		<Transition />
-	{/if}
-</App>
+			{#if !mini}<UI>
+					{#snippet gameName()}{/snippet}
+					{#snippet logo()}
+						<Text
+							text="NOSYTLABS GAMES"
+							visible={context.stateLayoutDerived.canvasSizes().height >= 360}
+							anchor={{ x: 1, y: 0 }}
+							y={10}
+							style={{
+								fontFamily: 'Lunar Sans',
+								fontSize: context.stateLayoutDerived.canvasSizes().width < 500 ? 13 : 17,
+								fontWeight: '700',
+								letterSpacing: 2,
+								fill: 0xe0c38a,
+							}}
+						/>
+					{/snippet}
+				</UI>{/if}
+			<Win />
+			<FreeSpinIntro />
+			<FreeSpinCounter />
+			<FreeSpinOutro />
+			<Transition />
+			<FeatureBanner />
+		{/if}
+	</App>
+	{#if mini && !context.stateLayout.showLoadingScreen}<MiniControls />{/if}
+{:else}
+	<div class="font-loading">
+		LUNAR VAULT<span
+			>{fontError ? 'Unable to load the observatory.' : 'Preparing the observatory'}</span
+		>{#if fontError}<button onclick={prepare}>Retry</button>{/if}
+	</div>
+{/if}
 
 <ReplayControls />
 
@@ -93,6 +133,30 @@
 	{#snippet gameRules()}<GameInformation />{/snippet}
 	{#snippet payTable()}<GameInformation paytable />{/snippet}
 	{#snippet version()}
-		<GameVersion version="0.2.0 · Development candidate" />
+		<GameVersion version="0.3.0 · Development preview" />
 	{/snippet}
 </Modals>
+
+<style>
+	.font-loading {
+		position: fixed;
+		inset: 0;
+		display: grid;
+		place-content: center;
+		gap: 12px;
+		text-align: center;
+		background: #071321;
+		color: #f3d99f;
+		font:
+			700 28px Georgia,
+			serif;
+		letter-spacing: 3px;
+	}
+	.font-loading span {
+		font:
+			14px Arial,
+			sans-serif;
+		letter-spacing: 1px;
+		color: #bed3e6;
+	}
+</style>

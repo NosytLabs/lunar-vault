@@ -42,7 +42,7 @@
 							align: 'center',
 							wordWrap: true,
 							wordWrapWidth: 200,
-							fontFamily: 'Arial, sans-serif',
+							fontFamily: 'Lunar Sans',
 							fontWeight: '600',
 							fontSize: UI_BASE_FONT_SIZE * 0.9,
 							fill: 0xffffff,

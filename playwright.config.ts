@@ -12,7 +12,7 @@ export default defineConfig({
 	},
 	reporter: [['list'], ['html', { open: 'never', outputFolder: 'playwright-report' }]],
 	webServer: {
-		command: 'pnpm --filter lunar-vault preview --host 127.0.0.1 --port 4173',
+		command: 'python3 -m http.server 4173 --bind 127.0.0.1 --directory apps/lunar-vault/build',
 		url: 'http://127.0.0.1:4173',
 		reuseExistingServer: !process.env.CI,
 	},

@@ -7,3 +7,4 @@ import { i18nDerived } from './src/i18n/i18nDerived';
 export * from './src/types';
 
 export { messagesMap, i18nDerived, UI, UiGameName };
+export { default as ButtonBetProvider } from './src/components/ButtonBetProvider.svelte';

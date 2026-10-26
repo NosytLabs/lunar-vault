@@ -20,10 +20,7 @@ export const requestAuthenticate = async (options: {
 	return data;
 };
 
-export const requestEndRound = async (options: {
-	sessionID: string;
-	rgsUrl: string;
-}) => {
+export const requestEndRound = async (options: { sessionID: string; rgsUrl: string }) => {
 	const data = await rgsFetcher.post({
 		rgsUrl: options.rgsUrl,
 		url: '/wallet/end-round',
@@ -66,7 +63,7 @@ export const requestBet = async (options: {
 			mode: options.mode,
 			currency: options.currency,
 			sessionID: options.sessionID,
-			amount: options.amount * API_AMOUNT_MULTIPLIER,
+			amount: Math.round(options.amount * API_AMOUNT_MULTIPLIER),
 		},
 	});
 
@@ -87,4 +84,4 @@ export const requestReplay = async (options: {
 	});
 
 	return data;
-}
+};

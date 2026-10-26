@@ -32,7 +32,7 @@
 		y={props.y}
 		text={`${props.rawSymbol.multiplier}X`}
 		style={{
-			fontFamily: 'Georgia, serif',
+			fontFamily: 'Lunar Display',
 			fill: 0xffe4a1,
 			stroke: { color: 0x071022, width: 5 },
 			fontSize: 50,

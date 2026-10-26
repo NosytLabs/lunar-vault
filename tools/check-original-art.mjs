@@ -17,6 +17,7 @@ const extras = [
 	'orbital-seal',
 	'star-flare',
 	'reel-frame-v2',
+	'spin-orbit',
 ];
 const failures = [];
 for (const name of [...colors.map((x) => x.toLowerCase()), ...extras]) {
@@ -32,7 +33,11 @@ for (const name of [...colors.map((x) => x.toLowerCase()), ...extras]) {
 }
 for (const symbol of colors) {
 	if (!assets.includes('lunar' + symbol + ':')) failures.push('Asset manifest missing ' + symbol);
-	if (!new RegExp(`${symbol}:\\s*\\{\\s*explosion,\\s*static: icon\\('lunar${symbol}'\\)`).test(symbolMap))
+	if (
+		!new RegExp(`${symbol}:\\s*\\{\\s*explosion,\\s*static: icon\\('lunar${symbol}'\\)`).test(
+			symbolMap,
+		)
+	)
 		failures.push('Symbol map lacks original art for ' + symbol);
 }
 const expectedPaths = [
@@ -72,5 +77,5 @@ if (failures.length) {
 	process.exitCode = 1;
 } else
 	console.log(
-		'Original art smoke check passed: 20 SVG textures plus a painted WebP, 12 game symbols, original audio, local fonts, mobile viewport and no SDK splash.',
+		`Original art smoke check passed: ${colors.length + extras.length} SVG textures plus a painted WebP, 12 symbol textures, original audio, bundled fonts, mobile viewport and no SDK splash.`,
 	);

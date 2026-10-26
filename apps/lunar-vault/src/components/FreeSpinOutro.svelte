@@ -47,7 +47,7 @@
 							y={-sizes.height * 0.26}
 							text="ECLIPSE CHAMBER"
 							style={{
-								fontFamily: 'Georgia, serif',
+								fontFamily: 'Lunar Display',
 								fontSize: 43,
 								fontWeight: 'bold',
 								fill: 0xf8e2b2,
@@ -59,7 +59,7 @@
 							text={bookEventAmountToCurrencyString(countUpAmount)}
 							maxWidth={sizes.width * 0.92}
 							style={{
-								fontFamily: 'Georgia, serif',
+								fontFamily: 'Lunar Display',
 								fill: 0xffe6ae,
 								fontSize: sizes.width * 0.12,
 								fontWeight: 'bold',
@@ -70,7 +70,7 @@
 							y={sizes.height * 0.23}
 							text="TOTAL WIN"
 							style={{
-								fontFamily: 'Georgia, serif',
+								fontFamily: 'Lunar Display',
 								fontSize: 44,
 								fontWeight: 'bold',
 								fill: 0xf7d49a,
@@ -79,7 +79,10 @@
 						/>
 					{/snippet}
 				</FreeSpinAnimation>
-				<WinCoins emit={!countUpCompleted} levelAlias={winLevelData.alias} />
+				<WinCoins
+					emit={winLevelData.type === 'big' && !countUpCompleted}
+					levelAlias={winLevelData.alias}
+				/>
 				<PressToContinue onpress={() => (countUpCompleted ? oncomplete() : finishCountUp())} />
 			{/snippet}
 		</WinCountUpProvider>
