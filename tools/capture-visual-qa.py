@@ -65,7 +65,7 @@ def main():
             for width, height in [(1280, 720), (1024, 576), (800, 450), (400, 225), (425, 812)]:
                 page = browser.new_page(viewport={"width": width, "height": height}, device_scale_factor=1)
                 errors = []
-                page.on("pageerror", lambda error: errors.append(str(error)))
+                page.on("pageerror", lambda error: errors.append(str(error) + "\\n" + (error.stack if getattr(error, "stack", None) else "")))
                 page.on("console", lambda msg: errors.append(msg.text) if msg.type == "error" else None)
                 page.route("**/wallet/**", mock_rgs)
                 page.goto(
@@ -86,6 +86,8 @@ def main():
         print(json.dumps(results, indent=2))
         if any(item["canvas_count"] == 0 for item in results):
             raise SystemExit("One or more QA viewports failed to render a canvas")
+        if any(item["errors"] for item in results):
+            raise SystemExit("Game logged a JavaScript/runtime error during viewport QA")
     finally:
         server.terminate()
         server.wait(timeout=5)
