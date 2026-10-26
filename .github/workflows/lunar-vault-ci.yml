@@ -43,3 +43,15 @@ jobs:
           path: apps/lunar-vault/build/
           if-no-files-found: error
           retention-days: 1
+      - name: Install browser test driver
+        run: python3 -m pip install --quiet playwright==1.55.0
+      - name: Capture five QA viewports (simulated session, no bets)
+        run: python3 tools/capture-visual-qa.py
+      - name: Upload visual QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lunar-vault-visual-qa
+          path: visual-qa/
+          if-no-files-found: warn
+          retention-days: 1
