@@ -1,0 +1,14 @@
+{
+  "base": {
+    "verifiedBooks": 100000,
+    "rtpFraction": "193/200",
+    "maximumWinX": 101.5,
+    "errors": 0
+  },
+  "river": {
+    "verifiedBooks": 100000,
+    "rtpFraction": "193/200",
+    "maximumWinX": 155.6,
+    "errors": 0
+  }
+}

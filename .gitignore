@@ -59,3 +59,7 @@ packages/e2e/math-testing/*/*.txt
 packages/e2e/math-testing/__pycache__/*
 playwright-report/
 apps/lunar-vault/static/assets/audio/nosyt-sprite.wav
+
+# Local generated math preview cache
+math/salmon-run/.cache/
+math/**/__pycache__/

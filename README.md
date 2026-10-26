@@ -76,6 +76,6 @@ Official references: https://github.com/engineio/web-sdk and https://studio.engi
 
 The [revamp audit](docs/REVAMP-AUDIT-2026-10-26.md) records font/animation changes, retrigger and recovery fixes, the 600-book audit and remaining release limitations.
 
-## Separate playable fishing concept
+## Separate Salmon Run development slot
 
-[Salmon Run](apps/salmon-run/README.md) is a separate Svelte concept with original river artwork and a six-cast feature. It uses authored scripted rounds and demo points; it is not connected to the Engine wallet or a certified math package.
+[Salmon Run](apps/salmon-run/README.md) now has original raster symbols, real travelling reels, Engine wallet/replay requests and a matching finite weighted-book development math package. Its 96.50% computed RTP applies only to that checked-in Salmon distribution. The loopback preview supplies test funds and outcomes from the weighted files; live Engine acceptance and certification remain open. Lunar Vault's SDK fork and unmatched sample math remain separate.

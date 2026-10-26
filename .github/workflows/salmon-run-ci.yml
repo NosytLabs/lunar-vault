@@ -1,9 +1,12 @@
-name: Salmon Run concept checks
+name: Salmon Run frontend and development math checks
 on:
   pull_request:
     paths:
       - 'apps/salmon-run/**'
       - 'pnpm-lock.yaml'
+      - 'packages/**'
+      - 'math/salmon-run/**'
+      - 'tools/**'
       - '.github/workflows/salmon-run-ci.yml'
   workflow_dispatch:
 permissions:
@@ -12,28 +15,37 @@ concurrency:
   group: salmon-run-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 jobs:
-  concept:
+  verify:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22.16.0'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
       - run: corepack enable
       - run: corepack prepare pnpm@10.5.0 --activate
       - run: pnpm install --frozen-lockfile
+      - run: node tools/python-runner.mjs math/salmon-run/verify.py
+      - run: node tools/python-runner.mjs -m unittest discover -s math/salmon-run -p test_math.py
+      - run: pnpm run test:contracts
       - run: pnpm --filter salmon-run build
       - run: pnpm exec playwright install --only-shell chromium
       - run: pnpm --filter salmon-run test
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: salmon-run-concept-evidence
-          path: apps/salmon-run/test-results/
+          name: salmon-run-browser-and-math-evidence
+          path: |
+            apps/salmon-run/test-results/
+            math/salmon-run/report.json
+            math/salmon-run/verification.json
           retention-days: 7
       - uses: actions/upload-artifact@v4
         with:
-          name: salmon-run-playable-concept
+          name: salmon-run-static-frontend
           path: apps/salmon-run/dist/
           retention-days: 7

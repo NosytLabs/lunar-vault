@@ -1,9 +1,10 @@
 # Salmon Run original concept assets — 2026-10-26
 
 - `public/assets/river-dawn.webp`: original image produced with the built-in OpenAI image tool, encoded to WebP at quality 86. A fantasy salmon-inspired river environment, not a species-identification illustration.
-- Six local SVG symbols (`salmon`, `reel`, `fly`, `compass`, `canoe`, `leaf`): original hand-authored geometry and gradients. No reference-game graphics or trademarks were copied.
-- Cinzel and Barlow Condensed: unmodified fonts from the official `google/fonts` repository, SIL Open Font License 1.1. Both full licenses ship in `public/assets/type`. These are licensed typography, not original studio art.
-- The attached fishing-slot screenshots informed only the broad fishing theme and readable playfield/control hierarchy. Salmon Run has original composition, palette and a different scripted river-travel concept; it does not use reference titles, characters or branded mechanics.
+- Eight individual transparent raster sprites (`salmon`, `reel`, `fly`, `compass`, `canoe`, `leaf`, `wild`, `scatter`): original prompts and new OpenAI built-in image-generation outputs. They replace the initial six SVG placeholders. PNG output retained alpha when encoded with cwebp at quality 91/alpha 100, 512×512. Native readable WILD/RIVER RUN labels and fish values are separate UI text. Exact prompts and shipping paths are recorded in [sprite-prompts-v2.json](sprite-prompts-v2.json).
+- Bitter variable (titles) and Barlow Regular/SemiBold/Bold (body/controls): unmodified fonts from the official [google/fonts](https://github.com/google/fonts) repository (`ofl/bitter`, `ofl/barlow`), SIL Open Font License 1.1. Full licenses ship in `public/assets/type`. These replace the initial Cinzel/Barlow Condensed concept pairing. Fonts are licensed typography, not original studio art.
+- Sound: original synthesized sine cues in `src/audio.ts`; no external recording. Every voice routes through one mute-controlled master gain.
+- The attached fishing-slot screenshots informed only the broad fishing theme and readable playfield/control hierarchy. Salmon Run has original composition, palette and its own upstream collection rules and twenty-line presentation; it does not use reference titles, characters or branded mechanics.
 
 ## Exact image prompt
 

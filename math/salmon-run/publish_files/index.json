@@ -1,0 +1,16 @@
+{
+  "modes": [
+    {
+      "name": "base",
+      "cost": 1,
+      "events": "books_base.jsonl.zst",
+      "weights": "lookUpTable_base.csv"
+    },
+    {
+      "name": "river",
+      "cost": 20,
+      "events": "books_river.jsonl.zst",
+      "weights": "lookUpTable_river.csv"
+    }
+  ]
+}
