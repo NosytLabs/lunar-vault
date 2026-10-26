@@ -5,6 +5,11 @@ on:
       - 'apps/lunar-vault/**'
       - 'packages/**'
       - 'tools/**'
+      - 'tests/**'
+      - 'docs/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'playwright.config.ts'
       - '.github/workflows/lunar-vault-ci.yml'
   workflow_dispatch:
 permissions:
@@ -28,6 +33,17 @@ jobs:
       - run: node tools/check-original-art.mjs
       - run: python3 tools/audit-assets.py
       - run: pnpm run build --filter=lunar-vault
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm run test:viewport
+      - name: Upload browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lunar-vault-browser-evidence
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 7
       - uses: actions/upload-artifact@v4
         with:
           name: lunar-vault-preview

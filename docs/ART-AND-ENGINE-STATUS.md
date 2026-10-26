@@ -1,26 +1,32 @@
-# Lunar Vault — Engine Web SDK artwork upgrade
+# Lunar Vault implementation status — 2026-10-26
 
-The canonical game lives at `apps/lunar-vault`, using the official Engine Web SDK (Svelte 5 and PixiJS 8). This change set contains 17 **original** SVG textures in `static/assets/nosyt/`: five high symbols, five low symbols, Wild, Eclipse, two observatory backgrounds, reel frame, win aura, and NosytLabs Games logo.
+The canonical game remains the official Engine Web SDK fork in `apps/lunar-vault`: Svelte 5, PixiJS 8, the SDK event-book player and RGS request/state-machine flow. The client does not generate gambling outcomes.
 
-## Changes
+## Presentation and interaction
 
-- `game/assets.ts` registers locally hosted Pixi textures, preloaded by the SDK.
-- `game/constants.ts` uses game-owned artwork for the normal `static`, `spin`, `land`, `win` and `postWinStatic` symbol states. The RGS event contract, board math and result selection are unchanged.
-- `SymbolSprite.svelte` resolves visual win/land completions asynchronously so the book player can present highlights before continuing; no frontend randomness changes outcomes.
-- `Background.svelte`, `BoardFrame.svelte`, `LoadingScreen.svelte`, `TransitionAnimation.svelte`, `WinAnimation.svelte` and `FreeSpinAnimation.svelte` no longer render inherited sample scenes for those visual paths.
-- `+layout.svelte` removes the SDK-branded splash that Engine expressly disallows.
+- A new original painted observatory, orbital seal, star flare and precisely fitted reel frame join the original celestial symbols. Backgrounds cover the canvas at every tested aspect ratio.
+- Symbol landing/win pulses and the orbital transition complete through the book event contract. Reduced motion suppresses symbol scaling and the transition. Strong effects accompany awards, not idle play.
+- Game-owned rules and sample symbol values replace placeholder screens. Only `base` and `bonus` appear in the mode menu; inherited ante/super modes and their unsupported claims are removed from app metadata.
+- Header, board, dialog and win-count sizing are corrected. Long rules/paytables scroll from their heading; phone feature cards use readable text and an original orbital seal. Popup content renders once. A dragged/released control no longer activates unless it was pressed on that control; dialogs block spin hotkeys.
+- Server default bet levels and disabled space/turbo/autoplay/feature/slam-stop flags are respected by the affected controls. Social menus use play terminology and SDK XSC/XGC formatting.
+- Replay has a Play Again control that reuses the supplied book, with no new wallet requests. Replay mode cost is displayed from the configured mode metadata.
+- Unused sample Spine scenes, spritesheets, bitmap fonts and their runtime registrations are removed. Original WAV audio is reproducibly generated during build.
 
-## Remaining release blockers (not claimed fixed)
+## Evidence boundary
 
-- The repo still uses sample 0.97 RTP math metadata, which is outside Engine's 96.0%–96.70% approval band. Do **not** edit this to a plausible number without calculating and publishing a matching certified math book; the standalone prototype's 10-line math is not compatible with the 20-line Web SDK fork.
-- Original Eclipse Chamber intro/outro and centered free-spin counter now replace sample visuals. A deterministic Python generator creates 52 original audio cues in one WAV sprite; SDK sample audio binaries have been removed. Some secondary Spine/particle effects and sample resources remain and need an originality audit before approval.
-- A real Engine staging session, authenticated bet states, loss/no-end-round, active-round resume, replay URL, currency formatting, social wording, minimum bet, responsive screenshots and human art signoff remain unverified.
-- The 3:4 Studio lobby tile and 16:9 wide cover must be prepared in Studio before approval.
+`pnpm run test:viewport` runs the production build with **local intercepted HTTP fixtures**. It checks viewport bounds, input, SDK event completion, win/loss request behavior, resume, replay and selected restrictions. Screenshots are captured for visual review. These are frontend regression checks, not an Engine staging acceptance report, certified math simulation, complete jurisdiction matrix, device lab test or human art-rights review.
 
-Run `node tools/check-original-art.mjs` for source asset checks, `python3 tools/audit-assets.py` for every referenced asset, and `node tools/release-gate.mjs` for explicit blockers. The release gate is **supposed to fail** until actual math, remaining sample effects and UI requirements are met.
+The inherited `config.ts` still says 0.97 RTP, 5,000× maximum and a 100× feature cost. These values are explicitly marked **unverified sample metadata**; no number was edited to imply compliance. The sample books are not a Lunar Vault math distribution. No real-money launch readiness is claimed.
 
-Official: https://studio.engine.io/docs/approval-guidelines , https://studio.engine.io/docs/approval-guidelines/math-verification , https://studio.engine.io/docs/distribution .
+See the dated [frontend verification report](VERIFICATION-2026-10-26.md) for test coverage, environment and remaining lint/device/live-RGS limitations.
 
-## Asset build and distribution size
+`node tools/release-gate.mjs` intentionally exits 1. Adding a publish index or changing RTP alone cannot clear it. `docs/release-evidence.json` records missing independent reports for matched math, staging, recovery, replay, jurisdiction, asset rights, Studio media and Engine approval. A future verified entry needs a report reference, reviewer and both artifact SHA-256 values; the script does not verify the truth of those attestations or issue a certificate.
 
-The CI job runs `python3 tools/generate-audio.py` prior to asset checks and builds all dependent Web SDK workspace packages through TurboRepo. The old stock OGG/MP3/M4A/AC3 recordings and splash GIFs were removed from the game static directory. This changes audio composition and media size but does not affect the game logic or payouts.
+## Official requirements checked
+
+- [Web SDK](https://github.com/engineio/web-sdk): static frontend build, ordered event books, RGS configuration, resume and replay paths.
+- [General approval](https://studio.engine.io/docs/approval-guidelines): one frontend/math version pair is reviewed together; original design and final approval are required.
+- [Math verification](https://studio.engine.io/docs/approval-guidelines/math-verification): every mode needs 96.0–96.7% RTP and the cheapest mode costs 1×; further distribution, volatility and operator-risk tests apply.
+- [Jurisdiction requirements](https://studio.engine.io/docs/approval-guidelines/jurisdiction-requirements): social=true affects all player-facing copy, uses XSC/XGC and requires English. Local checks here cover selected paths only.
+
+Still needed: matching certified Engine math, live staging and interruption/replay testing, full jurisdiction/currency matrix, human asset signoff, final 3:4 and 16:9 Studio tiles, AI/human review and explicit Engine approval.

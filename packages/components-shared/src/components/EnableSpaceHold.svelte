@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	import { stateBet, stateBetDerived } from 'state-shared';
+	import { stateBet, stateBetDerived, stateConfig, stateModal } from 'state-shared';
 </script>
 
 <script lang="ts">
@@ -17,4 +17,12 @@
 	};
 </script>
 
-<OnHotkey hotkey="Space" onhold={spaceHoldOn} onholdend={spaceHoldOff} />
+<OnHotkey
+	disabled={Boolean(stateModal.modal) ||
+		stateConfig.jurisdiction.disabledSpacebar ||
+		stateConfig.jurisdiction.disabledTurbo ||
+		stateConfig.jurisdiction.disabledAutoplay}
+	hotkey="Space"
+	onhold={spaceHoldOn}
+	onholdend={spaceHoldOff}
+/>

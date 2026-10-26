@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { stateModal, stateConfig } from 'state-shared';
 	import { onMount, onDestroy } from 'svelte';
 
 	import { getContextEventEmitter } from 'utils-event-emitter';
@@ -7,13 +8,18 @@
 
 	const context = getContextEventEmitter<EmitterEventHotKey>();
 	const PREVENT_DEFAULT_KEYS = ['Space', 'ArrowUp', 'ArrowDown'];
-	const EXCLUDED_TAGS = ['input', 'textarea', 'select'];
+	const EXCLUDED_TAGS = ['input', 'textarea', 'select', 'button', 'a'];
 
 	const getValidElement = (e: KeyboardEvent) =>
-		!EXCLUDED_TAGS.includes(e?.target?.tagName?.toLowerCase());
+		!(
+			e.target instanceof HTMLElement &&
+			(e.target.isContentEditable || EXCLUDED_TAGS.includes(e.target.tagName.toLowerCase()))
+		) &&
+		(!stateModal.modal || e.key === 'Escape') &&
+		!(e.code === 'Space' && stateConfig.jurisdiction.disabledSpacebar);
 
 	function handleKeydown(e: KeyboardEvent) {
-		if (getValidElement(e)) {
+		if (getValidElement(e) && !e.repeat) {
 			const isSpace = e.key === ' ';
 			const key = isSpace ? 'Space' : e.key;
 			if (PREVENT_DEFAULT_KEYS.includes(key)) e.preventDefault();

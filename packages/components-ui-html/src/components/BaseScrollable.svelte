@@ -29,6 +29,12 @@
 		text-align: center;
 		display: flex;
 		gap: 1rem;
+		min-height: 0;
+		flex-shrink: 1;
+
+		> :global(*) {
+			flex-shrink: 0;
+		}
 
 		&.column {
 			flex-direction: column;

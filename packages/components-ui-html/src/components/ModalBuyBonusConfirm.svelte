@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Button, Popup } from 'components-shared';
 	import { zIndex } from 'constants-shared/zIndex';
-	import { stateBet, stateModal, stateUi, INFINITY_MARK } from 'state-shared';
+	import { stateBet, stateModal, stateUi, stateConfig, INFINITY_MARK } from 'state-shared';
 	import { getContextEventEmitter } from 'utils-event-emitter';
 
 	import BaseIcon from './BaseIcon.svelte';
@@ -17,6 +17,7 @@
 	const { eventEmitter } = getContextEventEmitter<EmitterEventModal>();
 
 	const confirm = () => {
+		if (stateConfig.jurisdiction.disabledBuyFeature) return;
 		stateBet.activeBetModeKey = stateBonus.selectedBetModeKey;
 
 		if (stateBonusDerived.selectedBetModeData().type === 'buy') {

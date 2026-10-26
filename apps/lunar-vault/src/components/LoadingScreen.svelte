@@ -9,16 +9,55 @@
 	const props: Props = $props();
 	const context = getContext();
 	let loadingType = $state<'start' | 'transition'>('start');
-	const progress = $derived(Math.max(0, Math.min(1, (context.stateApp.loadingProgress || 0) / 100)));
+	const progress = $derived(
+		Math.max(0, Math.min(1, (context.stateApp.loadingProgress || 0) / 100)),
+	);
 </script>
+
 <FadeContainer show={loadingType === 'start'}>
 	<MainContainer>
-		<Container x={context.stateLayoutDerived.mainLayout().width / 2} y={context.stateLayoutDerived.mainLayout().height / 2}>
+		<Container
+			x={context.stateLayoutDerived.mainLayout().width / 2}
+			y={context.stateLayoutDerived.mainLayout().height / 2}
+		>
+			<Sprite key="lunarOrbitalSeal" anchor={0.5} width={470} height={470} alpha={0.5} />
 			<Sprite key="lunarLogo" anchor={0.5} width={440} height={132} />
+			<Text
+				y={110}
+				anchor={0.5}
+				text="ENTER THE OBSERVATORY"
+				style={{ fontFamily: 'Arial, sans-serif', fontSize: 18, letterSpacing: 4, fill: 0xc2d9ef }}
+			/>
 			{#if !context.stateApp.loaded}
-				<Rectangle x={-175} y={147} width={350} height={12} borderRadius={6} backgroundColor={0x1a2642} borderColor={0x987044} borderWidth={2} />
-				<Rectangle x={-173} y={149} width={346 * progress} height={8} borderRadius={4} backgroundColor={0xeac37d} />
-				<Text y={190} anchor={0.5} text="PREPARING THE OBSERVATORY" style={{ fontFamily: 'Arial, sans-serif', fontSize: 19, fill: 0xf5e0ae, letterSpacing: 2.5 }} />
+				<Rectangle
+					x={-175}
+					y={147}
+					width={350}
+					height={12}
+					borderRadius={6}
+					backgroundColor={0x1a2642}
+					borderColor={0x987044}
+					borderWidth={2}
+				/>
+				<Rectangle
+					x={-173}
+					y={149}
+					width={346 * progress}
+					height={8}
+					borderRadius={4}
+					backgroundColor={0xeac37d}
+				/>
+				<Text
+					y={190}
+					anchor={0.5}
+					text="PREPARING THE OBSERVATORY"
+					style={{
+						fontFamily: 'Arial, sans-serif',
+						fontSize: 19,
+						fill: 0xf5e0ae,
+						letterSpacing: 2.5,
+					}}
+				/>
 			{/if}
 		</Container>
 	</MainContainer>

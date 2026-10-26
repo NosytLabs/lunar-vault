@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Text } from 'pixi-svelte';
 	import { Button, type ButtonProps } from 'components-pixi';
-	import { stateModal, stateBet, stateBetDerived } from 'state-shared';
+	import { stateModal, stateBet, stateBetDerived, stateConfig } from 'state-shared';
 
 	import UiSprite from './UiSprite.svelte';
 	import { UI_BASE_FONT_SIZE, UI_BASE_SIZE } from '../constants';
@@ -11,11 +11,13 @@
 	const props: Partial<Omit<ButtonProps, 'children'>> = $props();
 	const { stateXstateDerived, eventEmitter } = getContext();
 	const sizes = { width: UI_BASE_SIZE, height: UI_BASE_SIZE };
-	const disabled = $derived(!stateXstateDerived.isIdle());
+	const disabled = $derived(
+		!stateXstateDerived.isIdle() || stateConfig.jurisdiction.disabledBuyFeature,
+	);
 	const active = $derived(stateBetDerived.activeBetMode()?.type === 'activate');
 
 	const openModal = () => (stateModal.modal = { name: 'buyBonus' });
-	const disableActiveBetMode = () => (stateBet.activeBetModeKey = 'BASE');
+	const disableActiveBetMode = () => (stateBet.activeBetModeKey = 'base');
 	const onpress = () => {
 		eventEmitter.broadcast({ type: 'soundPressGeneral' });
 
@@ -57,7 +59,7 @@
 			height={sizes.height}
 			{...disabled
 				? {
-						backgroundColor: 0xaaaaaa,
+						backgroundColor: 0x263342,
 					}
 				: {}}
 			{...active
@@ -75,10 +77,10 @@
 			style={{
 				align: 'center',
 				wordWrap: true,
-				wordWrapWidth: 200,
-				fontFamily: 'proxima-nova',
+				wordWrapWidth: 115,
+				fontFamily: 'Arial, sans-serif',
 				fontWeight: '600',
-				fontSize: UI_BASE_FONT_SIZE * 0.9,
+				fontSize: UI_BASE_FONT_SIZE * 0.72,
 				fill: 0xffffff,
 			}}
 		/>

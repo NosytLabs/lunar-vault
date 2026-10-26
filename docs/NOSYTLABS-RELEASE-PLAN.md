@@ -13,7 +13,7 @@
 
 ## UX/animation acceptance
 
-1. Reel strips and settle events are *visual*. The Engine book is authoritative; no front-end random value may alter wins.
+1. Reel strips and settle events are _visual_. The Engine book is authoritative; no front-end random value may alter wins.
 2. Reel acceleration/deceleration, anticipation, symbol landing, winning lines, free-spin transitions and big wins must be deterministic from event playback.
 3. Keep win labels and final amounts visible throughout fast play; offer full mute and respect motion reduction.
 4. Render-test and screenshot 1024×576, 800×450, 400×225, 425×812. No clipped control, overlapping stake label, browser scroll or double-tap zoom.
@@ -27,7 +27,7 @@
 This SDK fork does **not** contain an Engine-certified Lunar Vault math package. Its sample 20-line math and game events must match a newly generated math book before launch. Do not import the standalone 10-line prototype's outcome book into this repo as though it were compatible.
 
 - RTP: **96.0–96.70% per mode**; minimum volatility standard deviation for 1.0× base modes: 0.6
-- One `index.json`, one `lookUpTable_*.csv`, and one `.jsonl.zst` events file per mode.
+- One publish `index.json` listing all modes, with one lookup CSV and one compressed `.jsonl.zst` event-book file per mode.
 - Verify every record, payout, transition and frame against the authoritative math; publish one matched frontend/math pair.
 - Keep all assets local to the Engine-hosted static build.
 - The official Studio tile editor must produce a 3:4 tile and a 16:9 cover.
@@ -38,5 +38,7 @@ This SDK fork does **not** contain an Engine-certified Lunar Vault math package.
 **Only on Stake:** 10% of actual GGR under Profit Share or 7.5% of expected GGR under Guaranteed. Eligible for wider Stake promotion if the game obtains its required ranking.
 
 **Stake + Engine network:** 5% of actual GGR or 3.75% of expected GGR per operator. Operator acceptance is not guaranteed; distribution is fixed once live. This choice is separate from the team-wide payment model.
+
+Rechecked against the official distribution page on 2026-10-26. The review team may change distribution before approval; afterward it is fixed. A network submission can target all or selected operators, and excluding Stake removes the guaranteed Stake launch. No distribution choice, commercial commitment or submission has been made by this repository change.
 
 Sources: [Engine Web SDK](https://github.com/engineio/web-sdk), [publishing approval](https://studio.engine.io/docs/approval-guidelines), [math verification](https://studio.engine.io/docs/approval-guidelines/math-verification), [distribution](https://studio.engine.io/docs/distribution), [payments](https://studio.engine.io/docs/payments), [AI review](https://studio.engine.io/docs/ai-review).

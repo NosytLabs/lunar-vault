@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reducedMotion } from '../game/motion.svelte';
 	import { Sprite } from 'pixi-svelte';
 	import { getContext } from '../game/context';
 	import type { Reel } from '../game/stateGame.svelte';
@@ -7,11 +8,17 @@
 	const props: Props = $props();
 	const context = getContext();
 	let pulse = $state(0.45);
-	const x = $derived(context.stateGameDerived.boardLayout().x -
-		context.stateGameDerived.boardLayout().width / 2 +
-		(props.reel.reelIndex + REEL_PADDING) * SYMBOL_SIZE);
+	const x = $derived(
+		context.stateGameDerived.boardLayout().x -
+			context.stateGameDerived.boardLayout().width / 2 +
+			(props.reel.reelIndex + REEL_PADDING) * SYMBOL_SIZE,
+	);
 	const y = $derived(context.stateGameDerived.boardLayout().y);
 	$effect(() => {
+		if (reducedMotion.current) {
+			pulse = 0.4;
+			return;
+		}
 		let frame = 0;
 		const start = performance.now();
 		const paint = (now: number) => {
@@ -28,5 +35,13 @@
 		return () => window.clearTimeout(timeout);
 	});
 </script>
-<Sprite key="lunarWinAura" anchor={0.5} {x} {y}
-	width={SYMBOL_SIZE * 1.28} height={SYMBOL_SIZE * 3.3} alpha={pulse} />
+
+<Sprite
+	key="lunarWinAura"
+	anchor={0.5}
+	{x}
+	{y}
+	width={SYMBOL_SIZE * 1.28}
+	height={SYMBOL_SIZE * 3.3}
+	alpha={pulse}
+/>

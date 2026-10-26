@@ -32,6 +32,6 @@
 	});
 </script>
 
-<FadeContainer persistent {show} {oncomplete}>
+<FadeContainer persistent {show} {oncomplete} eventMode={show ? 'auto' : 'none'}>
 	{@render props.children()}
 </FadeContainer>

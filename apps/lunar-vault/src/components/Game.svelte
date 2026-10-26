@@ -7,7 +7,7 @@
 	import { App, Sprite } from 'pixi-svelte';
 	import { stateModal } from 'state-shared';
 
-	import { UI, UiGameName } from 'components-ui-pixi';
+	import { UI } from 'components-ui-pixi';
 	import { GameVersion, Modals } from 'components-ui-html';
 
 	import { getContext } from '../game/context';
@@ -25,6 +25,8 @@
 	import FreeSpinCounter from './FreeSpinCounter.svelte';
 	import FreeSpinOutro from './FreeSpinOutro.svelte';
 	import Transition from './Transition.svelte';
+	import ReplayControls from './ReplayControls.svelte';
+	import GameInformation from './GameInformation.svelte';
 
 	const context = getContext();
 
@@ -66,26 +68,31 @@
 		</MainContainer>
 
 		<UI>
-			{#snippet gameName()}
-				<UiGameName name="LUNAR VAULT" />
-			{/snippet}
+			{#snippet gameName()}{/snippet}
 			{#snippet logo()}
-				<Sprite key="lunarLogo" anchor={{ x: 1, y: 0 }} width={214} height={65} />
+				<Sprite
+					key="lunarLogo"
+					visible={context.stateLayoutDerived.canvasSizes().height >= 360}
+					anchor={{ x: 1, y: 0 }}
+					width={context.stateLayoutDerived.canvasSizes().width < 500 ? 116 : 160}
+					height={context.stateLayoutDerived.canvasSizes().width < 500 ? 35 : 48}
+				/>
 			{/snippet}
 		</UI>
 		<Win />
 		<FreeSpinIntro />
-		{#if ['desktop', 'landscape'].includes(context.stateLayoutDerived.layoutType())}
-			<FreeSpinCounter />
-		{/if}
+		<FreeSpinCounter />
 		<FreeSpinOutro />
 		<Transition />
-
 	{/if}
 </App>
 
+<ReplayControls />
+
 <Modals>
+	{#snippet gameRules()}<GameInformation />{/snippet}
+	{#snippet payTable()}<GameInformation paytable />{/snippet}
 	{#snippet version()}
-		<GameVersion version="0.1.0" />
+		<GameVersion version="0.2.0 · Development candidate" />
 	{/snippet}
 </Modals>

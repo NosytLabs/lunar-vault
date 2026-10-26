@@ -59,10 +59,18 @@
 				// 			"minimumRoundDuration": 0
 				// 	}
 				// }
-				stateConfig.jurisdiction = authenticateData?.config?.jurisdiction;
+				stateConfig.jurisdiction = {
+					...stateConfig.jurisdiction,
+					...authenticateData.config.jurisdiction,
+				};
 				stateConfig.betAmountOptions = (authenticateData.config?.betLevels || []).map(
 					(level) => level / API_AMOUNT_MULTIPLIER,
 				);
+				const defaultAmount =
+					(authenticateData.config.defaultBetLevel ?? 0) / API_AMOUNT_MULTIPLIER;
+				const levels = stateConfig.betAmountOptions;
+				stateBet.betAmount = levels.includes(defaultAmount) ? defaultAmount : (levels[0] ?? 0);
+				stateBet.wageredBetAmount = stateBet.betAmount;
 				stateConfig.betMenuOptions = stateConfig.betAmountOptions.filter((_, index) =>
 					MOST_USED_BET_INDEXES.includes(index),
 				);
@@ -70,7 +78,7 @@
 
 			// round
 			if (authenticateData?.round) {
-				// Example of authenticateData.round 
+				// Example of authenticateData.round
 				// {
 				// 	"betID": 62277967,
 				// 	"amount": 1000000,
@@ -82,12 +90,12 @@
 				// 	"event": null
 				// }
 
-				if(authenticateData.round?.state) {
+				if (authenticateData.round?.state) {
 					// @ts-ignore
-					stateBet.betToResume =  authenticateData.round;
+					stateBet.betToResume = authenticateData.round;
 				}
 
-				if(authenticateData.round?.amount) {
+				if (authenticateData.round?.amount) {
 					const betAmountValue =
 						authenticateData.round.amount > 0
 							? authenticateData.round.amount / API_AMOUNT_MULTIPLIER
@@ -98,7 +106,7 @@
 
 				if (authenticateData.round?.mode) {
 					stateBet.activeBetModeKey = authenticateData.round.mode;
-				};
+				}
 			}
 		} catch (error) {
 			console.error(error);
@@ -107,8 +115,9 @@
 	};
 
 	const handleReplay = async () => {
-		stateBet.betAmount = (stateUrlDerived.amount() / API_AMOUNT_MULTIPLIER) || 0;
-		stateBet.wageredBetAmount = (stateUrlDerived.amount() / API_AMOUNT_MULTIPLIER) || 0;
+		stateBet.currency = stateUrlDerived.currency();
+		stateBet.betAmount = stateUrlDerived.amount() / API_AMOUNT_MULTIPLIER || 0;
+		stateBet.wageredBetAmount = stateUrlDerived.amount() / API_AMOUNT_MULTIPLIER || 0;
 		stateBet.activeBetModeKey = stateUrlDerived.mode();
 
 		const data = await requestReplay({
@@ -119,7 +128,7 @@
 			event: stateUrlDerived.event(),
 		});
 
-		if(data) {
+		if (data) {
 			// @ts-ignore
 			stateBet.betToResume = {
 				...data,
@@ -131,13 +140,17 @@
 	};
 
 	onMount(async () => {
-		if(stateUrlDerived.replay()) {
+		if (stateUrlDerived.replay()) {
 			stateUi.config.mode = 'replay';
-			await handleReplay();
+			try {
+				await handleReplay();
+			} catch (error) {
+				stateModal.modal = { name: 'error', error };
+			}
 		} else {
 			stateUi.config.mode = 'default';
 			await authenticate();
-		};
+		}
 
 		authenticated = true;
 	});

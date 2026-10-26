@@ -1,3 +1,4 @@
+// SDK sample data, NOT certified Lunar Vault math. Do not change RTP to imply approval.
 export default {
 	providerName: 'nosytlabs',
 	gameName: 'lunar_vault',

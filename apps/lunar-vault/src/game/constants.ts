@@ -162,29 +162,128 @@ export const zIndexes = {
 };
 
 const explosion = {
-	type: 'spine',
-	assetKey: 'explosion',
-	animationName: 'explosion',
-	sizeRatios: { width: 1, height: 1 },
+	type: 'sprite' as const,
+	assetKey: 'lunarStarFlare',
+	sizeRatios: { width: 1.1, height: 1.1 },
 };
 
 // Original art in all normal reel states; keep the book/board event contract unchanged.
-const icon = (assetKey: 'lunarH1' | 'lunarH2' | 'lunarH3' | 'lunarH4' | 'lunarH5' | 'lunarL1' | 'lunarL2' | 'lunarL3' | 'lunarL4' | 'lunarL5' | 'lunarW' | 'lunarS') => ({
-	type: 'sprite' as const, assetKey, sizeRatios: { width: 0.96, height: 0.96 },
+const icon = (
+	assetKey:
+		| 'lunarH1'
+		| 'lunarH2'
+		| 'lunarH3'
+		| 'lunarH4'
+		| 'lunarH5'
+		| 'lunarL1'
+		| 'lunarL2'
+		| 'lunarL3'
+		| 'lunarL4'
+		| 'lunarL5'
+		| 'lunarW'
+		| 'lunarS',
+) => ({
+	type: 'sprite' as const,
+	assetKey,
+	sizeRatios: { width: 0.96, height: 0.96 },
 });
 export const SYMBOL_INFO_MAP = {
-	H1: { explosion, static: icon('lunarH1'), spin: icon('lunarH1'), land: icon('lunarH1'), win: icon('lunarH1'), postWinStatic: icon('lunarH1') },
-	H2: { explosion, static: icon('lunarH2'), spin: icon('lunarH2'), land: icon('lunarH2'), win: icon('lunarH2'), postWinStatic: icon('lunarH2') },
-	H3: { explosion, static: icon('lunarH3'), spin: icon('lunarH3'), land: icon('lunarH3'), win: icon('lunarH3'), postWinStatic: icon('lunarH3') },
-	H4: { explosion, static: icon('lunarH4'), spin: icon('lunarH4'), land: icon('lunarH4'), win: icon('lunarH4'), postWinStatic: icon('lunarH4') },
-	H5: { explosion, static: icon('lunarH5'), spin: icon('lunarH5'), land: icon('lunarH5'), win: icon('lunarH5'), postWinStatic: icon('lunarH5') },
-	L1: { explosion, static: icon('lunarL1'), spin: icon('lunarL1'), land: icon('lunarL1'), win: icon('lunarL1'), postWinStatic: icon('lunarL1') },
-	L2: { explosion, static: icon('lunarL2'), spin: icon('lunarL2'), land: icon('lunarL2'), win: icon('lunarL2'), postWinStatic: icon('lunarL2') },
-	L3: { explosion, static: icon('lunarL3'), spin: icon('lunarL3'), land: icon('lunarL3'), win: icon('lunarL3'), postWinStatic: icon('lunarL3') },
-	L4: { explosion, static: icon('lunarL4'), spin: icon('lunarL4'), land: icon('lunarL4'), win: icon('lunarL4'), postWinStatic: icon('lunarL4') },
-	L5: { explosion, static: icon('lunarL5'), spin: icon('lunarL5'), land: icon('lunarL5'), win: icon('lunarL5'), postWinStatic: icon('lunarL5') },
-	W: { explosion, static: icon('lunarW'), spin: icon('lunarW'), land: icon('lunarW'), win: icon('lunarW'), postWinStatic: icon('lunarW') },
-	S: { explosion, static: icon('lunarS'), spin: icon('lunarS'), land: icon('lunarS'), win: icon('lunarS'), postWinStatic: icon('lunarS') },
+	H1: {
+		explosion,
+		static: icon('lunarH1'),
+		spin: icon('lunarH1'),
+		land: icon('lunarH1'),
+		win: icon('lunarH1'),
+		postWinStatic: icon('lunarH1'),
+	},
+	H2: {
+		explosion,
+		static: icon('lunarH2'),
+		spin: icon('lunarH2'),
+		land: icon('lunarH2'),
+		win: icon('lunarH2'),
+		postWinStatic: icon('lunarH2'),
+	},
+	H3: {
+		explosion,
+		static: icon('lunarH3'),
+		spin: icon('lunarH3'),
+		land: icon('lunarH3'),
+		win: icon('lunarH3'),
+		postWinStatic: icon('lunarH3'),
+	},
+	H4: {
+		explosion,
+		static: icon('lunarH4'),
+		spin: icon('lunarH4'),
+		land: icon('lunarH4'),
+		win: icon('lunarH4'),
+		postWinStatic: icon('lunarH4'),
+	},
+	H5: {
+		explosion,
+		static: icon('lunarH5'),
+		spin: icon('lunarH5'),
+		land: icon('lunarH5'),
+		win: icon('lunarH5'),
+		postWinStatic: icon('lunarH5'),
+	},
+	L1: {
+		explosion,
+		static: icon('lunarL1'),
+		spin: icon('lunarL1'),
+		land: icon('lunarL1'),
+		win: icon('lunarL1'),
+		postWinStatic: icon('lunarL1'),
+	},
+	L2: {
+		explosion,
+		static: icon('lunarL2'),
+		spin: icon('lunarL2'),
+		land: icon('lunarL2'),
+		win: icon('lunarL2'),
+		postWinStatic: icon('lunarL2'),
+	},
+	L3: {
+		explosion,
+		static: icon('lunarL3'),
+		spin: icon('lunarL3'),
+		land: icon('lunarL3'),
+		win: icon('lunarL3'),
+		postWinStatic: icon('lunarL3'),
+	},
+	L4: {
+		explosion,
+		static: icon('lunarL4'),
+		spin: icon('lunarL4'),
+		land: icon('lunarL4'),
+		win: icon('lunarL4'),
+		postWinStatic: icon('lunarL4'),
+	},
+	L5: {
+		explosion,
+		static: icon('lunarL5'),
+		spin: icon('lunarL5'),
+		land: icon('lunarL5'),
+		win: icon('lunarL5'),
+		postWinStatic: icon('lunarL5'),
+	},
+	W: {
+		explosion,
+		static: icon('lunarW'),
+		spin: icon('lunarW'),
+		land: icon('lunarW'),
+		win: icon('lunarW'),
+		postWinStatic: icon('lunarW'),
+	},
+	S: {
+		explosion,
+		static: icon('lunarS'),
+		spin: icon('lunarS'),
+		land: icon('lunarS'),
+		win: icon('lunarS'),
+		postWinStatic: icon('lunarS'),
+	},
 } as const;
 
 export const SCATTER_LAND_SOUND_MAP = {

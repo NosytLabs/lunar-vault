@@ -1,5 +1,3 @@
-import WebFont from 'webfontloader';
-
 import type { PixiPoint, Sizes } from './types';
 
 export const REM = 16;
@@ -58,26 +56,11 @@ export function detectWebGL() {
 	return -1;
 }
 
-export const preloadFont = () =>
-	new Promise<void>((resolve) => {
-		try {
-			WebFont.load({
-				typekit: {
-					id: 'aba0ebl',
-				},
-				active: () => {
-					resolve();
-				},
-				inactive: () => {
-					console.error('Web font load inactive');
-					resolve();
-				},
-			});
-		} catch (error) {
-			console.error(error);
-			resolve();
-		}
-	});
+// Use bundled/system fonts. The SDK sample's Typekit loader made remote requests
+// even after the stylesheet was removed from the app shell.
+export const preloadFont = async () => {
+	await document.fonts.ready;
+};
 
 export function propsSyncEffect<TProps extends object, TTarget>({
 	props,

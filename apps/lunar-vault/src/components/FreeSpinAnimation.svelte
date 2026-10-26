@@ -7,11 +7,24 @@
 	type Props = { children: Snippet<[{ sizes: Sizes }]> };
 	const props: Props = $props();
 	const context = getContext();
-	const sizes = { width: SYMBOL_SIZE * BOARD_DIMENSIONS.x, height: SYMBOL_SIZE * BOARD_DIMENSIONS.x };
+	const sizes = {
+		width: SYMBOL_SIZE * BOARD_DIMENSIONS.x,
+		height: SYMBOL_SIZE * BOARD_DIMENSIONS.x,
+	};
 </script>
+
 <MainContainer>
-	<Container x={context.stateGameDerived.boardLayout().x} y={context.stateGameDerived.boardLayout().y}>
-		<Sprite key="lunarWinAura" anchor={0.5} width={sizes.width * 1.35} height={sizes.height * 1.35} alpha={0.9} />
+	<Container
+		x={context.stateGameDerived.boardLayout().x}
+		y={context.stateGameDerived.boardLayout().y}
+	>
+		<Sprite
+			key="lunarOrbitalSeal"
+			anchor={0.5}
+			width={sizes.width * 1.35}
+			height={sizes.height * 1.35}
+			alpha={0.9}
+		/>
 		{@render props.children({ sizes })}
 	</Container>
 </MainContainer>

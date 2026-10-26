@@ -5,13 +5,15 @@
 		| { type: 'freeSpinOutroHide' }
 		| { type: 'freeSpinOutroCountUp'; amount: number; winLevelData: WinLevelData };
 </script>
+
 <script lang="ts">
 	import { Text } from 'pixi-svelte';
-	import { FadeContainer, WinCountUpProvider, ResponsiveBitmapText } from 'components-pixi';
+	import { FadeContainer, WinCountUpProvider } from 'components-pixi';
 	import { bookEventAmountToCurrencyString } from 'utils-shared/amount';
 	import { waitForResolve } from 'utils-shared/wait';
 	import { CanvasSizeRectangle } from 'components-layout';
 	import { OnMount } from 'components-shared';
+	import { ResponsiveText } from 'components-pixi';
 	import { getContext } from '../game/context';
 	import FreeSpinAnimation from './FreeSpinAnimation.svelte';
 	import PressToContinue from './PressToContinue.svelte';
@@ -27,10 +29,11 @@
 		freeSpinOutroCountUp: async (event) => {
 			amount = event.amount;
 			winLevelData = event.winLevelData;
-			await waitForResolve(resolve => (oncomplete = resolve));
+			await waitForResolve((resolve) => (oncomplete = resolve));
 		},
 	});
 </script>
+
 <FadeContainer {show}>
 	{#if winLevelData}
 		<WinCountUpProvider {amount} duration={winLevelData.presentDuration}>
@@ -39,9 +42,41 @@
 				<CanvasSizeRectangle backgroundColor={0x02091c} backgroundAlpha={0.76} />
 				<FreeSpinAnimation>
 					{#snippet children({ sizes })}
-						<Text anchor={0.5} y={-sizes.height * 0.26} text="ECLIPSE CHAMBER" style={{ fontFamily: 'Georgia, serif', fontSize: 43, fontWeight: 'bold', fill: 0xf8e2b2, letterSpacing: 3 }} />
-						<ResponsiveBitmapText anchor={0.5} text={bookEventAmountToCurrencyString(countUpAmount)} maxWidth={sizes.width * 0.92} style={{ fontFamily: 'gold', fontSize: sizes.width * 0.12, fontWeight: 'bold' }} />
-						<Text anchor={0.5} y={sizes.height * 0.23} text="TOTAL WIN" style={{ fontFamily: 'Georgia, serif', fontSize: 44, fontWeight: 'bold', fill: 0xf7d49a, letterSpacing: 4 }} />
+						<Text
+							anchor={0.5}
+							y={-sizes.height * 0.26}
+							text="ECLIPSE CHAMBER"
+							style={{
+								fontFamily: 'Georgia, serif',
+								fontSize: 43,
+								fontWeight: 'bold',
+								fill: 0xf8e2b2,
+								letterSpacing: 3,
+							}}
+						/>
+						<ResponsiveText
+							anchor={0.5}
+							text={bookEventAmountToCurrencyString(countUpAmount)}
+							maxWidth={sizes.width * 0.92}
+							style={{
+								fontFamily: 'Georgia, serif',
+								fill: 0xffe6ae,
+								fontSize: sizes.width * 0.12,
+								fontWeight: 'bold',
+							}}
+						/>
+						<Text
+							anchor={0.5}
+							y={sizes.height * 0.23}
+							text="TOTAL WIN"
+							style={{
+								fontFamily: 'Georgia, serif',
+								fontSize: 44,
+								fontWeight: 'bold',
+								fill: 0xf7d49a,
+								letterSpacing: 4,
+							}}
+						/>
 					{/snippet}
 				</FreeSpinAnimation>
 				<WinCoins emit={!countUpCompleted} levelAlias={winLevelData.alias} />

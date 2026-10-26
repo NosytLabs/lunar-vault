@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Container, Text, type BitmapTextProps } from 'pixi-svelte';
+	import { Container, Text, type TextProps } from 'pixi-svelte';
 
-	type Props = Omit<BitmapTextProps, 'scale' | 'onresize'> & { maxWidth: number };
+	type Props = Omit<TextProps, 'scale' | 'onresize'> & { maxWidth: number };
 
 	const { maxWidth, ...textProps }: Props = $props();
 	let baseSizes = $state({ width: 0, height: 0 });

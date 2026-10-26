@@ -20,7 +20,7 @@
 	.button {
 		width: 100%;
 		position: relative;
-		font-family: 'proxima-nova', sans-serif;
+		font-family: 'Arial', sans-serif;
 		cursor: pointer;
 		display: inline-flex;
 		justify-content: center;

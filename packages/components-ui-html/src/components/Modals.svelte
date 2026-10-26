@@ -13,6 +13,8 @@
 
 	type Props = {
 		version: Snippet;
+		gameRules?: Snippet;
+		payTable?: Snippet;
 	};
 
 	const props: Props = $props();
@@ -25,9 +27,11 @@
 <ModalAutoSpin />
 <ModalAutoSpinMessage />
 <ModalPayTable>
+	{@render props.payTable?.()}
 	{@render props.version()}
 </ModalPayTable>
 <ModalGameRules>
+	{@render props.gameRules?.()}
 	{@render props.version()}
 </ModalGameRules>
 <ModalSettings />
@@ -36,7 +40,7 @@
 	:global(html) {
 		font-size: 16px; /* you can chose any size here 16 is default */
 		@media screen and (max-width: 500px) {
-			font-size: 50%;
+			font-size: 14px;
 		}
 	}
 </style>

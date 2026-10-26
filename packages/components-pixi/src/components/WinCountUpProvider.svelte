@@ -7,7 +7,7 @@
 	type Props = {
 		amount: number;
 		duration: number;
-		oncomplete: () => void;
+		oncomplete?: () => void;
 		children: Snippet<
 			[
 				{
@@ -33,7 +33,7 @@
 		await interruptible.add(countUp);
 		resetCountUp();
 		countUpCompleted = true;
-		props.oncomplete();
+		props.oncomplete?.();
 		interruptible.clear();
 	};
 </script>

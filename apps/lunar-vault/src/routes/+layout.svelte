@@ -9,6 +9,7 @@
 	const props: Props = $props();
 	setContext();
 </script>
+
 <!-- The Engine-branded sample loader is forbidden in new submissions. -->
 <GlobalStyle>
 	<Authenticate>
@@ -18,3 +19,17 @@
 	</Authenticate>
 </GlobalStyle>
 {@render props.children()}
+
+<style>
+	:global(html),
+	:global(body) {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		overscroll-behavior: none;
+	}
+	:global(canvas) {
+		display: block;
+		touch-action: manipulation;
+	}
+</style>

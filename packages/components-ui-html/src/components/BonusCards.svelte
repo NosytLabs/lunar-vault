@@ -22,6 +22,9 @@
 	{#if betModeData.type !== 'default'}
 		<BonusCard>
 			{#snippet title()}
+				{#if betModeData.assets.icon}
+					<img class="feature-icon" src={betModeData.assets.icon} alt="" />
+				{/if}
 				<div class="title">
 					{betModeData.text.title}
 				</div>
@@ -51,7 +54,7 @@
 					disabled={stateBet.betAmount <= 0 ||
 						stateBet.balanceAmount < stateBet.betAmount * betModeData.costMultiplier}
 				>
-					<BaseIcon width="100%" height="2rem" border="2px solid white;" />
+					<BaseIcon width="100%" height="44px" border="1px solid #dfbf82;" />
 					<BaseButtonContent>
 						<span style="font-size: 1rem;">{betModeData.text.button}</span>
 					</BaseButtonContent>
@@ -62,16 +65,23 @@
 {/each}
 
 <style lang="scss">
+	.feature-icon {
+		width: 92px;
+		height: 92px;
+		align-self: center;
+	}
 	.title {
-		font-size: 1rem;
-		line-height: 1rem;
+		font:
+			bold 22px/1.2 Georgia,
+			serif;
+		color: #f6dca9;
 		text-align: center;
 	}
 
 	.description {
-		font-size: 0.75rem;
+		font-size: 14px;
+		line-height: 1.5;
 		text-align: center;
-		min-height: 4rem;
 		white-space: pre-line;
 		display: inline-flex;
 		align-items: center;
@@ -82,8 +92,8 @@
 	}
 
 	.price {
-		font-size: 1rem;
-		line-height: 1rem;
+		font-size: 22px;
+		line-height: 1.4;
 		text-align: center;
 		white-space: nowrap;
 	}

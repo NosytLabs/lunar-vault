@@ -90,7 +90,7 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 		stateUi.freeSpinCounterShow = true;
 		eventEmitter.broadcast({
 			type: 'freeSpinCounterUpdate',
-			current: undefined,
+			current: 0,
 			total: bookEvent.totalFs,
 		});
 		stateUi.freeSpinCounterTotal = bookEvent.totalFs;

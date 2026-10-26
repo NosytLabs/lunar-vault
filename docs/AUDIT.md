@@ -1,3 +1,5 @@
+> Historical audit of the initial fork. Current implementation and verification limits are in [ART-AND-ENGINE-STATUS.md](ART-AND-ENGINE-STATUS.md). Sample art and several UI issues described below have since been replaced; math/Engine approval remain outstanding.
+
 # Lunar Vault — audit notes (2026-10-26)
 
 ## What existed
@@ -73,10 +75,10 @@ stored turned -90° in the sheet).
    background, win/feature Spine animations and the whole audio pack are
    still SDK sample material (placeholders) and must be replaced with
    final Lunar Vault art and audio before a review submission.
-4. **Game tiles**: submission also requires lobby artwork built in
+3. **Game tiles**: submission also requires lobby artwork built in
    Studio's Media Editor — a 3:4 portrait tile (408x546) set as cover
    plus a 16:9 cover-art version (640x360) of the same artwork.
-3. **Review rules** (Engine docs, Oct 2026): RTP per bet mode must be
+4. **Review rules** (Engine docs, Oct 2026): RTP per bet mode must be
    96.0–96.70%, ≤10M outcomes per mode, $0.01 bet levels included, and
    every round must be replayable. These are math/config certifications,
    not frontend changes — the frontend `config.ts` RTP (0.97, inherited

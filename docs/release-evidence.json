@@ -1,0 +1,29 @@
+{
+	"schemaVersion": 1,
+	"checks": {
+		"matchedMath": {
+			"status": "missing"
+		},
+		"engineStaging": {
+			"status": "missing"
+		},
+		"activeRoundRecovery": {
+			"status": "missing"
+		},
+		"replay": {
+			"status": "missing"
+		},
+		"jurisdiction": {
+			"status": "missing"
+		},
+		"assetRights": {
+			"status": "missing"
+		},
+		"studioMedia": {
+			"status": "missing"
+		},
+		"engineApproval": {
+			"status": "missing"
+		}
+	}
+}

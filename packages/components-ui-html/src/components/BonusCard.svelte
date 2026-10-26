@@ -22,17 +22,19 @@
 
 <style lang="scss">
 	.bonus-card-wrap {
-		padding: 0.5rem;
+		padding: 20px;
 		flex-direction: column;
 		display: flex;
 		justify-content: space-between;
 
-		border-radius: 10px;
-		background: rgba(0, 0, 0, 0.5);
+		border-radius: 18px;
+		border: 1px solid #bd995d;
+		background: linear-gradient(145deg, #142b44, #071321);
 		text-align: left;
-		min-width: 155px;
-		max-width: 180px;
-		gap: 0.5rem;
+		box-sizing: border-box;
+		width: min(340px, calc(100vw - 48px));
+		min-width: 0;
+		gap: 18px;
 	}
 
 	.info {

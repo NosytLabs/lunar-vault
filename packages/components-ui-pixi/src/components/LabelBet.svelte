@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Container } from 'pixi-svelte';
-	import { stateBetDerived, stateModal } from 'state-shared';
+	import { stateBetDerived, stateModal, stateUi } from 'state-shared';
 	import { numberToCurrencyString } from 'utils-shared/amount';
 
 	import UiLabel from './UiLabel.svelte';
@@ -14,7 +14,14 @@
 	const props: Props = $props();
 	const context = getContext();
 	const label = $derived(stateBetDerived.activeBetMode()?.text.betAmountLabel || i18nDerived.bet());
-	const value = $derived(numberToCurrencyString(stateBetDerived.betCost()));
+	const value = $derived(
+		numberToCurrencyString(
+			stateBetDerived.betCost() *
+				(stateUi.config.mode === 'replay' && stateBetDerived.activeBetMode()?.type === 'buy'
+					? stateBetDerived.activeBetMode().costMultiplier
+					: 1),
+		),
+	);
 	const disabled = $derived(!context.stateXstateDerived.isIdle());
 
 	const onpress = () => {

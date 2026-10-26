@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { getContextLayout } from 'utils-layout';
 	import { Text } from 'pixi-svelte';
 	import { WHITE } from 'constants-shared/colors';
 
@@ -13,18 +14,22 @@
 	};
 
 	const props: Props = $props();
+	const layout = getContextLayout();
+	const compact = $derived(
+		layout.stateLayoutDerived.canvasSizes().width < 600 && !layout.stateLayoutDerived.isStacked(),
+	);
 
-	const labelStyle = {
-		fontFamily: 'proxima-nova',
-		fontSize: UI_BASE_FONT_SIZE,
-		fill: WHITE,
-	} as const;
+	const labelStyle = $derived({
+		fontFamily: 'Arial, sans-serif',
+		fontSize: UI_BASE_FONT_SIZE * (compact ? 1.1 : 0.6),
+		fill: 0xc3b18d,
+	} as const);
 
-	const valueStyle = {
-		fontFamily: 'proxima-nova',
-		fontSize: UI_BASE_FONT_SIZE,
+	const valueStyle = $derived({
+		fontFamily: 'Arial, sans-serif',
+		fontSize: UI_BASE_FONT_SIZE * (compact ? 1.3 : 1),
 		fill: WHITE,
-	} as const;
+	} as const);
 </script>
 
 {#if props.stacked}
@@ -35,11 +40,16 @@
 			key="base_ticker"
 			width={UI_BASE_FONT_SIZE * 3 * (326 / 73)}
 			height={UI_BASE_FONT_SIZE * 3}
-			borderRadius={35}
+			borderRadius={20}
 		/>
 	{/if}
 	<Text anchor={{ x: 0.5, y: 0 }} text={props.label} style={labelStyle} />
-	<Text anchor={{ x: 0.5, y: 0 }} text={props.value} style={valueStyle} y={UI_BASE_FONT_SIZE} />
+	<Text
+		anchor={{ x: 0.5, y: 0 }}
+		text={props.value}
+		style={valueStyle}
+		y={UI_BASE_FONT_SIZE * (compact ? 1.15 : 1)}
+	/>
 {:else}
 	{#if props.tiled}
 		<UiSprite
@@ -48,7 +58,7 @@
 			key="base_ticker"
 			width={UI_BASE_FONT_SIZE * 3 * (326 / 73)}
 			height={UI_BASE_FONT_SIZE * 3}
-			borderRadius={35}
+			borderRadius={20}
 		/>
 	{/if}
 	<Text anchor={{ x: 0, y: 0.5 }} text={props.label} style={labelStyle} />

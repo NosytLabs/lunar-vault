@@ -20,7 +20,9 @@
 		justify-content: center;
 		align-items: center;
 		z-index: var(--zIndex);
-		max-width: var(--maxWidth);
+		max-width: min(var(--maxWidth), calc(100vw - 24px));
+		max-height: calc(100dvh - 64px);
+		min-height: 0;
 		gap: 1rem;
 	}
 </style>

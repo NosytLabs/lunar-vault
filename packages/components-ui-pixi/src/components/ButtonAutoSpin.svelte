@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Container } from 'pixi-svelte';
 	import type { ButtonProps } from 'components-pixi';
-	import { stateBet, stateBetDerived, stateModal } from 'state-shared';
+	import { stateBet, stateBetDerived, stateModal, stateConfig } from 'state-shared';
 
 	import UiButton from './UiButton.svelte';
 	import { getContext } from '../context';
@@ -13,7 +13,7 @@
 	const sizes = { width: UI_BASE_SIZE, height: UI_BASE_SIZE };
 	const active = $derived(stateBetDerived.hasAutoBetCounter());
 	const disabled = $derived.by(() => {
-		if (stateBet.isSpaceHold) return true;
+		if (stateBet.isSpaceHold || stateConfig.jurisdiction.disabledAutoplay) return true;
 		if (!context.stateXstateDerived.isIdle() && !stateBetDerived.hasAutoBetCounter()) return true;
 		if (!stateBetDerived.isBetCostAvailable()) return true;
 		return false;

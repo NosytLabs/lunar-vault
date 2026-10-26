@@ -1,29 +1,54 @@
 import fs from 'node:fs';
 import path from 'node:path';
-const root = path.resolve(import.meta.dirname,'..');
-const problems=[];
-const app=path.join(root,'apps/lunar-vault');
-const config=fs.readFileSync(path.join(app,'src/game/config.ts'),'utf8');
-if(/\brtp:\s*0\.97\b/.test(config)) problems.push('SDK sample RTP 97.0% is outside Engine 96.0%–96.70%; replace ONLY after verifying certified math.');
-if(!fs.existsSync(path.join(root,'math','publish_files','index.json'))) problems.push('No certified Engine math publish_files/index.json; source demo math is not compatible with Web SDK event types.');
-const game=fs.readFileSync(path.join(app,'src/components/Game.svelte'),'utf8');
-const manifest=JSON.parse(fs.readFileSync(path.join(app,'static/assets/audio/sounds.json'),'utf8'));
-if(manifest.src?.length !== 1 || !manifest.src[0].includes('nosyt-sprite.wav')) {
- problems.push('Original audio manifest is not active.');
+const root = path.resolve(import.meta.dirname, '..');
+const app = path.join(root, 'apps/lunar-vault');
+const problems = [];
+const config = fs.readFileSync(path.join(app, 'src/game/config.ts'), 'utf8');
+const rates = [...config.matchAll(/\brtp:\s*([\d.]+)/g)].map((m) => Number(m[1]));
+if (!rates.length || rates.some((rate) => rate < 0.96 || rate > 0.967))
+	problems.push(
+		'Sample RTP metadata is outside 96.0–96.7%. Editing the number cannot validate or certify math.',
+	);
+if (!fs.existsSync(path.join(root, 'math/publish_files/index.json')))
+	problems.push(
+		'No matching Engine math publish index. File presence alone would NOT establish certification.',
+	);
+const assets = fs.readFileSync(path.join(app, 'src/game/assets.ts'), 'utf8');
+if (/assets\/(spines|sprites|fonts)\//.test(assets))
+	problems.push('Inherited sample media is still registered.');
+const audio = JSON.parse(
+	fs.readFileSync(path.join(app, 'static/assets/audio/sounds.json'), 'utf8'),
+);
+if (audio.src?.length !== 1 || audio.src[0] !== './assets/audio/nosyt-sprite.wav')
+	problems.push('Original sound sprite is not configured.');
+// Human-reviewed evidence records, not self-issued certificates. Local tests cannot clear them.
+const evidence = JSON.parse(fs.readFileSync(path.join(root, 'docs/release-evidence.json'), 'utf8'));
+for (const key of [
+	'matchedMath',
+	'engineStaging',
+	'activeRoundRecovery',
+	'replay',
+	'jurisdiction',
+	'assetRights',
+	'studioMedia',
+	'engineApproval',
+]) {
+	const item = evidence.checks[key];
+	if (
+		item?.status !== 'verified' ||
+		!item.report ||
+		!item.reviewer ||
+		!/^[a-f0-9]{64}$/.test(item.frontendSha256 ?? '') ||
+		!/^[a-f0-9]{64}$/.test(item.mathSha256 ?? '')
+	) {
+		problems.push(`Missing independent, version-bound evidence: ${key}.`);
+	}
 }
-if(!fs.existsSync(path.join(root,'tools/generate-audio.py'))) {
- problems.push('Original audio generator is missing.');
-}
-for (const oldFile of ['sounds.ogg','sounds.mp3','sounds.m4a','sounds.ac3']) {
- if (fs.existsSync(path.join(app,'static/assets/audio',oldFile))) {
-  problems.push('Sample audio binary still bundled: '+oldFile);
- }
-}
-for(const p of ['WinCoins.svelte','SymbolSpine.svelte']){
-  const t=fs.readFileSync(path.join(app,'src/components',p),'utf8');
-  if(t.includes('SpineProvider')||t.includes("key=\"coins\"")) problems.push('Sample visual effects still referenced by '+p);
-}
-if(game.includes('I18nTest'))problems.push('SDK I18nTest remains mounted in game production path; validate or remove for release.');
-console.log('Lunar Vault pre-submission gate: '+(problems.length?'BLOCKED':'NO AUTOMATED BLOCKERS'));
-for(const p of problems)console.log(' - '+p);
-if(problems.length)process.exitCode=1;
+console.log(
+	`Lunar Vault submission evidence: ${problems.length ? 'BLOCKED' : 'RECORDS PRESENT — verify with Engine'}`,
+);
+for (const problem of problems) console.log(` - ${problem}`);
+console.log(
+	'This check does not certify math, establish legal compliance, grant approval, or authorize deployment.',
+);
+if (problems.length) process.exitCode = 1;

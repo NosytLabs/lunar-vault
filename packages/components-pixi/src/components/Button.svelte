@@ -68,13 +68,15 @@
 	onpointerout={() => {
 		if (disabled) return;
 		hovered = false;
+		pressed = false;
 	}}
 	onpointerdown={() => {
 		if (disabled) return;
 		pressed = true;
 	}}
+	onpointerupoutside={() => (pressed = false)}
 	onpointerup={() => {
-		if (disabled) return;
+		if (disabled || !pressed) return;
 		pressed = false;
 		onpress();
 	}}

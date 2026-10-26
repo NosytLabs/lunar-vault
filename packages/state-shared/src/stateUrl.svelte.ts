@@ -12,14 +12,13 @@ export type Key =
 	| 'device'
 	| 'social'
 	| 'demo'
-	// keys for replay 
+	// keys for replay
 	| 'replay'
 	| 'amount'
 	| 'game'
 	| 'mode'
 	| 'version'
-	| 'event'
-	;
+	| 'event';
 
 const getUrlSearchParam = (key: Key) => page.url.searchParams.get(key) as string;
 
@@ -46,6 +45,7 @@ export const stateUrlDerived = {
 	social,
 	// states for replay
 	replay,
+	currency: () => getUrlSearchParam('currency') || 'USD',
 	amount,
 	game,
 	mode,

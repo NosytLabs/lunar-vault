@@ -5,7 +5,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
-	import { stateBet, stateBetDerived } from 'state-shared';
+	import { stateBet, stateBetDerived, stateConfig, stateModal } from 'state-shared';
 
 	import { getContext } from '../context';
 
@@ -26,18 +26,20 @@
 	let stopDisabled = $state(false);
 
 	const bet = () => {
-		if (stateBetDerived.activeBetMode()?.type === 'buy') stateBet.activeBetModeKey = 'BASE';
+		if (stateBetDerived.activeBetMode()?.type === 'buy') stateBet.activeBetModeKey = 'base';
 		context.eventEmitter.broadcast({ type: 'bet' });
 	};
 
 	const stop = () => {
-		if (!stopDisabled) {
-			if (stateBetDerived.hasAutoBetCounter()) stateBet.autoSpinsCounter = 0;
+		// Cancelling future automatic rounds must remain available when slam-stop is forbidden.
+		if (stateBetDerived.hasAutoBetCounter()) stateBet.autoSpinsCounter = 0;
+		if (!stopDisabled && !stateConfig.jurisdiction.disabledSlamstop) {
 			context.eventEmitter.broadcast({ type: 'stopButtonClick' });
 		}
 	};
 
 	const onpress = () => {
+		if (stateModal.modal) return;
 		context.eventEmitter.broadcast({ type: 'soundPressBet' });
 
 		if (context.stateXstateDerived.isIdle()) {
@@ -54,8 +56,8 @@
 		}
 
 		if (!context.stateXstateDerived.isIdle()) {
-			if (stopDisabled) return 'stop_disabled';
 			if (stateBetDerived.hasAutoBetCounter()) return 'stop_default';
+			if (stopDisabled || stateConfig.jurisdiction.disabledSlamstop) return 'stop_disabled';
 			if (stateBet.isTurbo) return 'stop_disabled';
 			return 'stop_default';
 		}

@@ -32,16 +32,22 @@
 			anchor={0.5}
 			width={buttonProps.sizes.width}
 			height={buttonProps.sizes.height}
-			backgroundColor={variant === 'dark' ? 0x000000 : 0xffffff}
+			backgroundColor={variant === 'dark'
+				? pressed
+					? 0x294863
+					: hovered
+						? 0x1b344b
+						: 0x0c1c30
+				: 0xe6d5b4}
 			{...buttonProps.disabled
 				? {
-						backgroundColor: 0xaaaaaa,
+						backgroundColor: 0x263342,
 					}
 				: {}}
 			{...active
 				? {
-						borderWidth: 10,
-						borderColor: variant === 'dark' ? 0xffffff : 0x000000,
+						borderWidth: 5,
+						borderColor: variant === 'dark' ? 0xf5e5c4 : 0x0c1c30,
 					}
 				: {}}
 		/>
@@ -53,11 +59,11 @@
 			style={{
 				align: 'center',
 				wordWrap: true,
-				wordWrapWidth: 200,
-				fontFamily: 'proxima-nova',
+				wordWrapWidth: 115,
+				fontFamily: 'Arial, sans-serif',
 				fontWeight: '600',
-				fontSize: UI_BASE_FONT_SIZE * 0.9,
-				fill: variant === 'dark' ? 0xffffff : 0x000000,
+				fontSize: UI_BASE_FONT_SIZE * 0.72,
+				fill: variant === 'dark' ? 0xf5e5c4 : 0x0c1c30,
 			}}
 		/>
 

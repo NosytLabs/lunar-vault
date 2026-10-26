@@ -54,7 +54,7 @@ export const createLayout = (layoutOptions: {
 			return 'landscape' as const;
 		return 'desktop' as const;
 	};
-	const isStacked = () => ['portrait', 'almostSquare'].includes(layoutType());
+	const isStacked = () => ['portrait', 'tablet'].includes(layoutType());
 
 	const createMainLayout = (mainSizesMap: MainSizesMap) => () => {
 		const x = canvasSizes().width * 0.5;
