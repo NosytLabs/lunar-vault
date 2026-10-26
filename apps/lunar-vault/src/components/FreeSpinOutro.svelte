@@ -8,36 +8,28 @@
 </script>
 
 <script lang="ts">
-	import { Sprite, SpineProvider, SpineTrack, SpineSlot } from 'pixi-svelte';
-	import { FadeContainer, WinCountUpProvider, ResponsiveBitmapText } from 'components-pixi';
+	import { Text } from 'pixi-svelte';
+	import { FadeContainer, WinCountUpProvider } from 'components-pixi';
 	import { bookEventAmountToCurrencyString } from 'utils-shared/amount';
 	import { waitForResolve } from 'utils-shared/wait';
 	import { CanvasSizeRectangle } from 'components-layout';
 	import { OnMount } from 'components-shared';
-	import { stateUrlDerived } from 'state-shared';
-
 	import { getContext } from '../game/context';
 	import FreeSpinAnimation from './FreeSpinAnimation.svelte';
 	import PressToContinue from './PressToContinue.svelte';
-	import WinCoins from './WinCoins.svelte';
-
-	type AnimationName = 'intro' | 'idle';
 
 	const context = getContext();
-
-	let show = $state(true);
-	let animationName = $state<AnimationName>('intro');
+	let show = $state(false);
 	let amount = $state(0);
 	let winLevelData = $state<WinLevelData>();
 	let oncomplete = $state(() => {});
-	let onCountUpComplete = $state(() => {});
 
 	context.eventEmitter.subscribeOnMount({
 		freeSpinOutroShow: () => (show = true),
-		freeSpinOutroHide: async () => (show = false),
-		freeSpinOutroCountUp: async (emitterEvent) => {
-			amount = emitterEvent.amount;
-			winLevelData = emitterEvent.winLevelData;
+		freeSpinOutroHide: () => (show = false),
+		freeSpinOutroCountUp: async ({ amount: eventAmount, winLevelData: level }) => {
+			amount = eventAmount;
+			winLevelData = level;
 			await waitForResolve((resolve) => (oncomplete = resolve));
 		},
 	});
@@ -45,65 +37,36 @@
 
 <FadeContainer {show}>
 	{#if winLevelData}
-		{@const duration = winLevelData.presentDuration}
-		{@const isBigWin = winLevelData.type === 'big'}
-		<WinCountUpProvider {amount} {duration} oncomplete={() => onCountUpComplete()}>
+		<WinCountUpProvider
+			{amount}
+			duration={winLevelData.presentDuration}
+			oncomplete={() => {}}
+		>
 			{#snippet children({ countUpAmount, startCountUp, finishCountUp, countUpCompleted })}
 				<OnMount onmount={() => startCountUp()} />
-
-				<CanvasSizeRectangle backgroundColor={0x000000} backgroundAlpha={0.5} />
-
+				<CanvasSizeRectangle backgroundColor={0x030715} backgroundAlpha={0.8} />
 				<FreeSpinAnimation>
 					{#snippet children({ sizes })}
-						{#if isBigWin}
-							<Sprite
-								anchor={{ x: 0.5, y: 1.2 }}
-								width={500 * 2.2}
-								height={156 * 2.2}
-								key="freespins_{stateUrlDerived.lang()}.png"
-							/>
-						{:else}
-							<Sprite
-								anchor={{ x: 0.5, y: 1.2 }}
-								width={500 * 4.5}
-								height={80 * 4.5}
-								key="winsmall_{stateUrlDerived.lang()}.png"
-							/>
-						{/if}
-
-						<SpineProvider key="fsOutroNumber" width={sizes.width * 0.4}>
-							<SpineTrack
-								trackIndex={0}
-								{animationName}
-								loop={animationName === 'idle'}
-								listener={{
-									complete: () => (animationName = 'idle'),
-								}}
-							/>
-							<SpineSlot slotName="slot_number">
-								<ResponsiveBitmapText
-									anchor={0.5}
-									style={{
-										fontFamily: 'gold',
-										fontSize: sizes.width * 0.08,
-									}}
-									text={bookEventAmountToCurrencyString(countUpAmount)}
-									maxWidth={sizes.width}
-								/>
-							</SpineSlot>
-						</SpineProvider>
-
-						<Sprite
-							anchor={{ x: 0.5, y: isBigWin ? -3.2 : -2 }}
-							width={177 * (isBigWin ? 2.2 : 3)}
-							height={42 * (isBigWin ? 2.2 : 3)}
-							key="totalwin.png"
+						<Text
+							text="ECLIPSE CHAMBER"
+							anchor={0.5}
+							y={-94}
+							style={{ fontFamily: 'Georgia, serif', fontSize: 40, letterSpacing: 2, fontWeight: 'bold', fill: 0xffd78e }}
+						/>
+						<Text
+							text={bookEventAmountToCurrencyString(countUpAmount)}
+							anchor={0.5}
+							y={22}
+							style={{ fontFamily: 'Georgia, serif', fontSize: 60, fontWeight: 'bold', fill: 0xfff0c6 }}
+						/>
+						<Text
+							text="TOTAL WIN"
+							anchor={0.5}
+							y={118}
+							style={{ fontFamily: 'Arial, sans-serif', fontSize: 20, letterSpacing: 4, fill: 0xdedaf4 }}
 						/>
 					{/snippet}
 				</FreeSpinAnimation>
-
-				<WinCoins emit={!countUpCompleted} levelAlias={winLevelData?.alias} />
-
 				<PressToContinue onpress={() => (countUpCompleted ? oncomplete() : finishCountUp())} />
 			{/snippet}
 		</WinCountUpProvider>
