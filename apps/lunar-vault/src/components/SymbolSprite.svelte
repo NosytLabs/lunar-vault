@@ -20,7 +20,7 @@
 	// Complete each landing/winning event exactly once after its visual has ended.
 	$effect(() => {
 		const state = props.state;
-		const asset = props.symbolInfo.assetKey;
+		void props.symbolInfo.assetKey;
 		if (state !== 'land' && state !== 'win') {
 			pulse = 1;
 			opacity = 1;
