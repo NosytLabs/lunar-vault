@@ -8,86 +8,47 @@
 <script lang="ts">
 	import { MainContainer } from 'components-layout';
 	import { FadeContainer } from 'components-pixi';
-
+	import { Container, Rectangle, Text } from 'pixi-svelte';
 	import { getContext } from '../game/context';
-	import { SYMBOL_SIZE } from '../game/constants';
-	import { anchorToPivot, BitmapText, Container, Sprite, type Sizes } from 'pixi-svelte';
 
 	const context = getContext();
-	const PANEL_KEY_DESKTOP = 'Frame_FSCounter.png';
-	const PANEL_RATIO_DESKTOP = 824 / 622;
-	const panelKey = PANEL_KEY_DESKTOP;
-	const panelWidth = $derived(SYMBOL_SIZE * 2);
-	const panelSizes = $derived({
-		width: panelWidth,
-		height: panelWidth / PANEL_RATIO_DESKTOP,
-	});
-	const scale = 1;
-	const position = $derived({
-		x:
-			context.stateGameDerived.boardLayout().x -
-			context.stateGameDerived.boardLayout().width * 0.5 -
-			panelSizes.width -
-			SYMBOL_SIZE * 0.7,
-		y:
-			context.stateGameDerived.boardLayout().y -
-			context.stateGameDerived.boardLayout().height * 0.5,
-	});
-
-	const fontSize = SYMBOL_SIZE * 0.275;
-
 	let show = $state(false);
 	let current = $state(0);
 	let total = $state(0);
-	let titleSizes: Sizes = $state({ width: 0, height: 0 });
-	let counterSizes: Sizes = $state({ width: 0, height: 0 });
-
-	const textContainerSizes = $derived({
-		width: titleSizes.width,
-		height: titleSizes.height + counterSizes.height,
+	const position = $derived.by(() => {
+		const b = context.stateGameDerived.boardLayout();
+		return { x: b.x - b.width / 2 - 178, y: b.y - b.height / 2 + 32 };
 	});
-	const counterPosition = $derived({ x: titleSizes.width / 2, y: titleSizes.height });
 
 	context.eventEmitter.subscribeOnMount({
 		freeSpinCounterShow: () => (show = true),
 		freeSpinCounterHide: () => (show = false),
-		freeSpinCounterUpdate: (emitterEvent) => {
-			if (emitterEvent.current !== undefined) current = emitterEvent.current;
-			if (emitterEvent.total !== undefined) total = emitterEvent.total;
+		freeSpinCounterUpdate: ({ current: next, total: count }) => {
+			if (next !== undefined) current = next;
+			if (count !== undefined) total = count;
 		},
 	});
 </script>
 
-<MainContainer>
-	<FadeContainer {show} {...position} {scale}>
-		<Sprite key={panelKey} {...panelSizes} />
-		<Container
-			x={panelSizes.width * 0.5}
-			y={panelSizes.height * 0.48}
-			pivot={anchorToPivot({
-				sizes: textContainerSizes,
-				anchor: { x: 0.5, y: 0.5 },
-			})}
-		>
-			<BitmapText
-				text={'FREE SPIN'}
-				style={{
-					fontFamily: 'gold',
-					fontSize,
-					wordWrap: false,
-				}}
-				onresize={(sizes) => (titleSizes = sizes)}
+<FadeContainer {show}>
+	<MainContainer>
+		<Container {...position}>
+			<Rectangle x={0} y={0} width={162} height={123} backgroundColor={0xc49c5d} />
+			<Rectangle x={5} y={5} width={152} height={113} backgroundColor={0x11162f} />
+			<Text
+				text="FREE SPINS"
+				x={81}
+				y={35}
+				anchor={0.5}
+				style={{ fontFamily: 'Arial, sans-serif', fontSize: 16, fontWeight: 'bold', letterSpacing: 1, fill: 0xffdca3 }}
 			/>
-			<BitmapText
-				text={`${current} OF ${total}`}
-				{...counterPosition}
-				anchor={{ x: 0.5, y: 0 }}
-				style={{
-					fontFamily: 'gold',
-					fontSize,
-				}}
-				onresize={(sizes) => (counterSizes = sizes)}
+			<Text
+				text={`${current} / ${total}`}
+				x={81}
+				y={83}
+				anchor={0.5}
+				style={{ fontFamily: 'Georgia, serif', fontSize: 38, fontWeight: 'bold', fill: 0xfff3d1 }}
 			/>
 		</Container>
-	</FadeContainer>
-</MainContainer>
+	</MainContainer>
+</FadeContainer>
