@@ -61,13 +61,27 @@ stored turned -90° in the sheet).
 
 1. **Math/RGS**: no certified math model exists yet; the frontend plays
    sample book data in Storybook. Production play needs the math files
-   published on Engine and a live session to test against.
-2. **Spine art**: background, win and feature animations are SDK sample
-   art (placeholders), to be replaced with final Lunar Vault Spine
-   exports. Static symbols and favicon are original.
+   published on Engine and a live session to test against. Per the Math
+   SDK docs, each bet mode needs an `index.json` (mode name, cost
+   multiplier, file names), a CSV lookup table (ID, weight, payout — no
+   header, plain integers, payouts in hundredths of the base bet) and
+   the game logic as a zStandard-compressed JSON-lines file
+   (`.jsonl.zst`).
+2. **Art and audio originality**: Engine's approval guidelines require
+   unique audio and visual assets — sample-game assets will not be
+   approved. Static symbols and favicon are original here, but the
+   background, win/feature Spine animations and the whole audio pack are
+   still SDK sample material (placeholders) and must be replaced with
+   final Lunar Vault art and audio before a review submission.
+4. **Game tiles**: submission also requires lobby artwork built in
+   Studio's Media Editor — a 3:4 portrait tile (408x546) set as cover
+   plus a 16:9 cover-art version (640x360) of the same artwork.
 3. **Review rules** (Engine docs, Oct 2026): RTP per bet mode must be
    90.0–96.70%, ≤10M outcomes per mode, $0.01 bet levels included, and
    every round must be replayable. These are math/config certifications,
    not frontend changes — the frontend `config.ts` RTP (0.97, inherited
    from the sample) must be aligned with the certified math before
-   submitting.
+   submitting. A submission covers one front-end version and one math
+   version together, and the form stays locked until both are published,
+   the math passes its critical tests, a bet-level template fits, and
+   the game tiles (gap 4) exist.
