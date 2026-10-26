@@ -73,13 +73,13 @@
 			{#snippet logo()}
 				<Text
 					anchor={{ x: 1, y: 0 }}
-					text="ADD YOUR LOGO"
+					text="NOSYTLABS GAMES"
 					style={{
 						fontFamily: 'proxima-nova',
-						fontSize: REM * 1.5,
+						fontSize: REM * 1.18,
 						fontWeight: '600',
 						lineHeight: REM * 2,
-						fill: 0xffffff,
+						fill: 0xffdfaa,
 					}}
 				/>
 			{/snippet}
@@ -98,6 +98,6 @@
 
 <Modals>
 	{#snippet version()}
-		<GameVersion version="0.0.0" />
+		<GameVersion version="0.1.0" />
 	{/snippet}
 </Modals>
