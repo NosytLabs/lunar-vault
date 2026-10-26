@@ -25,12 +25,12 @@
 						width={sizes.width}
 						height={sizes.height}
 						anchor={0.5}
-						{...disabled || ['spin_disabled', 'stop_disabled'].includes(key)
-							? {
-									backgroundColor: 0xaaaaaa,
-								}
-							: {}}
+						backgroundColor={disabled || ['spin_disabled', 'stop_disabled'].includes(key)
+							? 0x60677b : hovered ? 0xffdf92 : 0xeec16d}
+						borderWidth={5}
+						borderColor={0xfff2ce}
 					/>
+
 					<Text
 						anchor={0.5}
 						text={['spin_default', 'spin_disabled'].includes(key)
@@ -43,7 +43,7 @@
 							fontFamily: 'proxima-nova',
 							fontWeight: '600',
 							fontSize: UI_BASE_FONT_SIZE * 0.9,
-							fill: 0xffffff,
+							fill: disabled ? 0xe9ebf0 : 0x13223c,
 						}}
 					/>
 				</Container>
