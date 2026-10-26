@@ -8,6 +8,8 @@ Web SDK — Svelte 5 + PixiJS 8, TurboRepo monorepo.
 - Game ID: `0_0_lunar_vault`
 - App package: `apps/lunar-vault` (forked from the SDK's `lines` sample game,
   per the SDK docs: "start your own codebase based on this repo")
+- Live Engine documentation: https://studio.engine.io/docs
+  (note: the `docs.engine.io` subdomain returns 404; Studio hosts the docs)
 
 ## Setup
 
