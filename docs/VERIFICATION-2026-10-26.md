@@ -27,6 +27,8 @@ Screenshots are reviewed for the seven layouts, rules/paytable, social feature m
 
 Local execution uses macOS, Node 26.12.0, pnpm 10.5.0 and Playwright 1.64.1 Chromium. CI pins Linux and Node 22.16.0. Resizing a Chromium viewport is not physical-device, Safari or Firefox testing.
 
+The first Linux CI run passed 12/14 checks. Its trace showed the combined win/dialog test reaching its last scroll assertion with less than four seconds of its original 45-second total budget left; that multi-step check now has a 90-second budget. The autoplay check now holds the first fixture response until cancellation is observed, so a completed round cannot race the click on slower runners. These are test synchronization changes; gameplay assertions remain in place.
+
 The inherited lint command does not run under its ESLint 9 dependency: the repository still supplies legacy configuration instead of an `eslint.config.*` file. No clean lint result is claimed. Vite also reports the SDK's runtime-resolved static asset URLs during build; the browser network checks confirm those files resolve in the tested build.
 
 No live Engine RGS session was available. These tests do not validate exhaustive interruptions, server-side duplicate settlement handling, a complete currency/jurisdiction matrix, minimum round duration, mathematical distributions, certified return, or production operator behavior. Sample 97% RTP, 5,000× maximum and 100× feature cost remain explicitly unverified. Matching certified math, independent reports, asset-rights signoff, Studio media and explicit Engine approval remain release blockers.

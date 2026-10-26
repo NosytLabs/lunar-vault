@@ -56,6 +56,7 @@ async function session(
 		query?: string;
 		resume?: boolean;
 		replay?: boolean;
+		playGate?: Promise<void>;
 	} = {},
 ) {
 	const calls: { path: string; body: any }[] = [];
@@ -104,9 +105,10 @@ async function session(
 				},
 				...(options.resume ? { round: { ...round, active: true } } : {}),
 			};
-		else if (path === '/wallet/play')
+		else if (path === '/wallet/play') {
+			await options.playGate;
 			data = { balance: { amount: 99900000, currency: options.currency ?? 'USD' }, round };
-		else if (path === '/wallet/end-round')
+		} else if (path === '/wallet/end-round')
 			data = { balance: { amount: 99900000 + round.payout, currency: options.currency ?? 'USD' } };
 		else if (path.startsWith('/bet/replay/')) data = round;
 		else if (path === '/bet/event') data = { event: '0' };
@@ -173,6 +175,8 @@ for (const [width, height] of [
 }
 
 test('win settles once, dialogs render once and block space', async ({ page }, info) => {
+	// Software-rendered CI spends considerably longer on the two full-frame screenshots.
+	test.setTimeout(90000);
 	await page.setViewportSize({ width: 1280, height: 720 });
 	const s = await session(page, { book: win });
 	const spin = await textNode(page, 'SPIN');
@@ -232,13 +236,18 @@ test('restricted session disables controls and space; feature menu only lists th
 
 test('autoplay can be cancelled when slam-stop is forbidden', async ({ page }) => {
 	await page.setViewportSize({ width: 1280, height: 720 });
-	const s = await session(page, { jurisdiction: { disabledSlamstop: true } });
+	// Hold the first server response so cancellation cannot race a fast completed round.
+	let releasePlay = () => {};
+	const playGate = new Promise<void>((resolve) => (releasePlay = resolve));
+	const s = await session(page, { jurisdiction: { disabledSlamstop: true }, playGate });
 	await clickText(page, 'AUTO SPIN');
 	await page.getByText('START AUTOPLAY', { exact: true }).click();
 	await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(1);
 	const stop = await textNode(page, 'STOP');
 	expect(stop.disabled).toBe(false);
 	await clickText(page, 'STOP');
+	await expect.poll(async () => (await textNode(page, 'STOP')).disabled).toBe(true);
+	releasePlay();
 	await textNode(page, 'SPIN');
 	await page.waitForTimeout(700);
 	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(1);
