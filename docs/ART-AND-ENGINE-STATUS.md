@@ -13,10 +13,14 @@ The canonical game lives at `apps/lunar-vault`, using the official Engine Web SD
 ## Remaining release blockers (not claimed fixed)
 
 - The repo still uses sample 0.97 RTP math metadata, which is outside Engine's 96.0%–96.70% approval band. Do **not** edit this to a plausible number without calculating and publishing a matching certified math book; the standalone prototype's 10-line math is not compatible with the 20-line Web SDK fork.
-- The bonus intros/outros, audio and several minor effects still reference upstream sample content. Engine requires original assets before review.
+- Original Eclipse Chamber intro/outro and centered free-spin counter now replace sample visuals. A deterministic Python generator creates 52 original audio cues in one WAV sprite; SDK sample audio binaries have been removed. Some secondary Spine/particle effects and sample resources remain and need an originality audit before approval.
 - A real Engine staging session, authenticated bet states, loss/no-end-round, active-round resume, replay URL, currency formatting, social wording, minimum bet, responsive screenshots and human art signoff remain unverified.
 - The 3:4 Studio lobby tile and 16:9 wide cover must be prepared in Studio before approval.
 
-Run `node tools/check-original-art.mjs` for source asset checks, `python3 tools/audit-assets.py` for every referenced asset, and `node tools/release-gate.mjs` for explicit blockers. The release gate is **supposed to fail** until actual math, audio and UI requirements are met.
+Run `node tools/check-original-art.mjs` for source asset checks, `python3 tools/audit-assets.py` for every referenced asset, and `node tools/release-gate.mjs` for explicit blockers. The release gate is **supposed to fail** until actual math, remaining sample effects and UI requirements are met.
 
 Official: https://studio.engine.io/docs/approval-guidelines , https://studio.engine.io/docs/approval-guidelines/math-verification , https://studio.engine.io/docs/distribution .
+
+## Asset build and distribution size
+
+The CI job runs `python3 tools/generate-audio.py` prior to asset checks and builds all dependent Web SDK workspace packages through TurboRepo. The old stock OGG/MP3/M4A/AC3 recordings and splash GIFs were removed from the game static directory. This changes audio composition and media size but does not affect the game logic or payouts.

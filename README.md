@@ -36,53 +36,40 @@ Dev mode (`pnpm run dev --filter=lunar-vault`) shows the SDK's auth error
 screen until it is connected to a live RGS session — that is expected; see
 the SDK README's "Run in DEV Mode" / "Launch a Game" sections.
 
-## Build the upload folder
+## Studio art and audio
+
+This SDK-derived app now uses 17 locally bundled original SVG assets in `apps/lunar-vault/static/assets/nosyt`: ten main symbols plus Wild and Eclipse, observatory/base-feature backgrounds, frame, win effect and logo.
+
+The audio system is also original and reproducible. The game generates a single ~72-second WAV sound sprite of 52 unique celestial cues using only Python's standard library:
 
 ```bash
-pnpm run build --filter=lunar-vault
+python3 tools/generate-audio.py
 ```
 
-Per the SDK docs, the Engine upload folder is assembled from the build
-output like this:
-
-```
-upload/
-  index.html        <- apps/lunar-vault/.svelte-kit/output/prerendered/pages/index.html
-  _app/             \
-  assets/            >- everything in apps/lunar-vault/.svelte-kit/output/client/
-  favicon.svg       /
-  loader.gif
-  stake-engine-loader.gif
-```
-
-(`apps/lunar-vault/build/` contains the same static site already assembled.)
-
-Upload via the Engine Studio **Files** page, then **Publish Game → Front
-End**, and test from the **Developer** page with **Start game session**.
-
-## Asset audit
-
-Every asset reference in the game (asset manifest URLs, Spine atlas page
-images, spritesheet images, bitmap-font pages, audio resources) can be
-checked with:
+The app's pnpm `prebuild`, `predev` and `prestorybook` scripts automatically generate it. This deliberately replaces the SDK sample MP3/OGG/M4A/AC3; do not commit those tracks again. All audio can be muted through the standard UI.
 
 ```bash
+node tools/check-original-art.mjs
 python3 tools/audit-assets.py
 ```
 
-It exits non-zero and lists any missing file. See `docs/AUDIT.md` for the
-audit that produced this repo.
+## Build and test
 
-## Art status
+```bash
+pnpm install --frozen-lockfile
+pnpm run build --filter=lunar-vault
+node tools/release-gate.mjs
+```
 
-- Static reel symbols (H1–H5, L1–L4) are an original Lunar Vault set —
-  drawn into the existing spritesheet frames by `tools/reskin-symbols.py`
-  (frame geometry, rotations and trims are unchanged, so the manifest and
-  paytable wiring are untouched).
-- Spine win animations, background and feature screens are still the SDK
-  sample art. They are licensed sample placeholders from the SDK and must
-  be replaced with final Spine exports before an Engine review submission.
-- The server-side **math model** (reel strips, paytable weights, RTP) is
-  not part of a frontend repo: it is authored and certified on the Engine
-  side. The values in `apps/lunar-vault/src/game/config.ts` describe this
-  frontend and must match the certified math before submission.
+The built app resides under `apps/lunar-vault/build/` and includes an `index.html` at its root. Storybook can play sample books without a live session, but the real game requires published, matching Engine math and RGS session parameters. The release gate intentionally fails until publication-critical conditions are satisfied.
+
+## Release blockers
+
+- **Math:** The frontend is inherited from a 20-line SDK sample, with unverified 97% sample RTP metadata and a high-cost bonus mode. No matching certified engine math exists in the repository yet. The previous 10-line standalone demo's book cannot be reused.
+- **Art:** Primary symbols, frame, backgrounds and bonus screens are original, but some legacy effects and fallback Spine resources still need original replacement and human asset-rights review.
+- **Quality:** Stake Engine preview must be tested for active-round resume, betting configurations, payouts, replay, social mode, mobile and small popout sizes. No unverified layout is claimed approved.
+- **Studio:** Finish original tile composition (3:4 and 16:9), complete official AI/human review and submit one matched math/frontend pair.
+
+See [release plan](docs/NOSYTLABS-RELEASE-PLAN.md) and [implementation status](docs/ART-AND-ENGINE-STATUS.md). This code is a development candidate, **not a live casino game**.
+
+Official references: https://github.com/engineio/web-sdk and https://studio.engine.io/docs .
