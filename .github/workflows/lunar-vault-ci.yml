@@ -27,3 +27,9 @@ jobs:
       - run: node tools/check-original-art.mjs
       - run: python3 tools/audit-assets.py
       - run: pnpm run build --filter=lunar-vault
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lunar-vault-preview
+          path: apps/lunar-vault/build/
+          if-no-files-found: error
+          retention-days: 3
