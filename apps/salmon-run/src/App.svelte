@@ -451,6 +451,7 @@
 						preserveAspectRatio="none"
 						aria-label={`Winning line ${line}`}
 						><polyline
+							pathLength="1"
 							points={positions
 								.map((p) => `${p.reel * 100 + 50},${(p.row - 1) * 100 + 50}`)
 								.join(' ')}
