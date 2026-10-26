@@ -1,54 +1,33 @@
 <script lang="ts">
-	import { SpineProvider, SpineTrack } from 'pixi-svelte';
-	import { stateBetDerived } from 'state-shared';
-
+	import { Rectangle } from 'pixi-svelte';
 	import { getContext } from '../game/context';
 	import type { Reel } from '../game/stateGame.svelte';
 	import { REEL_PADDING, SYMBOL_SIZE } from '../game/constants';
 
-	type Props = {
-		reel: Reel;
-		oncomplete: () => void;
-	};
-
+	type Props = { reel: Reel; oncomplete: () => void };
 	const props: Props = $props();
 	const context = getContext();
-
-	type AnimationName = 'anticipation_intro' | 'anticipation_loop' | 'anticipation_out';
-
-	let animationName = $state<AnimationName>('anticipation_intro');
+	let finished = false;
+	const placement = $derived.by(() => {
+		const b = context.stateGameDerived.boardLayout();
+		return {
+			x: b.x - b.width / 2 + (props.reel.reelIndex + REEL_PADDING) * SYMBOL_SIZE - SYMBOL_SIZE * 0.44,
+			y: b.y - b.height / 2,
+			width: SYMBOL_SIZE * 0.88,
+			height: b.height,
+		};
+	});
 
 	$effect(() => {
-		if (props.reel.reelState.motion === 'stopped') {
-			animationName = 'anticipation_out';
-		}
+		if (props.reel.reelState.motion !== 'stopped' || finished) return;
+		const timer = window.setTimeout(() => {
+			if (finished) return;
+			finished = true;
+			props.oncomplete();
+		}, 130);
+		return () => window.clearTimeout(timer);
 	});
 </script>
 
-<SpineProvider
-	key="anticipation"
-	width={SYMBOL_SIZE * 0.56}
-	height={SYMBOL_SIZE * 1.6}
-	x={context.stateGameDerived.boardLayout().x -
-		context.stateGameDerived.boardLayout().width * 0.5 +
-		(props.reel.reelIndex + REEL_PADDING) * SYMBOL_SIZE}
-	y={context.stateGameDerived.boardLayout().y - SYMBOL_SIZE * 0.06}
->
-	<SpineTrack
-		trackIndex={0}
-		{animationName}
-		loop={animationName === 'anticipation_loop'}
-		timeScale={stateBetDerived.timeScale()}
-		listener={{
-			complete: () => {
-				if (animationName === 'anticipation_intro') {
-					animationName = 'anticipation_loop';
-				}
-
-				if (animationName === 'anticipation_out') {
-					props.oncomplete();
-				}
-			},
-		}}
-	/>
-</SpineProvider>
+<!-- Gold anticipation highlight independent of the round's actual outcome. -->
+<Rectangle {...placement} backgroundColor={0xffc778} backgroundAlpha={0.23} />
