@@ -8,7 +8,7 @@ if(/\brtp:\s*0\.97\b/.test(config)) problems.push('SDK sample RTP 97.0% is outsi
 if(!fs.existsSync(path.join(root,'math','publish_files','index.json'))) problems.push('No certified Engine math publish_files/index.json; source demo math is not compatible with Web SDK event types.');
 const game=fs.readFileSync(path.join(app,'src/components/Game.svelte'),'utf8');
 const active=fs.readFileSync(path.join(app,'src/components/Sound.svelte'),'utf8');
-if(active.includes("sfx_wild_explode"))problems.push('Sample SDK sound effects and music still used; replace with original mix.');
+if(active.includes("sound.players.music.play"))problems.push('Sample SDK sound effects and music still used; replace with original mix.');
 for(const p of ['FreeSpinIntro.svelte','FreeSpinOutro.svelte','WinCoins.svelte','SymbolSpine.svelte']){
   const t=fs.readFileSync(path.join(app,'src/components',p),'utf8');
   if(t.includes('SpineProvider')||t.includes("key=\"coins\"")) problems.push('Sample visual effects still referenced by '+p);
