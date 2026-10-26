@@ -24,6 +24,7 @@ jobs:
       - run: corepack enable
       - run: corepack prepare pnpm@10.5.0 --activate
       - run: pnpm install --frozen-lockfile
+      - run: python3 tools/generate-audio.py
       - run: node tools/check-original-art.mjs
       - run: python3 tools/audit-assets.py
       - run: pnpm run build --filter=lunar-vault
