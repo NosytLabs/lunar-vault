@@ -59,13 +59,32 @@
 				// 			"minimumRoundDuration": 0
 				// 	}
 				// }
-				stateConfig.jurisdiction = authenticateData?.config?.jurisdiction;
-				stateConfig.betAmountOptions = (authenticateData.config?.betLevels || []).map(
-					(level) => level / API_AMOUNT_MULTIPLIER,
-				);
+				const config = authenticateData.config;
+				stateConfig.jurisdiction = config.jurisdiction ?? stateConfig.jurisdiction;
+				// The RGS sets denomination and increment rules per operator/currency.
+				const levels = (config.betLevels ?? [])
+					.filter((level) =>
+						Number.isSafeInteger(level) &&
+						level >= config.minBet &&
+						level <= config.maxBet &&
+						(config.stepBet <= 0 || level % config.stepBet === 0),
+					)
+					.map((level) => level / API_AMOUNT_MULTIPLIER);
+				stateConfig.betAmountOptions = [...new Set(levels)].sort((a, b) => a - b);
 				stateConfig.betMenuOptions = stateConfig.betAmountOptions.filter((_, index) =>
 					MOST_USED_BET_INDEXES.includes(index),
 				);
+				if (!stateConfig.betMenuOptions.length)
+					stateConfig.betMenuOptions = stateConfig.betAmountOptions;
+				// Do not reset an interrupted winning round to the default level.
+				if (!authenticateData.round?.active) {
+					const defaultBet = config.defaultBetLevel / API_AMOUNT_MULTIPLIER;
+					const selected = stateConfig.betAmountOptions.includes(defaultBet)
+						? defaultBet
+						: (stateConfig.betAmountOptions[0] ?? 0);
+					stateBet.betAmount = selected;
+					stateBet.wageredBetAmount = selected;
+				}
 			}
 
 			// round
