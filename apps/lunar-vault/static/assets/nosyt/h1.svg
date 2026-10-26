@@ -9,6 +9,6 @@
  <circle cx="160" cy="160" r="147" fill="url(#haze)"/>
  <g stroke="#e7b866" stroke-opacity=".52" fill="none"><circle cx="160" cy="160" r="127" stroke-dasharray="3 11"/><path d="M160 17 V42 M160 278 V303 M17 160 H42 M278 160 H303"/></g>
  <g fill="#fff1be"><circle cx="51" cy="59" r="2"/><circle cx="270" cy="63" r="3"/><circle cx="44" cy="253" r="2"/><circle cx="265" cy="258" r="2"/></g>
- <g transform="translate(160 160)"><path d="M67 122 L99 202 L160 134 L221 202 L253 122 L238 240 Q160 265 82 240 Z" fill="url(#metal)" stroke="#fff0bb" stroke-width="7"/><path d="M83 233 Q160 253 237 233" fill="none" stroke="#4c2f19" stroke-width="12"/><path d="M146 187 L160 168 L175 187 L160 215 Z" fill="url(#gem)"/><circle cx="67" cy="117" r="11" fill="#fff2ae"/><circle cx="252" cy="117" r="11" fill="#fff2ae"/></g>
+ <g transform="translate(0 0)"><path d="M67 122 L99 202 L160 134 L221 202 L253 122 L238 240 Q160 265 82 240 Z" fill="url(#metal)" stroke="#fff0bb" stroke-width="7"/><path d="M83 233 Q160 253 237 233" fill="none" stroke="#4c2f19" stroke-width="12"/><path d="M146 187 L160 168 L175 187 L160 215 Z" fill="url(#gem)"/><circle cx="67" cy="117" r="11" fill="#fff2ae"/><circle cx="252" cy="117" r="11" fill="#fff2ae"/></g>
  <g fill="none" stroke="#fff4d1" opacity=".75"><path d="M30 60 L30 36 L59 36 M261 36 L290 36 L290 60 M30 260 L30 284 L59 284 M261 284 L290 284 L290 260"/></g>
  </svg>
