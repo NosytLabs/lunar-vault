@@ -134,7 +134,7 @@ async function boot(
 	return { calls, errors, external };
 }
 async function completeRun(page: Page) {
-	const entry = page.getByRole('button', { name: 'Follow the river' });
+	const entry = page.getByRole('button', { name: 'Start River Run' });
 	if (await entry.isVisible()) await entry.click();
 	await expect(page.getByRole('button', { name: 'Return to the river' })).toBeVisible({
 		timeout: 45000,
@@ -151,12 +151,12 @@ for (const [width, height] of [
 	[425, 812],
 	[400, 225],
 ])
-	test(`art, square reel geometry and 44px controls fit ${width}x${height}`, async ({
+	test(`art, responsive reel geometry and 44px controls fit ${width}x${height}`, async ({
 		page,
 	}, info) => {
 		await page.setViewportSize({ width, height });
 		const s = await boot(page);
-		for (const selector of ['.board-frame', '.controls', '.river-track', '.concept-note', 'h1']) {
+		for (const selector of ['.board-frame', '.controls', '.river-track', 'h1']) {
 			const b = await page.locator(selector).boundingBox();
 			expect(b).not.toBeNull();
 			expect(b!.x).toBeGreaterThanOrEqual(0);
@@ -165,7 +165,10 @@ for (const [width, height] of [
 			expect(b!.y + b!.height).toBeLessThanOrEqual(height + 1);
 		}
 		const frame = await page.locator('.board-frame').boundingBox();
-		expect(frame!.width / frame!.height).toBeCloseTo(5 / 3, 1);
+		expect(frame!.width / frame!.height).toBeCloseTo(
+			width <= 550 && height >= 500 ? 1.25 : 5 / 3,
+			1,
+		);
 		for (const selector of [
 			'.menu-button',
 			'.sound-toggle',
@@ -195,15 +198,13 @@ test('real vertical strips travel multiple rows, stop in order and settle one wa
 	const s = await boot(page, { book: baseWin });
 	await page.getByRole('button', { name: 'Spin', exact: true }).click();
 	await page.waitForTimeout(350);
-	const motion = await page
-		.locator('.reel-strip')
-		.evaluateAll((nodes) =>
-			nodes.map((n) => ({
-				y: new DOMMatrix(getComputedStyle(n).transform).m42,
-				height: n.getBoundingClientRect().height,
-				parent: n.parentElement!.getBoundingClientRect().height,
-			})),
-		);
+	const motion = await page.locator('.reel-strip').evaluateAll((nodes) =>
+		nodes.map((n) => ({
+			y: new DOMMatrix(getComputedStyle(n).transform).m42,
+			height: n.getBoundingClientRect().height,
+			parent: n.parentElement!.getBoundingClientRect().height,
+		})),
+	);
 	for (const reel of motion) {
 		expect(Math.abs(reel.y)).toBeGreaterThan(reel.height / 3);
 		expect(Math.abs(reel.y)).toBeLessThan(reel.height * 11);
@@ -246,8 +247,8 @@ test('River Run confirms twenty times the amount, plays actual event books and s
 	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
 	await expect(page.getByRole('dialog')).toContainText('$2.00');
 	await page.getByRole('button', { name: 'Confirm River Run' }).click();
-	await expect(page.getByRole('button', { name: 'Follow the river' })).toBeVisible();
-	await page.getByRole('button', { name: 'Follow the river' }).click();
+	await expect(page.getByRole('button', { name: 'Start River Run' })).toBeVisible();
+	await page.getByRole('button', { name: 'Start River Run' }).click();
 	await expect(page.getByRole('button', { name: 'Return to the river' })).toBeVisible({
 		timeout: 45000,
 	});
@@ -264,7 +265,7 @@ test('mid-feature recovery restores progress without another entry or debit', as
 	const book = fixtures['base:retrigger'];
 	const cursor = book.events.find((e: any) => e.type === 'freeSpinRetrigger').index + 1;
 	const s = await boot(page, { book, resume: true, cursor, mode: 'base' });
-	await expect(page.getByRole('button', { name: 'Follow the river' })).toHaveCount(0);
+	await expect(page.getByRole('button', { name: 'Start River Run' })).toHaveCount(0);
 	await completeRun(page);
 	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
 	expect(s.calls.filter((c) => c.path === '/wallet/end-round')).toHaveLength(1);
@@ -395,5 +396,49 @@ test('a mismatched recovered book fails before playback or settlement', async ({
 	});
 	expect(s.calls.map((c) => c.path)).toEqual(['/wallet/authenticate']);
 	await expect(page.getByRole('button', { name: 'Spin', exact: true })).toHaveCount(0);
+	expect(s.errors).toEqual([]);
+});
+
+test('reels move while waiting for the server without choosing an outcome', async ({ page }) => {
+	let release!: () => void;
+	const gate = new Promise<void>((resolve) => (release = resolve));
+	const s = await boot(page, { gate });
+	await page.getByRole('button', { name: 'Spin', exact: true }).click();
+	await page.waitForTimeout(250);
+	expect(await page.locator('.reel-column.running').count()).toBe(5);
+	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(1);
+	const y = await page
+		.locator('.reel-strip')
+		.first()
+		.evaluate((n) => new DOMMatrix(getComputedStyle(n).transform).m42);
+	expect(Math.abs(y)).toBeGreaterThan(10);
+	await page.getByRole('button', { name: 'Finish animation' }).click();
+	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(1);
+	release();
+	await expect(page.getByRole('button', { name: 'Spin', exact: true })).toBeEnabled();
+	expect(s.errors).toEqual([]);
+});
+
+test('River Run shows value collection, advances to 3x and settles the complete book', async ({
+	page,
+}, info) => {
+	const book = fixtures['river:retrigger'];
+	const s = await boot(page, { book });
+	await page.getByRole('button', { name: 'RIVER RUN', exact: false }).click();
+	await page.getByRole('button', { name: 'Confirm River Run' }).click();
+	await page.getByRole('button', { name: 'Start River Run' }).click();
+	await expect(page.locator('.collection-layer')).toBeVisible({ timeout: 20000 });
+	const first = book.events.find((e: any) => e.type === 'collectFish');
+	expect(await page.locator('.catch-token').count()).toBe(first.positions.length);
+	await page.waitForTimeout(180);
+	await page.screenshot({ path: info.outputPath('salmon-v3-collection.png') });
+	await expect(page.locator('.stage-track .active')).toContainText('3×', { timeout: 45000 });
+	await expect(page.getByRole('button', { name: 'Return to the river' })).toBeVisible({
+		timeout: 45000,
+	});
+	await expect(page.getByTestId('run-total')).toContainText('8 SILVER FISH');
+	await page.getByRole('button', { name: 'Return to the river' }).click();
+	await expect(page.getByRole('button', { name: 'Spin', exact: true })).toBeEnabled();
+	expect(s.calls.filter((c) => c.path === '/wallet/end-round')).toHaveLength(1);
 	expect(s.errors).toEqual([]);
 });

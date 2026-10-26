@@ -1,13 +1,17 @@
 # Salmon Run original concept assets — 2026-10-26
 
-- `public/assets/river-dawn.webp`: original image produced with the built-in OpenAI image tool, encoded to WebP at quality 86. A fantasy salmon-inspired river environment, not a species-identification illustration.
+- `public/assets/river-mist-v3.webp`: new original river plate produced with the built-in OpenAI image tool, encoded to WebP at quality 88. Quiet water and restrained banks replace the initial poster-like giant-fish/tackle composition. Exact current prompt: `background-prompt-v3.json`. The original environment prompt below is retained as iteration history.
 - Eight individual transparent raster sprites (`salmon`, `reel`, `fly`, `compass`, `canoe`, `leaf`, `wild`, `scatter`): original prompts and new OpenAI built-in image-generation outputs. They replace the initial six SVG placeholders. PNG output retained alpha when encoded with cwebp at quality 91/alpha 100, 512×512. Native readable WILD/RIVER RUN labels and fish values are separate UI text. Exact prompts and shipping paths are recorded in [sprite-prompts-v2.json](sprite-prompts-v2.json).
 - Bitter variable (titles) and Barlow Regular/SemiBold/Bold (body/controls): unmodified fonts from the official [google/fonts](https://github.com/google/fonts) repository (`ofl/bitter`, `ofl/barlow`), SIL Open Font License 1.1. Full licenses ship in `public/assets/type`. These replace the initial Cinzel/Barlow Condensed concept pairing. Fonts are licensed typography, not original studio art.
 - Sound: original synthesized sine cues in `src/audio.ts`; no external recording. Every voice routes through one mute-controlled master gain.
 - The attached fishing-slot screenshots informed only the broad fishing theme and readable playfield/control hierarchy. Salmon Run has original composition, palette and its own upstream collection rules and twenty-line presentation; it does not use reference titles, characters or branded mechanics.
 
-## Exact image prompt
+## Initial environment prompt (superseded)
 
 Create an ORIGINAL premium 2D casino-game environment painting for an adult Atlantic salmon fishing game, working title Salmon Run. Wide landscape 16:9 game background. Dawn on a cold emerald and turquoise Atlantic Canadian river, smooth river stones, amber autumn birch and spruce forests, distant misty mountains, warm copper sunrise reflecting on water. Right outer quarter: a magnificent realistic Atlantic salmon leaping out of the river, silver flanks with black speckles and subtle pink iridescence, powerful natural anatomy, elegant dynamic water splash. It should be a wildlife illustration with premium polished game-art rendering, not a cartoon mascot and no human face. Far left framing: old cedar fishing dock and a beautifully detailed brass fly reel, leather tackle satchel and restrained fly-fishing details. Center 60 percent must stay visually calm, dark teal water, because a five-column three-row slot board will cover it. Keep important fish and scenery near outer edges so the center playfield remains clear. Painterly dimensional materials and dramatic but readable lighting, rich teal / burnished copper / silver palette, distinct original composition. No text, no letters, no logos, no slot reels, no existing game art, no UI, no cards, no coins, no trademarks, no fisherman characters. Completely original wildlife and landscape scene.
 
 Human originality, trademark and asset-rights review remains necessary before commercial submission. This provenance record is not legal clearance.
+
+## Interface pass
+
+The fish-outline wordmark emblem is original code-native SVG geometry. The title uses mixed-case Bitter with a simple color hierarchy; Barlow uses normal-width, lighter numeric weights. A single action rail replaces oversized promotional labels. Development/version detail stays in the guide; local preview is identified with a small DEMO badge.

@@ -42,6 +42,12 @@ pnpm run test:contracts
 pnpm --filter salmon-run test
 ```
 
-Run the commands above from the repository root after building. **23 production Chromium checks** cover five viewports (1280×720, 1024×576, 800×450, 425×812, 400×225), primary 44px targets, local fonts/images, real strip motion and ordered stops, wallet settlement, zero results, feature confirmation, recovery, replay, currency/social text, restrictions, limits and failure screens. Six shared contract tests and eight independent math regression tests also pass. CI verifies the committed books rather than regenerating them. Local manual play also exercised actual weighted selection, three base spins and a complete feature.
+Run the commands above from the repository root after building. **25 production Chromium checks** cover five viewports (1280×720, 1024×576, 800×450, 425×812, 400×225), primary 44px targets, local fonts/images, real strip motion and ordered stops, wallet settlement, zero results, feature confirmation, recovery, replay, currency/social text, restrictions, limits and failure screens. Six shared contract tests and eight independent math regression tests also pass. CI verifies the committed books rather than regenerating them. Local manual play also exercised actual weighted selection, three base spins and a complete feature.
 
 See the [41-item Engine self-check](ENGINE-SELF-CHECK-2026-10-26.md) and [asset provenance](PROVENANCE.md). Live Engine sessions, replay IDs, broad jurisdiction/interruption testing, physical-device/audio review, independent math certification, Studio tile composition, rights review and Engine approval remain open. No distribution option or submission has been selected.
+
+## Interface and feature pass
+
+A quieter original river plate replaces the giant-fish/tackle poster. A small fish-outline wordmark, mixed-case title and one compact action rail remove promotional clutter. The portrait board is taller, with functional 44px controls; development details remain in the guide and a small DEMO badge identifies local play.
+
+Reels begin moving while the request is pending, then accelerate, cruise and brake onto the supplied board in reel order. Waiting loops contain deterministic visual filler only. The new collection overlay moves the actual fish values to the supplied Wild collector before adding its recorded award. The feature strip shows cast count, collected fish and current 1×/2×/3× stage; stage transitions explain the multiplier for future collections. A normal-speed complete retriggered River book and delayed-server motion are covered by regression tests.

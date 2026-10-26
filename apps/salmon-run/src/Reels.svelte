@@ -7,16 +7,53 @@
 		positions = [],
 		onstop = () => {},
 	}: { initial: Symbol[][]; positions?: Position[]; onstop?: (reel: number) => void } = $props();
-	let strips = $state<Symbol[][]>(initial.map((reel) => reel.slice(1, 4)));
+	let landed = initial.map((reel) => reel.slice(1, 4));
+	let strips = $state<Symbol[][]>(landed);
 	let moving = $state([false, false, false, false, false]);
 	let elements: HTMLDivElement[] = [];
 	let animations: Animation[] = [];
-	let disposed = false;
+	let disposed = false,
+		waiting = false,
+		hurry = false;
+	const filler = (reel: number, count: number): Symbol[] =>
+		Array.from({ length: count }, (_, i) => ({
+			name: math.symbols[(i * 3 + reel) % math.symbols.length],
+		}));
+	function clearAnimations() {
+		for (const animation of animations) animation.cancel();
+		animations = [];
+	}
+	export function cancel() {
+		clearAnimations();
+		waiting = false;
+		strips = landed;
+		moving = [false, false, false, false, false];
+		for (const el of elements) if (el) el.style.transform = '';
+	}
 	export function settle(board: Symbol[][]) {
-		strips = board.map((reel) => reel.slice(1, 4));
+		cancel();
+		landed = board.map((reel) => reel.slice(1, 4));
+		strips = landed;
 	}
 	export function accelerate() {
-		for (const a of animations) a.playbackRate = 5;
+		hurry = true;
+		for (const animation of animations) animation.playbackRate = 5;
+	}
+	export async function start(reduced = false) {
+		hurry = false;
+		if (reduced || waiting) return;
+		strips = landed.map((old, reel) => [...old, ...filler(reel, 9), ...old]);
+		moving = [true, true, true, true, true];
+		waiting = true;
+		await tick();
+		if (disposed) return;
+		animations = elements.map((element, reel) =>
+			element.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-400%)' }], {
+				duration: 900 + reel * 35,
+				iterations: Infinity,
+				easing: 'linear',
+			}),
+		);
 	}
 	export async function spin(board: Symbol[][], reduced = false, turbo = false) {
 		if (reduced) {
@@ -24,32 +61,54 @@
 			await new Promise((r) => setTimeout(r, 260));
 			return;
 		}
-		// These deterministic filler icons are visual travel only. The target is
-		// exclusively the board supplied by the RGS; no outcome is selected here.
+		const from = elements.map((element) =>
+			waiting
+				? (new DOMMatrix(getComputedStyle(element).transform).m42 / element.clientHeight) * 100
+				: 0,
+		);
+		for (let reel = 0; reel < elements.length; reel++)
+			elements[reel].style.transform = `translateY(${from[reel]}%)`;
+		clearAnimations();
+		waiting = false;
+		// Filler is visual travel only. Every landing symbol comes from the RGS board.
 		strips = strips.map((old, reel) => [
 			...old,
-			...Array.from({ length: 18 + reel * 2 }, (_, i) => ({
-				name: math.symbols[(i * 3 + reel) % math.symbols.length],
-			})),
+			...filler(reel, 15 + reel),
 			...board[reel].slice(1, 4),
 		]);
 		moving = [true, true, true, true, true];
 		await tick();
 		await Promise.all(
 			strips.map(async (strip, reel) => {
-				const target = (-(strip.length - 3) * 100) / 3;
+				const target = (-(strip.length - 3) * 100) / 3,
+					distance = target - from[reel];
 				const animation = elements[reel].animate(
 					[
-						{ transform: 'translateY(0)' },
-						{ transform: `translateY(${target - 1.5}%)`, offset: 0.92 },
-						{ transform: `translateY(${target}%)` },
+						{
+							transform: `translateY(${from[reel]}%)`,
+							offset: 0,
+							easing: 'cubic-bezier(.42,0,.76,.58)',
+						},
+						{
+							transform: `translateY(${from[reel] + distance * 0.14}%)`,
+							offset: 0.18,
+							easing: 'linear',
+						},
+						{
+							transform: `translateY(${target + 100}%)`,
+							offset: 0.65,
+							easing: 'cubic-bezier(.12,.58,.25,1)',
+						},
+						{ transform: `translateY(${target - 1.2}%)`, offset: 0.95, easing: 'ease-out' },
+						{ transform: `translateY(${target}%)`, offset: 1 },
 					],
 					{
-						duration: (turbo ? 650 : 1100) + reel * (turbo ? 70 : 115),
-						easing: 'cubic-bezier(.12,.36,.22,1)',
+						duration: (turbo ? 620 : 1000) + reel * (turbo ? 65 : 105),
 						fill: 'forwards',
+						easing: 'linear',
 					},
 				);
+				if (hurry) animation.playbackRate = 5;
 				animations.push(animation);
 				try {
 					await animation.finished;
@@ -57,22 +116,30 @@
 					return;
 				}
 				if (disposed) return;
-				strips[reel] = board[reel].slice(1, 4);
+				landed[reel] = board[reel].slice(1, 4);
+				strips[reel] = landed[reel];
 				await tick();
+				elements[reel].style.transform = '';
 				animation.cancel();
 				moving[reel] = false;
 				onstop(reel);
 			}),
 		);
 		animations = [];
+		hurry = false;
 	}
 	onDestroy(() => {
 		disposed = true;
-		for (const animation of animations) animation.cancel();
+		clearAnimations();
 	});
 </script>
 
-<div class="reel-window" aria-label="Five reels with three visible rows" role="img">
+<div
+	class="reel-window"
+	class:has-award={positions.length > 0}
+	aria-label="Five reels with three visible rows"
+	role="img"
+>
 	{#each strips as strip, reel}
 		<div class="reel-column" class:running={moving[reel]}>
 			<div class="reel-strip" bind:this={elements[reel]}>
@@ -131,6 +198,9 @@
 		align-items: center;
 		justify-content: center;
 		border-bottom: 1px solid #a1c6b51b;
+	}
+	.has-award .reel-column:not(.running) .reel-symbol:not(.winning) {
+		opacity: 0.3;
 	}
 	.reel-symbol img {
 		height: 94%;

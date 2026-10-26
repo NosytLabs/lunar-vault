@@ -3,7 +3,6 @@
 	import Reels from './Reels.svelte';
 	import {
 		EngineSession,
-		type Auth,
 		type Round,
 		type Symbol,
 		type Position,
@@ -58,12 +57,20 @@
 	let phase = $state<'idle' | 'request' | 'spinning' | 'award'>('idle');
 	let positions = $state<Position[]>([]),
 		line = $state(0),
-		message = $state('The river is waiting.');
+		message = $state('20 lines · Match 3 or more from the left');
+	let shownBoard: Symbol[][] = initial;
+	let collection = $state<{
+		fish: { position: Position; value: number }[];
+		collector: Position;
+	} | null>(null);
+	let stageNotice = $state('');
 	let modal = $state<'guide' | 'entry' | 'complete' | 'confirm' | null>(null),
 		dialog: HTMLDialogElement;
 	let modalResolve: (() => void) | undefined;
 	let reels = $state<{
 		settle: (board: Symbol[][]) => void;
+		start: (reduced: boolean) => Promise<void>;
+		cancel: () => void;
 		spin: (board: Symbol[][], reduced: boolean, turbo: boolean) => Promise<void>;
 		accelerate: () => void;
 	}>();
@@ -108,7 +115,10 @@
 	}
 	function snapshot(events: BookEvent[]) {
 		for (const e of events) {
-			if (e.type === 'reveal') reels!.settle(e.board);
+			if (e.type === 'reveal') {
+				shownBoard = e.board;
+				reels!.settle(e.board);
+			}
 			if (e.type === 'winInfo') win += e.totalWin;
 			if (e.type === 'setTotalWin' || e.type === 'finalWin') win = e.amount;
 			if (e.type === 'freeSpinTrigger') {
@@ -147,33 +157,56 @@
 			positions = [];
 			line = 0;
 			phase = 'spinning';
-			message = inRun ? `RIVER RUN · CAST ${current} OF ${total}` : 'A line across the water…';
+			message = inRun ? `River Run · Cast ${current} of ${total}` : 'Spinning…';
+			shownBoard = e.board;
 			await reels!.spin(e.board, reduced, turbo && !jurisdiction.disabledTurbo);
 			phase = 'award';
 		} else if (e.type === 'winInfo') {
 			for (const award of e.wins) {
-				const collection = award.meta.mechanic === 'collection';
-				positions = collection
+				const isCollection = award.meta.mechanic === 'collection';
+				positions = isCollection
 					? [...award.positions, ...award.meta.collectorPositions]
 					: award.positions;
-				line = collection ? 0 : award.meta.lineIndex;
-				win += award.win;
-				message = collection
-					? `SILVER COLLECT · ${award.meta.multiplier}× · ${awardValue(award.win)}`
-					: `LINE ${line} · ${labels[award.symbol] ?? 'SYMBOLS'}`;
-				if (collection) audio.collect();
-				else audio.award();
-				await wait(reduced ? (collection ? 300 : 180) : collection ? 900 : 460);
+				line = isCollection ? 0 : award.meta.lineIndex;
+				if (isCollection) {
+					message = `Wild collect · ${award.meta.multiplier}×`;
+					collection = {
+						fish: award.positions.map((position: Position) => ({
+							position,
+							value: shownBoard[position.reel][position.row].value ?? 0,
+						})),
+						collector: award.meta.collectorPositions[0],
+					};
+					if (!reduced) await wait(600);
+					win += award.win;
+					audio.collect();
+					message = `Collected ${awardValue(award.win)}`;
+					await wait(reduced ? 300 : 420);
+					collection = null;
+				} else {
+					win += award.win;
+					message = `Line ${line} · ${awardValue(award.win)}`;
+					audio.award();
+					await wait(reduced ? 180 : 380);
+				}
 				if (disposed) return;
 			}
 			positions = [];
 			line = 0;
 		} else if (e.type === 'collectFish') {
+			const advanced = e.stage > stage;
 			collected = e.collected;
 			stage = e.stage;
+			if (advanced) {
+				stageNotice = `${stages[stage]} · ${stage + 1}× collections`;
+				await wait(reduced ? 200 : 650);
+				stageNotice = '';
+			}
 		} else if (e.type === 'setTotalWin') {
 			win = e.amount;
 		} else if (e.type === 'freeSpinTrigger') {
+			reels?.cancel();
+			phase = 'award';
 			inRun = true;
 			current = 0;
 			total = e.totalFs;
@@ -195,12 +228,11 @@
 			runAward = e.amount;
 			collected = e.collected;
 			inRun = false;
-			message = 'THE UPSTREAM RUN IS COMPLETE';
+			message = 'River Run complete';
 			await prompt('complete');
 		} else if (e.type === 'finalWin') {
 			win = e.amount;
-			message =
-				e.amount > 0 ? `ROUND WIN · ${awardValue(e.amount)}` : 'The current turns. Spin again.';
+			message = e.amount > 0 ? `Round win · ${awardValue(e.amount)}` : 'No win · Spin again';
 		} else throw new Error('This round needs a different game version.');
 	}
 	async function playback(round: Round, resume = false) {
@@ -332,6 +364,8 @@
 			return;
 		}
 		phase = 'request';
+		message = 'Spinning…';
+		await reels?.start(reduced);
 		positions = [];
 		win = 0;
 		await audio.unlock().catch(() => {});
@@ -341,6 +375,7 @@
 			currency = data.balance.currency;
 			await playback(data.round);
 		} catch (e) {
+			reels?.cancel();
 			error = (e as Error).message;
 			phase = 'idle';
 		}
@@ -367,18 +402,42 @@
 <svelte:window onkeydown={keydown} />
 <main class:reduced class:river-run={inRun}>
 	<div class="scene-shade"></div>
-	<header>
-		<p class="studio">NOSYTLABS GAMES <span>DEVELOPMENT PREVIEW</span></p>
+	<header class="brand">
+		<svg class="brand-mark" width="62" height="36" viewBox="0 0 70 40" aria-hidden="true"
+			><path
+				d="M7 20C19 3 40 3 53 14L65 7V33L53 26C40 37 19 37 7 20Z"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2.3"
+			/><path
+				d="M10 20H49M28 6L35 15M29 34L35 25"
+				stroke="currentColor"
+				stroke-width="1.7"
+				fill="none"
+			/><circle cx="16" cy="17" r="1.7" fill="currentColor" /></svg
+		>
 		<h1>Salmon <em>Run</em></h1>
-		<p class="tagline">FOLLOW THE SILVER</p>
+		{#if preview}<span class="demo-badge">DEMO</span>{/if}
 	</header>
 	{#if ready}
 		<section class="game" aria-label="Salmon Run playfield">
-			<div class="river-track" aria-label={`River progress: ${collected} collected fish`}>
-				{#each stages as name, i}<span class:reached={stage >= i && collected > 0}
-						><b>{i + 1}</b>{name}</span
-					>{/each}
-				<strong>{inRun ? `${current}/${total} CASTS` : replay ? 'REPLAY' : '20 LINES'}</strong>
+			<div
+				class="river-track"
+				class:feature-track={inRun}
+				aria-label={inRun ? `River progress: ${collected} collected fish` : '20 winning lines'}
+			>
+				{#if inRun}
+					<div class="run-counter">
+						<b>RIVER RUN</b><strong>{current} / {total} <small>CASTS</small></strong>
+					</div>
+					<div class="stage-track">
+						{#each stages as name, i}<span class:active={stage === i} class:passed={stage > i}
+								><b>{i + 1}×</b><small>{name}</small></span
+							>{/each}
+					</div>
+					<span class="fish-count">{collected} FISH</span>
+				{:else}<span>20 LINES</span><span>{replay ? 'REPLAY' : 'WILDS COLLECT IN RIVER RUN'}</span
+					>{/if}
 			</div>
 			<div class="board-frame" aria-busy={busy}>
 				<div class="corner tl"></div>
@@ -407,6 +466,14 @@
 								fill="#ffe6a4"
 							/>{/each}</svg
 					>{/if}
+				{#if collection && !reduced}<div class="collection-layer" aria-hidden="true">
+						{#each collection.fish as fish}<span
+								class="catch-token"
+								style={`--from-x:${fish.position.reel * 20 + 10}%;--from-y:${((fish.position.row - 1) * 100) / 3 + 100 / 6}%;--to-x:${collection.collector.reel * 20 + 10}%;--to-y:${((collection.collector.row - 1) * 100) / 3 + 100 / 6}%`}
+								>{fish.value}×</span
+							>{/each}
+					</div>{/if}
+				{#if stageNotice}<div class="stage-notice" role="status">{stageNotice}</div>{/if}
 				<div class="waterline"></div>
 			</div>
 			<div class="result" role="status" aria-live="polite">
@@ -445,9 +512,7 @@
 			>
 			<div class="readouts">
 				{#if !replay}<div>
-						<span>BALANCE{preview ? ' · PREVIEW' : ''}</span><strong data-testid="balance"
-							>{currencyValue(balance)}</strong
-						>
+						<span>BALANCE</span><strong data-testid="balance">{currencyValue(balance)}</strong>
 					</div>{/if}
 				<div><span>WIN</span><strong data-testid="win">{awardValue(win)}</strong></div>
 			</div>
@@ -499,7 +564,7 @@
 						balance < amount * riverCost ||
 						amount > (serverModes.river?.maxBet ?? Infinity)}
 					onclick={() => (modal = 'confirm')}
-					><span>ENTER THE FEATURE</span><b>RIVER RUN</b><small
+					><span>FEATURE</span><b>RIVER RUN</b><small
 						>{riverCost}× · {currencyValue(amount * riverCost)}</small
 					></button
 				>{/if}
@@ -509,9 +574,6 @@
 			</p>{:else if !replay && !baseAvailable}<p class="funds-message">
 				This amount exceeds the session limit. Choose a lower play amount.
 			</p>{/if}
-		<p class="concept-note">
-			{preview ? 'LOCAL MATH PREVIEW' : 'DEVELOPMENT BUILD'} · NO ENGINE APPROVAL
-		</p>
 	{:else if !error}<div class="startup" role="status">
 			<span class="eyebrow">PREPARING THE RIVER</span>
 			<p>Loading artwork and session</p>
@@ -663,13 +725,13 @@
 				src="./assets/sprites/salmon.webp"
 				alt="Silver salmon"
 			/>
-			<p class="eyebrow">FOLLOW THE SILVER</p>
-			<h2>The Upstream Run</h2>
+			<p class="eyebrow">RIVER RUN</p>
+			<h2>Upstream awaits</h2>
 			<p class="feature-number">{total}<span>FREE CASTS</span></p>
-			<p>Wilds collect the silver.<br />Every catch takes you further upstream.</p>
-			<button class="primary" onclick={dismiss}>Follow the river</button>
-		{:else if modal === 'complete'}<p class="eyebrow">THE RIVER REMEMBERS</p>
-			<h2>Your Upstream Run</h2>
+			<p>Wilds collect the silver.<br />Reach 3 fish for 2×, then 6 fish for 3× collections.</p>
+			<button class="primary" onclick={dismiss}>Start River Run</button>
+		{:else if modal === 'complete'}<p class="eyebrow">RIVER RUN COMPLETE</p>
+			<h2>Total win</h2>
 			<p class="feature-number" data-testid="run-total">
 				{awardValue(runAward)}<span>{collected} SILVER FISH · {current} CASTS</span>
 			</p>
