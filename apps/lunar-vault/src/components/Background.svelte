@@ -1,34 +1,17 @@
 <script lang="ts">
-	import { Rectangle, SpineProvider, SpineTrack } from 'pixi-svelte';
+	import { Rectangle, Sprite } from 'pixi-svelte';
 	import { FadeContainer } from 'components-pixi';
 	import { SECOND } from 'constants-shared/time';
-
 	import { getContext } from '../game/context';
-
 	const context = getContext();
-	const backgroundProps = $derived(
-		context.stateLayoutDerived.normalBackgroundLayout({ scale: 0.5 }),
-	);
-	const showBaseBackground = $derived(context.stateGame.gameType === 'basegame');
-	const showFeatureBackground = $derived(context.stateGame.gameType === 'freegame');
+	const bg = $derived(context.stateLayoutDerived.normalBackgroundLayout({ scale: 0.5 }));
+	const showBase = $derived(context.stateGame.gameType === 'basegame');
+	const showFeature = $derived(context.stateGame.gameType === 'freegame');
 </script>
-
-<Rectangle {...context.stateLayoutDerived.canvasSizes()} backgroundColor={0x000000} zIndex={-3} />
-
-<FadeContainer show={showBaseBackground} duration={SECOND} zIndex={-2}>
-	<SpineProvider key="foregroundAnimation" {...backgroundProps}>
-		<SpineTrack trackIndex={0} animationName={'idle'} loop />
-	</SpineProvider>
-	<SpineProvider key="foregroundAnimation" {...backgroundProps}>
-		<SpineTrack trackIndex={0} animationName={'dust'} loop />
-	</SpineProvider>
+<Rectangle {...context.stateLayoutDerived.canvasSizes()} backgroundColor={0x03091b} zIndex={-4} />
+<FadeContainer show={showBase} duration={SECOND} zIndex={-3}>
+	<Sprite key="lunarBackdrop" {...bg} anchor={0.5} />
 </FadeContainer>
-
-<FadeContainer show={showFeatureBackground} duration={SECOND} zIndex={-1}>
-	<SpineProvider key="foregroundFeatureAnimation" {...backgroundProps}>
-		<SpineTrack trackIndex={0} animationName={'idle'} loop />
-	</SpineProvider>
-	<SpineProvider key="foregroundFeatureAnimation" {...backgroundProps}>
-		<SpineTrack trackIndex={0} animationName={'dust'} loop />
-	</SpineProvider>
+<FadeContainer show={showFeature} duration={SECOND} zIndex={-2}>
+	<Sprite key="lunarFeatureBackdrop" {...bg} anchor={0.5} />
 </FadeContainer>
