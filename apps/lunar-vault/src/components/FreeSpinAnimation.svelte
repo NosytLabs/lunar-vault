@@ -1,65 +1,23 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-
-	import {
-		anchorToPivot,
-		Container,
-		SpineProvider,
-		SpineSlot,
-		SpineTrack,
-		type Sizes,
-	} from 'pixi-svelte';
+	import { Container, Rectangle, Sprite, type Sizes } from 'pixi-svelte';
 	import { MainContainer } from 'components-layout';
-
 	import { getContext } from '../game/context';
-	import { SYMBOL_SIZE, BOARD_DIMENSIONS } from '../game/constants';
 
-	type Props = {
-		children: Snippet<[{ sizes: Sizes }]>;
-	};
-
+	type Props = { children: Snippet<[{ sizes: Sizes }]> };
 	const props: Props = $props();
-
-	type AnimationName = 'intro' | 'idle';
-
 	const context = getContext();
-	const BACKGROUND_RATIO = 920 / 720;
-	const BACKGROUND_WIDTH = SYMBOL_SIZE * BOARD_DIMENSIONS.x;
-	const BACKGROUND_SIZES = {
-		width: BACKGROUND_WIDTH,
-		height: BACKGROUND_WIDTH / BACKGROUND_RATIO,
-	};
-	const PANEL_SIZES = {
-		width: SYMBOL_SIZE * BOARD_DIMENSIONS.x,
-		height: SYMBOL_SIZE * BOARD_DIMENSIONS.x,
-	};
-
-	let animationName = $state<AnimationName>('intro');
+	const sizes: Sizes = { width: 640, height: 420 };
 </script>
 
 <MainContainer>
 	<Container
 		x={context.stateGameDerived.boardLayout().x}
 		y={context.stateGameDerived.boardLayout().y}
-		pivot={anchorToPivot({ anchor: 0.5, sizes: BACKGROUND_SIZES })}
 	>
-		<SpineProvider
-			key="fsIntro"
-			width={PANEL_SIZES.width}
-			x={PANEL_SIZES.width * 0.5}
-			y={PANEL_SIZES.height * 0.4}
-		>
-			<SpineTrack
-				trackIndex={0}
-				{animationName}
-				loop={animationName === 'idle'}
-				listener={{
-					complete: () => (animationName = 'idle'),
-				}}
-			/>
-			<SpineSlot slotName="slot_text_placeholder">
-				{@render props.children({ sizes: BACKGROUND_SIZES })}
-			</SpineSlot>
-		</SpineProvider>
+		<Rectangle x={-343} y={-223} width={686} height={446} backgroundColor={0xd3a55f} />
+		<Rectangle x={-337} y={-217} width={674} height={434} backgroundColor={0x070d26} />
+		<Sprite key="lunar_lobby_wide" anchor={0.5} width={662} height={374} alpha={0.42} />
+		{@render props.children({ sizes })}
 	</Container>
 </MainContainer>
