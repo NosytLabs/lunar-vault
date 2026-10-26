@@ -4,10 +4,9 @@
 	import { EnablePixiExtension } from 'components-pixi';
 	import { EnableHotkey } from 'components-shared';
 	import { MainContainer } from 'components-layout';
-	import { App, Text } from 'pixi-svelte';
+	import { App } from 'pixi-svelte';
 	import { stateModal, stateBet, stateBetDerived } from 'state-shared';
 
-	import { UI } from 'components-ui-pixi';
 	import { GameVersion, Modals } from 'components-ui-html';
 
 	import { getContext } from '../game/context';
@@ -34,11 +33,6 @@
 	import { stateUi } from 'state-shared';
 
 	const context = getContext();
-	const mini = $derived(
-		context.stateLayoutDerived.canvasSizes().width < 600 &&
-			context.stateLayoutDerived.canvasSizes().height < 360 &&
-			stateUi.config.mode === 'default',
-	);
 
 	let fontsReady = $state(false);
 	let fontError = $state(false);
@@ -92,24 +86,6 @@
 				<WinLines />
 			</MainContainer>
 
-			{#if !mini}<UI>
-					{#snippet gameName()}{/snippet}
-					{#snippet logo()}
-						<Text
-							text="NOSYTLABS GAMES"
-							visible={context.stateLayoutDerived.canvasSizes().height >= 360}
-							anchor={{ x: 1, y: 0 }}
-							y={10}
-							style={{
-								fontFamily: 'Lunar Sans',
-								fontSize: context.stateLayoutDerived.canvasSizes().width < 500 ? 13 : 17,
-								fontWeight: '700',
-								letterSpacing: 2,
-								fill: 0xe0c38a,
-							}}
-						/>
-					{/snippet}
-				</UI>{/if}
 			<Win />
 			<FreeSpinIntro />
 			<FreeSpinCounter />
@@ -118,7 +94,8 @@
 			<FeatureBanner />
 		{/if}
 	</App>
-	{#if mini && !context.stateLayout.showLoadingScreen}<MiniControls />{/if}
+	{#if stateUi.config.mode === 'default' && !context.stateLayout.showLoadingScreen}<MiniControls
+		/>{/if}
 	{#if !context.stateLayout.showLoadingScreen && stateUi.config.mode === 'default' && stateBetDerived.betCost() > stateBet.balanceAmount}
 		<p class="balance-help" role="status">Insufficient balance. Choose a lower play amount.</p>
 	{/if}

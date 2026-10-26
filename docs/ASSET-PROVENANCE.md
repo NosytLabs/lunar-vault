@@ -4,10 +4,10 @@ All files are local under `apps/lunar-vault/static/assets/nosyt/`. No external a
 
 | File                     | Production                                                               | Use                                                |
 | ------------------------ | ------------------------------------------------------------------------ | -------------------------------------------------- |
-| observatory-painted.webp | OpenAI built-in Image Generation tool; PNG encoded to WebP at quality 86 | Full-canvas painted environment                    |
+| observatory-quiet-v3.webp | OpenAI built-in Image Generation tool; PNG encoded to WebP at quality 88 | Full-canvas painted environment                    |
 | orbital-seal.svg         | Original hand-authored SVG geometry                                      | Loading, feature and transition ornament           |
 | star-flare.svg           | Original hand-authored SVG geometry                                      | Award particles and sprite explosion state         |
-| reel-frame-v2.svg        | Original hand-authored SVG geometry                                      | 600×360 opening aligned to the five 120-unit reels |
+| reel-frame-v3.svg        | Original hand-authored SVG geometry                                      | 600×360 opening aligned to the five 120-unit reels |
 
 ## Image generation prompt
 
@@ -27,3 +27,9 @@ Generated using the built-in tool, not a paid-provider CLI workflow. The WebP is
 All twelve original vector symbol stand-ins have been replaced by individually generated, transparent 512×512 WebP sprites under `assets/nosyt/sprites/`. The obsolete symbol SVGs are removed. Art direction uses aged brass, sapphire enamel, silver and selective violet light, with distinct instrument silhouettes. The image-generation tool produced alpha-transparent originals; `cwebp` preserved alpha during resizing/encoding. Each source was inspected for transparency and the full set was reviewed in the live game. Exact prompts and shipping paths are recorded in [lunar-sprites-v2.json](assets/lunar-sprites-v2.json). This is generated artwork requiring human originality/rights signoff, not a quality-ranking claim.
 
 The rules body now uses the unmodified normal-width Barlow Regular font under the same included OFL, while display and compact controls retain their separate typography.
+
+## Quiet cabinet pass
+
+The current original observatory plate is `observatory-quiet-v3.webp`, generated with the built-in image tool and encoded at WebP quality 88. Its exact prompt is recorded in `docs/assets/lunar-background-v3.json`; it replaces the initial oversized moon/mirrored-machinery scene described in the historical prompt above. `reel-frame-v3.svg` is original editable geometry with a thinner border, replacing v2. Neither retired environment/frame ships.
+
+Normal-width Barlow SemiBold/Bold now supplies `Lunar Sans` at every viewport, with Barlow Regular for body copy. The retired Condensed font files listed in the historical second pass above are removed. Cinzel remains the title face. All current font licenses remain bundled. Native controls replace the large canvas button panels while the board and animation remain PixiJS/SDK-driven.

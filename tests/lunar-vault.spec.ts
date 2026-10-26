@@ -32,7 +32,9 @@ async function renderedText(page: Page) {
 		};
 		const app = (window as any).__testPixi;
 		if (app?.stage) walk(app.stage, true);
-		for (const element of document.querySelectorAll('.mini-controls button,.mini-controls span')) {
+		for (const element of document.querySelectorAll(
+			'.mini-controls button,.mini-controls span,.mini-controls b',
+		)) {
 			const box = element.getBoundingClientRect();
 			if (box.width && box.height)
 				result.push({
@@ -220,14 +222,13 @@ for (const [width, height] of [
 			),
 		).toBe(true);
 		await page.screenshot({ path: info.outputPath(`viewport-${width}x${height}.png`) });
-		if (width === 400)
-			for (const button of await page
-				.locator('.mini-controls > button,.mini-controls .spin')
-				.all()) {
-				const box = await button.boundingBox();
-				expect(box!.width).toBeGreaterThanOrEqual(44);
-				expect(box!.height).toBeGreaterThanOrEqual(44);
-			}
+		for (const button of await page
+			.locator('.mini-controls > button:visible,.mini-controls .spin:visible')
+			.all()) {
+			const box = await button.boundingBox();
+			expect(box!.width).toBeGreaterThanOrEqual(44);
+			expect(box!.height).toBeGreaterThanOrEqual(44);
+		}
 		await clickText(page, 'SPIN');
 		await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(1);
 		await textNode(page, 'SPIN');
@@ -267,6 +268,7 @@ test('win settles once, dialogs render once and block space', async ({ page }, i
 	await page.screenshot({ path: info.outputPath('rules.png') });
 	await page.keyboard.press('Escape');
 	await expect(page.getByRole('heading', { name: 'Inside the Lunar Vault' })).toHaveCount(0);
+	await clickText(page, 'MENU');
 	await clickText(page, 'PAYTABLE');
 	await expect(page.getByRole('heading', { name: 'Celestial symbols' })).toHaveCount(1);
 	await expect(page.getByRole('heading', { name: 'Celestial symbols' })).toBeInViewport();
@@ -358,8 +360,9 @@ test('replay uses only replay endpoint', async ({ page }, info) => {
 	expect(s.calls.filter((c) => c.path.startsWith('/wallet/'))).toHaveLength(0);
 	expect(s.calls.filter((c) => c.path.startsWith('/bet/replay/'))).toHaveLength(1);
 	const replay = await page.getByRole('button', { name: 'Play again' }).boundingBox();
-	const bet = await textNode(page, 'BET');
-	expect(replay!.x).toBeGreaterThan(bet.x + bet.width);
+	const amount = await page.locator('.replay-cost').boundingBox();
+	await expect(page.locator('.replay-cost')).toContainText('PLAY AMOUNT $0.10');
+	expect(replay!.x).toBeGreaterThan(amount!.x + amount!.width);
 	await page.screenshot({ path: info.outputPath('replay.png') });
 	expect(s.errors).toEqual([]);
 });
@@ -613,4 +616,22 @@ test('an invalid RGS host shows a clear failure without another destination', as
 	await expect(page.getByRole('alert')).toContainText('valid launch link');
 	await expect(page.getByText('Reload game', { exact: true })).toBeVisible();
 	expect(requests).toEqual(['https://example.com/wallet/authenticate']);
+});
+
+test('master mute remains available on the feature introduction without dismissing it', async ({
+	page,
+}) => {
+	await page.setViewportSize({ width: 425, height: 812 });
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	const s = await session(page, { book: bonusBooks[0] as Fixture, resume: true });
+	await textNode(page, 'ECLIPSE CHAMBER');
+	const mute = page.getByRole('button', { name: 'Mute all sound', exact: true });
+	await expect(mute).toBeVisible();
+	await mute.click();
+	await expect(page.getByRole('button', { name: 'Enable sound', exact: true })).toBeVisible();
+	await textNode(page, 'ECLIPSE CHAMBER');
+	expect(
+		s.calls.filter((c) => c.path === '/wallet/play' || c.path === '/wallet/end-round'),
+	).toHaveLength(0);
+	expect(s.errors).toEqual([]);
 });
