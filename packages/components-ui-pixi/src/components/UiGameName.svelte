@@ -1,44 +1,33 @@
 <script lang="ts">
 	import { SvelteDate } from 'svelte/reactivity';
-
 	import { Text, REM } from 'pixi-svelte';
-	import { WHITE } from 'constants-shared/colors';
+	import { getContext } from '../context';
 
-	type Props = {
-		name: string;
-	};
-
+	type Props = { name: string };
 	const props: Props = $props();
+	const context = getContext();
+	const compact = $derived(context.stateLayoutDerived.canvasSizes().width < 520);
 	const reactiveDate = new SvelteDate();
 	const clock = $derived(
-		reactiveDate.toLocaleTimeString('en-US', {
-			hour: 'numeric',
-			minute: 'numeric',
-			hour12: false,
-		}),
+		reactiveDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: false }),
 	);
-	const textProps = {
+	const textProps = $derived({
 		style: {
-			fontFamily: 'proxima-nova',
-			fontSize: REM * 1.5,
-			fontWeight: '600',
-			lineHeight: REM * 2,
-			fill: WHITE,
+			fontFamily: 'Arial, sans-serif',
+			fontSize: compact ? REM * 1.15 : REM * 1.5,
+			fontWeight: '700',
+			lineHeight: REM * 1.8,
+			fill: 0xffebc4,
 		},
-	} as const;
-
+	});
 	let clockSizes = $state({ width: 0, height: 0 });
-
 	$effect(() => {
-		const interval = setInterval(() => {
-			reactiveDate.setTime(Date.now());
-		}, 1000);
-
-		return () => {
-			clearInterval(interval);
-		};
+		const interval = window.setInterval(() => reactiveDate.setTime(Date.now()), 30_000);
+		return () => window.clearInterval(interval);
 	});
 </script>
 
-<Text text={clock} onresize={(value) => (clockSizes = value)} {...textProps} />
-<Text text={props.name} x={clockSizes.width + 5} {...textProps} />
+{#if !compact}
+	<Text text={clock} onresize={(value) => (clockSizes = value)} {...textProps} />
+{/if}
+<Text text={props.name} x={compact ? 0 : clockSizes.width + 9} {...textProps} />
