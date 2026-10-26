@@ -77,7 +77,7 @@ stored turned -90° in the sheet).
    Studio's Media Editor — a 3:4 portrait tile (408x546) set as cover
    plus a 16:9 cover-art version (640x360) of the same artwork.
 3. **Review rules** (Engine docs, Oct 2026): RTP per bet mode must be
-   90.0–96.70%, ≤10M outcomes per mode, $0.01 bet levels included, and
+   96.0–96.70%, ≤10M outcomes per mode, $0.01 bet levels included, and
    every round must be replayable. These are math/config certifications,
    not frontend changes — the frontend `config.ts` RTP (0.97, inherited
    from the sample) must be aligned with the certified math before
@@ -85,3 +85,11 @@ stored turned -90° in the sheet).
    version together, and the form stays locked until both are published,
    the math passes its critical tests, a bet-level template fits, and
    the game tiles (gap 4) exist.
+
+## Follow-up verification (October 26, 2026)
+
+- Official Engine math verification explicitly requires **96.0%–96.70% RTP** in every mode, with base 1.0× volatility standard deviation ≥0.6. The earlier 90.0% lower bound was incorrect.
+- This repository is an **Engine Web SDK-derived Svelte/PixiJS game** with SDK sample Spine effects and not a certified, math-backed Lunar Vault release. The independent standalone prototype is a separate implementation and its math cannot be assumed compatible with this fork’s events, game modes or reel layout.
+- The placeholder `ADD YOUR LOGO` has been replaced with `NOSYTLABS GAMES` in the game HUD. This text-only branding fix does not resolve remaining licensed art, branding, maths, or submission concerns.
+- Before submission: replace SDK sample backgrounds/Spine/audio, author matching server math books, update client RTP/paytables, run RGS/replay and social-language audits, and inspect 1024×576, 800×450, 400×225, 425×812 in actual Engine preview.
+- Source: https://studio.engine.io/docs/approval-guidelines/math-verification
