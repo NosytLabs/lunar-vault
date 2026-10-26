@@ -1,55 +1,31 @@
 <script lang="ts">
-	import { SpineProvider, SpineTrack, Container, Sprite } from 'pixi-svelte';
-	import { FadeContainer, LoadingProgress } from 'components-pixi';
+	import { Container, Rectangle, Sprite, Text } from 'pixi-svelte';
+	import { FadeContainer } from 'components-pixi';
 	import { MainContainer } from 'components-layout';
-
 	import { getContext } from '../game/context';
 	import TransitionAnimation from './TransitionAnimation.svelte';
 	import PressToContinue from './PressToContinue.svelte';
-
-	type Props = {
-		onloaded: () => void;
-	};
-
+	type Props = { onloaded: () => void };
 	const props: Props = $props();
 	const context = getContext();
-
 	let loadingType = $state<'start' | 'transition'>('start');
+	const progress = $derived(Math.max(0, Math.min(1, context.stateApp.loadingProgress || 0)));
 </script>
-
-<!-- logo and loading progress -->
 <FadeContainer show={loadingType === 'start'}>
 	<MainContainer>
-		<Container
-			x={context.stateLayoutDerived.mainLayout().width * 0.5}
-			y={context.stateLayoutDerived.mainLayout().height * 0.5}
-		>
-			<SpineProvider key="loader" width={300}>
-				<SpineTrack trackIndex={0} animationName={'title_screen'} loop timeScale={3} />
-			</SpineProvider>
+		<Container x={context.stateLayoutDerived.mainLayout().width / 2} y={context.stateLayoutDerived.mainLayout().height / 2}>
+			<Sprite key="lunarLogo" anchor={0.5} width={440} height={132} />
 			{#if !context.stateApp.loaded}
-				<LoadingProgress y={250} width={1967 * 0.2} height={346 * 0.2}>
-					{#snippet background(sizes)}
-						<Sprite key="progressBarBackground.png" {...sizes} />
-					{/snippet}
-					{#snippet progress(sizes)}
-						<Sprite key="progressBar.png" {...sizes} />
-					{/snippet}
-					{#snippet frame(sizes)}
-						<Sprite key="progressBarFrame.png" {...sizes} />
-					{/snippet}
-				</LoadingProgress>
+				<Rectangle x={-175} y={147} width={350} height={12} borderRadius={6} backgroundColor={0x1a2642} borderColor={0x987044} borderWidth={2} />
+				<Rectangle x={-173} y={149} width={346 * progress} height={8} borderRadius={4} backgroundColor={0xeac37d} />
+				<Text y={190} anchor={0.5} text="PREPARING THE OBSERVATORY" style={{ fontFamily: 'Arial, sans-serif', fontSize: 19, fill: 0xf5e0ae, letterSpacing: 2.5 }} />
 			{/if}
 		</Container>
 	</MainContainer>
 </FadeContainer>
-
-<!-- press to continue -->
 <FadeContainer show={loadingType === 'start' && context.stateApp.loaded}>
 	<PressToContinue onpress={() => (loadingType = 'transition')} />
 </FadeContainer>
-
-<!-- transition between the loading screen and the game -->
 <FadeContainer show={loadingType === 'transition'}>
 	<TransitionAnimation oncomplete={props.onloaded} />
 </FadeContainer>
