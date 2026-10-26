@@ -36,3 +36,10 @@ jobs:
         run: python3 tools/audit-assets.py
       - name: Verify NosytLabs image integrity and loader
         run: python3 tools/verify-nosyt-assets.py
+      - name: Capture static build for off-line visual QA
+        uses: actions/upload-artifact@v4
+        with:
+          name: lunar-vault-static-preview
+          path: apps/lunar-vault/build/
+          if-no-files-found: error
+          retention-days: 1
