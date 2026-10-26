@@ -72,10 +72,10 @@
 			{#snippet logo()}
 				<Text
 					anchor={{ x: 1, y: 0 }}
-					text="NOSYTLABS GAMES"
+					text={context.stateLayoutDerived.canvasSizes().width < 520 ? 'N·G' : 'NOSYTLABS GAMES'}
 					style={{
 						fontFamily: 'proxima-nova',
-						fontSize: REM * 1.18,
+						fontSize: REM * 1.08,
 						fontWeight: '600',
 						lineHeight: REM * 2,
 						fill: 0xffdfaa,
