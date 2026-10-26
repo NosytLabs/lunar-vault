@@ -40,7 +40,7 @@ the SDK README's "Run in DEV Mode" / "Launch a Game" sections.
 
 ## Studio art and audio
 
-The game uses a painted observatory plus original celestial raster sprites, frame, orbital seal and star effects. Locally bundled Cinzel and Barlow Condensed fonts sharpen titles, awards and controls. A compact 44px control bar supports the smallest landscape preview. Unused sample Spine/spritesheet/bitmap-font assets have been removed. See [asset provenance and generation prompt](docs/ASSET-PROVENANCE.md).
+The game uses a painted observatory plus original celestial raster sprites, frame, orbital seal and star effects. Locally bundled Cinzel, Barlow and Barlow Condensed fonts sharpen titles, awards and controls. A compact 44px control bar supports the smallest landscape preview. Unused sample Spine/spritesheet/bitmap-font assets have been removed. See [asset provenance and generation prompt](docs/ASSET-PROVENANCE.md).
 
 A deterministic Python standard-library generator creates the 52-cue original WAV audio sprite automatically through the app’s prebuild/predev/prestorybook hooks. The generated WAV is not checked in.
 
@@ -79,3 +79,5 @@ The [revamp audit](docs/REVAMP-AUDIT-2026-10-26.md) records font/animation chang
 ## Separate Salmon Run development slot
 
 [Salmon Run](apps/salmon-run/README.md) now has original raster symbols, real travelling reels, Engine wallet/replay requests and a matching finite weighted-book development math package. Its 96.50% computed RTP applies only to that checked-in Salmon distribution. The loopback preview supplies test funds and outcomes from the weighted files; live Engine acceptance and certification remain open. Lunar Vault's SDK fork and unmatched sample math remain separate.
+
+The [full Engine self-check](docs/ENGINE-SELF-CHECK-2026-10-26.md) records all 41 supplied criteria with source evidence and separates 35 passing local browser checks from remaining live-platform and math blockers.
