@@ -18,7 +18,8 @@
 		"test:viewport": "playwright test",
 		"check:assets": "node tools/check-original-art.mjs && python3 tools/audit-assets.py",
 		"audit:math": "node --experimental-strip-types tools/audit-books.mjs",
-		"test:math": "node --experimental-strip-types --test tools/audit-books.test.mjs"
+		"test:math": "node --experimental-strip-types --test tools/audit-books.test.mjs",
+		"test:contracts": "node --experimental-strip-types --test tools/engine-contracts.test.mjs"
 	},
 	"dependencies": {
 		"eslint": "9.21.0",

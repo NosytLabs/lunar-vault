@@ -5,6 +5,7 @@ import type { LoadedAssets, Assets } from './types';
 export function createApp({ assets }: { assets: Assets }) {
 	const reset = () => {
 		stateApp.loaded = false;
+		stateApp.loadingError = '';
 		stateApp.loadingProgress = 0;
 		stateApp.loadedAssets = {};
 		stateApp.pixiApplication = undefined as PIXI.Application | undefined;
@@ -14,6 +15,7 @@ export function createApp({ assets }: { assets: Assets }) {
 		reset,
 		assets,
 		loaded: false,
+		loadingError: '',
 		loadingProgress: 0,
 		loadedAssets: {} as LoadedAssets,
 		pixiApplication: undefined as PIXI.Application | undefined,

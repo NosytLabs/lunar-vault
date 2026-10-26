@@ -5,6 +5,7 @@ export function loadGameFonts() {
 			['Lunar Display', 'Cinzel-Variable.ttf', '700'],
 			['Lunar Sans', 'BarlowCondensed-SemiBold.ttf', '600'],
 			['Lunar Sans', 'BarlowCondensed-Bold.ttf', '700'],
+			['Lunar Body', 'Barlow-Regular.ttf', '400'],
 		];
 		await Promise.all(
 			faces.map(async ([family, file, weight]) => {

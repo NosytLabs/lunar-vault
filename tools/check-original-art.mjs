@@ -20,7 +20,7 @@ const extras = [
 	'spin-orbit',
 ];
 const failures = [];
-for (const name of [...colors.map((x) => x.toLowerCase()), ...extras]) {
+for (const name of extras) {
 	const file = path.join(app, 'static/assets/nosyt', name + '.svg');
 	if (!fs.existsSync(file)) failures.push('Missing ' + file);
 	else {
@@ -32,6 +32,9 @@ for (const name of [...colors.map((x) => x.toLowerCase()), ...extras]) {
 	}
 }
 for (const symbol of colors) {
+	const sprite = path.join(app, 'static/assets/nosyt/sprites', symbol.toLowerCase() + '.webp');
+	if (!fs.existsSync(sprite) || fs.statSync(sprite).size < 1000)
+		failures.push('Missing original raster sprite ' + symbol);
 	if (!assets.includes('lunar' + symbol + ':')) failures.push('Asset manifest missing ' + symbol);
 	if (
 		!new RegExp(`${symbol}:\\s*\\{\\s*explosion,\\s*static: icon\\('lunar${symbol}'\\)`).test(
@@ -77,5 +80,5 @@ if (failures.length) {
 	process.exitCode = 1;
 } else
 	console.log(
-		`Original art smoke check passed: ${colors.length + extras.length} SVG textures plus a painted WebP, 12 symbol textures, original audio, bundled fonts, mobile viewport and no SDK splash.`,
+		`Original art smoke check passed: ${extras.length} SVG ornaments, painted environment and 12 original raster symbols, original audio, bundled fonts, mobile viewport and no SDK splash.`,
 	);

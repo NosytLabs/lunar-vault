@@ -1,5 +1,6 @@
 import type { paths } from './schema';
 import { fetcher } from 'utils-fetcher';
+import { rgsEndpoint } from './endpoint';
 
 export const rgsFetcher = {
 	post: async function post<
@@ -13,10 +14,9 @@ export const rgsFetcher = {
 		const response = await fetcher({
 			method: 'POST',
 			variables: options.variables,
-			endpoint: `https://${options.rgsUrl}${options.url}`,
+			endpoint: rgsEndpoint(options.rgsUrl, options.url),
 		});
 
-		if (response.status !== 200) console.error('error', response);
 		const data = await response.json();
 		return data as TResponse;
 	},
@@ -26,10 +26,9 @@ export const rgsFetcher = {
 	>(options: { url: T; rgsUrl: string }): Promise<TResponse> {
 		const response = await fetcher({
 			method: 'GET',
-			endpoint: `https://${options.rgsUrl}${options.url}`,
+			endpoint: rgsEndpoint(options.rgsUrl, options.url),
 		});
 
-		if (response.status !== 200) console.error('error', response);
 		const data = await response.json();
 		return data as TResponse;
 	},

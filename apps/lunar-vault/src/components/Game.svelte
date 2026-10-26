@@ -5,7 +5,7 @@
 	import { EnableHotkey } from 'components-shared';
 	import { MainContainer } from 'components-layout';
 	import { App, Text } from 'pixi-svelte';
-	import { stateModal } from 'state-shared';
+	import { stateModal, stateBet, stateBetDerived } from 'state-shared';
 
 	import { UI } from 'components-ui-pixi';
 	import { GameVersion, Modals } from 'components-ui-html';
@@ -119,6 +119,9 @@
 		{/if}
 	</App>
 	{#if mini && !context.stateLayout.showLoadingScreen}<MiniControls />{/if}
+	{#if !context.stateLayout.showLoadingScreen && stateUi.config.mode === 'default' && stateBetDerived.betCost() > stateBet.balanceAmount}
+		<p class="balance-help" role="status">Insufficient balance. Choose a lower play amount.</p>
+	{/if}
 {:else}
 	<div class="font-loading">
 		LUNAR VAULT<span
@@ -127,6 +130,13 @@
 	</div>
 {/if}
 
+{#if context.stateApp.loadingError}
+	<div class="font-loading" role="alert">
+		LUNAR VAULT<span>Game assets could not be loaded.</span><button
+			onclick={() => location.reload()}>Reload game</button
+		>
+	</div>
+{/if}
 <ReplayControls />
 
 <Modals>
@@ -138,6 +148,22 @@
 </Modals>
 
 <style>
+	.balance-help {
+		position: fixed;
+		bottom: 18%;
+		left: 50%;
+		transform: translateX(-50%);
+		margin: 0;
+		padding: 8px 14px;
+		border: 1px solid #b39765;
+		border-radius: 8px;
+		background: #0a1c30ed;
+		color: #ffdfaa;
+		font:
+			600 14px 'Lunar Sans',
+			sans-serif;
+		text-align: center;
+	}
 	.font-loading {
 		position: fixed;
 		inset: 0;

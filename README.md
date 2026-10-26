@@ -40,7 +40,7 @@ the SDK README's "Run in DEV Mode" / "Launch a Game" sections.
 
 ## Studio art and audio
 
-The game uses a painted observatory plus original celestial SVG symbols, frame, orbital seal and star effects. Locally bundled Cinzel and Barlow Condensed fonts sharpen titles, awards and controls. A compact 44px control bar supports the smallest landscape preview. Unused sample Spine/spritesheet/bitmap-font assets have been removed. See [asset provenance and generation prompt](docs/ASSET-PROVENANCE.md).
+The game uses a painted observatory plus original celestial raster sprites, frame, orbital seal and star effects. Locally bundled Cinzel and Barlow Condensed fonts sharpen titles, awards and controls. A compact 44px control bar supports the smallest landscape preview. Unused sample Spine/spritesheet/bitmap-font assets have been removed. See [asset provenance and generation prompt](docs/ASSET-PROVENANCE.md).
 
 A deterministic Python standard-library generator creates the 52-cue original WAV audio sprite automatically through the app’s prebuild/predev/prestorybook hooks. The generated WAV is not checked in.
 
