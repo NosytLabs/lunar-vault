@@ -9,7 +9,7 @@
 	const props: Props = $props();
 	const context = getContext();
 	let loadingType = $state<'start' | 'transition'>('start');
-	const progress = $derived(Math.max(0, Math.min(1, context.stateApp.loadingProgress || 0)));
+	const progress = $derived(Math.max(0, Math.min(1, (context.stateApp.loadingProgress || 0) / 100)));
 </script>
 <FadeContainer show={loadingType === 'start'}>
 	<MainContainer>
