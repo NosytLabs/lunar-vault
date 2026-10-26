@@ -40,7 +40,7 @@ the SDK README's "Run in DEV Mode" / "Launch a Game" sections.
 
 ## Studio art and audio
 
-The game uses a painted observatory plus original celestial raster sprites, frame, orbital seal and star effects. Locally bundled Cinzel, Barlow and Barlow Condensed fonts sharpen titles, awards and controls. A compact 44px control bar supports the smallest landscape preview. Unused sample Spine/spritesheet/bitmap-font assets have been removed. See [asset provenance and generation prompt](docs/ASSET-PROVENANCE.md).
+The game uses a painted observatory plus original celestial raster sprites, frame, orbital seal and star effects. Locally bundled Cinzel and normal-width Barlow fonts sharpen titles, awards and controls. A compact 44px control bar supports the smallest landscape preview. Unused sample Spine/spritesheet/bitmap-font assets have been removed. See [asset provenance and generation prompt](docs/ASSET-PROVENANCE.md).
 
 A deterministic Python standard-library generator creates the 52-cue original WAV audio sprite automatically through the app’s prebuild/predev/prestorybook hooks. The generated WAV is not checked in.
 
@@ -76,4 +76,4 @@ Official references: https://github.com/engineio/web-sdk and https://studio.engi
 
 The [revamp audit](docs/REVAMP-AUDIT-2026-10-26.md) records font/animation changes, retrigger and recovery fixes, the 600-book audit and remaining release limitations.
 
-The [full Engine self-check](docs/ENGINE-SELF-CHECK-2026-10-26.md) records all 41 supplied criteria with source evidence and separates 35 passing local browser checks from remaining live-platform and math blockers.
+The [full Engine self-check](docs/ENGINE-SELF-CHECK-2026-10-26.md) records all 41 supplied criteria with source evidence and separates 36 passing local browser checks from remaining live-platform and math blockers.

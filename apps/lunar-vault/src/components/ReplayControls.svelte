@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { stateBet, stateUi, stateModal } from 'state-shared';
+	import { stateBet, stateUi, stateModal, stateSound } from 'state-shared';
 	import { getContext } from '../game/context';
-	import { numberToCurrencyString } from 'utils-shared/amount';
+	import { bookEventAmountToCurrencyString, numberToCurrencyString } from 'utils-shared/amount';
 	const context = getContext();
 	// Preserve the server replay book before ResumeBet consumes the shared pointer.
 	const replayBook = stateUi.config.mode === 'replay' ? stateBet.betToResume : null;
@@ -18,56 +18,110 @@
 </script>
 
 {#if replayBook && !context.stateLayout.showLoadingScreen}
-	<div class="replay-cost">
-		<span>REPLAY · {stateBet.activeBetModeKey.toUpperCase()}</span>
-		<b>PLAY AMOUNT {numberToCurrencyString(stateBet.betAmount)}</b>
-		<span
-			>{stateBet.replayCostMultiplier}× · TOTAL PLAY {numberToCurrencyString(
-				stateBet.betAmount * stateBet.replayCostMultiplier,
-			)}</span
+	<div class="replay-bar">
+		<button
+			class="info"
+			onclick={() => (stateModal.modal = { name: 'gameRules' })}
+			aria-label="Game information">i</button
 		>
+		<div class="replay-cost">
+			<span>REPLAY · {stateBet.activeBetModeKey.toUpperCase()}</span><b
+				>PLAY AMOUNT {numberToCurrencyString(stateBet.betAmount)}</b
+			><span
+				>{stateBet.replayCostMultiplier}× · TOTAL PLAY {numberToCurrencyString(
+					stateBet.betAmount * stateBet.replayCostMultiplier,
+				)}</span
+			>
+		</div>
+		<div class="replay-win">
+			<span>WIN</span><b>{bookEventAmountToCurrencyString(stateBet.winBookEventAmount)}</b>
+		</div>
+		<button class="replay" {disabled} onclick={playAgain}>Play again</button>
 	</div>
-	<button class="replay" {disabled} onclick={playAgain}>Play again</button>
+	<button
+		class="replay-mute"
+		aria-label={stateSound.volumeValueMaster ? 'Mute all sound' : 'Enable sound'}
+		onclick={() => (stateSound.volumeValueMaster = stateSound.volumeValueMaster ? 0 : 50)}
+		>{stateSound.volumeValueMaster ? 'MUTE' : 'SOUND'}</button
+	>
 {/if}
 
 <style>
-	.replay-cost {
+	.replay-bar {
 		position: fixed;
-		top: 8px;
-		left: 8px;
+		bottom: 12px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: min(720px, 96vw);
+		padding: 10px;
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		border: 1px solid #b7a16c66;
+		border-radius: 10px;
+		background: #091725ed;
+		color: #f4e1b7;
+		font:
+			600 12px 'Lunar Sans',
+			sans-serif;
+		box-sizing: border-box;
+		z-index: 20;
+	}
+	.replay-cost {
 		display: flex;
 		flex-direction: column;
 		gap: 3px;
-		padding: 8px 10px;
-		border: 1px solid #bba16b;
-		border-radius: 8px;
-		background: #0c1d30ee;
-		color: #ecd5ae;
-		font:
-			600 11px 'Lunar Sans',
-			sans-serif;
+		flex: 1;
+		min-width: 0;
 	}
-	@media (max-height: 300px) {
-		.replay-cost {
-			font-size: 8px;
-			padding: 4px;
-			gap: 1px;
-			top: 3px;
-			left: 3px;
-		}
+	.replay-cost b {
+		font-size: 14px;
+		font-weight: 600;
+	}
+	.replay-cost span {
+		font-size: 10px;
+	}
+	.replay-win {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+	.replay-win span {
+		font-size: 9px;
+		letter-spacing: 1px;
+		color: #b9c9d0;
+	}
+	.replay-win b {
+		font-size: 22px;
+		font-weight: 600;
+		white-space: nowrap;
+	}
+	.info,
+	.replay-mute {
+		min-width: 44px;
+		min-height: 44px;
+		padding: 5px;
+		border: 1px solid #b7a16c66;
+		border-radius: 6px;
+		background: #10243a;
+		color: inherit;
+		font:
+			600 13px 'Lunar Sans',
+			sans-serif;
+		cursor: pointer;
+	}
+	.info {
+		font-size: 22px;
 	}
 	.replay {
 		min-height: 44px;
-		position: fixed;
-		bottom: max(12px, env(safe-area-inset-bottom));
-		right: 12px;
-		padding: 10px 24px;
-		border: 1px solid #d7b77e;
-		border-radius: 24px;
-		background: #102138;
-		color: #ffe4ad;
+		padding: 10px 18px;
+		border: 1px solid #e8cd8b;
+		border-radius: 6px;
+		background: #ceaa62;
+		color: #102238;
 		font:
-			600 14px Arial,
+			600 14px 'Lunar Sans',
 			sans-serif;
 		cursor: pointer;
 	}
@@ -75,14 +129,39 @@
 		opacity: 0.4;
 		cursor: default;
 	}
-	.replay:focus-visible {
-		outline: 2px solid white;
-		outline-offset: 3px;
+	.replay-mute {
+		position: fixed;
+		right: 10px;
+		top: 10px;
+		z-index: 21;
+		color: #efd8aa;
 	}
-	@media (orientation: portrait) {
+	.replay-bar button:focus-visible,
+	.replay-mute:focus-visible {
+		outline: 3px solid #fff0bd;
+		outline-offset: 2px;
+	}
+	@media (max-height: 300px) {
+		.replay-bar {
+			bottom: 4px;
+			padding: 3px;
+			gap: 7px;
+		}
+		.replay-cost b,
+		.replay-cost span {
+			font-size: 8px;
+		}
+		.replay-win b {
+			font-size: 15px;
+		}
 		.replay {
-			top: max(64px, env(safe-area-inset-top));
-			bottom: auto;
+			font-size: 11px;
+			padding: 6px 10px;
+		}
+		.replay-mute {
+			top: 4px;
+			right: 4px;
+			font-size: 9px;
 		}
 	}
 </style>

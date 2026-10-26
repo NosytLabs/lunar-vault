@@ -21,7 +21,7 @@ export default {
 	},
 	lunarBackdrop: {
 		type: 'sprite',
-		src: new URL('../../assets/nosyt/observatory-painted.webp', import.meta.url).href,
+		src: new URL('../../assets/nosyt/observatory-quiet-v3.webp', import.meta.url).href,
 		preload: true,
 	},
 	lunarFeatureBackdrop: {
@@ -31,7 +31,7 @@ export default {
 	},
 	lunarReelFrame: {
 		type: 'sprite',
-		src: new URL('../../assets/nosyt/reel-frame-v2.svg', import.meta.url).href,
+		src: new URL('../../assets/nosyt/reel-frame-v3.svg', import.meta.url).href,
 		preload: true,
 	},
 	lunarWinAura: {

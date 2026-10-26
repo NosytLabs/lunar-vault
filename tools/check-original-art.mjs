@@ -16,7 +16,7 @@ const extras = [
 	'logo',
 	'orbital-seal',
 	'star-flare',
-	'reel-frame-v2',
+	'reel-frame-v3',
 	'spin-orbit',
 ];
 const failures = [];
@@ -71,7 +71,7 @@ if (appShell.includes('use.typekit.net'))
 	failures.push('External Adobe Typekit stylesheet violates Engine static rules.');
 if (!appShell.includes('user-scalable=no'))
 	failures.push('Mobile viewport does not suppress double-tap zoom.');
-if (!fs.existsSync(path.join(app, 'static/assets/nosyt/observatory-painted.webp')))
+if (!fs.existsSync(path.join(app, 'static/assets/nosyt/observatory-quiet-v3.webp')))
 	failures.push('Missing painted observatory');
 if (/assets\/(spines|sprites|fonts)\//.test(assets))
 	failures.push('Legacy sample assets remain registered');

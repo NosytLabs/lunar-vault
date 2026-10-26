@@ -31,7 +31,7 @@ The inherited 97% RTP / 5,000× maximum metadata remains explicitly unverified. 
 
 ## Playthrough and verification
 
-- Production static build, asset/original-art checks, seven math regression tests and **35 local Chromium browser tests** pass.
+- Production static build, asset/original-art checks, seven math regression tests and **36 local Chromium browser tests** pass.
 - Browser coverage: seven viewports (including phone, landscape and 400×225), modal scrolling, pointer release/drag, spin locking, disabled controls, autoplay cancellation, social feature wording, bonus confirmation/cost then return to base, loss/win settlement, replay without wallet requests, unfinished-round recovery, reduced-motion complete feature and rotation, retrigger completion and mid-feature recovery. Console errors and page exceptions fail tests.
 - Manual local playthrough uses intercepted deterministic RGS responses and reviews rendered screenshots, fonts, controls and award presentation. This is not live Engine/RGS acceptance. Public current Only on Stake lobby/game pages and the user's screenshots informed hierarchy and pacing; competitor art and mechanics were not copied. A geographically restricted public game page was not bypassed, and competitor gameplay is not claimed.
 - Font loading completes before Pixi text measurement, with a retry path. Local licenses ship with the fonts. The production build is served as static files, matching the frontend delivery model.
@@ -56,8 +56,14 @@ Four pure contract tests cover fiat/social precision and RGS address constructio
 
 ## Final contract and raster pass
 
-All twelve reel symbols now use individually generated transparent 512px celestial sprites, with exact prompts and shipping paths in `docs/assets/lunar-sprites-v2.json`. The body font is normal-width Barlow; Cinzel and Barlow Condensed remain for display/control hierarchy. Asset loading retries bounded concurrent work and blocks entry after incomplete loading, with a readable reload screen.
+All twelve reel symbols now use individually generated transparent 512px celestial sprites, with exact prompts and shipping paths in `docs/assets/lunar-sprites-v2.json`. The body font is normal-width Barlow; Cinzel remains for titles and normal-width Barlow now supplies every control. Asset loading retries bounded concurrent work and blocks entry after incomplete loading, with a readable reload screen.
 
-All 35 browser checks pass, including seven currency formats, exact sub-cent awards, active-round amount, English fallback, real replay cost, invalid-host errors and per-mode maximums. Six pure contract tests cover the full official currency map, unknown codes, meaningful wallet precision and RGS host handling. Authentication validates step divisibility, per-mode maximums and matching known costs. The request guard also enforces these limits; errors no longer expose JSON payloads.
+All 36 browser checks pass, including seven currency formats, exact sub-cent awards, active-round amount, English fallback, real replay cost, invalid-host errors and per-mode maximums. Six pure contract tests cover the full official currency map, unknown codes, meaningful wallet precision and RGS host handling. Authentication validates step divisibility, per-mode maximums and matching known costs. The request guard also enforces these limits; errors no longer expose JSON payloads.
 
 The [41-item self-check](ENGINE-SELF-CHECK-2026-10-26.md) has 29 local PASS, 7 AT RISK, 3 NEEDS A HUMAN, 1 FAIL and 1 N/A. The failure is still unmatched, out-of-band sample math; frontend tests do not resolve it. No live Engine approval or certification is claimed.
+
+## Cabinet and River presentation cleanup
+
+A quieter new observatory plate, thin editable frame and shorter title treatment replace the busy mirrored-gold composition. One native control rail now serves desktop, phone and small popout, preserving the SDK bet/stop provider, autoplay cancellation, Space/hold, restrictions and feature-cost guards. Amount stepping selects only server-provided levels. A native replay rail shows actual cost, win, information and Play Again. Master mute stays available during feature prompts as well as normal play.
+
+All visible primary controls are checked at 44px minimum across all seven viewports. A new feature-introduction regression verifies that mute does not dismiss the introduction or send a play/settlement request. The math model and outcomes are unchanged.
