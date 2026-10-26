@@ -14,11 +14,9 @@
 	import { waitForResolve } from 'utils-shared/wait';
 	import { CanvasSizeRectangle } from 'components-layout';
 	import { OnMount } from 'components-shared';
-	import { getContext } from '../game/context';
 	import FreeSpinAnimation from './FreeSpinAnimation.svelte';
 	import PressToContinue from './PressToContinue.svelte';
 
-	const context = getContext();
 	let show = $state(false);
 	let amount = $state(0);
 	let winLevelData = $state<WinLevelData>();
