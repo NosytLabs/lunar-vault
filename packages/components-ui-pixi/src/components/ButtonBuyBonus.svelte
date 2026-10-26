@@ -55,17 +55,9 @@
 			anchor={0.5}
 			width={sizes.width}
 			height={sizes.height}
-			{...disabled
-				? {
-						backgroundColor: 0xaaaaaa,
-					}
-				: {}}
-			{...active
-				? {
-						borderWidth: 10,
-						borderColor: 0xffffff,
-					}
-				: {}}
+			backgroundColor={disabled ? 0x4c5260 : active ? 0x385c71 : hovered ? 0x293f64 : 0x172b46}
+			borderWidth={active ? 6 : 3}
+			borderColor={active ? 0xffe5a9 : 0xb89156}
 		/>
 
 		<Text
@@ -79,7 +71,7 @@
 				fontFamily: 'proxima-nova',
 				fontWeight: '600',
 				fontSize: UI_BASE_FONT_SIZE * 0.9,
-				fill: 0xffffff,
+				fill: disabled ? 0xe0e2e9 : 0xffe8bd,
 			}}
 		/>
 	{/snippet}
