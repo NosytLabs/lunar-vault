@@ -11,6 +11,8 @@
 		stateUi,
 		stateMeta,
 	} from 'state-shared';
+	import { normalizeGameModes } from 'utils-shared/gameModes';
+	import { validateReplayRound, validateRoundCheckpoint } from 'utils-shared/roundValidation';
 	import { API_AMOUNT_MULTIPLIER, MOST_USED_BET_INDEXES } from 'constants-shared/bet';
 
 	type Props = { children: Snippet };
@@ -20,6 +22,7 @@
 	let authenticated = $state(false);
 
 	const authenticate = async () => {
+		stateConfig.walletReady = false;
 		try {
 			const authenticateData = await requestAuthenticate({
 				rgsUrl: stateUrlDerived.rgsUrl(),
@@ -30,6 +33,24 @@
 			// error
 			if (authenticateData?.error) throw authenticateData;
 
+			if (!authenticateData?.config || !authenticateData.balance)
+				throw new Error('The session returned an incomplete configuration.');
+			if (
+				!Number.isSafeInteger(authenticateData.balance.amount) ||
+				authenticateData.balance.amount < 0 ||
+				typeof authenticateData.balance.currency !== 'string' ||
+				!authenticateData.balance.currency.trim()
+			)
+				throw new Error('The session returned an invalid balance.');
+			const minimumRoundDuration = authenticateData.config.jurisdiction?.minimumRoundDuration ?? 0;
+			if (!Number.isFinite(minimumRoundDuration) || minimumRoundDuration < 0)
+				throw new Error('The session returned an invalid round-duration requirement.');
+			if (minimumRoundDuration > 0)
+				throw {
+					error: 'ERR_DURATION',
+					message:
+						'This session requires a round-duration setting that this game version cannot safely interpret.',
+				};
 			// balance
 			if (authenticateData?.balance) {
 				// Example of authenticateData.balance
@@ -39,6 +60,7 @@
 				// },
 				stateBet.currency = authenticateData.balance.currency;
 				stateBet.balanceAmount = authenticateData.balance.amount / API_AMOUNT_MULTIPLIER;
+				stateBet.sessionStartingBalanceAmount = stateBet.balanceAmount;
 			}
 
 			// config
@@ -72,6 +94,15 @@
 					...authenticateData.config.jurisdiction,
 				};
 				const { minBet = 0, maxBet = 0, stepBet = 0 } = authenticateData.config;
+				if (
+					!Number.isSafeInteger(minBet) ||
+					minBet <= 0 ||
+					!Number.isSafeInteger(maxBet) ||
+					maxBet < minBet ||
+					!Number.isSafeInteger(stepBet) ||
+					stepBet < 0
+				)
+					throw new Error('The session returned invalid play-amount limits.');
 				stateConfig.betLimits = { min: minBet, max: maxBet, step: stepBet };
 				const serverLevels = authenticateData.config.betLevels || [];
 				if (
@@ -93,32 +124,38 @@
 					throw new Error('The session default amount is unavailable.');
 				stateBet.betAmount = defaultAmount;
 				stateBet.wageredBetAmount = stateBet.betAmount;
-				const modes =
-					(
-						authenticateData.config as {
-							gameModes?: Record<string, { costMultiplier: number; maxBet: number }>;
-						}
-					).gameModes ?? {};
-				stateConfig.betModeLimits = Object.fromEntries(
-					Object.entries(modes).map(([key, value]) => [key.toLowerCase(), value]),
+				stateConfig.betModeLimits = normalizeGameModes(
+					authenticateData.config.gameModes,
+					Object.fromEntries(
+						Object.entries(stateMeta.betModeMeta).map(([key, mode]) => [key, mode.costMultiplier]),
+					),
 				);
-				for (const [key, value] of Object.entries(stateConfig.betModeLimits)) {
-					const known = stateMeta.betModeMeta[key] ?? stateMeta.betModeMeta[key.toUpperCase()];
-					if (
-						known &&
-						(known.costMultiplier !== value.costMultiplier ||
-							!Number.isSafeInteger(value.maxBet) ||
-							value.maxBet < minBet)
-					)
-						throw new Error('The session mode does not match this game version.');
-				}
 				stateConfig.betMenuOptions = stateConfig.betAmountOptions.filter((_, index) =>
 					MOST_USED_BET_INDEXES.includes(index),
 				);
 			}
 
 			// round
+			if (
+				authenticateData.round?.active !== undefined &&
+				typeof authenticateData.round.active !== 'boolean'
+			)
+				throw new Error('The session returned an invalid round status.');
 			if (authenticateData?.round?.active) {
+				const round = validateReplayRound(authenticateData.round);
+				stateMeta.validateBookEvents?.(round.state);
+				if (
+					typeof round.amount !== 'number' ||
+					!Number.isSafeInteger(round.amount) ||
+					round.amount <= 0
+				)
+					throw new Error('The saved round play amount is invalid.');
+				validateRoundCheckpoint(round.event, round.state.length);
+				if (
+					typeof round.mode !== 'string' ||
+					!stateConfig.betModeLimits[round.mode.trim().toLowerCase()]
+				)
+					throw new Error('The saved round mode is unavailable in this session.');
 				// Example of authenticateData.round
 				// {
 				// 	"betID": 62277967,
@@ -149,6 +186,8 @@
 					stateBet.activeBetModeKey = authenticateData.round.mode;
 				}
 			}
+			stateConfig.sessionStartedAt = Date.now();
+			stateConfig.walletReady = true;
 		} catch (error) {
 			stateModal.modal = { name: 'error', error };
 		}
@@ -168,15 +207,18 @@
 			event: stateUrlDerived.event(),
 		});
 
-		if (data) {
-			const multiplier = (data as { costMultiplier?: number }).costMultiplier;
+		const replay = validateReplayRound(data);
+		stateMeta.validateBookEvents?.(replay.state);
+		if (!stateBetDerived.activeBetMode()) throw new Error('This replay mode is unavailable.');
+		if (replay) {
+			const multiplier = replay.costMultiplier;
 			stateBet.replayCostMultiplier =
 				Number.isFinite(multiplier) && multiplier! >= 1
 					? multiplier!
 					: (stateBetDerived.activeBetMode()?.costMultiplier ?? 1);
 			// @ts-ignore
 			stateBet.betToResume = {
-				...data,
+				...replay,
 				event: '0',
 				active: true,
 				mode: stateUrlDerived.mode(),

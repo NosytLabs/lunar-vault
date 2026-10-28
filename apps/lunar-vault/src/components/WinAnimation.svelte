@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import { Tween } from 'svelte/motion';
 	import { cubicOut } from 'svelte/easing';
+	import { stateBet } from 'state-shared';
 	import { reducedMotion } from '../game/motion.svelte';
 	import { getContext } from '../game/context';
 	type Props = {
@@ -23,22 +24,22 @@
 	const context = getContext();
 	const entrance = new Tween(0, { easing: cubicOut });
 	onMount(() => {
-		entrance.set(1, { duration: reducedMotion.current ? 1 : 340 });
+		entrance.set(1, { duration: reducedMotion.current ? 1 : stateBet.isTurbo ? 100 : 280 });
 	});
 </script>
 
 <!-- Win count-up is driven by the RGS book events, not decorative effects. -->
 <Container
 	alpha={entrance.current}
-	scale={reducedMotion.current ? 1 : 0.88 + 0.12 * entrance.current}
+	scale={reducedMotion.current ? 1 : 0.96 + 0.04 * entrance.current}
 >
 	<Sprite
 		key="lunarWinAura"
 		anchor={0.5}
 		width={context.stateGameDerived.boardLayout().width * 1.35}
 		height={context.stateGameDerived.boardLayout().width * 1.35}
-		alpha={0.86}
-		rotation={reducedMotion.current ? 0 : (1 - entrance.current) * 0.16}
+		alpha={0.4}
+		rotation={reducedMotion.current ? 0 : (1 - entrance.current) * 0.06}
 	/>
 	{@render props.children()}
 

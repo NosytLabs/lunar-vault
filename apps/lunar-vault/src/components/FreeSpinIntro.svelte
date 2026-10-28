@@ -13,6 +13,7 @@
 	import { getContext } from '../game/context';
 	import PressToContinue from './PressToContinue.svelte';
 	import FreeSpinAnimation from './FreeSpinAnimation.svelte';
+	import { reducedMotion } from '../game/motion.svelte';
 	const context = getContext();
 	let show = $state(false);
 	let total = $state(0);
@@ -27,17 +28,17 @@
 	});
 </script>
 
-<FadeContainer {show}>
+<FadeContainer {show} duration={reducedMotion.current ? 0 : 160}>
 	<CanvasSizeRectangle backgroundColor={0x02091c} backgroundAlpha={0.75} />
 	<FreeSpinAnimation>
 		{#snippet children({ sizes })}
 			<Text
-				y={-sizes.height * 0.3}
+				y={-sizes.height * 0.19}
 				anchor={0.5}
 				text="ECLIPSE CHAMBER"
 				style={{
 					fontFamily: 'Lunar Display',
-					fontSize: 46,
+					fontSize: 36,
 					fontWeight: 'bold',
 					fill: 0xf6dca6,
 					letterSpacing: 3,
@@ -46,7 +47,7 @@
 			<Text
 				anchor={0.5}
 				text={String(total)}
-				style={{ fontFamily: 'Lunar Display', fontSize: 120, fontWeight: 'bold', fill: 0xffffff }}
+				style={{ fontFamily: 'Lunar Display', fontSize: 112, fontWeight: 'bold', fill: 0xffffff }}
 			/>
 			<Text
 				y={sizes.height * 0.23}
@@ -54,7 +55,7 @@
 				text="FREE SPINS"
 				style={{
 					fontFamily: 'Lunar Display',
-					fontSize: 45,
+					fontSize: 27,
 					fontWeight: 'bold',
 					fill: 0xf4d69b,
 					letterSpacing: 4,

@@ -1,4 +1,5 @@
-import json, os, re, sys
+import json, os, re, sys, hashlib
+from PIL import Image
 from pathlib import Path
 root=Path(__file__).resolve().parent.parent
 issues=[]
@@ -44,5 +45,23 @@ for js in sorted(root.glob('apps/*/static/assets/audio/sounds.json')):
     for r in d.get('resources',[]) if isinstance(d,dict) else []:
         checks+=1
         if not (js.parent/r).exists(): issues.append(f"{js.relative_to(root)}: missing audio resource {r}")
+manifest = root/'docs/assets/generated-art-recovered-20261028.json'
+if not manifest.exists(): issues.append('Generated artwork provenance manifest is missing')
+else:
+    for asset in json.loads(manifest.read_text())['assets']:
+        for field in ['source', 'runtime']:
+            checks += 1
+            path = root/asset[field]
+            if not path.exists(): issues.append(f'Missing asset: {asset[field]}'); continue
+            if hashlib.sha256(path.read_bytes()).hexdigest() != asset[field+'Sha256']:
+                issues.append(f'Asset hash mismatch: {asset[field]}')
+        path = root/asset['runtime']
+        if path.exists():
+            checks += 1
+            with Image.open(path) as image:
+                if list(image.size) != asset['size']: issues.append(f'Unexpected dimensions: {asset["runtime"]}')
+                if asset.get('alpha') and ('A' not in image.getbands() or image.getextrema()[3][0] != 0):
+                    issues.append(f'Missing transparency: {asset["runtime"]}')
 print(f"checks={checks} issues={len(issues)}")
 for i in issues: print(i)
+sys.exit(bool(issues))

@@ -21,7 +21,6 @@
 	import Anticipations from './Anticipations.svelte';
 	import Win from './Win.svelte';
 	import FreeSpinIntro from './FreeSpinIntro.svelte';
-	import FreeSpinCounter from './FreeSpinCounter.svelte';
 	import FreeSpinOutro from './FreeSpinOutro.svelte';
 	import Transition from './Transition.svelte';
 	import ReplayControls from './ReplayControls.svelte';
@@ -88,7 +87,6 @@
 
 			<Win />
 			<FreeSpinIntro />
-			<FreeSpinCounter />
 			<FreeSpinOutro />
 			<Transition />
 			<FeatureBanner />

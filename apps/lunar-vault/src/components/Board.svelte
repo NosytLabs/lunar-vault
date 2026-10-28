@@ -12,6 +12,7 @@
 </script>
 
 <script lang="ts">
+	import { onDestroy } from 'svelte';
 	import { waitForResolve } from 'utils-shared/wait';
 	import { BoardContext } from 'components-shared';
 
@@ -23,6 +24,13 @@
 	const context = getContext();
 
 	let show = $state(true);
+	const pending = new Set<() => void>();
+	onDestroy(() => {
+		context.stateGame.playbackGeneration++;
+		for (const complete of pending) complete();
+		pending.clear();
+		context.stateGameDerived.enhancedBoard.settle();
+	});
 
 	context.eventEmitter.subscribeOnMount({
 		stopButtonClick: () => context.stateGameDerived.enhancedBoard.stop(),
@@ -32,9 +40,18 @@
 		boardWithAnimateSymbols: async ({ symbolPositions }) => {
 			const getPromises = () =>
 				symbolPositions.map(async (position) => {
-					const reelSymbol = context.stateGame.board[position.reel].reelState.symbols[position.row];
+					const reelSymbol =
+						context.stateGame.board[position.reel]?.reelState.symbols[position.row];
+					if (!reelSymbol || position.row < 1 || position.row > 3) return;
 					reelSymbol.symbolState = 'win';
-					await waitForResolve((resolve) => (reelSymbol.oncomplete = resolve));
+					await waitForResolve((resolve) => {
+						const complete = () => {
+							pending.delete(complete);
+							resolve();
+						};
+						pending.add(complete);
+						reelSymbol.oncomplete = complete;
+					});
 					reelSymbol.symbolState = 'postWinStatic';
 				});
 

@@ -1,3 +1,35 @@
+# Current asset production — 2026-10-28
+
+The shipping art is the original Nosyt celestial and Canadian-river set. The current build uses twenty individually generated alpha-transparent reel symbols, two feature environments, a retained quiet Lunar base environment, original locally synthesized audio, and licensed local typography. It does not copy another slot’s artwork.
+
+## Current files
+
+- Lunar: ten ordinary `h1–h5`/`l1–l5` v5 sprites; Wild and Eclipse v4 sprites; `eclipse-chamber-v4.webp`; the retained `observatory-quiet-v3.webp` base scene.
+- Salmon: six v5 canoe/compass/fly/leaf/reel/scatter sprites; v4 salmon/Wild sprites; `headwaters-v4.webp`.
+- Runtime reel sprites are 512×512 WebP, quality 90, with original alpha retained. Current source/runtime identities and dimensions are in `docs/assets/generated-art-recovered-20261028.json`. This manifest, not historical export hashes, is authoritative for the recovered release.
+- Thirty original generated PNGs are retained under `art/lunar-vault/` and `art/salmon-run/`. Their bytes were recovered exactly against the pre-interruption Git-blob inventory. All sixteen v5 runtime sprite exports also match their original recorded Git-blob hashes. The four earlier special symbols are newly exported at full 512-pixel detail; the two feature backgrounds are newly exported at 1600×900.
+- Lobby files and title-free Media Editor layers are under `media/<game>/`. The current export manifest is `docs/assets/studio-media-recovered-20261028.json`. `tools/export-game-media.py` reproduces these exports. Each media file is below 10 MB.
+- The publisher wordmark is outlined Cinzel Bold lettering, white on transparent, in SVG and PNG. Its SIL Open Font License travels with the media files. It remains subject to the publisher’s branding approval.
+- Twenty-three unreferenced older runtime sprites/background/frame files were removed. Their exact pre-deletion identities are recorded in `docs/assets/retired-assets-20261028.json`; the guarded prune script refuses changed or still-referenced files.
+
+## Generation and recovery record
+
+The originals were produced through OpenAI’s native image-generation tool for this task. Their common direction was readable individual silhouettes, controlled metallic highlights and sufficient clear space around each symbol: sapphire, silver and gold for Lunar Vault; forest green, amber, polished brass and natural river colours for Salmon Run. These are descriptions of the art direction, not invented verbatim generation prompts.
+
+A workspace interruption removed local generation-prompt manifests and previously built archives before source delivery completed. Original PNG bytes were recovered from their saved generated-image records, matched to the earlier SHA inventory, and re-exported. The recovery manifests explicitly record current file identities. Earlier review results and archive hashes are historical; current production checks, package hashes and the final review must be used for release decisions.
+
+All twenty symbols were inspected together after recovery. They show celestial objects, fishing equipment, fish, a leaf and a river arch; no people or prohibited imagery were observed. Automated asset checks verify dimensions, alpha, source/runtime hashes and local asset references. A publisher must still judge originality, naming and asset rights; generated origin is not legal clearance.
+
+## Audio and typography
+
+`tools/generate-audio.py` synthesizes the original local Lunar sound sprite (52 cues). Salmon’s local Web Audio motifs and effects share its master mute and cancellation controller. Physical-device listening across launch, base play, feature, large awards and dialogs is still required to confirm audible silence and balance.
+
+Cinzel and Barlow are licensed third-party fonts, with their unmodified licence files bundled locally. No external font service is needed at runtime.
+
+## Historical record
+
+The earlier production record follows for traceability. Paths and versions explicitly superseded above are not the current release.
+
 # New celestial artwork — 2026-10-26
 
 All files are local under `apps/lunar-vault/static/assets/nosyt/`. No external artwork was scraped or copied. The twelve initial SVG reel symbols have been replaced by the individual raster sprites documented below; editable SVG frame and effect ornaments remain.

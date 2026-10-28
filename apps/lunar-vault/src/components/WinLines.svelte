@@ -6,6 +6,8 @@
 </script>
 
 <script lang="ts">
+	import { stateBet } from 'state-shared';
+	import { reducedMotion } from '../game/motion.svelte';
 	import { Graphics, Text, Rectangle } from 'pixi-svelte';
 	import BoardContainer from './BoardContainer.svelte';
 	import { getContext } from '../game/context';
@@ -13,6 +15,22 @@
 	import { SYMBOL_SIZE } from '../game/constants';
 	import { bookEventAmountToCurrencyString } from 'utils-shared/amount';
 	const context = getContext();
+	let trace = $state(1);
+	$effect(() => {
+		if (!line || reducedMotion.current || stateBet.isTurbo) {
+			trace = 1;
+			return;
+		}
+		trace = 0;
+		const start = performance.now();
+		let frame = 0;
+		const animate = (now: number) => {
+			trace = Math.min(1, (now - start) / 230);
+			if (trace < 1) frame = requestAnimationFrame(animate);
+		};
+		frame = requestAnimationFrame(animate);
+		return () => cancelAnimationFrame(frame);
+	});
 	let line = $state<Extract<EmitterEventWinLines, { type: 'winLineShow' }>>();
 	context.eventEmitter.subscribeOnMount({
 		winLineShow: (event) => (line = event),
@@ -30,15 +48,25 @@
 					x: getSymbolX(p.reel),
 					y: (p.row - 0.5) * SYMBOL_SIZE,
 				}));
+				const progress = trace * Math.max(1, points.length - 1);
+				const drawn = points.slice(0, Math.floor(progress) + 1);
+				const next = points[Math.floor(progress) + 1],
+					previous = points[Math.floor(progress)];
+				if (next && previous)
+					drawn.push({
+						x: previous.x + (next.x - previous.x) * (progress % 1),
+						y: previous.y + (next.y - previous.y) * (progress % 1),
+					});
 				for (const [width, color, alpha] of [
-					[13, 0x061527, 0.8],
-					[6, 0xe3b669, 0.9],
-					[2, 0xfff4d2, 1],
+					[9, 0x061527, 0.8],
+					[4, 0xe3b669, 0.85],
+					[1.5, 0xfff4d2, 0.95],
 				]) {
-					points.forEach((p, i) => (i ? g.lineTo(p.x, p.y) : g.moveTo(p.x, p.y)));
+					drawn.forEach((p, i) => (i ? g.lineTo(p.x, p.y) : g.moveTo(p.x, p.y)));
 					g.stroke({ width, color, alpha, cap: 'round', join: 'round' });
 				}
-				for (const p of points) g.circle(p.x, p.y, 7).fill(0xffe6a4);
+				for (const [index, p] of points.entries())
+					if (index <= progress) g.circle(p.x, p.y, 5).fill(0xffe6a4);
 			}}
 		/>
 		<Rectangle

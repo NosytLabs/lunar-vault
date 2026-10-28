@@ -1,0 +1,125 @@
+{
+  "date": "2026-10-28",
+  "files": [
+    {
+      "path": "media/lunar-vault/editor/background-portrait.webp",
+      "source": "art/lunar-vault/studio-background-portrait-v5.png",
+      "bytes": 594450,
+      "sha256": "6c703b613b21b1050aeb9544624b9c1632ae6b535eaa18a2c38ef798a74d9dec"
+    },
+    {
+      "path": "media/lunar-vault/editor/background-wide.webp",
+      "source": "art/lunar-vault/studio-background-wide-v5.png",
+      "bytes": 518766,
+      "sha256": "a9d87f430a4e8d769e2048553945c66b6079e4f869fc5364365838d1ebc948ec"
+    },
+    {
+      "path": "media/lunar-vault/editor/foreground.png",
+      "source": "art/lunar-vault/scatter-v4.png",
+      "bytes": 2003220,
+      "sha256": "5c280e8ad12f7d4b88aca9d12d5c576486b231f95da0cfb9953ca2e5ecfcb6b8"
+    },
+    {
+      "path": "media/lunar-vault/tile-408x544.png",
+      "source": "art/lunar-vault/tile-portrait-v4.png",
+      "bytes": 496860,
+      "sha256": "8adca006d29e95a39bedbb3db1086a023b93c514e841795ee3788ceb36744476"
+    },
+    {
+      "path": "media/lunar-vault/tile-408x546.png",
+      "source": "art/lunar-vault/tile-portrait-v4.png",
+      "bytes": 498482,
+      "sha256": "474c9294febf53638525eb6aed479f27a7d41657358ab5c7bc45457e54812fca"
+    },
+    {
+      "path": "media/lunar-vault/tile-1080x1440.png",
+      "source": "art/lunar-vault/tile-portrait-v4.png",
+      "bytes": 2976631,
+      "sha256": "e7251d599f5f66d8ea631b5d9c2fc66221fcf6493dedf527317d998a47882ab4"
+    },
+    {
+      "path": "media/lunar-vault/cover-640x360.png",
+      "source": "art/lunar-vault/cover-landscape-v4.png",
+      "bytes": 530547,
+      "sha256": "d4fe770816739ab63275100b7d6607d48c6927341fb61b7029b628ee54d8826b"
+    },
+    {
+      "path": "media/lunar-vault/cover-1600x900.webp",
+      "source": "art/lunar-vault/cover-landscape-v4.png",
+      "bytes": 647124,
+      "sha256": "d464eacbe3fe462ad0810961126ad2efa9290a9d07be2c9b967c1a6c1bc86560"
+    },
+    {
+      "path": "media/salmon-run/editor/background-portrait.webp",
+      "source": "art/salmon-run/studio-background-portrait-v5.png",
+      "bytes": 598466,
+      "sha256": "5f5a6c2d28e696002ca06fb19f3f7af02ce752e9a51f063f7eff720ef5946865"
+    },
+    {
+      "path": "media/salmon-run/editor/background-wide.webp",
+      "source": "art/salmon-run/studio-background-wide-v5.png",
+      "bytes": 627984,
+      "sha256": "69a2a2631ff7de6cf288c560b2702a29fb1a161dc4c74c0208a88bef8177b002"
+    },
+    {
+      "path": "media/salmon-run/editor/foreground.png",
+      "source": "art/salmon-run/salmon-v4.png",
+      "bytes": 1286164,
+      "sha256": "6cfd667f6bae319155346f88459fbe9fadd8df15e11b5a1e773626c547587ee4"
+    },
+    {
+      "path": "media/salmon-run/tile-408x544.png",
+      "source": "art/salmon-run/tile-portrait-v4.png",
+      "bytes": 535881,
+      "sha256": "f71ba70e454f7aec9bb5ea66849cc512b437af53bdeb8012c1ff0dbd98b8f4a1"
+    },
+    {
+      "path": "media/salmon-run/tile-408x546.png",
+      "source": "art/salmon-run/tile-portrait-v4.png",
+      "bytes": 537737,
+      "sha256": "98f2f2be03c91c65ca78f0edbc2a4e9b41b3dd7de264e156a4ff099d7a518ad6"
+    },
+    {
+      "path": "media/salmon-run/tile-1080x1440.png",
+      "source": "art/salmon-run/tile-portrait-v4.png",
+      "bytes": 3178469,
+      "sha256": "19ef99feec7d899e2798e738d5e473309d562b1b7be19d576c0670ef9d507a81"
+    },
+    {
+      "path": "media/salmon-run/cover-640x360.png",
+      "source": "art/salmon-run/cover-landscape-v4.png",
+      "bytes": 562138,
+      "sha256": "e032595a2dd6d3aad8859acbc4c535f98945a357413d25216303820a1d688c5f"
+    },
+    {
+      "path": "media/salmon-run/cover-1600x900.webp",
+      "source": "art/salmon-run/cover-landscape-v4.png",
+      "bytes": 672320,
+      "sha256": "1f63ed1e9ac56845dd8132143a16bb5b031b340fda7aaf2f5cde5d041ff488e8"
+    },
+    {
+      "path": "media/studio/Cinzel-OFL.txt",
+      "source": "Publisher media documentation/font licence",
+      "bytes": 4383,
+      "sha256": "f2b3029aba64c378bf0963b62945eee15e564fe4330b934c8f2eb058282b5e83"
+    },
+    {
+      "path": "media/studio/README.md",
+      "source": "Publisher media documentation/font licence",
+      "bytes": 314,
+      "sha256": "703aee5e0975827f59e6fb23cfeb6b319e6b0fee9c37bd8b24f25205856bea76"
+    },
+    {
+      "path": "media/studio/nosyt-white.png",
+      "source": "Bundled Cinzel font; original text layout",
+      "bytes": 28224,
+      "sha256": "e4e24c49bd3cbae0d93d389acbeb0f15cfed76714040dd20de88d4b16804b844"
+    },
+    {
+      "path": "media/studio/nosyt-white.svg",
+      "source": "Bundled Cinzel font; original text layout",
+      "bytes": 8736,
+      "sha256": "ebef9782aa5ec7d3b2113c15768c741bd8ff137528c5ccb9824126a646ea3432"
+    }
+  ]
+}

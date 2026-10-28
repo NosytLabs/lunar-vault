@@ -8,9 +8,12 @@
 		stateModal,
 		stateSound,
 		stateUrlDerived,
+		stateUi,
 	} from 'state-shared';
 	import { numberToCurrencyString, bookEventAmountToCurrencyString } from 'utils-shared/amount';
 	import { getContext } from '../game/context';
+	import FreeSpinCounter from './FreeSpinCounter.svelte';
+	import report from '../../../../math/lunar-vault/report.json';
 	const context = getContext();
 	let show = $state(true),
 		menu = $state(false);
@@ -18,6 +21,29 @@
 	const social = $derived(stateUrlDerived.social());
 	const locked = $derived(Boolean(stateModal.modal));
 	const autoActive = $derived(stateBetDerived.hasAutoBetCounter());
+	let now = $state(Date.now());
+	$effect(() => {
+		if (!stateConfig.jurisdiction.displaySessionTimer || !stateConfig.sessionStartedAt) return;
+		now = Date.now();
+		const timer = setInterval(() => (now = Date.now()), 1000);
+		return () => clearInterval(timer);
+	});
+	const sessionNet = $derived(stateBet.balanceAmount - stateBet.sessionStartingBalanceAmount);
+	const elapsedSeconds = $derived(
+		Math.max(0, Math.floor((now - stateConfig.sessionStartedAt) / 1000)),
+	);
+	const sessionTime = $derived(
+		`${Math.floor(elapsedSeconds / 3600)
+			.toString()
+			.padStart(2, '0')}:${Math.floor((elapsedSeconds / 60) % 60)
+			.toString()
+			.padStart(2, '0')}:${(elapsedSeconds % 60).toString().padStart(2, '0')}`,
+	);
+	const hasSessionInfo = $derived(
+		stateConfig.jurisdiction.displayRTP ||
+			stateConfig.jurisdiction.displayNetPosition ||
+			stateConfig.jurisdiction.displaySessionTimer,
+	);
 	const amountIndex = $derived(stateConfig.betAmountOptions.indexOf(stateBet.betAmount));
 	function mute() {
 		stateSound.volumeValueMaster = stateSound.volumeValueMaster ? 0 : 50;
@@ -98,56 +124,73 @@
 					/>{:else}<path d="m16 9 5 6m0-6-5 6" stroke="currentColor" stroke-width="2" />{/if}</svg
 			></button
 		>
-		<div class="readouts">
+		<div class="readouts" class:with-session={hasSessionInfo}>
 			<div><span>BALANCE</span><b>{numberToCurrencyString(stateBet.balanceAmount)}</b></div>
 			<div>
 				<span>WIN</span><b>{bookEventAmountToCurrencyString(stateBet.winBookEventAmount)}</b>
 			</div>
+			{#if stateConfig.jurisdiction.displayRTP}
+				<div><span>RTP</span><b>{(report.modes.base.weightedRtp * 100).toFixed(2)}%</b></div>
+			{/if}
+			{#if stateConfig.jurisdiction.displayNetPosition}
+				<div>
+					<span>SESSION NET</span><b
+						>{sessionNet > 0 ? '+' : ''}{numberToCurrencyString(sessionNet)}</b
+					>
+				</div>
+			{/if}
+			{#if stateConfig.jurisdiction.displaySessionTimer}
+				<div><span>SESSION TIME</span><b>{sessionTime}</b></div>
+			{/if}
 		</div>
-		<div class="amount-controls">
+		{#if stateUi.freeSpinCounterShow}
+			<FreeSpinCounter />
+		{:else}
+			<div class="amount-controls">
+				<button
+					class="step"
+					disabled={locked || !idle || amountIndex <= 0}
+					onclick={() => step(-1)}
+					aria-label="Decrease amount">−</button
+				>
+				<button
+					class="amounts"
+					disabled={locked || !idle}
+					onclick={() => modal('betAmountMenu')}
+					aria-label="Change play amount"
+					><span>{social ? 'PLAY' : 'BET'}</span><b>{numberToCurrencyString(stateBet.betAmount)}</b
+					></button
+				>
+				<button
+					class="step"
+					disabled={locked || !idle || amountIndex >= stateConfig.betAmountOptions.length - 1}
+					onclick={() => step(1)}
+					aria-label="Increase amount">+</button
+				>
+			</div>
 			<button
-				class="step"
-				disabled={locked || !idle || amountIndex <= 0}
-				onclick={() => step(-1)}
-				aria-label="Decrease amount">−</button
+				class="secondary auto"
+				disabled={locked ||
+					(!idle && !autoActive) ||
+					stateConfig.jurisdiction.disabledAutoplay ||
+					!stateBetDerived.isBetCostAvailable()}
+				onclick={auto}>{autoActive ? 'CANCEL AUTO' : 'AUTO SPIN'}</button
 			>
 			<button
-				class="amounts"
-				disabled={locked || !idle}
-				onclick={() => modal('betAmountMenu')}
-				aria-label="Change play amount"
-				><span>{social ? 'PLAY' : 'BET'}</span><b>{numberToCurrencyString(stateBet.betAmount)}</b
-				></button
+				class="secondary turbo"
+				aria-pressed={stateBet.isTurbo}
+				disabled={locked || !idle || stateConfig.jurisdiction.disabledTurbo}
+				onclick={turbo}>TURBO</button
 			>
 			<button
-				class="step"
-				disabled={locked || !idle || amountIndex >= stateConfig.betAmountOptions.length - 1}
-				onclick={() => step(1)}
-				aria-label="Increase amount">+</button
+				class="feature"
+				disabled={locked ||
+					!idle ||
+					stateConfig.jurisdiction.disabledBuyFeature ||
+					stateBet.balanceAmount < stateBet.betAmount * 100}
+				onclick={() => modal('buyBonus')}>{social ? 'PLAY' : 'BUY'} ECLIPSE CHAMBER</button
 			>
-		</div>
-		<button
-			class="secondary auto"
-			disabled={locked ||
-				(!idle && !autoActive) ||
-				stateConfig.jurisdiction.disabledAutoplay ||
-				!stateBetDerived.isBetCostAvailable()}
-			onclick={auto}>{autoActive ? 'CANCEL AUTO' : 'AUTO SPIN'}</button
-		>
-		<button
-			class="secondary turbo"
-			aria-pressed={stateBet.isTurbo}
-			disabled={locked || !idle || stateConfig.jurisdiction.disabledTurbo}
-			onclick={turbo}>TURBO</button
-		>
-		<button
-			class="feature"
-			disabled={locked ||
-				!idle ||
-				stateConfig.jurisdiction.disabledBuyFeature ||
-				stateBet.balanceAmount < stateBet.betAmount * 100}
-			onclick={() => modal('buyBonus')}>{social ? 'PLAY' : 'BUY'} BONUS</button
-		>
+		{/if}
 		<ButtonBetProvider
 			>{#snippet children({ key, onpress })}
 				{@const disabled = key.endsWith('disabled') || locked || menu}
@@ -246,6 +289,22 @@
 		min-width: 0;
 		padding: 0 8px;
 	}
+	.readouts.with-session {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 6px 10px;
+	}
+	.readouts.with-session div {
+		gap: 2px;
+	}
+	.readouts.with-session b {
+		font-size: 15px;
+	}
+	.readouts.with-session span {
+		font-size: 7px;
+		letter-spacing: 0.2px;
+		white-space: nowrap;
+	}
 	.readouts div {
 		display: flex;
 		flex-direction: column;
@@ -265,7 +324,7 @@
 		white-space: nowrap;
 		font-variant-numeric: tabular-nums;
 	}
-	.readouts div:last-child b {
+	.readouts div:nth-child(2) b {
 		color: #ebd09b;
 	}
 	.amount-controls {
@@ -305,7 +364,7 @@
 	}
 	.feature {
 		font-size: 12px;
-		width: 76px;
+		width: 88px;
 		letter-spacing: 0.3px;
 		background: #253249;
 		color: #eed8a7;
@@ -384,7 +443,7 @@
 			height: 62px;
 		}
 		.feature {
-			width: 68px;
+			width: 72px;
 			font-size: 11px;
 		}
 	}
@@ -482,6 +541,19 @@
 		}
 		.readouts b {
 			font-size: 13px;
+		}
+		.readouts.with-session {
+			gap: 3px 5px;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+		.readouts.with-session b {
+			font-size: 10px;
+		}
+		.readouts.with-session span {
+			font-size: 6px;
+		}
+		.mini-controls:has(.with-session) :global(.feature-progress) {
+			flex: 0.8;
 		}
 		.amounts {
 			min-width: 60px;

@@ -1,5 +1,6 @@
 import { locales } from 'config-lingui';
 import { page } from '$app/state';
+import { stateConfig } from './stateConfig.svelte';
 
 export type Language = (typeof locales)[number];
 
@@ -29,13 +30,18 @@ const lang = () => {
 };
 const sessionID = () => getUrlSearchParam('sessionID') || '';
 const rgsUrl = () => getUrlSearchParam('rgs_url') || '';
-const social = () => getUrlSearchParam('social') === 'true';
+const social = () =>
+	getUrlSearchParam('social') === 'true' || stateConfig.jurisdiction.socialCasino;
 
 // params for replay
 const replay = () => getUrlSearchParam('replay') === 'true';
 const amount = () => {
-	const value = Number(getUrlSearchParam('amount'));
-	return Number.isFinite(value) && value > 0 ? value : 1000000;
+	const raw = getUrlSearchParam('amount');
+	if (raw === null) return 1000000;
+	const value = Number(raw);
+	if (!Number.isSafeInteger(value) || value <= 0)
+		throw new Error('This replay play amount is invalid.');
+	return value;
 };
 const game = () => getUrlSearchParam('game') || '';
 const version = () => getUrlSearchParam('version') || '';

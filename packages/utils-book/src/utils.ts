@@ -4,7 +4,7 @@ import { requestEndEvent } from 'rgs-requests';
 
 import type { BaseBookEvent } from './types';
 
-export function recordBookEvent<TBookEvent extends BaseBookEvent>({
+export async function recordBookEvent<TBookEvent extends BaseBookEvent>({
 	bookEvent,
 }: {
 	bookEvent: TBookEvent;
@@ -13,16 +13,12 @@ export function recordBookEvent<TBookEvent extends BaseBookEvent>({
 		console.log('mock request end-event:', { index: bookEvent.index, type: bookEvent.type });
 		return;
 	}
-
-	try {
-		requestEndEvent({
-			eventIndex: bookEvent.index,
-			rgsUrl: stateUrlDerived.rgsUrl(),
-			sessionID: stateUrlDerived.sessionID(),
-		});
-	} catch (error) {
-		console.error(error);
-	}
+	const data = await requestEndEvent({
+		eventIndex: bookEvent.index + 1,
+		rgsUrl: stateUrlDerived.rgsUrl(),
+		sessionID: stateUrlDerived.sessionID(),
+	});
+	if (data?.error) throw data;
 }
 
 export function checkIsMultipleRevealEvents<TBookEvent extends BaseBookEvent>({

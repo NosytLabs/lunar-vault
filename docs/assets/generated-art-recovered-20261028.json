@@ -1,0 +1,373 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-28",
+  "note": "Original generated PNGs were restored byte-for-byte against the pre-loss Git-blob manifest. Runtime exports were reproduced from these originals; current hashes take precedence over unavailable prior build hashes. No original prompt text is invented.",
+  "assets": [
+    {
+      "game": "lunar-vault",
+      "symbol": "h1",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/lunar-vault/h1-v5.png",
+      "sourceSha256": "f3fefb0f27e0a63355da81d0214124dc7852d03591d480b412f2ba77879478f1",
+      "runtime": "apps/lunar-vault/static/assets/nosyt/sprites/h1-v5.webp",
+      "runtimeSha256": "bf8da4e1fb9482820cb4ea67fcc5d12666f1b4edcf2e9486dced970e19843f3f",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "lunar-vault",
+      "symbol": "h2",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/lunar-vault/h2-v5.png",
+      "sourceSha256": "c8b02e89e53a8b94586a1edbac871ac3f1ec71c0be0650a401fd7c42be89f02c",
+      "runtime": "apps/lunar-vault/static/assets/nosyt/sprites/h2-v5.webp",
+      "runtimeSha256": "43045a1afed141aeb04b9e904587c8a20e11b896b28e4b6acd263d22d667998d",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "lunar-vault",
+      "symbol": "h3",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/lunar-vault/h3-v5.png",
+      "sourceSha256": "076b0032af49f2900ea1f445e3e3e65b44948c27de13ebad06ee27db03874ef2",
+      "runtime": "apps/lunar-vault/static/assets/nosyt/sprites/h3-v5.webp",
+      "runtimeSha256": "8ad6b4b5ffd9cc63490ac5fbc5c2fcc67e0d4e678f2285a239598fe7c04c89b6",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "lunar-vault",
+      "symbol": "h4",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/lunar-vault/h4-v5.png",
+      "sourceSha256": "9266ba6d20e28b2e78209aaa3d07f642bc1b34e8b2518a13dac1d9d8b2262165",
+      "runtime": "apps/lunar-vault/static/assets/nosyt/sprites/h4-v5.webp",
+      "runtimeSha256": "e452fda0e78ab668c2a5a2583ed01ee7759273f8d68777b0c5e84c27408e8930",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "lunar-vault",
+      "symbol": "h5",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/lunar-vault/h5-v5.png",
+      "sourceSha256": "81bac781300d2e6c59f4a3835f134a0997a835ca690890f97a4c8541975befbc",
+      "runtime": "apps/lunar-vault/static/assets/nosyt/sprites/h5-v5.webp",
+      "runtimeSha256": "e2fdb8b4c1c3ee911b62365f2e6c88076c37ae5813de71b2bea120528c39f518",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "lunar-vault",
+      "symbol": "l1",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/lunar-vault/l1-v5.png",
+      "sourceSha256": "c2cfe0883ef4d9e828415b2251c3a16db5dda811129f15ebb05dc4940de39a9c",
+      "runtime": "apps/lunar-vault/static/assets/nosyt/sprites/l1-v5.webp",
+      "runtimeSha256": "230ecd944f2b76567471baeb16f5a2ee7c39b05a05e5a516100e7ede1eca3f38",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "lunar-vault",
+      "symbol": "l2",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/lunar-vault/l2-v5.png",
+      "sourceSha256": "a4b0cd5e150d44ac7d1ed97c146db66ea981158763ee92707b01d023f4e5cb59",
+      "runtime": "apps/lunar-vault/static/assets/nosyt/sprites/l2-v5.webp",
+      "runtimeSha256": "004c8016feff91bec3507871a059ee1015647fe899f330ece33bc260c1ac3890",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "lunar-vault",
+      "symbol": "l3",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/lunar-vault/l3-v5.png",
+      "sourceSha256": "44f5f88d51f99b4152e5b1acc721d4c2b8ec208e4df2d653fe31823bb863965a",
+      "runtime": "apps/lunar-vault/static/assets/nosyt/sprites/l3-v5.webp",
+      "runtimeSha256": "d70786fbbc66d9eb21f74490bc7536a0031056ec59f26112082050d8cd74d7ee",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "lunar-vault",
+      "symbol": "l4",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/lunar-vault/l4-v5.png",
+      "sourceSha256": "da269ae206b86496c73ae4cfc37479cb30237fbfaf221ac7cf925e201e6d5f30",
+      "runtime": "apps/lunar-vault/static/assets/nosyt/sprites/l4-v5.webp",
+      "runtimeSha256": "eb3f131f9947a29c9988327b28607e030be9c66fe7761811b07da9853b4c0f58",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "lunar-vault",
+      "symbol": "l5",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/lunar-vault/l5-v5.png",
+      "sourceSha256": "7554764c000bef55c3b82f09e427898cbcf59221904846dc75225bf23b95afd8",
+      "runtime": "apps/lunar-vault/static/assets/nosyt/sprites/l5-v5.webp",
+      "runtimeSha256": "8d52f8de4f6ae435b818077104a1a2c95048e1e19d8c2f08fff2c568494869b3",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "lunar-vault",
+      "symbol": "w",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/lunar-vault/wild-v4.png",
+      "sourceSha256": "d05108b8c68fe454bf7b3690f89345249ca7ab46e746836440f65925f31606fa",
+      "runtime": "apps/lunar-vault/static/assets/nosyt/sprites/w-v4.webp",
+      "runtimeSha256": "e898914057bacb4401ccce8c33c2551d9f213d2c8cfc2f4a0203b659302a471e",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "lunar-vault",
+      "symbol": "s",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/lunar-vault/scatter-v4.png",
+      "sourceSha256": "5c280e8ad12f7d4b88aca9d12d5c576486b231f95da0cfb9953ca2e5ecfcb6b8",
+      "runtime": "apps/lunar-vault/static/assets/nosyt/sprites/s-v4.webp",
+      "runtimeSha256": "4a2b9f285c3c89651e243a09cf80a3951e65f11c7647005a4301e6993d44837c",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "salmon-run",
+      "symbol": "canoe",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/salmon-run/canoe-v5.png",
+      "sourceSha256": "c0a422f95fdbb4edf6922c688e95cc4fd4b1f08a7647be864e16f05a3c727387",
+      "runtime": "apps/salmon-run/public/assets/sprites/canoe-v5.webp",
+      "runtimeSha256": "9ac235735adc6e88467d7424ecfda803c24ab6e83cebe1aef2d91315ee807f13",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "salmon-run",
+      "symbol": "compass",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/salmon-run/compass-v5.png",
+      "sourceSha256": "f371406e758a5c0dc80a8996579cab09d2feac2bf1d93ec6f9d2aa22f4654421",
+      "runtime": "apps/salmon-run/public/assets/sprites/compass-v5.webp",
+      "runtimeSha256": "ae697dc097a0327da6dbcfe87db48025ad97aac9ef3dd7bf2814678e168b41b6",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "salmon-run",
+      "symbol": "fly",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/salmon-run/fly-v5.png",
+      "sourceSha256": "474655942e21f8a7562aa149f4328f14c7854f7ad8963bea2e99a016a0018b2b",
+      "runtime": "apps/salmon-run/public/assets/sprites/fly-v5.webp",
+      "runtimeSha256": "53235a9fc7b827eb0c50b800ed1cf55e95cd3d088e159178e2886686bbee7aae",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "salmon-run",
+      "symbol": "leaf",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/salmon-run/leaf-v5.png",
+      "sourceSha256": "3a532a927bcc3edb35fbb41ab46a96136a3809630992bf2ef23fcdde7a854de9",
+      "runtime": "apps/salmon-run/public/assets/sprites/leaf-v5.webp",
+      "runtimeSha256": "5f1616f6da0475220c172492a3feec0f7dfccbeef1b5744520c0ef1beb5b9ada",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "salmon-run",
+      "symbol": "reel",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/salmon-run/reel-v5.png",
+      "sourceSha256": "a8288c6b6956fc48648f19781b92662e894d02632081e76c5bb62706cf83d7c1",
+      "runtime": "apps/salmon-run/public/assets/sprites/reel-v5.webp",
+      "runtimeSha256": "798e74640a5e5748dd797922d6fc177cc547480340e1e61dd54b6f9dc360688a",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "salmon-run",
+      "symbol": "scatter",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/salmon-run/scatter-v5.png",
+      "sourceSha256": "1cb1fc3bcd3fa2a8daa312f56218067b413454dd04a5b80b4c1620d335cebb32",
+      "runtime": "apps/salmon-run/public/assets/sprites/scatter-v5.webp",
+      "runtimeSha256": "e6a106336fe64a9cc39afba1ef54a36e41564d9bfc984aa5093ab05bbf02bc76",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "salmon-run",
+      "symbol": "salmon",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/salmon-run/salmon-v4.png",
+      "sourceSha256": "6cfd667f6bae319155346f88459fbe9fadd8df15e11b5a1e773626c547587ee4",
+      "runtime": "apps/salmon-run/public/assets/sprites/salmon-v4.webp",
+      "runtimeSha256": "50ca0ae203770a62799d197ba2a6ca980b2fcdf67c303b597f47281e43584999",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "salmon-run",
+      "symbol": "wild",
+      "generation": "OpenAI native image generation; recovered exact original bytes",
+      "source": "art/salmon-run/wild-v4.png",
+      "sourceSha256": "1dbe12f31046d4d788e0189ceeb8a7309e7fcb7458145db433117b52cbedf8ab",
+      "runtime": "apps/salmon-run/public/assets/sprites/wild-v4.webp",
+      "runtimeSha256": "928c5b85b341d9b3eedb7a6e22da05316128c438716d9ffef1f8fa61b5b16d68",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": true,
+      "quality": 90,
+      "method": 6,
+      "exactTransparentRgb": true
+    },
+    {
+      "game": "lunar-vault",
+      "use": "feature environment",
+      "source": "art/lunar-vault/eclipse-chamber-v4.png",
+      "sourceSha256": "7daf7ae2b712ca7882270cd72a92e05dbb7786fb2c8bca79f021b80c7a227eaf",
+      "runtime": "apps/lunar-vault/static/assets/nosyt/eclipse-chamber-v4.webp",
+      "runtimeSha256": "9378512eb96fb3ad3632b662742adb26c09a61124a3328097820460d50c903e5",
+      "size": [
+        1600,
+        900
+      ],
+      "quality": 88
+    },
+    {
+      "game": "salmon-run",
+      "use": "feature environment",
+      "source": "art/salmon-run/headwaters-v4.png",
+      "sourceSha256": "b30d9160f4e742ea3dffb1a908023bc5cd65dd4ac75e06a7aee02074ca050472",
+      "runtime": "apps/salmon-run/public/assets/headwaters-v4.webp",
+      "runtimeSha256": "0b1995f8a1bf7db32a267603db7dfc5c9920396164e62e5cf34c16f641f9dbbe",
+      "size": [
+        1600,
+        900
+      ],
+      "quality": 88
+    }
+  ]
+}

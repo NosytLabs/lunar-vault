@@ -1,6 +1,9 @@
 import _ from 'lodash';
-import { stateBet } from 'state-shared';
-import { createPlayBookUtils } from 'utils-book';
+import { stateBet, stateBetDerived, stateUrlDerived } from 'state-shared';
+import { validateSlotBook } from 'utils-shared/slotBookValidation';
+import { validateRoundCheckpoint } from 'utils-shared/roundValidation';
+import { stateGame } from './stateGame.svelte';
+import { createPlayBookUtils, recordBookEvent } from 'utils-book';
 import { createGetEmptyPaddedBoard } from 'utils-slots';
 
 import { SYMBOL_SIZE, REEL_PADDING, SYMBOL_INFO_MAP, BOARD_DIMENSIONS } from './constants';
@@ -13,8 +16,21 @@ import type { RawSymbol, SymbolState } from './types';
 export const { getEmptyBoard } = createGetEmptyPaddedBoard({ reelsDimensions: BOARD_DIMENSIONS });
 export const { playBookEvent, playBookEvents } = createPlayBookUtils({ bookEventHandlerMap });
 export const playBet = async (bet: Bet) => {
+	if (bet.state[0]?.type !== 'createBonusSnapshot')
+		validateSlotBook(bet.state, Object.keys(SYMBOL_INFO_MAP));
+	const generation = ++stateGame.playbackGeneration;
 	stateBet.winBookEventAmount = 0;
-	await playBookEvents(bet.state);
+	stateGame.roundCostMultiplier = stateUrlDerived.replay()
+		? stateBet.replayCostMultiplier
+		: stateBetDerived.modeCostMultiplier(bet.mode);
+	stateGame.roundPayout = bet.state.findLast((event) => event.type === 'finalWin')?.amount ?? 0;
+	for (const bookEvent of bet.state) {
+		if (generation !== stateGame.playbackGeneration) return;
+		await playBookEvent(bookEvent, { bookEvents: bet.state });
+		if (generation !== stateGame.playbackGeneration) return;
+		if (bet.active && bookEvent.type !== 'createBonusSnapshot')
+			await recordBookEvent({ bookEvent });
+	}
 	eventEmitter.broadcast({ type: 'stopButtonEnable' });
 };
 
@@ -29,7 +45,8 @@ const BOOK_EVENT_TYPES_TO_RESERVE_FOR_SNAPSHOT = [
 ];
 
 export const convertTorResumableBet = (betToResume: Bet) => {
-	const resumingIndex = Number(betToResume.event);
+	validateSlotBook(betToResume.state, Object.keys(SYMBOL_INFO_MAP));
+	const resumingIndex = validateRoundCheckpoint(betToResume.event, betToResume.state.length);
 	const bookEventsBeforeResume = betToResume.state.filter(
 		(_, eventIndex) => eventIndex < resumingIndex,
 	);

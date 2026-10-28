@@ -3,7 +3,10 @@
 This is a local preview/testing utility, never a production wallet or frontend
 fallback. Static production builds require explicit Engine launch parameters.
 """
-from compression import zstd
+try:
+    from compression import zstd
+except ImportError:
+    import zstandard as zstd
 from array import array
 from pathlib import Path
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer

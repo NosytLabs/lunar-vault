@@ -202,6 +202,10 @@ export interface components {
 			feature?: boolean;
 		};
 		ConfigObject: {
+			minBet: number;
+			maxBet: number;
+			stepBet: number;
+			gameModes: { mode: string; costMultiplier: number; maxBet: number }[];
 			betLevels?: number[];
 			betModes?: {
 				BASE?: components['schemas']['Config'];
@@ -212,19 +216,19 @@ export interface components {
 			 */
 			defaultBetLevel?: number;
 			jurisdiction: {
-				socialCasino: boolean,
-				disabledFullscreen: boolean,
-				disabledTurbo: boolean,
-				disabledSuperTurbo: boolean,
-				disabledAutoplay: boolean,
-				disabledSlamstop: boolean,
-				disabledSpacebar: boolean,
-				disabledBuyFeature: boolean,
-				displayNetPosition: boolean,
-				displayRTP: boolean,
-				displaySessionTimer: boolean,
-				minimumRoundDuration: number,
-			},
+				socialCasino: boolean;
+				disabledFullscreen: boolean;
+				disabledTurbo: boolean;
+				disabledSuperTurbo: boolean;
+				disabledAutoplay: boolean;
+				disabledSlamstop: boolean;
+				disabledSpacebar: boolean;
+				disabledBuyFeature: boolean;
+				displayNetPosition: boolean;
+				displayRTP: boolean;
+				displaySessionTimer: boolean;
+				minimumRoundDuration: number;
+			};
 		};
 		res_authenticate: {
 			status?: components['schemas']['StatusObject'];

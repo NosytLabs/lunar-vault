@@ -34,6 +34,22 @@ class MathContracts(unittest.TestCase):
     def test_wrong_line_position(self):
         book=containing('winInfo');next(e for e in book['events'] if e['type']=='winInfo')['wins'][0]['positions'][0]['row']=4
         with self.assertRaisesRegex(AssertionError,'line calculation'):audit_book(book,'base')
+    def test_missing_feature_end(self):
+        book=containing('freeSpinEnd')
+        book['events']=[e for e in book['events'] if e['type']!='freeSpinEnd']
+        for i,e in enumerate(book['events']): e['index']=i
+        with self.assertRaisesRegex(AssertionError,'feature end'):audit_book(book,'base')
+    def test_bonus_mode_cannot_be_a_base_round(self):
+        book=copy.deepcopy(FIXTURES['base:loss'])
+        with self.assertRaisesRegex(AssertionError,'river|base reveal|entry'):audit_book(book,'river')
+    def test_line_multiplier_metadata_corruption(self):
+        book=containing('winInfo')
+        next(e for e in book['events'] if e['type']=='winInfo')['wins'][0]['meta']['multiplier']=999
+        with self.assertRaisesRegex(AssertionError,'line metadata'):audit_book(book,'base')
+    def test_monetary_events_require_integers(self):
+        book=containing('winInfo')
+        event=next(e for e in book['events'] if e['type']=='setTotalWin');event['amount']=float(event['amount'])
+        with self.assertRaisesRegex(AssertionError,'integer'):audit_book(book,'base')
     def test_orphaned_event_index(self):
         book=containing('winInfo');book['events'][1]['index']=99
         with self.assertRaisesRegex(AssertionError,'event index'):audit_book(book,'base')

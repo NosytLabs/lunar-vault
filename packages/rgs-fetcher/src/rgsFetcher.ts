@@ -17,7 +17,17 @@ export const rgsFetcher = {
 			endpoint: rgsEndpoint(options.rgsUrl, options.url),
 		});
 
+		if (!response.ok) {
+			let error: unknown;
+			try {
+				error = await response.json();
+			} catch {}
+			throw error && typeof error === 'object'
+				? error
+				: new Error('The game service is unavailable. Reload to recover.');
+		}
 		const data = await response.json();
+		if (data?.error) throw data;
 		return data as TResponse;
 	},
 	get: async function get<
@@ -29,7 +39,17 @@ export const rgsFetcher = {
 			endpoint: rgsEndpoint(options.rgsUrl, options.url),
 		});
 
+		if (!response.ok) {
+			let error: unknown;
+			try {
+				error = await response.json();
+			} catch {}
+			throw error && typeof error === 'object'
+				? error
+				: new Error('The game service is unavailable. Reload to recover.');
+		}
 		const data = await response.json();
+		if (data?.error) throw data;
 		return data as TResponse;
 	},
 };

@@ -7,6 +7,7 @@
 	import { Rectangle, Text } from 'pixi-svelte';
 	import { getContext } from '../game/context';
 	import { waitForTimeout } from 'utils-shared/wait';
+	import { stateBet } from 'state-shared';
 	import { reducedMotion } from '../game/motion.svelte';
 	const context = getContext();
 	const board = $derived(context.stateGameDerived.boardLayout());
@@ -16,7 +17,7 @@
 		featureExtended: async (event) => {
 			added = event.added;
 			show = true;
-			await waitForTimeout(reducedMotion.current ? 240 : 850);
+			await waitForTimeout(reducedMotion.current || stateBet.isTurbo ? 240 : 650);
 			show = false;
 		},
 	});

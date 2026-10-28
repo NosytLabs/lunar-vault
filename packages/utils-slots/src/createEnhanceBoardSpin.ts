@@ -1,5 +1,4 @@
 import { stateBet } from 'state-shared';
-import { waitForResolve } from 'utils-shared/wait';
 
 import { stateSlots } from './stateSlots.svelte';
 import type { Reel, GetRawSymbolFromReel } from './types';
@@ -29,9 +28,12 @@ export function createEnhanceBoardSpin<TReel extends Reel<any, any>>({
 		if (stateSlots.isPreSpinning) {
 			await Promise.all(
 				board.map(async (reel) => {
-					await waitForResolve((resolve) => (reel.reelState.readyToSpin = resolve));
+					await new Promise<void>((resolve) => {
+						reel.reelState.readyToSpin = resolve;
+					});
 				}),
 			);
+			if (!stateSlots.isPreSpinning) return;
 		}
 
 		stateSlots.isPreSpinning = false;

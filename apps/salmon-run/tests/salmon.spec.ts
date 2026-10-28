@@ -340,6 +340,8 @@ test('zero balance prevents pointer and keyboard play with an explanation', asyn
 	expect(s.errors).toEqual([]);
 });
 for (const [currency, amount, text] of [
+	['USD', 2010000, '$2.01'],
+	['EUR', 100000, '€0.10'],
 	['JPY', 10000000, '¥10'],
 	['XSC', 100000, '0.10 SC'],
 	['XGC', 100000, '0.10 GC'],
@@ -350,7 +352,7 @@ for (const [currency, amount, text] of [
 		const s = await boot(page, {
 			currency,
 			defaultAmount: Number(amount),
-			query: currency.startsWith('X') ? '&social=true' : '',
+			query: `&lang=zz${currency.startsWith('X') ? '&social=true' : ''}`,
 		});
 		await expect(page.getByRole('combobox', { name: 'Play amount' })).toHaveValue(String(amount));
 		await expect(page.locator('select option:checked')).toHaveText(String(text));

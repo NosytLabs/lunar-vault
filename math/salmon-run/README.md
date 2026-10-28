@@ -1,10 +1,10 @@
 # Salmon Run development math — development-2
 
-This package defines a **finite weighted event-book distribution**. It is not a certified probability model or an Engine-approved game. Only Salmon Run uses it; Lunar Vault still has unmatched sample math.
+This package defines a **finite weighted event-book distribution**. It is not a certified probability model or an Engine-approved game. Only Salmon Run uses this package; Lunar Vault has its own original development distribution in `math/lunar-vault`.
 
 ## Reproduce and verify
 
-Python 3.14+ supplies standard-library `compression.zstd`. The repository's Node helper selects a compatible Python executable (or `SALMON_PYTHON`). From the repository root:
+Python 3.14+ supplies standard-library `compression.zstd`; Python 3.12+ is also supported with the `zstandard` package installed. The repository's Node helper selects a compatible Python executable (or `SALMON_PYTHON`). From the repository root:
 
 ```sh
 node tools/python-runner.mjs math/salmon-run/generate.py --books 100000 --spins 20000000
@@ -12,7 +12,7 @@ node tools/python-runner.mjs math/salmon-run/verify.py
 node tools/python-runner.mjs -m unittest discover -s math/salmon-run -p test_math.py
 ```
 
-The first command replaces publication files/reports and takes several minutes. Candidate seed is 20261026; independent simulation seeds are 417400/417401. Zstandard encoding bytes can depend on the Python/zstd version, so compare decoded books and totals when moving runtimes and update hashes from regenerated output. `verify.py` never imports the generator/evaluator: it reconstructs awards independently and checks every event and lookup row.
+The first command replaces publication files/reports and takes several minutes. Candidate seed is 20261026; independent simulation seeds are 417400/417401. Zstandard encoding bytes can depend on the Python/zstd version, so compare decoded books and totals when moving runtimes and update hashes from regenerated output. `verify.py` never imports the generator/evaluator: it reconstructs awards independently and checks every event and lookup row, binds index costs to configuration and requires complete feature lifecycles.
 
 ## Distribution and calibration
 
@@ -40,7 +40,7 @@ Both simulations fall within five standard errors of the exact target. Tails at 
 
 ## Independent audit coverage
 
-`verify.py` recomputes all line candidates, leading Wild choices, position ordering, highest base award, line totals, fish values/collectors, pre-collection stage multiplier, collection ledger/progress order, feature entry/retrigger/counters/end, cumulative/final totals, integer weight limits, CSV alignment, exact rational RTP and publication hashes. Eight regression tests deliberately corrupt awards, scales, positions, counters, stages and event indices; one tests the leading-Wild edge. Golden browser fixtures are drawn directly from the generated books.
+`verify.py` recomputes all line candidates, leading Wild choices, position ordering, highest base award, line totals, fish values/collectors, pre-collection stage multiplier, collection ledger/progress order, feature entry/retrigger/counters/end, cumulative/final totals, integer weight limits, CSV alignment, exact rational RTP and publication hashes. Twelve regression tests cover calibration, the leading-Wild edge and deliberately corrupt awards, scales, positions, counters, stages, event indices, feature completion, mode entry, line metadata and integer monetary fields. Golden browser fixtures are drawn directly from the generated books.
 
 The community Stake skill event checker accepts six golden books with **0 errors / 14 warnings** (optional `setWin`, `enterBonus` and custom progression). All monetary awards now use standard `winInfo`; the custom event contains progress only. Its index checker returns **0 errors / 2 warnings** because it ignores official `events`/`weights` keys. Those warnings are not treated as proof of file correctness: our independent verifier checks the referenced files and every row. Official Engine documentation takes precedence over the community skill's older RTP range and event assumptions.
 

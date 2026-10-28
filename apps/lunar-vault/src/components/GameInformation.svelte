@@ -1,5 +1,6 @@
 <script lang="ts">
 	import config from '../game/config';
+	import report from '../../../../math/lunar-vault/report.json';
 	const { paytable = false }: { paytable?: boolean } = $props();
 	const names: Record<string, string> = {
 		H1: 'Astral Crown',
@@ -19,13 +20,12 @@
 		symbol.paytable?.find((row) => String(count) in row)?.[String(count)] ?? '—';
 </script>
 
-<section class="information" aria-label={paytable ? 'Sample symbol table' : 'Game information'}>
-	<p class="eyebrow">NOSYTLABS GAMES · DEVELOPMENT PREVIEW</p>
+<section class="information" aria-label={paytable ? 'Symbol table' : 'Game information'}>
+	<p class="eyebrow">NOSYTLABS GAMES</p>
 	<h1>{paytable ? 'Celestial symbols' : 'Inside the Lunar Vault'}</h1>
 	<p class="notice">
-		Sample rules and rewards. Lunar Vault has no matching certified math package or Engine approval.
-		The inherited 97% RTP and 5,000× maximum are unverified sample metadata, not a certified return
-		or promise.
+		The theoretical return is {(report.modes.base.weightedRtp * 100).toFixed(2)}% in both modes,
+		calculated over many plays. An individual session may return more or less.
 	</p>
 	{#if paytable}
 		<p>
@@ -38,8 +38,10 @@
 				{#each Object.entries(config.symbols).filter(([, value]) => 'paytable' in value) as [key, symbol]}
 					<tr
 						><th
-							><img src={`./assets/nosyt/sprites/${key.toLowerCase()}.webp`} alt="" />{names[key] ??
-								key}</th
+							><img
+								src={`./assets/nosyt/sprites/${key === 'W' || key === 'S' ? key.toLowerCase() + '-v4' : key.toLowerCase() + '-v5'}.webp`}
+								alt=""
+							/>{names[key] ?? key}</th
 						><td>{payout(symbol, 3)}×</td><td>{payout(symbol, 4)}×</td><td>{payout(symbol, 5)}×</td
 						></tr
 					>
@@ -83,17 +85,28 @@
 		</div>
 		<h2>Eclipse Chamber</h2>
 		<p>
-			The sample awards 8, 12 or 15 free spins for 3, 4 or 5 Eclipse symbols. An extension increases
-			the announced total without resetting completed spins. The optional feature mode costs 100×
-			the selected play amount and requires confirmation. Availability depends on the session.
+			3 Eclipse symbols award 8 free spins, 4 award 12, and 5 or more award 15. Three or more
+			Eclipse symbols during the feature add 4 spins, up to 30 total, without resetting completed
+			spins. The optional feature mode opens 12 spins for 100× the selected play amount and requires
+			confirmation. Availability depends on the session.
+		</p>
+		<p>
+			Base mode costs 1× per play and has a maximum of {report.modes.base.maximumWinX}×. Eclipse
+			Chamber costs 100× and has a maximum of {report.modes.bonus.maximumWinX}×. Both maxima
+			multiply the selected base play amount. Eclipse Chamber’s maximum is
+			{(report.modes.bonus.maximumWinX / config.betModes.bonus.cost).toFixed(2)}× its full feature
+			amount. Expected return is measured over many plays.
 		</p>
 		<h2>Controls</h2>
 		<p>
 			Spin starts a round. Stop speeds up the animation where permitted; it never changes a result.
 			Use +/− or select the current amount to choose an available session level. Turbo shortens
-			eligible reel animations. Menu opens Info, Symbols, Settings and Sound. Sound toggles all
-			audio; Settings contains separate music and effects levels. Fullscreen changes the view when
-			available. Space follows session restrictions and is ignored while a dialog is open.
+			eligible reel animations. Menu opens Info, the symbol table and Settings. The speaker button
+			toggles all audio; Settings contains separate music and effects levels. Fullscreen changes the
+			view when available. Press Space on the playfield to spin. Hold Space for 400 ms to start
+			repeated plays with turbo animations where permitted. Release Space to stop future repeated
+			plays and restore normal animation speed; the current round completes. Space follows session
+			restrictions and is ignored while a dialog or an interactive control has focus.
 		</p>
 		<p>
 			Autoplay opens settings for the number of rounds and limits; confirm before it starts. Cancel

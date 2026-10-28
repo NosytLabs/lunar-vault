@@ -1,10 +1,13 @@
 """Reproducible finite weighted-book model, Engine file format. Not certification.
 
-Python 3.14+ (standard-library zstd). No client result generation. The proposal
+Python 3.14+ standard-library zstd, or Python 3.12+ with zstandard. No client result generation. The proposal
 draws boards independently; published integer lookup weights define final odds.
 """
 from pathlib import Path
-from compression import zstd
+try:
+    from compression import zstd
+except ImportError:
+    import zstandard as zstd
 from fractions import Fraction
 import argparse, hashlib, json, math, random
 
@@ -153,7 +156,8 @@ def generate(count=100000, spins=1000000):
         rng=random.Random(20261026+number)
         payouts=[];features=[];unique=set()
         filename=f'books_{mode}.jsonl.zst'
-        with zstd.open(output/filename,'wt',level=9,encoding='utf8') as stream:
+        compression={'cctx':zstd.ZstdCompressor(level=9)} if hasattr(zstd,'ZstdCompressor') else {'level':9}
+        with zstd.open(output/filename,'wt',encoding='utf8',**compression) as stream:
             for identifier in range(count):
                 book=make_round(rng,identifier,mode)
                 encoded=json.dumps(book,separators=(',',':'))

@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { Popup, Button } from 'components-shared';
 	import { zIndex } from 'constants-shared/zIndex';
-	import { stateModal } from 'state-shared';
+	import { stateModal, stateUrlDerived } from 'state-shared';
 	import BaseContent from './BaseContent.svelte';
 	const messages: Record<string, string> = {
+		ERR_DURATION:
+			'This session requires a round-duration setting that this game version cannot safely interpret. Please contact support.',
 		ERR_VAL: 'The session or selected amount is unavailable. Open a valid launch link and reload.',
 		ERR_IPB: 'Balance is too low for this play. Reload to refresh the session.',
 		ERR_GLE: 'The session play limit has been reached.',
@@ -11,10 +13,12 @@
 		ERR_GEN: 'The game service is unavailable. Reload to recover any unfinished round.',
 	};
 	const message = $derived(
-		stateModal.modal?.name === 'error'
-			? (messages[(stateModal.modal.error as { error?: string })?.error ?? ''] ??
+		stateUrlDerived.replay()
+			? 'This replay is unavailable or contains an invalid round. Open a valid replay link and reload.'
+			: stateModal.modal?.name === 'error'
+				? (messages[(stateModal.modal.error as { error?: string })?.error ?? ''] ??
 					'Connection interrupted. Reload to recover any unfinished round.')
-			: '',
+				: '',
 	);
 </script>
 

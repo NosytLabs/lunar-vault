@@ -1,0 +1,143 @@
+{
+  "date": "2026-10-28",
+  "removed": [
+    {
+      "path": "apps/lunar-vault/static/assets/nosyt/observatory-feature.svg",
+      "bytes": 13352,
+      "sha256": "59ce377250f4990cac62342c5852b6957a7eb766d300a16e14f71d787239074a",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/lunar-vault/static/assets/nosyt/observatory.svg",
+      "bytes": 13342,
+      "sha256": "efc1c7d1f0007fbb1a0d9e5b16b4f444bf2a1c9489b4456674366bf03e471508",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/lunar-vault/static/assets/nosyt/reel-frame.svg",
+      "bytes": 1402,
+      "sha256": "513942ed8a5d83a45a586036150c010eba28182d312cd1ff8523efe08003be96",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/lunar-vault/static/assets/nosyt/sprites/h1.webp",
+      "bytes": 102358,
+      "sha256": "a76210c270f48fdc792562f78e822e2a3cc532a1a06a36b54eeff549dde843c7",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/lunar-vault/static/assets/nosyt/sprites/h2.webp",
+      "bytes": 76754,
+      "sha256": "22937cdc182be37f9aee9d59cc50cb4344ef48c43350fa41716867127bd291e5",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/lunar-vault/static/assets/nosyt/sprites/h3.webp",
+      "bytes": 74094,
+      "sha256": "1aa0fcce93b5fb2fbf87f9c93074ab14172ab6cd76400f71c862f5ae0227595b",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/lunar-vault/static/assets/nosyt/sprites/h4.webp",
+      "bytes": 92632,
+      "sha256": "05079b82ed2ab0b09d0f193f9fda64ed2bd42a27fc71762e51fc7948471f3bc6",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/lunar-vault/static/assets/nosyt/sprites/h5.webp",
+      "bytes": 76514,
+      "sha256": "5d76e37a456bbef8862e505a491fc47b0ebae3d22f7692cec8e940da1308e50c",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/lunar-vault/static/assets/nosyt/sprites/l1.webp",
+      "bytes": 49298,
+      "sha256": "22d0639af7816546e8f9f0d0018e410c307afa7ffaa327b7ae9776837bc911a5",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/lunar-vault/static/assets/nosyt/sprites/l2.webp",
+      "bytes": 65478,
+      "sha256": "d180d9f68abb8e1e8c44eb8728d3ff5cdfe4c8b01475830bcdef554a945ee2cb",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/lunar-vault/static/assets/nosyt/sprites/l3.webp",
+      "bytes": 65290,
+      "sha256": "a7f4ed3dc27e3388505efffb2dd51891761232936a077ae090d8b2d6e91fa2a7",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/lunar-vault/static/assets/nosyt/sprites/l4.webp",
+      "bytes": 51208,
+      "sha256": "b229a472680d4f07c57d556c815c8ecea74bab86cb518738cdc40d8a190a8ad6",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/lunar-vault/static/assets/nosyt/sprites/l5.webp",
+      "bytes": 46168,
+      "sha256": "b5bd34278eae6d12084150916dd253fca0874009a1d61ae57356ff33145738aa",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/lunar-vault/static/assets/nosyt/sprites/s.webp",
+      "bytes": 80036,
+      "sha256": "0bb3442da9125b427d4683bc71baeff4da9c148e8cca6611c3ef64b6530383c5",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/lunar-vault/static/assets/nosyt/sprites/w.webp",
+      "bytes": 89228,
+      "sha256": "66d063cb6887bccb8132f472536a1c4878e93c430c5592bc7d654a8844124a67",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/salmon-run/public/assets/sprites/canoe.webp",
+      "bytes": 61422,
+      "sha256": "37b66036fe9b7402866d858f8aa03cfca19b28aceb9caa3904bd1e338db42195",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/salmon-run/public/assets/sprites/compass.webp",
+      "bytes": 90224,
+      "sha256": "cea1ff00945ab6964e2fde3e01416ebeb4fba54acdb645fdd1385f78cfa80ec2",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/salmon-run/public/assets/sprites/fly.webp",
+      "bytes": 102118,
+      "sha256": "6704e776afba313fa47249ae40f23595607e476721a2032993fe58a7c2936302",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/salmon-run/public/assets/sprites/leaf.webp",
+      "bytes": 78568,
+      "sha256": "5699f03e19398fb1475cd5625de3fcb55b8359887820601ef399a6fa42879d01",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/salmon-run/public/assets/sprites/reel.webp",
+      "bytes": 87860,
+      "sha256": "165df1fede2013f7b282009b7973e280c9529b6302b2c4b148bbb77d1336e183",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/salmon-run/public/assets/sprites/salmon.webp",
+      "bytes": 57456,
+      "sha256": "cacbb7d701684be4c2fc6208d5c38989b4e347c79871e7f1fb4bd2b156826b9b",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/salmon-run/public/assets/sprites/scatter.webp",
+      "bytes": 146794,
+      "sha256": "d4836031b8e309f160a98f3c426737c75644cccf5b430bf6142f669daf529125",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    },
+    {
+      "path": "apps/salmon-run/public/assets/sprites/wild.webp",
+      "bytes": 103240,
+      "sha256": "5aafae1974840a93dfa8774201c8d7c702f553ffb05d980aeab2a3047b29d1bf",
+      "replacement": "Current versioned sprites or background/frame from each active asset registry"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import books from '../apps/lunar-vault/src/stories/data/base_books';
 import bonusBooks from '../apps/lunar-vault/src/stories/data/bonus_books';
+import originalPublication from '../math/lunar-vault/fixtures.json';
 
 // Local HTTP fixtures exercise the real production frontend and SDK state machine.
 // They do NOT validate an Engine deployment, certify math, or prove jurisdiction compliance.
@@ -33,7 +34,7 @@ async function renderedText(page: Page) {
 		const app = (window as any).__testPixi;
 		if (app?.stage) walk(app.stage, true);
 		for (const element of document.querySelectorAll(
-			'.mini-controls button,.mini-controls span,.mini-controls b',
+			'.mini-controls button,.mini-controls span,.mini-controls b,.feature-progress span,.feature-progress strong',
 		)) {
 			const box = element.getBoundingClientRect();
 			if (box.width && box.height)
@@ -65,12 +66,14 @@ async function session(
 	page: Page,
 	options: {
 		book?: Fixture;
-		jurisdiction?: Record<string, boolean>;
+		jurisdiction?: Record<string, boolean | number>;
 		currency?: string;
 		query?: string;
 		resume?: boolean;
 		replay?: boolean;
 		playGate?: Promise<void>;
+		playError?: boolean;
+		roundActive?: boolean;
 		resumeIndex?: number;
 		defaultBetMicro?: number;
 		balanceMicro?: number;
@@ -80,6 +83,15 @@ async function session(
 		replayCost?: number;
 		expectAssetFailure?: boolean;
 		bonusMaximum?: number;
+		baseMaximum?: number;
+		modeCost?: number;
+		modeName?: string;
+		gameModes?: unknown;
+		replayData?: unknown;
+		replayStatus?: number;
+		replayEmpty?: boolean;
+		omitReplayOptions?: boolean;
+		expectSessionFailure?: boolean;
 	} = {},
 ) {
 	const calls: { path: string; body: any }[] = [];
@@ -91,9 +103,9 @@ async function session(
 		betID: 1,
 		amount: options.resumeAmountMicro ?? defaultBet,
 		mode: 'base',
-		payout: Math.round(book.payoutMultiplier * 100000),
+		payout: Math.round(book.payoutMultiplier * (options.resumeAmountMicro ?? defaultBet)),
 		payoutMultiplier: book.payoutMultiplier,
-		active: book.payoutMultiplier > 0,
+		active: options.roundActive ?? book.payoutMultiplier > 0,
 		state: book.events,
 		event: String(options.resumeIndex ?? 0),
 	};
@@ -127,13 +139,18 @@ async function session(
 					maxBet: Math.max(1000000, defaultBet * 2),
 					stepBet: 10000,
 					defaultBetLevel: defaultBet,
-					gameModes: {
-						base: { costMultiplier: 1, maxBet: Math.max(1000000, defaultBet * 2) },
-						bonus: {
-							costMultiplier: 100,
+					gameModes: options.gameModes ?? [
+						{
+							mode: options.modeName ?? 'base',
+							costMultiplier: 1,
+							maxBet: options.baseMaximum ?? Math.max(1000000, defaultBet * 2),
+						},
+						{
+							mode: 'bonus',
+							costMultiplier: options.modeCost ?? 100,
 							maxBet: options.bonusMaximum ?? Math.max(1000000, defaultBet * 2),
 						},
-					},
+					],
 					betLevels: [
 						...new Set([
 							10000,
@@ -149,27 +166,45 @@ async function session(
 		else if (path === '/wallet/play') {
 			await options.playGate;
 			const body = request.postDataJSON();
-			data = {
-				balance: {
-					amount: 100000000 - body.amount * (body.mode === 'bonus' ? 100 : 1),
-					currency: options.currency ?? 'USD',
-				},
-				round: { ...round, mode: body.mode, amount: body.amount },
-			};
+			data = options.playError
+				? { error: 'ERR_GEN', message: 'Play interrupted. Reload to recover.' }
+				: {
+						balance: {
+							amount: 100000000 - body.amount * (body.mode === 'bonus' ? 100 : 1),
+							currency: options.currency ?? 'USD',
+						},
+						round: {
+							...round,
+							mode: body.mode,
+							amount: body.amount,
+							payout: Math.round(body.amount * book.payoutMultiplier),
+						},
+					};
 		} else if (path === '/wallet/end-round')
 			data = { balance: { amount: 99900000 + round.payout, currency: options.currency ?? 'USD' } };
 		else if (path.startsWith('/bet/replay/'))
-			data = { ...round, costMultiplier: options.replayCost ?? 1 };
+			data = options.replayData ?? { ...round, costMultiplier: options.replayCost ?? 1 };
 		else if (path === '/bet/event') data = { event: '0' };
 		else throw new Error(`Unexpected RGS fixture route: ${path}`);
-		await route.fulfill({ json: data });
+		if (path.startsWith('/bet/replay/') && options.replayEmpty) {
+			await route.fulfill({ status: 404, body: '' });
+			return;
+		}
+		await route.fulfill({
+			status: path.startsWith('/bet/replay/') ? (options.replayStatus ?? 200) : 200,
+			json: data,
+		});
 	});
 	const query = options.replay
-		? `replay=true&game=lunar_vault&version=fixture&mode=${options.replayMode ?? 'base'}&event=1&amount=100000`
+		? `replay=true&game=lunar_vault&version=fixture&mode=${options.replayMode ?? 'base'}&event=1${options.omitReplayOptions ? '' : '&amount=100000'}`
 		: 'sessionID=local-fixture';
 	await page.goto(
-		`/?rgs_url=${encodeURIComponent(options.rgsAddress ?? 'rgs.invalid')}&${query}&currency=${options.currency ?? 'USD'}${options.query ?? ''}`,
+		`/?rgs_url=${encodeURIComponent(options.rgsAddress ?? 'rgs.invalid')}&${query}${options.omitReplayOptions ? '' : `&currency=${options.currency ?? 'USD'}`}${options.query ?? ''}`,
 	);
+	if (options.expectSessionFailure) {
+		await expect(page.getByRole('alert')).toBeVisible();
+		return { calls, errors, external };
+	}
 	if (options.expectAssetFailure) {
 		await expect(page.getByRole('alert')).toContainText('Game assets could not be loaded');
 		return { calls, errors, external };
@@ -292,12 +327,12 @@ test('restricted session disables controls and space; feature menu only lists th
 			disabledSlamstop: true,
 		},
 	});
-	for (const text of ['TURBO', 'AUTO SPIN', 'BUY BONUS'])
+	for (const text of ['TURBO', 'AUTO SPIN', 'BUY ECLIPSE CHAMBER'])
 		expect((await textNode(page, text)).disabled, text).toBe(true);
 	await page.keyboard.press('Space');
 	await page.waitForTimeout(500);
 	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
-	await clickText(page, 'BUY BONUS');
+	await clickText(page, 'BUY ECLIPSE CHAMBER');
 	await expect(page.locator('.bonus-card-wrap')).toHaveCount(0);
 	await clickText(page, 'SPIN');
 	await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(1);
@@ -327,7 +362,7 @@ test('autoplay can be cancelled when slam-stop is forbidden', async ({ page }) =
 test('feature menu contains one local mode and social wording', async ({ page }, info) => {
 	await page.setViewportSize({ width: 425, height: 812 });
 	const s = await session(page, { query: '&social=true', currency: 'XSC' });
-	await clickText(page, 'PLAY BONUS');
+	await clickText(page, 'PLAY ECLIPSE CHAMBER');
 	await expect(page.locator('.bonus-card-wrap')).toHaveCount(1);
 	await expect(page.locator('.bonus-card-wrap')).toContainText('ECLIPSE CHAMBER');
 	await expect(page.locator('.bonus-card-wrap')).toBeInViewport({ ratio: 1 });
@@ -393,7 +428,7 @@ test('bonus completes with reduced motion and viewport rotation', async ({ page 
 
 test('feature buy confirms its cost before sending exactly one bonus request', async ({ page }) => {
 	const s = await session(page);
-	await clickText(page, 'BUY BONUS');
+	await clickText(page, 'BUY ECLIPSE CHAMBER');
 	await page.getByText('CONTINUE', { exact: true }).click();
 	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
 	await expect(page.locator('.ui-popup-standard-content-wrap')).toContainText('100×');
@@ -528,7 +563,7 @@ test('social game rules include the operational disclaimer without restricted te
 
 test('an interrupted sprite fetch retries without entering a broken game', async ({ page }) => {
 	let attempts = 0;
-	await page.route('**/assets/nosyt/sprites/h1.webp', (route) =>
+	await page.route('**/assets/nosyt/sprites/h1-v5.webp', (route) =>
 		++attempts === 1 ? route.abort() : route.continue(),
 	);
 	const s = await session(page);
@@ -556,6 +591,7 @@ test('a sub-cent award stays visible at the correct precision', async ({ page })
 	expect(s.errors).toEqual([]);
 });
 
+// A replay is versioned: use its authoritative server cost even when another version differs.
 test('small social replay displays the server mode cost and exposes no wagering menu', async ({
 	page,
 }) => {
@@ -578,7 +614,7 @@ test('a permanently missing sprite shows recovery instead of an incomplete game'
 	page,
 }) => {
 	let attempts = 0;
-	await page.route('**/assets/nosyt/sprites/h1.webp', (route) => {
+	await page.route('**/assets/nosyt/sprites/h1-v5.webp', (route) => {
 		attempts++;
 		return route.abort();
 	});
@@ -593,7 +629,7 @@ test('per-mode server maximum blocks feature entry while allowing the base amoun
 	page,
 }) => {
 	const s = await session(page, { bonusMaximum: 50000 });
-	await clickText(page, 'BUY BONUS');
+	await clickText(page, 'BUY ECLIPSE CHAMBER');
 	await expect(page.locator('.bonus-card-wrap')).toContainText('Choose a lower play amount');
 	await expect(page.locator('.bonus-card-wrap button')).toBeDisabled();
 	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
@@ -634,4 +670,249 @@ test('master mute remains available on the feature introduction without dismissi
 		s.calls.filter((c) => c.path === '/wallet/play' || c.path === '/wallet/end-round'),
 	).toHaveLength(0);
 	expect(s.errors).toEqual([]);
+});
+
+test('an interrupted play preserves the last board and stops decorative reel travel', async ({
+	page,
+}) => {
+	let release!: () => void;
+	const playGate = new Promise<void>((resolve) => (release = resolve));
+	await session(page, { playGate, playError: true });
+	const sprites = () =>
+		page.evaluate(() => {
+			const result: { x: number; y: number }[] = [];
+			const walk = (node: any) => {
+				if (node.texture?.width === 512 && node.texture?.height === 512) {
+					const bounds = node.getBounds();
+					result.push({ x: bounds.x, y: bounds.y });
+				}
+				node.children?.forEach(walk);
+			};
+			walk((window as any).__testPixi.stage);
+			return result;
+		});
+	const initial = await sprites();
+	expect(initial.length).toBeGreaterThanOrEqual(15);
+	await clickText(page, 'SPIN');
+	await page.waitForTimeout(350);
+	release();
+	await expect(page.getByRole('alert')).toContainText('game service');
+	await page.waitForTimeout(200);
+	const stopped = await sprites();
+	expect(stopped.length).toBe(initial.length);
+	await page.waitForTimeout(350);
+	expect(await sprites()).toEqual(stopped);
+});
+
+test('an already closed positive round never sends end-round', async ({ page }) => {
+	const s = await session(page, { book: win, roundActive: false });
+	await clickText(page, 'SPIN');
+	await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(1);
+	await textNode(page, 'SPIN');
+	expect(s.calls.filter((c) => c.path === '/wallet/end-round')).toHaveLength(0);
+	expect(s.errors).toEqual([]);
+});
+
+test('active round checkpoints advance only after each completed event and precede settlement', async ({
+	page,
+}) => {
+	const s = await session(page, { book: win });
+	await clickText(page, 'SPIN');
+	await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/end-round').length).toBe(1);
+	const checkpoints = s.calls.filter((c) => c.path === '/bet/event');
+	expect(checkpoints.map((c) => c.body.event)).toEqual(
+		win.events.map((event) => String(event.index + 1)),
+	);
+	expect(s.calls.at(-1)!.path).toBe('/wallet/end-round');
+	expect(s.errors).toEqual([]);
+});
+
+test('documented uppercase wallet mode is preserved in the actual play request', async ({
+	page,
+}) => {
+	const s = await session(page, { modeName: 'BASE' });
+	await clickText(page, 'SPIN');
+	await expect.poll(() => s.calls.filter((call) => call.path === '/wallet/play').length).toBe(1);
+	expect(s.calls.find((call) => call.path === '/wallet/play')!.body.mode).toBe('BASE');
+});
+
+for (const options of [
+	{ modeCost: 20 },
+	{ gameModes: [{ mode: 'BASE', costMultiplier: 1, maxBet: 1000000 }] },
+])
+	test(`invalid advertised modes block all wagering: ${JSON.stringify(options)}`, async ({
+		page,
+	}) => {
+		const s = await session(page, { ...options, expectSessionFailure: true });
+		await page.keyboard.press('Space');
+		expect(s.calls.filter((call) => call.path === '/wallet/play')).toHaveLength(0);
+		await expect(page.getByRole('button', { name: 'Reload game', exact: true })).toBeVisible();
+	});
+
+test('server-only social flag overrides URL social=false throughout rules and feature dialogs', async ({
+	page,
+}) => {
+	const s = await session(page, { jurisdiction: { socialCasino: true }, query: '&social=false' });
+	await textNode(page, 'PLAY');
+	await clickText(page, 'MENU');
+	await textNode(page, 'SYMBOLS');
+	await clickText(page, 'CLOSE');
+	await clickText(page, 'PLAY ECLIPSE CHAMBER');
+	await expect(page.locator('.bonus-card-wrap')).toBeVisible();
+	expect(await page.locator('.bonus-card-wrap').innerText()).not.toMatch(
+		/\b(bet|buy|funds|paytable)\b/i,
+	);
+	await page.keyboard.press('Escape');
+	await clickText(page, 'MENU');
+	await clickText(page, 'INFO');
+	expect(await page.locator('.information').innerText()).not.toMatch(
+		/\b(bet|buy|funds|paytable)\b/i,
+	);
+	expect(s.calls.filter((call) => call.path === '/wallet/play')).toHaveLength(0);
+});
+
+for (const [name, data, status] of [
+	['JSON ERR_VAL', { error: 'ERR_VAL' }, 200],
+	['malformed 200', { payoutMultiplier: 0, costMultiplier: 1 }, 200],
+	['HTTP failure JSON', { error: 'ERR_GEN' }, 404],
+	[
+		'invalid event payload',
+		{
+			payoutMultiplier: 0,
+			costMultiplier: 1,
+			state: [
+				{ index: 0, type: 'reveal' },
+				{ index: 1, type: 'finalWin', amount: 0 },
+			],
+		},
+		200,
+	],
+] as const)
+	test(`replay ${name} remains readable with no wallet escape`, async ({ page }) => {
+		const s = await session(page, {
+			replay: true,
+			replayData: data,
+			replayStatus: status,
+			expectSessionFailure: true,
+		});
+		await expect(page.getByRole('alert')).toContainText('This replay is unavailable');
+		await page.keyboard.press('Escape');
+		await page.keyboard.press('Space');
+		await expect(page.getByRole('alert')).toBeVisible();
+		expect(s.calls.filter((call) => call.path.startsWith('/wallet/'))).toHaveLength(0);
+	});
+
+test('positive undocumented round-duration requirement blocks play with a readable explanation', async ({
+	page,
+}) => {
+	const s = await session(page, {
+		jurisdiction: { minimumRoundDuration: 1 },
+		expectSessionFailure: true,
+	});
+	await expect(page.getByRole('alert')).toContainText('round-duration setting');
+	await page.keyboard.press('Space');
+	expect(s.calls.filter((call) => call.path === '/wallet/play')).toHaveLength(0);
+});
+
+test('base maximum and full feature cost prevent pointer, Space and autoplay requests', async ({
+	page,
+}) => {
+	const s = await session(page, { baseMaximum: 50000, balanceMicro: 1000000 });
+	await page.keyboard.press('Space');
+	await clickText(page, 'SPIN');
+	await expect(page.getByRole('button', { name: 'AUTO SPIN', exact: true })).toBeDisabled();
+	await expect(
+		page.getByRole('button', { name: 'BUY ECLIPSE CHAMBER', exact: true }),
+	).toBeDisabled();
+	expect(s.calls.filter((call) => call.path === '/wallet/play')).toHaveLength(0);
+});
+
+test('empty HTTP replay failure stays readable and never calls the wallet', async ({ page }) => {
+	const s = await session(page, { replay: true, replayEmpty: true, expectSessionFailure: true });
+	await expect(page.getByRole('alert')).toContainText('This replay is unavailable');
+	expect(s.calls.filter((call) => call.path.startsWith('/wallet/'))).toHaveLength(0);
+});
+
+test('replay optional amount currency and language use safe defaults and can repeat', async ({
+	page,
+}) => {
+	const s = await session(page, { replay: true, omitReplayOptions: true });
+	await expect(page.locator('.replay-cost')).toContainText('PLAY AMOUNT $1.00');
+	await page.getByRole('button', { name: 'Play again', exact: true }).click();
+	await expect(page.getByRole('button', { name: 'Play again', exact: true })).toBeEnabled();
+	expect(s.calls.filter((call) => call.path.startsWith('/wallet/'))).toHaveLength(0);
+});
+
+test('original publication base book checkpoints and settles exactly once', async ({
+	page,
+}, info) => {
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	const original = originalPublication['base:win'];
+	const book = { ...original, payoutMultiplier: original.payoutMultiplier / 100 } as Fixture;
+	const s = await session(page, { book });
+	await clickText(page, 'SPIN');
+	await expect
+		.poll(() => s.calls.filter((call) => call.path === '/wallet/end-round').length, {
+			timeout: 25000,
+		})
+		.toBe(1);
+	expect(s.calls.filter((call) => call.path === '/wallet/play')).toHaveLength(1);
+	expect(
+		s.calls.filter((call) => call.path === '/bet/event').map((call) => call.body.event),
+	).toEqual(book.events.map((event) => String(event.index + 1)));
+	expect(s.calls.at(-1)!.path).toBe('/wallet/end-round');
+	await textNode(page, 'SPIN');
+	await page.screenshot({ path: info.outputPath('original-base-settled.png') });
+	expect(s.errors).toEqual([]);
+});
+
+test('original publication Eclipse Chamber confirms full cost and completes all twelve spins', async ({
+	page,
+}, info) => {
+	test.setTimeout(90000);
+	await page.setViewportSize({ width: 800, height: 450 });
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	const original = originalPublication['bonus:feature'];
+	const book = { ...original, payoutMultiplier: original.payoutMultiplier / 100 } as Fixture;
+	const s = await session(page, { book });
+	await clickText(page, 'BUY ECLIPSE CHAMBER');
+	await page.locator('.bonus-card-wrap button').click();
+	await page.locator('[data-test="confirm-button"]').click();
+	await expect.poll(() => s.calls.filter((call) => call.path === '/wallet/play').length).toBe(1);
+	expect(s.calls.find((call) => call.path === '/wallet/play')!.body).toMatchObject({
+		mode: 'bonus',
+		amount: 100000,
+	});
+	await expect
+		.poll(
+			async () => {
+				if ((await renderedText(page)).some((node) => node.text.startsWith('TAP')))
+					await page.mouse.click(15, 425);
+				return s.calls.filter((call) => call.path === '/wallet/end-round').length;
+			},
+			{ timeout: 60000 },
+		)
+		.toBe(1);
+	await textNode(page, 'SPIN');
+	expect(s.calls.filter((call) => call.path === '/wallet/play')).toHaveLength(1);
+	expect(
+		s.calls.filter((call) => call.path === '/bet/event').map((call) => call.body.event),
+	).toEqual(book.events.map((event) => String(event.index + 1)));
+	expect(s.errors).toEqual([]);
+	await page.screenshot({ path: info.outputPath('original-feature-settled.png') });
+});
+
+test('current publication Eclipse Chamber replay displays the full 100× cost without wallet traffic', async ({
+	page,
+}, info) => {
+	await page.setViewportSize({ width: 400, height: 225 });
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	const original = originalPublication['bonus:feature'];
+	const book = { ...original, payoutMultiplier: original.payoutMultiplier / 100 } as Fixture;
+	const s = await session(page, { replay: true, replayMode: 'bonus', replayCost: 100, book });
+	await expect(page.locator('.replay-cost')).toContainText('100×');
+	await expect(page.locator('.replay-cost')).toContainText('TOTAL PLAY $10.00');
+	expect(s.calls.filter((call) => call.path.startsWith('/wallet/'))).toHaveLength(0);
+	expect(s.errors).toEqual([]);
+	await page.screenshot({ path: info.outputPath('current-bonus-replay-cost.png') });
 });

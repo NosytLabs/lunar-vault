@@ -2,6 +2,8 @@
 	import { stateBet, stateUi, stateModal, stateSound } from 'state-shared';
 	import { getContext } from '../game/context';
 	import { bookEventAmountToCurrencyString, numberToCurrencyString } from 'utils-shared/amount';
+	import { MODE_DISPLAY_NAMES } from '../game/metadata';
+	import FreeSpinCounter from './FreeSpinCounter.svelte';
 	const context = getContext();
 	// Preserve the server replay book before ResumeBet consumes the shared pointer.
 	const replayBook = stateUi.config.mode === 'replay' ? stateBet.betToResume : null;
@@ -24,10 +26,12 @@
 			onclick={() => (stateModal.modal = { name: 'gameRules' })}
 			aria-label="Game information">i</button
 		>
-		<div class="replay-cost">
-			<span>REPLAY · {stateBet.activeBetModeKey.toUpperCase()}</span><b
-				>PLAY AMOUNT {numberToCurrencyString(stateBet.betAmount)}</b
-			><span
+		<div class="replay-cost" class:feature-active={stateUi.freeSpinCounterShow}>
+			{#if stateUi.freeSpinCounterShow}<FreeSpinCounter compact />{:else}
+				<span
+					>REPLAY · {MODE_DISPLAY_NAMES[stateBet.activeBetModeKey.toLowerCase()] ??
+						MODE_DISPLAY_NAMES.base}</span
+				>{/if}<b>PLAY AMOUNT {numberToCurrencyString(stateBet.betAmount)}</b><span
 				>{stateBet.replayCostMultiplier}× · TOTAL PLAY {numberToCurrencyString(
 					stateBet.betAmount * stateBet.replayCostMultiplier,
 				)}</span
@@ -73,6 +77,12 @@
 		gap: 3px;
 		flex: 1;
 		min-width: 0;
+	}
+	.replay-cost.feature-active {
+		gap: 2px;
+	}
+	.replay-cost :global(.feature-progress) {
+		padding: 0;
 	}
 	.replay-cost b {
 		font-size: 14px;

@@ -1,6 +1,13 @@
 import { stateMeta, stateBet } from 'state-shared';
 import config from './config';
+import { validateSlotBook } from 'utils-shared/slotBookValidation';
+import { SYMBOL_INFO_MAP } from './constants';
+export const MODE_DISPLAY_NAMES: Record<string, string> = {
+	base: 'LUNAR VAULT',
+	bonus: 'ECLIPSE CHAMBER',
+};
 export function initialiseMetadata() {
+	stateMeta.validateBookEvents = (events) => validateSlotBook(events, Object.keys(SYMBOL_INFO_MAP));
 	stateMeta.betModeMeta = Object.fromEntries(
 		Object.entries(config.betModes).map(([mode, value]) => [
 			mode,
@@ -18,13 +25,13 @@ export function initialiseMetadata() {
 					button: '',
 				},
 				text: {
-					title: value.buyBonus ? 'ECLIPSE CHAMBER' : 'LUNAR VAULT',
+					title: MODE_DISPLAY_NAMES[mode.toLowerCase()] ?? MODE_DISPLAY_NAMES.base,
 					button: 'CONTINUE',
 					description: value.buyBonus
-						? 'Enter the Eclipse Chamber. Development sample: 100× play amount.'
+						? 'Enter the Eclipse Chamber. 12 free spins: 100× play amount.'
 						: '',
 					dialog:
-						'Eclipse Chamber costs 100× the selected play amount. This development sample is not approved for live play.',
+						'Eclipse Chamber costs 100× the selected play amount. Development math; independent approval remains outstanding.',
 					tickerIdle: '',
 					tickerSpin: '',
 				},

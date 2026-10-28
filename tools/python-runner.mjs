@@ -4,11 +4,15 @@ const candidates = [process.env.SALMON_PYTHON, 'python3.15', 'python3.14', 'pyth
 );
 const python = candidates.find(
 	(command) =>
-		spawnSync(command, ['-c', 'from compression import zstd'], { stdio: 'ignore' }).status === 0,
+		spawnSync(
+			command,
+			['-c', 'try:\n from compression import zstd\nexcept ImportError:\n import zstandard as zstd'],
+			{ stdio: 'ignore' },
+		).status === 0,
 );
 if (!python) {
 	console.error(
-		'Python 3.14 or newer is required for the local Zstandard math preview. Set SALMON_PYTHON to its executable if needed.',
+		'Python with compression.zstd (3.14+) or the zstandard package is required for the local Zstandard math preview. Set SALMON_PYTHON to its executable if needed.',
 	);
 	process.exit(1);
 }

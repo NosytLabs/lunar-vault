@@ -21,6 +21,8 @@
 	import { SYMBOL_SIZE } from '../game/constants';
 	import { ResponsiveText } from 'components-pixi';
 	import { getContext } from '../game/context';
+	import { stateBet } from 'state-shared';
+	import { reducedMotion } from '../game/motion.svelte';
 
 	const context = getContext();
 
@@ -41,10 +43,14 @@
 	});
 </script>
 
-<FadeContainer {show}>
+<FadeContainer {show} duration={reducedMotion.current ? 0 : 120}>
 	{#if winLevelData}
 		{@const isBigWin = winLevelData.type === 'big'}
-		{@const duration = winLevelData.presentDuration}
+		{@const duration = reducedMotion.current
+			? 120
+			: stateBet.isTurbo
+				? Math.min(450, winLevelData.presentDuration)
+				: winLevelData.presentDuration}
 		<WinCountUpProvider {amount} {duration} oncomplete={() => onCountUpComplete()}>
 			{#snippet children({ countUpAmount, startCountUp, finishCountUp, countUpCompleted })}
 				{#if isBigWin}
@@ -55,7 +61,7 @@
 					onmount={async () => {
 						const complete = oncomplete;
 						await startCountUp();
-						await waitForTimeout(300);
+						await waitForTimeout(reducedMotion.current || stateBet.isTurbo ? 70 : 180);
 						complete();
 					}}
 				/>
@@ -100,7 +106,10 @@
 					</Container>
 				</MainContainer>
 
-				<WinCoins emit={isBigWin && !countUpCompleted} levelAlias={winLevelData?.alias} />
+				<WinCoins
+					emit={isBigWin && !countUpCompleted && !reducedMotion.current && !stateBet.isTurbo}
+					levelAlias={winLevelData?.alias}
+				/>
 
 				{#if isBigWin}<PressToContinue
 						onpress={() => (countUpCompleted ? oncomplete() : finishCountUp())}

@@ -1,5 +1,8 @@
 """Independent event/lookup verification; no imports from the generator."""
-from compression import zstd
+try:
+    from compression import zstd
+except ImportError:
+    import zstandard as zstd
 from fractions import Fraction
 from pathlib import Path
 import argparse, csv, hashlib, json
@@ -29,11 +32,17 @@ def expected_lines(board):
 
 def audit_book(book,mode):
     total=feature_sum=collected=completed=announced=feature_reveals=0
+    assert mode in CONFIG['modes'],'unknown mode'
+    feature_ended=False; base_reveals=0
     base_trigger_expected=False
     board=None;feature=False;lines_pending=False;collection_pending=False;expected_collect=None;collection_awarded=False
     for i,event in enumerate(book['events']):
         assert event['index']==i,'non-contiguous event index'
         kind=event['type']
+        for key in ('amount','totalWin'):
+            if key in event:assert type(event[key]) is int and event[key]>=0,'monetary event must be a nonnegative integer'
+        if kind=='winInfo':
+            assert all(type(w['win']) is int and type(w['meta']['multiplier']) is int and type(w['meta']['winWithoutMult']) is int for w in event['wins']),'monetary metadata must be integer'
         if kind=='reveal':
             assert not lines_pending and not collection_pending,'missing award event before next board'
             board=event['board'];feature=event['gameType']=='freegame'
@@ -44,6 +53,8 @@ def audit_book(book,mode):
                 feature_reveals+=1
                 assert announced>0 and completed==feature_reveals,'feature reveal ordering mismatch'
             else:
+                base_reveals+=1
+                assert mode=='base' and base_reveals==1 and announced==0,'unexpected base reveal in river/feature'
                 base_trigger_expected=sum(s['name']=='scatter' for reel in board for s in reel[1:4])>=3
             fish=[{'reel':r,'row':row} for r in range(5) for row in range(1,4) if board[r][row]['name']=='salmon']
             collectors=[{'reel':r,'row':row} for r in range(5) for row in range(1,4) if board[r][row]['name']=='wild']
@@ -70,6 +81,7 @@ def audit_book(book,mode):
                 assert lines_pending,'unexpected or repeated line award'
                 reported=sorted((w['meta']['lineIndex'],w['win'],w['symbol'],w['kind'],tuple((p['reel'],p['row']) for p in w['positions'])) for w in event['wins'])
                 assert reported==expected,'line calculation mismatch'
+                assert all(w['meta']['multiplier']==1 and w['meta']['winWithoutMult']==w['win'] for w in event['wins']),'line metadata mismatch'
                 assert event['totalWin']==sum(w['win'] for w in event['wins']),'line sum mismatch'
                 lines_pending=False
             total+=event['totalWin']
@@ -105,6 +117,8 @@ def audit_book(book,mode):
             assert event['totalFs']>announced,'non-extending retrigger'
             announced=event['totalFs']
         elif kind=='freeSpinEnd':
+            assert announced>0 and not feature_ended,'unexpected feature end'
+            feature_ended=True
             assert completed==announced==feature_reveals and event['totalFs']==announced,'unfinished feature'
             assert event['amount']==feature_sum and event['collected']==collected,'feature summary mismatch'
         elif kind=='finalWin':
@@ -113,14 +127,19 @@ def audit_book(book,mode):
     assert book['events'][-1]['type']=='finalWin','missing finalWin'
     assert not lines_pending and not collection_pending,'missing award at end'
     assert book['payoutMultiplier']==total,'book payout mismatch'
+    assert bool(announced)==feature_ended,'missing feature end'
+    assert mode!='river' or announced>0,'missing river entry'
+    assert mode!='base' or base_reveals==1,'missing base reveal'
     if mode=='base' and base_trigger_expected:assert announced>0,'missing triggered feature'
     return total
 
 def verify():
     index=json.loads((ROOT/'publish_files/index.json').read_text());report=json.loads((ROOT/'report.json').read_text())
     assert 1<=len(index['modes'])<=20
+    assert {m['name'] for m in index['modes']}==set(CONFIG['modes']),'mode set mismatch'
     checked={}
     for mode in index['modes']:
+        assert mode['cost']==CONFIG['modes'][mode['name']]['cost'],'mode cost mismatch'
         path=ROOT/'publish_files'; total_weight=weighted_payout=rows=0;maximum=0
         with zstd.open(path/mode['events'],'rt') as books, (path/mode['weights']).open() as lookup:
             reader=csv.reader(lookup)

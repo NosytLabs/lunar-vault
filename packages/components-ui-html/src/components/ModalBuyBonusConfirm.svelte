@@ -27,7 +27,7 @@
 		if (stateConfig.jurisdiction.disabledBuyFeature) return;
 		if (
 			!stateBetDerived.isModeAmountAvailable(stateBonus.selectedBetModeKey) ||
-			stateBet.betAmount * stateBonusDerived.selectedBetModeData().costMultiplier >
+			stateBet.betAmount * stateBetDerived.modeCostMultiplier(stateBonus.selectedBetModeKey) >
 				stateBet.balanceAmount
 		)
 			return;

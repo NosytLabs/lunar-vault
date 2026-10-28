@@ -1,4 +1,5 @@
 import { SECOND } from 'constants-shared/time';
+import config from './config';
 
 export const winLevelMap = {
 	1: {
@@ -97,3 +98,34 @@ export type WinLevelMap = typeof winLevelMap;
 export type WinLevel = keyof typeof winLevelMap;
 export type WinLevelData = WinLevelMap[WinLevel];
 export type WinLevelAlias = WinLevelData['alias'];
+
+// Presentation compares the award against full mode cost; results stay server authoritative.
+export function getPresentationWinLevel(amount: number, costMultiplier = 1) {
+	const paidUnits = Math.max(1, costMultiplier) * 100;
+	const ratio = amount / paidUnits;
+	const maximum =
+		costMultiplier === config.betModes.bonus.cost
+			? config.betModes.bonus.max_win
+			: config.betModes.base.max_win;
+	const level: WinLevel =
+		amount >= maximum * 100 && ratio > 1
+			? 10
+			: ratio >= 100
+				? 9
+				: ratio >= 50
+					? 8
+					: ratio >= 25
+						? 7
+						: ratio >= 10
+							? 6
+							: ratio >= 5
+								? 5
+								: ratio >= 2
+									? 4
+									: ratio > 1
+										? 3
+										: amount > 0
+											? 2
+											: 1;
+	return winLevelMap[level];
+}

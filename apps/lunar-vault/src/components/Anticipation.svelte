@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { stateBet } from 'state-shared';
 	import { reducedMotion } from '../game/motion.svelte';
 	import { Sprite } from 'pixi-svelte';
 	import { getContext } from '../game/context';
@@ -7,7 +8,7 @@
 	type Props = { reel: Reel; oncomplete: () => void };
 	const props: Props = $props();
 	const context = getContext();
-	let pulse = $state(0.45);
+	let pulse = $state(0.26);
 	const x = $derived(
 		context.stateGameDerived.boardLayout().x -
 			context.stateGameDerived.boardLayout().width / 2 +
@@ -15,14 +16,14 @@
 	);
 	const y = $derived(context.stateGameDerived.boardLayout().y);
 	$effect(() => {
-		if (reducedMotion.current) {
-			pulse = 0.4;
+		if (reducedMotion.current || stateBet.isTurbo) {
+			pulse = 0.26;
 			return;
 		}
 		let frame = 0;
 		const start = performance.now();
 		const paint = (now: number) => {
-			pulse = 0.36 + 0.28 * (1 + Math.sin((now - start) / 210));
+			pulse = 0.22 + 0.1 * (1 + Math.sin((now - start) / 330));
 			frame = requestAnimationFrame(paint);
 		};
 		frame = requestAnimationFrame(paint);
@@ -31,7 +32,10 @@
 	$effect(() => {
 		if (props.reel.reelState.motion !== 'stopped') return;
 		// Animate glow exit without depending on the SDK sample Spine animation.
-		const timeout = window.setTimeout(() => props.oncomplete(), 175);
+		const timeout = window.setTimeout(
+			() => props.oncomplete(),
+			reducedMotion.current ? 1 : stateBet.isTurbo ? 60 : 140,
+		);
 		return () => window.clearTimeout(timeout);
 	});
 </script>

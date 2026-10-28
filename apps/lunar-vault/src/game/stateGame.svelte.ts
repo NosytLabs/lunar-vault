@@ -77,6 +77,9 @@ export const stateGame = $state({
 	gameType: 'basegame' as GameType,
 	multiplierBoard: [] as (MultiplierSymbol | undefined)[][],
 	scatterCounter: 0,
+	roundCostMultiplier: 1,
+	roundPayout: 0,
+	playbackGeneration: 0,
 });
 
 const boardLayout = () => ({

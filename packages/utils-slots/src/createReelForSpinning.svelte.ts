@@ -76,6 +76,8 @@ export function createReelForSpinning<TRawSymbol extends object, TSymbolState ex
 
 	// internal states
 	let isPreSpinning = false;
+	let spinGeneration = 0;
+	let settledRawSymbols = [...reelOptions.initialSymbols];
 	let targetPaddingPosition = reelLength - 1;
 	let prevSymbols: ReelSymbol[] = createReelSymbols(reelOptions.initialSymbols);
 	let targetSymbols: ReelSymbol[] = createReelSymbols(reelOptions.initialSymbols);
@@ -147,7 +149,7 @@ export function createReelForSpinning<TRawSymbol extends object, TSymbolState ex
 
 	const placeY = (targetY: number) => reelY.set(targetY, { duration: 0 });
 
-	const removePaddingAndBounceBack = async () => {
+	const removePaddingAndBounceBack = async (generation: number) => {
 		reelState.symbols = [...targetSymbols];
 		placeY(defaultY + reelOptions.symbolHeight * reelState.spinOptions().reelBounceSizeMulti);
 		await slideY({
@@ -155,13 +157,16 @@ export function createReelForSpinning<TRawSymbol extends object, TSymbolState ex
 			speed: reelState.spinOptions().reelBounceBackSpeed,
 			easing: sineOut,
 		});
+		if (generation !== spinGeneration) return;
 		setSymbolsWithReelSymbols(targetSymbols);
 	};
 
 	const preSpinPadding = async ({
 		preSpinPaddingRawReel,
+		generation,
 	}: {
 		preSpinPaddingRawReel: TRawSymbol[];
+		generation: number;
 	}) => {
 		const randomStart = Math.floor(Math.random() * preSpinPaddingRawReel.length);
 		prevSymbols = targetSymbols;
@@ -172,24 +177,29 @@ export function createReelForSpinning<TRawSymbol extends object, TSymbolState ex
 		});
 		targetSymbols = createReelSymbols(targetRawSymbols);
 		const topY = await addPadding(0);
+		if (generation !== spinGeneration) return;
 		await placeY(topY);
 	};
 
 	const preSpinSlideDownLoop = async ({
 		isTurboBeforeAll,
 		preSpinPaddingRawReel,
+		generation,
 	}: {
 		isTurboBeforeAll: boolean;
 		preSpinPaddingRawReel: TRawSymbol[];
+		generation: number;
 	}) => {
 		let started = false;
-		while (isPreSpinning) {
+		while (isPreSpinning && generation === spinGeneration) {
 			const speed = started
 				? reelState.spinOptions().reelSpinSpeed
 				: reelState.spinOptions().reelPreSpinSpeed;
 			const easing = started || isTurboBeforeAll ? linear : backIn;
 			await slideY({ reelY: defaultY, speed, easing });
-			await preSpinPadding({ preSpinPaddingRawReel });
+			if (generation !== spinGeneration || !isPreSpinning) return;
+			await preSpinPadding({ preSpinPaddingRawReel, generation });
+			if (generation !== spinGeneration) return;
 			if (!started) {
 				reelState.motion = 'spinning';
 				updateAllReelSymbolState('spin');
@@ -209,20 +219,26 @@ export function createReelForSpinning<TRawSymbol extends object, TSymbolState ex
 		isTurboBeforeAll: boolean; // To avoid previous spinType has effect on "getSpinOption" in "preSpinSlideDownLoop"
 		preSpinPaddingReel: TRawSymbol[];
 	}) => {
+		const generation = ++spinGeneration;
 		const preSpinPaddingRawReel = preSpinPaddingReel;
 
 		isPreSpinning = true;
 		reelState.spinType = isTurboBeforeAll ? 'fast' : 'normal';
-		await preSpinPadding({ preSpinPaddingRawReel });
+		await preSpinPadding({ preSpinPaddingRawReel, generation });
+		if (generation !== spinGeneration) return;
 		if (!isTurboBeforeAll) await delaySpinByReelIndex();
-		preSpinSlideDownLoop({ isTurboBeforeAll, preSpinPaddingRawReel });
+		if (generation !== spinGeneration) return;
+		preSpinSlideDownLoop({ isTurboBeforeAll, preSpinPaddingRawReel, generation });
 	};
 
 	const generalSpinWith = async ({ slideDown }: { slideDown: () => Promise<void> }) => {
+		const generation = spinGeneration;
 		const isSpinning = reelState.motion === 'spinning';
 
 		const topY = await addPadding(paddingSize);
+		if (generation !== spinGeneration) return;
 		await placeY(topY);
+		if (generation !== spinGeneration) return;
 
 		if (!isSpinning) {
 			reelState.motion = 'spinning';
@@ -239,9 +255,11 @@ export function createReelForSpinning<TRawSymbol extends object, TSymbolState ex
 			await interruptible.add(slideDown);
 		}
 
+		if (generation !== spinGeneration) return;
 		reelState.motion = 'bouncing';
 		onSpinFinishing();
-		await removePaddingAndBounceBack();
+		await removePaddingAndBounceBack(generation);
+		if (generation !== spinGeneration) return;
 		reelState.motion = 'stopped';
 		updateAllReelSymbolState('land');
 	};
@@ -249,6 +267,7 @@ export function createReelForSpinning<TRawSymbol extends object, TSymbolState ex
 	const fastSpin = () =>
 		generalSpinWith({
 			slideDown: async () => {
+				const generation = spinGeneration;
 				const bounceSize = reelOptions.symbolHeight * reelState.spinOptions().reelBounceSizeMulti;
 
 				await slideY({
@@ -261,12 +280,14 @@ export function createReelForSpinning<TRawSymbol extends object, TSymbolState ex
 	const normalSpin = () =>
 		generalSpinWith({
 			slideDown: async () => {
+				const generation = spinGeneration;
 				const bounceSize = reelOptions.symbolHeight * reelState.spinOptions().reelBounceSizeMulti;
 
 				await slideY({
 					reelY: defaultY * basePaddingSize(),
 					speed: reelState.spinOptions().reelSpinSpeed,
 				});
+				if (generation !== spinGeneration) return;
 				await slideY({
 					reelY: defaultY + bounceSize,
 					speed: reelState.spinOptions().reelSpinSpeedBeforeBounce,
@@ -277,12 +298,14 @@ export function createReelForSpinning<TRawSymbol extends object, TSymbolState ex
 	const anticipatedSpin = () =>
 		generalSpinWith({
 			slideDown: async () => {
+				const generation = spinGeneration;
 				const bounceSize = reelOptions.symbolHeight * reelState.spinOptions().reelBounceSizeMulti;
 
 				await slideY({
 					reelY: defaultY * basePaddingSize(),
 					speed: reelState.spinOptions().reelSpinSpeed,
 				});
+				if (generation !== spinGeneration) return;
 				await slideY({
 					reelY: defaultY + bounceSize,
 					speed: reelState.spinOptions().reelSpinSpeedBeforeBounce,
@@ -326,10 +349,12 @@ export function createReelForSpinning<TRawSymbol extends object, TSymbolState ex
 	};
 
 	const spin = async () => {
+		const generation = spinGeneration;
 		isPreSpinning = false;
 
 		await SPIN_MAP[reelState.spinType]();
 
+		if (generation !== spinGeneration) return;
 		interruptible.clear();
 	};
 
@@ -337,6 +362,7 @@ export function createReelForSpinning<TRawSymbol extends object, TSymbolState ex
 		reelState.motion = 'stopped';
 		placeY(defaultY);
 		if (reelSymbols) {
+			settledRawSymbols = reelSymbols.map((symbol) => symbol.rawSymbol);
 			prevSymbols = [...reelSymbols];
 			targetSymbols = [...reelSymbols];
 			paddingRawReel = reelOptions.initialSymbols;
@@ -345,8 +371,15 @@ export function createReelForSpinning<TRawSymbol extends object, TSymbolState ex
 	};
 
 	const setSymbolsWithRawSymbols = (rawSymbols?: TRawSymbol[]) => {
-		const newSymbols = rawSymbols ? createReelSymbols(rawSymbols) : undefined;
+		++spinGeneration;
+		isPreSpinning = false;
+		interruptible.interrupt();
+		interruptible.clear();
+		reelState.readyToSpin();
+		reelState.anticipating = false;
+		const newSymbols = createReelSymbols(rawSymbols ?? settledRawSymbols);
 		setSymbolsWithReelSymbols(newSymbols);
+		updateAllReelSymbolState('static');
 	};
 
 	const stop = () => {

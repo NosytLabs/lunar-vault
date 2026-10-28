@@ -52,6 +52,7 @@ type GameRuleMeta = {
 };
 
 export const stateMeta = $state({
+	validateBookEvents: null as null | ((events: unknown) => void),
 	betModeMeta: DEFAULT_BET_MODE_META as BetModeMeta,
 	gameRuleMeta: DEFAULT_GAME_RULE_META as GameRuleMeta,
 });

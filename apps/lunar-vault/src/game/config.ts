@@ -3,7 +3,7 @@ export default {
 	providerName: 'nosytlabs',
 	gameName: 'lunar_vault',
 	gameID: '0_0_lunar_vault',
-	rtp: 0.97,
+	rtp: 0.965,
 	numReels: 5,
 	numRows: [3, 3, 3, 3, 3],
 	betModes: {
@@ -11,15 +11,15 @@ export default {
 			cost: 1.0,
 			feature: true,
 			buyBonus: false,
-			rtp: 0.97,
-			max_win: 5000.0,
+			rtp: 0.965,
+			max_win: 287.4,
 		},
 		bonus: {
 			cost: 100.0,
 			feature: false,
 			buyBonus: true,
-			rtp: 0.97,
-			max_win: 5000.0,
+			rtp: 0.965,
+			max_win: 654,
 		},
 	},
 	paylines: {

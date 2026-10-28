@@ -1,5 +1,6 @@
 import { createEnhanceBoardPreSpin } from './createEnhanceBoardPreSpin';
 import { createEnhanceBoardSpin } from './createEnhanceBoardSpin';
+import { stateSlots } from './stateSlots.svelte';
 import type { Reel, GetRawSymbolFromReel } from './types';
 
 export function createEnhanceBoard() {
@@ -8,11 +9,13 @@ export function createEnhanceBoard() {
 
 		const { preSpin } = createEnhanceBoardPreSpin({ board });
 		const { spin } = createEnhanceBoardSpin({ board });
-		const settle = (rawBoard?: TRawSymbol[][]) =>
+		const settle = (rawBoard?: TRawSymbol[][]) => {
+			stateSlots.isPreSpinning = false;
 			board.forEach((reel, reelIndex) => {
-				const rawSymbols = rawBoard?.[reelIndex] || [];
+				const rawSymbols = rawBoard?.[reelIndex];
 				reel.setSymbolsWithRawSymbols(rawSymbols);
 			});
+		};
 		const stop = () => board.forEach((reel) => reel.stop());
 		const readyToSpinEffect = () => {
 			board.forEach((reel) => reel.readyToSpinEffect());

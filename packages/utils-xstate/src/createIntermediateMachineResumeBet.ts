@@ -40,6 +40,7 @@ export const createIntermediateMachineResumeBet = (actors: {
 				play: {
 					invoke: {
 						id: 'playGame',
+						onError: 'end',
 						src: 'playGame',
 						input: ({ context }) => ({
 							bet: context.bet,
@@ -54,6 +55,7 @@ export const createIntermediateMachineResumeBet = (actors: {
 				ending: {
 					invoke: {
 						id: 'endGame',
+						onError: 'end',
 						src: 'endGame',
 						input: ({ context }) => ({
 							bet: context.bet,

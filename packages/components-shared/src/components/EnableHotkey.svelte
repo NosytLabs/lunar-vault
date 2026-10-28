@@ -11,12 +11,13 @@
 	const EXCLUDED_TAGS = ['input', 'textarea', 'select', 'button', 'a'];
 
 	const getValidElement = (e: KeyboardEvent) =>
-		!(
+		e.key === 'Escape' ||
+		(!(
 			e.target instanceof HTMLElement &&
 			(e.target.isContentEditable || EXCLUDED_TAGS.includes(e.target.tagName.toLowerCase()))
 		) &&
-		(!stateModal.modal || e.key === 'Escape') &&
-		!(e.code === 'Space' && stateConfig.jurisdiction.disabledSpacebar);
+			!stateModal.modal &&
+			!(e.code === 'Space' && stateConfig.jurisdiction.disabledSpacebar));
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (getValidElement(e) && !e.repeat) {

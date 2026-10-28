@@ -3,6 +3,7 @@
 	import { onMount, type Snippet } from 'svelte';
 
 	import { waitForTimeout } from 'utils-shared/wait';
+	import { stateSound } from 'state-shared';
 
 	import OnHotkey from './OnHotkey.svelte';
 
@@ -51,6 +52,14 @@
 			style="--zIndex: {zIndexInternal.clickToCloseLayer}"
 		></div>
 
+		<button
+			class="modal-mute"
+			style="--zIndex: {zIndexInternal.closeButton}"
+			aria-label={stateSound.volumeValueMaster ? 'Mute all sound' : 'Enable sound'}
+			aria-pressed={stateSound.volumeValueMaster === 0}
+			onclick={() => (stateSound.volumeValueMaster = stateSound.volumeValueMaster ? 0 : 50)}
+			>{stateSound.volumeValueMaster ? 'MUTE' : 'SOUND'}</button
+		>
 		{#if !props.persistent}
 			<div class="close-button-wrap" style="--zIndex: {zIndexInternal.closeButton}">
 				<button class="close-button" data-test="close-button" onclick={closeModal}>×</button>
@@ -86,9 +95,7 @@
 		top: 0;
 		bottom: 0;
 		right: 0;
-		background-color: rgba(0, 0, 0, 0.5);
-		backdrop-filter: blur(30px);
-		-webkit-backdrop-filter: blur(30px);
+		background-color: #071524;
 	}
 
 	.top-layer {
@@ -109,6 +116,28 @@
 		height: 100%;
 	}
 
+	.modal-mute {
+		position: absolute;
+		top: max(8px, env(safe-area-inset-top));
+		left: max(8px, env(safe-area-inset-left));
+		z-index: var(--zIndex);
+		min-width: 58px;
+		min-height: 44px;
+		padding: 8px;
+		border: 1px solid #b8a16b;
+		border-radius: 6px;
+		background: #0c1e30;
+		color: #f5e5c4;
+		font:
+			600 11px 'Lunar Sans',
+			Arial,
+			sans-serif;
+		cursor: pointer;
+	}
+	.modal-mute:focus-visible {
+		outline: 3px solid #fff0bd;
+		outline-offset: 2px;
+	}
 	.close-button-wrap {
 		position: absolute;
 		top: 0;

@@ -9,9 +9,6 @@ const assets = get('src/game/assets.ts');
 const symbolMap = get('src/game/constants.ts');
 const colors = ['H1', 'H2', 'H3', 'H4', 'H5', 'L1', 'L2', 'L3', 'L4', 'L5', 'W', 'S'];
 const extras = [
-	'observatory',
-	'observatory-feature',
-	'reel-frame',
 	'win-aura',
 	'logo',
 	'orbital-seal',
@@ -32,7 +29,8 @@ for (const name of extras) {
 	}
 }
 for (const symbol of colors) {
-	const sprite = path.join(app, 'static/assets/nosyt/sprites', symbol.toLowerCase() + '.webp');
+	const version = symbol === 'W' || symbol === 'S' ? 'v4' : 'v5';
+	const sprite = path.join(app, 'static/assets/nosyt/sprites', symbol.toLowerCase() + '-' + version + '.webp');
 	if (!fs.existsSync(sprite) || fs.statSync(sprite).size < 1000)
 		failures.push('Missing original raster sprite ' + symbol);
 	if (!assets.includes('lunar' + symbol + ':')) failures.push('Asset manifest missing ' + symbol);
@@ -75,10 +73,20 @@ if (!fs.existsSync(path.join(app, 'static/assets/nosyt/observatory-quiet-v3.webp
 	failures.push('Missing painted observatory');
 if (/assets\/(spines|sprites|fonts)\//.test(assets))
 	failures.push('Legacy sample assets remain registered');
+for (const symbol of ['canoe', 'compass', 'fly', 'leaf', 'reel', 'scatter', 'salmon', 'wild']) {
+	const version = symbol === 'salmon' || symbol === 'wild' ? 'v4' : 'v5';
+	const file = path.join(root, 'apps/salmon-run/public/assets/sprites', `${symbol}-${version}.webp`);
+	if (!fs.existsSync(file) || fs.statSync(file).size < 1000) failures.push('Missing Salmon sprite ' + symbol);
+}
+const retired = path.join(root, 'docs/assets/retired-assets-20261028.json');
+if (fs.existsSync(retired)) {
+	for (const item of JSON.parse(fs.readFileSync(retired, 'utf8')).removed)
+		if (fs.existsSync(path.join(root, item.path))) failures.push('Retired runtime asset remains: ' + item.path);
+}
 if (failures.length) {
 	console.error(failures.join('\n'));
 	process.exitCode = 1;
 } else
 	console.log(
-		`Original art smoke check passed: ${extras.length} SVG ornaments, painted environment and 12 original raster symbols, original audio, bundled fonts, mobile viewport and no SDK splash.`,
+		`Original art smoke check passed: ${extras.length} SVG ornaments, 20 raster symbols, original environments/audio, bundled fonts, mobile viewport and no SDK splash.`,
 	);

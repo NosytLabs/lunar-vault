@@ -18,6 +18,8 @@
 	import FreeSpinAnimation from './FreeSpinAnimation.svelte';
 	import PressToContinue from './PressToContinue.svelte';
 	import WinCoins from './WinCoins.svelte';
+	import { reducedMotion } from '../game/motion.svelte';
+	import { stateBet } from 'state-shared';
 	const context = getContext();
 	let show = $state(false);
 	let amount = $state(0);
@@ -34,9 +36,16 @@
 	});
 </script>
 
-<FadeContainer {show}>
+<FadeContainer {show} duration={reducedMotion.current ? 0 : 160}>
 	{#if winLevelData}
-		<WinCountUpProvider {amount} duration={winLevelData.presentDuration}>
+		<WinCountUpProvider
+			{amount}
+			duration={reducedMotion.current
+				? 120
+				: stateBet.isTurbo
+					? Math.min(450, winLevelData.presentDuration)
+					: winLevelData.presentDuration}
+		>
 			{#snippet children({ countUpAmount, startCountUp, finishCountUp, countUpCompleted })}
 				<OnMount onmount={() => startCountUp()} />
 				<CanvasSizeRectangle backgroundColor={0x02091c} backgroundAlpha={0.76} />
@@ -44,11 +53,11 @@
 					{#snippet children({ sizes })}
 						<Text
 							anchor={0.5}
-							y={-sizes.height * 0.26}
+							y={-sizes.height * 0.19}
 							text="ECLIPSE CHAMBER"
 							style={{
 								fontFamily: 'Lunar Display',
-								fontSize: 43,
+								fontSize: 36,
 								fontWeight: 'bold',
 								fill: 0xf8e2b2,
 								letterSpacing: 3,
@@ -68,10 +77,10 @@
 						<Text
 							anchor={0.5}
 							y={sizes.height * 0.23}
-							text="TOTAL WIN"
+							text="FEATURE TOTAL"
 							style={{
 								fontFamily: 'Lunar Display',
-								fontSize: 44,
+								fontSize: 27,
 								fontWeight: 'bold',
 								fill: 0xf7d49a,
 								letterSpacing: 4,
@@ -80,7 +89,10 @@
 					{/snippet}
 				</FreeSpinAnimation>
 				<WinCoins
-					emit={winLevelData.type === 'big' && !countUpCompleted}
+					emit={winLevelData.type === 'big' &&
+						!countUpCompleted &&
+						!reducedMotion.current &&
+						!stateBet.isTurbo}
 					levelAlias={winLevelData.alias}
 				/>
 				<PressToContinue onpress={() => (countUpCompleted ? oncomplete() : finishCountUp())} />

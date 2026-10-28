@@ -43,7 +43,7 @@
 						>Choose a lower play amount for this feature.</small
 					>{/if}
 				<div class="price">
-					{`${numberToCurrencyString(stateBet.betAmount * betModeData.costMultiplier)}`}
+					{`${numberToCurrencyString(stateBet.betAmount * stateBetDerived.modeCostMultiplier(betModeData.mode))}`}
 				</div>
 			{/snippet}
 
@@ -56,7 +56,8 @@
 					}}
 					disabled={stateBet.betAmount <= 0 ||
 						!stateBetDerived.isModeAmountAvailable(betModeData.mode) ||
-						stateBet.balanceAmount < stateBet.betAmount * betModeData.costMultiplier}
+						stateBet.balanceAmount <
+							stateBet.betAmount * stateBetDerived.modeCostMultiplier(betModeData.mode)}
 				>
 					<BaseIcon width="100%" height="44px" border="1px solid #dfbf82;" />
 					<BaseButtonContent>

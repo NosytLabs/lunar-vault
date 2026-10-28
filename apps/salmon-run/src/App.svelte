@@ -747,8 +747,8 @@
 			<p class="eyebrow">THE FIELD GUIDE</p>
 			<h2>Follow the silver</h2>
 			<p class="notice">
-				Development math version {math.version}. Computed RTP is 96.50% in each mode. This build has
-				not been certified or approved by Engine.
+				The theoretical return is 96.50% in both modes, calculated over many plays. An individual
+				session may return more or less.
 			</p>
 			<h3>Twenty river paths</h3>
 			<p>
@@ -792,11 +792,10 @@
 			</p>
 			<p>
 				Base mode: 1× per play, maximum {report.modes.base.maximumWinX}×. River Run: {riverCost}×
-				per play, maximum {report.modes.river.maximumWinX}×. Both development lookup distributions
-				compute 96.50% RTP. Both maxima multiply the selected base play amount; River Run’s maximum
+				per play, maximum {report.modes.river.maximumWinX}×. Both modes have a theoretical return
+				of 96.50%. Both maxima multiply the selected base play amount; River Run’s maximum
 				is {(report.modes.river.maximumWinX / math.modes.river.cost).toFixed(2)}× its full feature
-				amount. These are finite weighted-book maxima, with independent local verification;
-				certification and live acceptance remain open.
+				amount.
 			</p>
 			<h3>Controls and sound</h3>
 			<p>
