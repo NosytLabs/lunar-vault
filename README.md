@@ -53,6 +53,8 @@ Generation replaces the publication, fixtures and report; reverify and repackage
 
 Browser tests cover authenticated limits, currencies, recoveries/checkpoints, full-cost guards, replay isolation, asset failures, keyboard/modals and running features at 1024×576, 800×450, 400×225 and touch 425×812. The final evidence report records actual runs and their limitations. Historical or interrupted runs are not proof for a new build.
 
+The [current UI/UX browser review](docs/quality/browser-qa-ui-20261028.md) records 117 distinct scenarios with passing latest results: 79 Lunar and 38 Salmon. The main run passed 115 and recorded two overall test timeouts; all eight focused follow-ups passed with assertions and time limits preserved. Both original timeouts remain in the raw records. The [case index](docs/quality/browser-ui-results-20261028.json), [29 screenshot identities](docs/quality/browser-ui-screenshots-20261028.json) and [current gate record](docs/quality/release-gates-ui-20261028.json) bind this evidence to runtime `7810f66931341a8a94489df469bf653b564a87fe` and the exact release packages.
+
 ## Artwork and Studio media
 
 The shipping symbol set has twenty transparent 512×512 WebP sprites. Original generated PNGs are retained under `art/`; runtime registrations use explicit versioned paths. Two feature environments, finished portrait tiles/wide covers, title-free editor backgrounds, transparent foregrounds and a white publisher wordmark are supplied. Twenty-three superseded runtime assets have been removed.
@@ -73,7 +75,7 @@ node tools/release-gate.mjs
 
 Each game has a frontend ZIP, math ZIP and media ZIP. Archives have deterministic paths, timestamps and byte identities. `release-manifest.json` binds every entry to its source, app/shared source digests and exact math records. `docs/release-evidence.json` binds inspected browser evidence to those ZIPs. Changed sources or artifacts invalidate their bindings.
 
-The local gate checks the prepared candidate. The default full gate remains blocked until actual Engine/live/human evidence is supplied separately for both games. See [schema and gate documentation](docs/release-schema-v2.md) and [the full approval review](docs/quality/engine-approval-fix-review-20261028.md). No script grants Engine approval, establishes naming/asset rights or accepts publisher licence terms.
+The local gate checks the prepared candidate. The default full gate remains blocked until actual Engine/live/human evidence is supplied separately for both games. See [schema and gate documentation](docs/release-schema-v2.md) and [the current full Engine review](docs/quality/engine-ui-ux-review-20261028.md). The [earlier 100-case review](docs/quality/engine-approval-fix-review-20261028.md) remains historical evidence for its own runtime. No script grants Engine approval, establishes naming/asset rights or accepts publisher licence terms.
 
 Positive `minimumRoundDuration` requirements currently fail visibly because the official public schema does not define their units or timing semantics. Confirm the intended live jurisdiction profile before release. Available modes come from the authenticated server list: omitted features cannot start a new play, while a valid already-started round can still be recovered.
 
