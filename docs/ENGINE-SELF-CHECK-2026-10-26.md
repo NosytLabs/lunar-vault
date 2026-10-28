@@ -1,5 +1,7 @@
 # Lunar Vault Engine self-check — 26 October 2026
 
+> **Historical record — superseded on 2026-10-28.** Use the [current project README](../README.md) and [current Engine approval review](quality/engine-approval-fix-review-20261028.md) for this candidate. Figures, asset lists and pending-work statements below describe the earlier version.
+
 7 AT RISK · 29 PASS · 3 NEEDS A HUMAN · 1 FAIL · 1 N/A.
 
 Scope: source inspection, local playthrough, **36 production Chromium fixture checks**, seven sample-math tests and six RGS/currency unit tests. PASS establishes the cited local frontend behavior, not Engine staging, certification or approval. The supplied self-check is the rubric; its read-only workflow is superseded by the user's explicit request to fix and test the game.

@@ -1,5 +1,7 @@
 # NosytLabs Games — Lunar Vault art direction and publication gate
 
+> **Historical record — superseded on 2026-10-28.** Use the [current project README](../README.md) and [current Engine approval review](quality/engine-approval-fix-review-20261028.md) for this candidate. Figures, asset lists and pending-work statements below describe the earlier version.
+
 **Current status: pre-release SDK fork. Not approved for real-money publication.**
 
 ## Visual identity

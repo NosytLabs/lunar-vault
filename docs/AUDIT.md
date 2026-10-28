@@ -1,5 +1,7 @@
 > Historical audit of the initial fork. Current implementation and verification limits are in [ART-AND-ENGINE-STATUS.md](ART-AND-ENGINE-STATUS.md). Sample art and several UI issues described below have since been replaced; math/Engine approval remain outstanding.
 
+> **Historical record — superseded on 2026-10-28.** Use the [current project README](../README.md) and [current Engine approval review](quality/engine-approval-fix-review-20261028.md) for this candidate. Figures, asset lists and pending-work statements below describe the earlier version.
+
 # Lunar Vault — audit notes (2026-10-26)
 
 ## What existed

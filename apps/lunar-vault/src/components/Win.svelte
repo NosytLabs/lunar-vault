@@ -11,7 +11,7 @@
 	import { Container } from 'pixi-svelte';
 	import { FadeContainer, WinCountUpProvider } from 'components-pixi';
 	import { waitForResolve, waitForTimeout } from 'utils-shared/wait';
-	import { bookEventAmountToCurrencyString } from 'utils-shared/amount';
+	import { bookEventCountUpToCurrencyString } from 'utils-shared/amount';
 	import { CanvasSizeRectangle, MainContainer } from 'components-layout';
 	import { OnMount } from 'components-shared';
 
@@ -76,7 +76,7 @@
 								<ResponsiveText
 									anchor={0.5}
 									maxWidth={context.stateGameDerived.boardLayout().width * 0.95}
-									text={bookEventAmountToCurrencyString(countUpAmount)}
+									text={bookEventCountUpToCurrencyString(countUpAmount, amount)}
 									style={{
 										fontFamily: 'Lunar Display',
 										fill: 0xffe6ae,
@@ -92,7 +92,7 @@
 								anchor={0.5}
 								maxWidth={context.stateLayoutDerived.canvasSizes().width /
 									context.stateLayoutDerived.mainLayout().scale}
-								text={bookEventAmountToCurrencyString(countUpAmount)}
+								text={bookEventCountUpToCurrencyString(countUpAmount, amount)}
 								style={{
 									fontFamily: 'Lunar Display',
 									fill: 0xffe6ae,

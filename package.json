@@ -20,6 +20,7 @@
     "audit:math": "node --experimental-strip-types tools/audit-books.mjs",
     "test:math": "node --experimental-strip-types --test tools/audit-books.test.mjs",
     "test:contracts": "node --experimental-strip-types --test tools/engine-contracts.test.mjs",
+		"test:session": "node --experimental-strip-types --test tests/unit/shared-game-modes.mjs tests/unit/shared-replay.mjs tests/unit/currency-count-up.mjs apps/salmon-run/tests/session.unit.mjs",
     "test:publication": "node --experimental-strip-types --test tools/math-contracts.test.mjs && node tools/python-runner.mjs -m unittest discover -s math/lunar-vault -p test_math.py && node tools/python-runner.mjs -m unittest discover -s math/salmon-run -p test_math.py",
     "verify:math": "node tools/python-runner.mjs math/lunar-vault/verify.py && node tools/python-runner.mjs math/salmon-run/verify.py",
     "audit:exposure": "node tools/python-runner.mjs tools/math-exposure.py",

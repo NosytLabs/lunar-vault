@@ -2,7 +2,7 @@ import { stateI18n } from 'state-shared';
 
 import { BOOK_AMOUNT_MULTIPLIER } from 'constants-shared/bet';
 import { stateBet } from 'state-shared';
-import { formatCurrencyAmount } from './formatCurrency';
+import { formatCurrencyAmount, formatCurrencyCountUp } from './formatCurrency';
 
 // bookEventAmount: is the amount or win numbers in the events of books, e.g. the amount in setTotalWin bookEvent
 // {
@@ -33,3 +33,11 @@ export const bookEventAmountToCurrencyString = (bookEventAmount: number) => {
 	const normalisedAmount = bookEventAmountToNormalisedAmount(bookEventAmount);
 	return numberToCurrencyString(normalisedAmount);
 };
+
+export const bookEventCountUpToCurrencyString = (current: number, final: number) =>
+	formatCurrencyCountUp(
+		bookEventAmountToNormalisedAmount(current),
+		bookEventAmountToNormalisedAmount(final),
+		stateBet.currency,
+		stateI18n.i18n.locale || 'en-US',
+	);

@@ -1,0 +1,41 @@
+{
+  "repository": "engineio/web-sdk",
+  "commit": "1843d60cedb94b390e641b563f32ad64353bec5e",
+  "sourceFiles": 889,
+  "matches": [
+    {
+      "path": "packages/components-shared/src/components/Authenticate.svelte",
+      "hits": [
+        {
+          "line": 59,
+          "text": "// \t\t\t\"minimumRoundDuration\": 0"
+        }
+      ],
+      "url": "https://raw.githubusercontent.com/engineio/web-sdk/1843d60cedb94b390e641b563f32ad64353bec5e/packages/components-shared/src/components/Authenticate.svelte"
+    },
+    {
+      "path": "packages/rgs-fetcher/src/schema.ts",
+      "hits": [
+        {
+          "line": 226,
+          "text": "minimumRoundDuration: number,"
+        }
+      ],
+      "url": "https://raw.githubusercontent.com/engineio/web-sdk/1843d60cedb94b390e641b563f32ad64353bec5e/packages/rgs-fetcher/src/schema.ts"
+    },
+    {
+      "path": "packages/state-shared/src/stateConfig.svelte.ts",
+      "hits": [
+        {
+          "line": 14,
+          "text": "minimumRoundDuration: 0,"
+        }
+      ],
+      "url": "https://raw.githubusercontent.com/engineio/web-sdk/1843d60cedb94b390e641b563f32ad64353bec5e/packages/state-shared/src/stateConfig.svelte.ts"
+    }
+  ],
+  "errors": [],
+  "treeSha": "9de6a251cb75a61e31128b7cb4ec86d2ba3a7e9c",
+  "commitDate": "2025-11-27T23:55:12Z",
+  "commitUrl": "https://github.com/engineio/web-sdk/commit/1843d60cedb94b390e641b563f32ad64353bec5e"
+}

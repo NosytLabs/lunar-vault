@@ -1,5 +1,7 @@
 # Lunar Vault implementation status — 2026-10-26
 
+> **Historical record — superseded on 2026-10-28.** Use the [current project README](../README.md) and [current Engine approval review](quality/engine-approval-fix-review-20261028.md) for this candidate. Figures, asset lists and pending-work statements below describe the earlier version.
+
 The canonical game remains the official Engine Web SDK fork in `apps/lunar-vault`: Svelte 5, PixiJS 8, the SDK event-book player and RGS request/state-machine flow. The client does not generate gambling outcomes.
 
 ## Presentation and interaction

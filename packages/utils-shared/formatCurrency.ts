@@ -50,13 +50,18 @@ const metadata: Record<string, [string, number, boolean?]> = {
 	XSC: ['SC', 2, true],
 	XEC: ['SC', 2, true],
 };
-export function formatCurrencyAmount(value: number, currency: string, locale = 'en-US') {
-	if (!Number.isFinite(value)) return '—';
-	const [symbol, normal, after] = metadata[currency] ?? [currency, 2, true];
+function currencyFractionDigits(value: number, currency: string) {
+	const normal = metadata[currency]?.[1] ?? 2;
 	const fraction = String(Math.abs(Math.round(value * 1e6)) % 1e6)
 		.padStart(6, '0')
 		.replace(/0+$/, '').length;
-	const digits = Math.max(normal, fraction);
+	return Math.max(normal, fraction);
+}
+
+export function formatCurrencyAmount(value: number, currency: string, locale = 'en-US') {
+	if (!Number.isFinite(value)) return '—';
+	const [symbol, , after] = metadata[currency] ?? [currency, 2, true];
+	const digits = currencyFractionDigits(value, currency);
 	let number: string;
 	try {
 		number = new Intl.NumberFormat(locale, {
@@ -67,4 +72,20 @@ export function formatCurrencyAmount(value: number, currency: string, locale = '
 		number = value.toFixed(digits);
 	}
 	return after ? `${number} ${symbol}` : `${symbol}${number}`;
+}
+
+// Interpolation must not invent finer digits than the actual award. Final
+// sub-cent amounts still use the ordinary exact micro-unit formatter above.
+export function formatCurrencyCountUp(
+	value: number,
+	finalValue: number,
+	currency: string,
+	locale = 'en-US',
+) {
+	if (!Number.isFinite(value) || !Number.isFinite(finalValue)) return '—';
+	if (finalValue <= 0 || value >= finalValue)
+		return formatCurrencyAmount(finalValue, currency, locale);
+	const scale = 10 ** currencyFractionDigits(finalValue, currency);
+	const displayed = Math.floor(Math.max(0, value) * scale) / scale;
+	return formatCurrencyAmount(displayed, currency, locale);
 }

@@ -1,5 +1,7 @@
 # Lunar Vault revamp audit — 26 October 2026
 
+> **Historical record — superseded on 2026-10-28.** Use the [current project README](../README.md) and [current Engine approval review](quality/engine-approval-fix-review-20261028.md) for this candidate. Figures, asset lists and pending-work statements below describe the earlier version.
+
 Lunar Vault remains the Svelte 5 / PixiJS Engine Web SDK fork. Results come from ordered RGS event books; the frontend does not generate, select or recalculate gambling outcomes. This is a development preview, not a launch approval.
 
 ## Findings and changes

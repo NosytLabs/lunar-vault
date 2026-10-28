@@ -9,7 +9,7 @@
 <script lang="ts">
 	import { Text } from 'pixi-svelte';
 	import { FadeContainer, WinCountUpProvider } from 'components-pixi';
-	import { bookEventAmountToCurrencyString } from 'utils-shared/amount';
+	import { bookEventCountUpToCurrencyString } from 'utils-shared/amount';
 	import { waitForResolve } from 'utils-shared/wait';
 	import { CanvasSizeRectangle } from 'components-layout';
 	import { OnMount } from 'components-shared';
@@ -65,7 +65,7 @@
 						/>
 						<ResponsiveText
 							anchor={0.5}
-							text={bookEventAmountToCurrencyString(countUpAmount)}
+							text={bookEventCountUpToCurrencyString(countUpAmount, amount)}
 							maxWidth={sizes.width * 0.92}
 							style={{
 								fontFamily: 'Lunar Display',

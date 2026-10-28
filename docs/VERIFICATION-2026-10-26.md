@@ -1,5 +1,7 @@
 # Frontend verification — 2026-10-26
 
+> **Historical record — superseded on 2026-10-28.** Use the [current project README](../README.md) and [current Engine approval review](quality/engine-approval-fix-review-20261028.md) for this candidate. Figures, asset lists and pending-work statements below describe the earlier version.
+
 Inspected `main` at `ee51b01a07adad4a8d8ce57f589d0206391aea4e` and draft PR #2 at `579bf2076d2c8e2987fe7d77fed867356d761861` before continuing on its existing `feat/original-celestial-art-ux` branch. The Svelte/PixiJS SDK architecture, book playback and RGS state machine remain in place.
 
 ## Automated evidence

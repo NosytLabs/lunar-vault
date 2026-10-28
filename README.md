@@ -35,6 +35,7 @@ For development, Lunar's Vite port is 3001 and Salmon's is 3002. Use the app-loc
 
 ```sh
 npm run check:assets
+npm run test:session
 npm run test:publication
 npm run verify:math
 npm run audit:exposure
