@@ -10,6 +10,7 @@
 		INFINITY_MARK,
 	} from 'state-shared';
 	import { getContextEventEmitter } from 'utils-event-emitter';
+	import { numberToCurrencyString } from 'utils-shared/amount';
 
 	import BaseIcon from './BaseIcon.svelte';
 	import BaseTitle from './BaseTitle.svelte';
@@ -22,6 +23,8 @@
 	import type { EmitterEventModal } from '../types';
 
 	const { eventEmitter } = getContextEventEmitter<EmitterEventModal>();
+	const multiplier = $derived(stateBetDerived.modeCostMultiplier(stateBonus.selectedBetModeKey));
+	const total = $derived(stateBet.betAmount * multiplier);
 
 	const confirm = () => {
 		if (stateConfig.jurisdiction.disabledBuyFeature) return;
@@ -53,9 +56,18 @@
 			<BaseScrollable type="column">
 				{stateBonusDerived.selectedBetModeData().text.dialog}
 			</BaseScrollable>
+			{#if stateBetDerived.isModeConfigured(stateBonus.selectedBetModeKey)}
+				<div class="feature-confirm-total">
+					<span>{multiplier}× · PLAY AMOUNT {numberToCurrencyString(stateBet.betAmount)}</span
+					><strong>TOTAL PLAY {numberToCurrencyString(total)}</strong>
+				</div>
+			{:else}<p role="status">This feature is unavailable in this session.</p>{/if}
 			<BaseButtonWrap type="max-width">
 				<Button
 					data-test="confirm-button"
+					disabled={stateConfig.jurisdiction.disabledBuyFeature ||
+						!stateBetDerived.isModeAmountAvailable(stateBonus.selectedBetModeKey) ||
+						total > stateBet.balanceAmount}
 					onclick={() => {
 						confirm();
 						eventEmitter.broadcast({ type: 'soundPressGeneral' });
@@ -71,3 +83,27 @@
 		</BaseContent>
 	</Popup>
 {/if}
+
+<style>
+	.feature-confirm-total {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 3px;
+		color: #f4d79b;
+		text-align: center;
+		flex-shrink: 0;
+	}
+	.feature-confirm-total span {
+		font:
+			500 12px 'Lunar Sans',
+			Arial,
+			sans-serif;
+	}
+	.feature-confirm-total strong {
+		font:
+			700 18px 'Lunar Sans',
+			Arial,
+			sans-serif;
+	}
+</style>

@@ -175,6 +175,8 @@ test('rules and confirmation retain reachable master sound without dismissal', a
 	await expect(popup.locator('.modal-mute')).toBeVisible();
 	await page.locator('.bonus-card-wrap button').click();
 	await expect(page.locator('[data-test="confirm-button"]')).toBeVisible();
+	await expect(page.locator('.feature-confirm-total')).toContainText('100× · PLAY AMOUNT $0.10');
+	await expect(page.locator('.feature-confirm-total')).toContainText('TOTAL PLAY $10.00');
 	await popup.locator('.modal-mute').click();
 	await expect(popup).toBeVisible();
 	await expect(popup.locator('.modal-mute')).toHaveAttribute('aria-label', 'Enable sound');
@@ -215,6 +217,9 @@ test('final free spin returns through completion scene to ordinary controls', as
 			timeout: 25000,
 		})
 		.toBe(true);
+	const amountTexts = (await canvasText(page)).filter((text) => text.startsWith('$'));
+	expect(amountTexts.length).toBeGreaterThan(0);
+	for (const text of amountTexts) expect(text).not.toMatch(/\.\d{3,}/);
 	await page.screenshot({ path: info.outputPath('feature-completion.png') });
 	await page.mouse.click(400, 225);
 	await page.waitForTimeout(150);

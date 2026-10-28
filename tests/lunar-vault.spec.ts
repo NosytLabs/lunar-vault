@@ -630,11 +630,12 @@ test('per-mode server maximum blocks feature entry while allowing the base amoun
 	page,
 }) => {
 	const s = await session(page, { bonusMaximum: 50000 });
+	await expect(
+		page.getByRole('button', { name: 'BUY ECLIPSE CHAMBER', exact: true }),
+	).toBeDisabled();
 	await clickText(page, 'BUY ECLIPSE CHAMBER');
-	await expect(page.locator('.bonus-card-wrap')).toContainText('Choose a lower play amount');
-	await expect(page.locator('.bonus-card-wrap button')).toBeDisabled();
+	await expect(page.locator('.bonus-card-wrap')).toHaveCount(0);
 	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
-	await page.keyboard.press('Escape');
 	await clickText(page, 'SPIN');
 	await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(1);
 	expect(s.calls.find((c) => c.path === '/wallet/play')!.body.mode).toBe('base');
