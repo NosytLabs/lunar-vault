@@ -10,12 +10,12 @@
 
 	type Props = {
 		value: number;
+		label: string;
 		children: Snippet;
 	};
 
-	let { value = $bindable(), children }: Props = $props();
+	let { value = $bindable(), label, children }: Props = $props();
 	const { eventEmitter } = getContextEventEmitter<EmitterEventModal>();
-	const ICONS = { on: 'volumeOn', off: 'volumeOff' } as const;
 </script>
 
 <div class="col">
@@ -24,6 +24,8 @@
 		<!-- button -->
 		<div class="button-wrap">
 			<Button
+				aria-label={`${label}: ${value > 0 ? 'mute' : 'enable'}`}
+				aria-pressed={value === 0}
 				onclick={() => {
 					eventEmitter.broadcast({ type: 'soundPressGeneral' });
 					if (value === 0) {
@@ -41,11 +43,20 @@
 		</div>
 
 		<!-- range -->
-		<input bind:value type="range" min="0" max="100" class="range" />
+		<input
+			bind:value
+			type="range"
+			min="0"
+			max="100"
+			step="1"
+			class="range"
+			aria-label={label}
+			aria-valuetext={`${value}%`}
+		/>
 
 		<!-- value -->
 		<div class="value">
-			<span>{value}</span>
+			<span>{value}%</span>
 		</div>
 	</div>
 </div>
@@ -54,6 +65,9 @@
 	.col {
 		display: flex;
 		flex-direction: column;
+		gap: 6px;
+		width: 100%;
+		text-align: left;
 	}
 
 	.row {
@@ -67,11 +81,16 @@
 		display: flex;
 		align-items: center;
 	}
+	.range:focus-visible {
+		outline: 3px solid #fff0bd;
+		outline-offset: 3px;
+	}
 
 	.range {
 		width: 70%;
 		display: flex;
 		align-items: center;
+		accent-color: #d8bb80;
 	}
 
 	.value {

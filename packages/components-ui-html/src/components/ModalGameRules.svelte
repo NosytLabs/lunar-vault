@@ -16,7 +16,7 @@
 </script>
 
 {#if stateModal.modal?.name === 'gameRules'}
-	<Popup zIndex={zIndex.modal} onclose={() => (stateModal.modal = null)}>
+	<Popup label="Game information" zIndex={zIndex.modal} onclose={() => (stateModal.modal = null)}>
 		<BaseContent maxWidth="100%">
 			<BaseScrollable type="column">
 				{@render props.children()}

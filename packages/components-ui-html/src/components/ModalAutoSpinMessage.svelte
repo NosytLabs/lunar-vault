@@ -16,7 +16,11 @@
 </script>
 
 {#if stateModal.modal?.name === 'autoSpinMessage'}
-	<Popup zIndex={zIndex.modal} onclose={() => (stateModal.modal = null)}>
+	<Popup
+		label="Auto spin notification"
+		zIndex={zIndex.modal}
+		onclose={() => (stateModal.modal = null)}
+	>
 		<BaseContent maxWidth="100%">
 			<BaseTitle>
 				{i18nDerived.notification()}

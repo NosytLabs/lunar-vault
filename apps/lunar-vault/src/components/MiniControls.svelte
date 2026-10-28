@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { tick } from 'svelte';
 	import { ButtonBetProvider } from 'components-ui-pixi';
 	import { OnHotkey, EnableSpaceHold } from 'components-shared';
 	import {
@@ -15,8 +16,50 @@
 	import FreeSpinCounter from './FreeSpinCounter.svelte';
 	import report from '../../../../math/lunar-vault/report.json';
 	const context = getContext();
+	const { onlayout }: { onlayout?: (top: number) => void } = $props();
 	let show = $state(true),
 		menu = $state(false);
+	let menuToggle = $state<HTMLButtonElement>();
+	let menuPanel = $state<HTMLDivElement>();
+	function measureControls(node: HTMLDivElement) {
+		const update = () => {
+			const rail = node.getBoundingClientRect();
+			const session = node.querySelector('.session-readouts')?.getBoundingClientRect();
+			// Short landscapes use the free space beside the reels for session details.
+			onlayout?.(
+				session && session.width > rail.width / 2 ? Math.min(rail.top, session.top) : rail.top,
+			);
+		};
+		const observer = new ResizeObserver(update);
+		observer.observe(node);
+		const session = node.querySelector('.session-readouts');
+		if (session) observer.observe(session);
+		window.addEventListener('resize', update);
+		update();
+		return {
+			destroy() {
+				observer.disconnect();
+				window.removeEventListener('resize', update);
+			},
+		};
+	}
+	async function toggleMenu() {
+		menu = !menu;
+		if (menu) {
+			await tick();
+			menuPanel?.querySelector<HTMLButtonElement>('button:not(:disabled)')?.focus();
+		}
+	}
+	function closeMenu() {
+		menu = false;
+		menuToggle?.focus();
+	}
+	function handleKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape' && menu) {
+			event.preventDefault();
+			closeMenu();
+		}
+	}
 	const idle = $derived(context.stateXstateDerived.isIdle());
 	const social = $derived(stateUrlDerived.social());
 	const locked = $derived(Boolean(stateModal.modal));
@@ -43,6 +86,22 @@
 		stateConfig.jurisdiction.displayRTP ||
 			stateConfig.jurisdiction.displayNetPosition ||
 			stateConfig.jurisdiction.displaySessionTimer,
+	);
+	const featureHelp = $derived(
+		idle && !locked && !autoActive && !stateUi.freeSpinCounterShow
+			? stateBetDerived.betCost() > stateBet.balanceAmount
+				? 'Insufficient balance. Choose a lower play amount.'
+				: stateConfig.jurisdiction.disabledBuyFeature
+					? ''
+					: !stateBetDerived.isModeConfigured('bonus')
+						? 'Eclipse Chamber is unavailable in this session.'
+						: !stateBetDerived.isModeAmountAvailable('bonus')
+							? 'Eclipse Chamber exceeds the session limit. Choose a lower play amount.'
+							: stateBet.balanceAmount <
+								  stateBet.betAmount * stateBetDerived.modeCostMultiplier('bonus')
+								? 'Not enough balance for Eclipse Chamber. Choose a lower play amount.'
+								: ''
+			: '',
 	);
 	const amountIndex = $derived(stateConfig.betAmountOptions.indexOf(stateBet.betAmount));
 	function mute() {
@@ -83,10 +142,22 @@
 	});
 </script>
 
+<svelte:window onkeydown={handleKeydown} />
+
 {#if !menu}<EnableSpaceHold />{/if}
 {#if show}
-	<div class="mini-controls" aria-label="Game controls">
-		{#if menu}<div class="mini-menu" aria-label="Game menu">
+	<div
+		class="mini-controls"
+		use:measureControls
+		class:has-feature-help={featureHelp}
+		aria-label="Game controls"
+	>
+		{#if menu}<div
+				class="mini-menu"
+				id="lunar-game-menu"
+				bind:this={menuPanel}
+				aria-label="Game menu"
+			>
 				<button onclick={() => modal('gameRules')}>INFO</button>
 				<button onclick={() => modal('payTable')}>{social ? 'SYMBOLS' : 'PAYTABLE'}</button>
 				<button onclick={() => modal('settings')}>SETTINGS</button>
@@ -101,9 +172,25 @@
 					disabled={!idle || stateConfig.jurisdiction.disabledTurbo}
 					onclick={turbo}>TURBO</button
 				>
-				<button onclick={() => (menu = false)}>CLOSE</button>
+				<button onclick={closeMenu}>CLOSE</button>
+				{#if stateConfig.jurisdiction.disabledAutoplay || stateConfig.jurisdiction.disabledTurbo}
+					<p class="menu-note">
+						{stateConfig.jurisdiction.disabledAutoplay && stateConfig.jurisdiction.disabledTurbo
+							? 'Auto spin and turbo are unavailable in this session.'
+							: stateConfig.jurisdiction.disabledAutoplay
+								? 'Auto spin is unavailable in this session.'
+								: 'Turbo is unavailable in this session.'}
+					</p>
+				{/if}
 			</div>{/if}
-		<button class="menu-toggle" disabled={locked} onclick={() => (menu = !menu)} aria-label="Menu"
+		<button
+			class="menu-toggle"
+			bind:this={menuToggle}
+			disabled={locked}
+			onclick={toggleMenu}
+			aria-label="Menu"
+			aria-expanded={menu}
+			aria-controls="lunar-game-menu"
 			><svg aria-hidden="true" width="21" height="21" viewBox="0 0 24 24"
 				><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" /></svg
 			><span>MENU</span></button
@@ -124,25 +211,29 @@
 					/>{:else}<path d="m16 9 5 6m0-6-5 6" stroke="currentColor" stroke-width="2" />{/if}</svg
 			></button
 		>
-		<div class="readouts" class:with-session={hasSessionInfo}>
+		<div class="readouts">
 			<div><span>BALANCE</span><b>{numberToCurrencyString(stateBet.balanceAmount)}</b></div>
 			<div>
 				<span>WIN</span><b>{bookEventAmountToCurrencyString(stateBet.winBookEventAmount)}</b>
 			</div>
-			{#if stateConfig.jurisdiction.displayRTP}
-				<div><span>RTP</span><b>{(report.modes.base.weightedRtp * 100).toFixed(2)}%</b></div>
-			{/if}
-			{#if stateConfig.jurisdiction.displayNetPosition}
-				<div>
-					<span>SESSION NET</span><b
-						>{sessionNet > 0 ? '+' : ''}{numberToCurrencyString(sessionNet)}</b
-					>
-				</div>
-			{/if}
-			{#if stateConfig.jurisdiction.displaySessionTimer}
-				<div><span>SESSION TIME</span><b>{sessionTime}</b></div>
-			{/if}
 		</div>
+		{#if hasSessionInfo}
+			<div class="session-readouts" aria-label="Session information">
+				{#if stateConfig.jurisdiction.displayRTP}
+					<div><span>RTP</span><b>{(report.modes.base.weightedRtp * 100).toFixed(2)}%</b></div>
+				{/if}
+				{#if stateConfig.jurisdiction.displayNetPosition}
+					<div>
+						<span>SESSION NET</span><b
+							>{sessionNet > 0 ? '+' : ''}{numberToCurrencyString(sessionNet)}</b
+						>
+					</div>
+				{/if}
+				{#if stateConfig.jurisdiction.displaySessionTimer}
+					<div><span>SESSION TIME</span><b>{sessionTime}</b></div>
+				{/if}
+			</div>
+		{/if}
 		{#if stateUi.freeSpinCounterShow}
 			<FreeSpinCounter />
 		{:else}
@@ -214,6 +305,7 @@
 				>
 			{/snippet}</ButtonBetProvider
 		>
+		{#if featureHelp}<p class="feature-help" role="status">{featureHelp}</p>{/if}
 	</div>
 {:else}
 	<button
@@ -242,6 +334,17 @@
 		color: #f4e4c5;
 		font-family: 'Lunar Sans', sans-serif;
 		box-sizing: border-box;
+	}
+	.mini-controls.has-feature-help {
+		flex-wrap: wrap;
+	}
+	.feature-help {
+		flex: 0 0 100%;
+		margin: 0;
+		color: #ffdfaa;
+		font-size: 12px;
+		line-height: 1.25;
+		text-align: center;
 	}
 	button {
 		min-height: 44px;
@@ -290,21 +393,63 @@
 		min-width: 0;
 		padding: 0 8px;
 	}
-	.readouts.with-session {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 6px 10px;
+	.session-readouts {
+		position: absolute;
+		bottom: calc(100% + 4px);
+		left: 0;
+		right: 0;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		gap: 8px;
+		min-height: 32px;
+		padding: 4px 10px;
+		box-sizing: border-box;
+		border: 1px solid #b5a07466;
+		border-radius: 7px;
+		background: #091725f2;
+		font-variant-numeric: tabular-nums;
 	}
-	.readouts.with-session div {
-		gap: 2px;
+	.session-readouts div {
+		display: flex;
+		align-items: baseline;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 2px 5px;
+		min-width: 0;
 	}
-	.readouts.with-session b {
-		font-size: 15px;
-	}
-	.readouts.with-session span {
-		font-size: 7px;
-		letter-spacing: 0.2px;
+	.session-readouts span {
+		font-size: 10px;
+		color: #b8c5cb;
 		white-space: nowrap;
+	}
+	.session-readouts b {
+		font-size: 12px;
+		color: #f6f1e6;
+		white-space: nowrap;
+	}
+	.mini-controls:has(.session-readouts) .mini-menu {
+		bottom: calc(100% + 40px);
+		max-height: calc(100dvh - 105px);
+		overflow-y: auto;
+		box-sizing: border-box;
+	}
+	@media (min-aspect-ratio: 13/10) and (max-height: 600px) {
+		.session-readouts {
+			right: auto;
+			width: 100px;
+			flex-direction: column;
+			gap: 8px;
+			padding: 8px 5px;
+		}
+		.session-readouts div {
+			flex-direction: column;
+			align-items: center;
+			gap: 1px;
+		}
+		.mini-controls:has(.session-readouts) .mini-menu {
+			bottom: calc(100% + 6px);
+		}
 	}
 	.readouts div {
 		display: flex;
@@ -411,6 +556,13 @@
 	.mini-menu button {
 		font-size: 13px;
 	}
+	.menu-note {
+		grid-column: 1 / -1;
+		margin: 0;
+		color: #d4dce0;
+		font-size: 12px;
+		line-height: 1.3;
+	}
 	.menu-secondary {
 		display: none;
 	}
@@ -455,6 +607,10 @@
 			padding: 8px;
 			gap: 6px;
 			bottom: 10px;
+		}
+		.feature-help {
+			grid-column: 1 / -1;
+			grid-row: 3;
 		}
 		.menu-toggle {
 			grid-column: 1;
@@ -525,7 +681,7 @@
 			height: 18px;
 		}
 		.menu-toggle span {
-			font-size: 7px;
+			font-size: 9px;
 		}
 		.mute,
 		.secondary,
@@ -537,31 +693,29 @@
 			padding: 0 3px;
 		}
 		.readouts span {
-			font-size: 7px;
+			font-size: 9px;
 			letter-spacing: 0;
 		}
 		.readouts b {
 			font-size: 13px;
 		}
-		.readouts.with-session {
-			gap: 3px 5px;
-			grid-template-columns: repeat(3, minmax(0, 1fr));
+		.session-readouts {
+			width: 76px;
+			gap: 4px;
+			padding: 3px 5px;
 		}
-		.readouts.with-session b {
-			font-size: 10px;
+		.session-readouts span {
+			font-size: 9px;
 		}
-		.readouts.with-session span {
-			font-size: 6px;
-		}
-		.mini-controls:has(.with-session) :global(.feature-progress) {
-			flex: 0.8;
+		.session-readouts b {
+			font-size: 11px;
 		}
 		.amounts {
 			min-width: 60px;
 			padding: 3px;
 		}
 		.amounts span {
-			font-size: 7px;
+			font-size: 9px;
 			letter-spacing: 0;
 		}
 		.amounts b {
@@ -585,7 +739,7 @@
 			height: 22px;
 		}
 		.spin span {
-			font-size: 7px;
+			font-size: 9px;
 			margin-top: 0;
 		}
 		.mute {

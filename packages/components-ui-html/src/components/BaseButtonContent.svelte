@@ -15,7 +15,10 @@
 <style lang="scss">
 	.base-button-content {
 		position: absolute;
-		color: white;
+		inset: 0;
+		color: var(--ui-ink, #f5eddd);
+		font-weight: 600;
+		line-height: 1.2;
 		width: 100%;
 		height: 100%;
 		display: flex;

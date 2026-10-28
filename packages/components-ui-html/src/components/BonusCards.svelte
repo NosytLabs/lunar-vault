@@ -44,6 +44,8 @@
 				{:else}
 					{#if !stateBetDerived.isModeAmountAvailable(betModeData.mode)}<small
 							>Choose a lower play amount for this feature.</small
+						>{:else if stateBet.balanceAmount < stateBet.betAmount * stateBetDerived.modeCostMultiplier(betModeData.mode)}<small
+							>Not enough balance for this feature. Choose a lower play amount.</small
 						>{/if}
 					<div class="price">
 						{numberToCurrencyString(

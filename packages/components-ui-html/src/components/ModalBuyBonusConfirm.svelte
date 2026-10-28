@@ -48,7 +48,11 @@
 </script>
 
 {#if stateModal.modal?.name === 'buyBonusConfirm'}
-	<Popup zIndex={zIndex.dialog} onclose={() => (stateModal.modal = { name: 'buyBonus' })}>
+	<Popup
+		label={stateBonusDerived.selectedBetModeData().text.title}
+		zIndex={zIndex.dialog}
+		onclose={() => (stateModal.modal = { name: 'buyBonus' })}
+	>
 		<BaseContent maxWidth="500px">
 			<BaseTitle>
 				{stateBonusDerived.selectedBetModeData().text.title}
@@ -74,7 +78,7 @@
 						stateModal.modal = null;
 					}}
 				>
-					<BaseIcon width="100%" height="3rem" />
+					<BaseIcon width="100%" height="44px" />
 					<BaseButtonContent>
 						<span style="font-size: 1rem;">{i18nDerived.confirm()}</span>
 					</BaseButtonContent>

@@ -17,7 +17,7 @@
 </script>
 
 {#if stateModal.modal?.name === 'buyBonus'}
-	<Popup zIndex={zIndex.modal} onclose={() => (stateModal.modal = null)}>
+	<Popup label="Feature selection" zIndex={zIndex.modal} onclose={() => (stateModal.modal = null)}>
 		<BonusContentWrapLarge>
 			{#snippet betAmount()}
 				<BetMenuAmountToggle />

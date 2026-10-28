@@ -4,8 +4,8 @@
 	import { EnablePixiExtension } from 'components-pixi';
 	import { EnableHotkey } from 'components-shared';
 	import { MainContainer } from 'components-layout';
-	import { App } from 'pixi-svelte';
-	import { stateModal, stateBet, stateBetDerived } from 'state-shared';
+	import { App, Container } from 'pixi-svelte';
+	import { stateModal } from 'state-shared';
 
 	import { GameVersion, Modals } from 'components-ui-html';
 
@@ -35,6 +35,24 @@
 
 	let fontsReady = $state(false);
 	let fontError = $state(false);
+	let controlsTop = $state<number | null>(null);
+	const playfield = $derived.by(() => {
+		const main = context.stateLayoutDerived.mainLayout();
+		const board = context.stateGameDerived.boardLayout();
+		const originY = main.y - (main.height * main.scale) / 2;
+		const top = board.y - board.height / 2 - 96;
+		const height = board.height + 148;
+		const originalTop = originY + top * main.scale;
+		const bottom = (controlsTop ?? context.stateLayoutDerived.canvasSizes().height) - 6;
+		const scale = Math.min(1, Math.max(0.1, (bottom - 4) / (height * main.scale)));
+		const fittedTop = Math.max(4, Math.min(originalTop, bottom - height * main.scale * scale));
+		return {
+			x: board.x,
+			y: (fittedTop - originY) / main.scale,
+			pivot: { x: board.x, y: top },
+			scale,
+		};
+	});
 	async function prepare() {
 		fontError = false;
 		try {
@@ -76,13 +94,12 @@
 			<Sound />
 
 			<MainContainer>
-				<BoardFrame />
-			</MainContainer>
-
-			<MainContainer>
-				<Board />
-				<Anticipations />
-				<WinLines />
+				<Container {...playfield}>
+					<Container label="lunar-board-frame"><BoardFrame /></Container>
+					<Board />
+					<Anticipations />
+					<WinLines />
+				</Container>
 			</MainContainer>
 
 			<Win />
@@ -93,10 +110,8 @@
 		{/if}
 	</App>
 	{#if stateUi.config.mode === 'default' && !context.stateLayout.showLoadingScreen}<MiniControls
+			onlayout={(top) => (controlsTop = top)}
 		/>{/if}
-	{#if !context.stateLayout.showLoadingScreen && stateUi.config.mode === 'default' && stateBetDerived.betCost() > stateBet.balanceAmount}
-		<p class="balance-help" role="status">Insufficient balance. Choose a lower play amount.</p>
-	{/if}
 {:else}
 	<div class="font-loading">
 		LUNAR VAULT<span
@@ -123,22 +138,6 @@
 </Modals>
 
 <style>
-	.balance-help {
-		position: fixed;
-		bottom: 18%;
-		left: 50%;
-		transform: translateX(-50%);
-		margin: 0;
-		padding: 8px 14px;
-		border: 1px solid #b39765;
-		border-radius: 8px;
-		background: #0a1c30ed;
-		color: #ffdfaa;
-		font:
-			600 14px 'Lunar Sans',
-			sans-serif;
-		text-align: center;
-	}
 	.font-loading {
 		position: fixed;
 		inset: 0;

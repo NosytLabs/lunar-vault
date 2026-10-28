@@ -1321,13 +1321,17 @@ th img {
 .session-status {
 	position: absolute;
 	bottom: 3px;
-	left: 0;
-	width: 100%;
+	left: 50%;
+	translate: -50% 0;
+	width: max-content;
 	display: flex;
 	justify-content: center;
 	gap: 14px;
-	font-size: 9px;
-	color: #b7c8be;
+	padding: 2px 8px;
+	border-radius: 4px;
+	background: #0c2c34f2;
+	font-size: 10px;
+	color: #d5e1d8;
 	font-variant-numeric: tabular-nums;
 }
 .session-status b {
@@ -1358,7 +1362,7 @@ th img {
 		height: 86px;
 	}
 	.session-status {
-		font-size: 8px;
+		font-size: 10px;
 		gap: 10px;
 	}
 	.catch-receipt {
@@ -1451,9 +1455,11 @@ th img {
 	}
 	.session-status {
 		position: static;
+		translate: none;
 		width: auto;
-		gap: 8px;
-		font-size: 9px;
+		gap: 6px;
+		padding: 1px 4px;
+		font-size: 10px;
 		line-height: 10px;
 	}
 	.session-status > span {
@@ -1463,7 +1469,7 @@ th img {
 		white-space: nowrap;
 	}
 	.session-status b {
-		font-size: 9px;
+		font-size: 10px;
 		margin: 0;
 		line-height: 10px;
 	}

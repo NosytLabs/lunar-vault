@@ -19,7 +19,7 @@
 </script>
 
 {#if stateModal.modal?.name === 'betAmountMenu'}
-	<Popup zIndex={zIndex.modal} onclose={() => (stateModal.modal = null)}>
+	<Popup label="Play amount" zIndex={zIndex.modal} onclose={() => (stateModal.modal = null)}>
 		<BaseContent maxWidth="100%">
 			<BaseTitle>
 				{i18nDerived.betMenu()}

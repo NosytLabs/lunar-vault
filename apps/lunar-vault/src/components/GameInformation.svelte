@@ -131,8 +131,9 @@
 <style>
 	.information {
 		max-width: 720px;
-		width: min(720px, 82vw);
-		padding: 24px;
+		width: 100%;
+		padding: 8px 12px;
+		text-align: left;
 		color: #e4edf7;
 		font:
 			15px/1.6 'Lunar Body',
@@ -147,12 +148,17 @@
 	h1 {
 		font-size: 32px;
 		margin: 8px 0 20px;
+		line-height: 1.2;
+		text-align: center;
+		outline: none;
 	}
 	h2 {
 		font-size: 21px;
 		margin: 22px 0 8px;
 	}
 	.eyebrow {
+		margin: 0 0 6px;
+		text-align: center;
 		font-size: 11px;
 		letter-spacing: 2px;
 		color: #c5a56e;
@@ -217,7 +223,7 @@
 		.information {
 			padding: 12px;
 			font-size: 13px;
-			width: 82vw;
+			width: 100%;
 		}
 		h1 {
 			font-size: 25px;
@@ -230,6 +236,25 @@
 		th,
 		td {
 			padding: 8px 3px;
+		}
+	}
+	@media (max-height: 400px) {
+		.information {
+			padding: 2px 6px;
+			font-size: 13px;
+			line-height: 1.45;
+		}
+		h1 {
+			font-size: 20px;
+			margin: 4px 0 10px;
+		}
+		.eyebrow {
+			font-size: 9px;
+			letter-spacing: 1px;
+		}
+		.notice {
+			margin: 8px 0;
+			padding: 8px;
 		}
 	}
 </style>

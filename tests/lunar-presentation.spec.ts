@@ -189,7 +189,7 @@ test('requested session disclosures show authenticated values in a compact popou
 }) => {
 	await page.setViewportSize({ width: 400, height: 225 });
 	await openFixture(page, { disclosure: true });
-	const readouts = page.locator('.readouts');
+	const readouts = page.locator('.session-readouts');
 	await expect(readouts).toContainText('RTP96.50%');
 	await expect(readouts).toContainText('SESSION NET$0.00');
 	await expect(readouts).toContainText('SESSION TIME');

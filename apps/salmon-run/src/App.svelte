@@ -155,8 +155,10 @@
 			delayTimer = setTimeout(resolveDelay, ms);
 		});
 	$effect(() => {
-		if (modal && dialog && !dialog.open) dialog.showModal();
-		else if (!modal && dialog?.open) dialog.close();
+		if (modal && dialog && !dialog.open) {
+			dialog.showModal();
+			dialog.querySelector('h2')?.focus({ preventScroll: true });
+		} else if (!modal && dialog?.open) dialog.close();
 	});
 	function dismiss() {
 		modal = null;
@@ -306,7 +308,9 @@
 		const modeName = canonicalModeName(round.mode) as keyof typeof math.modes;
 		const configuration = serverModes[modeName];
 		// A previously started feature must finish even when it is no longer available for new plays.
-		const cost = configuration?.costMultiplier ?? (resume && round.active ? math.modes[modeName]?.cost : undefined);
+		const cost =
+			configuration?.costMultiplier ??
+			(resume && round.active ? math.modes[modeName]?.cost : undefined);
 		if (!replay && (!Number.isFinite(cost) || (cost ?? 0) <= 0))
 			throw new Error('This round mode is unavailable in the session.');
 		roundCost = replay ? replayCost : cost!;
@@ -708,6 +712,13 @@
 				Balance is too low. Choose a lower play amount.
 			</p>{:else if !replay && !baseAvailable}<p class="funds-message">
 				This amount exceeds the session limit. Choose a lower play amount.
+			</p>{:else if !replay && !busy && !jurisdiction.disabledBuyFeature && serverModes.river && !riverAvailable}<p
+				class="funds-message"
+				role="status"
+			>
+				{balance < amount * riverCost
+					? 'Balance is too low for River Run. Choose a lower play amount.'
+					: 'This amount exceeds the River Run session limit. Choose a lower play amount.'}
 			</p>{/if}
 	{:else if !error}<div class="startup" role="status">
 			<span class="eyebrow">PREPARING THE RIVER</span>
@@ -720,6 +731,7 @@
 		</div>{/if}
 	<dialog
 		bind:this={dialog}
+		aria-labelledby="dialog-title"
 		class:feature-dialog={modal === 'entry' || modal === 'complete'}
 		oncancel={(e) => {
 			e.preventDefault();
@@ -748,7 +760,7 @@
 			>{/if}
 		{#if modal === 'guide'}
 			<p class="eyebrow">THE FIELD GUIDE</p>
-			<h2>Follow the silver</h2>
+			<h2 id="dialog-title" tabindex="-1">Follow the silver</h2>
 			<p class="notice">
 				The theoretical return is 96.50% in both modes, calculated over many plays. An individual
 				session may return more or less.
@@ -795,22 +807,22 @@
 			</p>
 			<p>
 				Base mode: 1× per play, maximum {report.modes.base.maximumWinX}×. River Run: {riverCost}×
-				per play, maximum {report.modes.river.maximumWinX}×. Both modes have a theoretical return
-				of 96.50%. Both maxima multiply the selected base play amount; River Run’s maximum
-				is {(report.modes.river.maximumWinX / math.modes.river.cost).toFixed(2)}× its full feature
-				amount.
+				per play, maximum {report.modes.river.maximumWinX}×. Both modes have a theoretical return of
+				96.50%. Both maxima multiply the selected base play amount; River Run’s maximum is {(
+					report.modes.river.maximumWinX / math.modes.river.cost
+				).toFixed(2)}× its full feature amount.
 			</p>
 			<h3>Controls and sound</h3>
 			<p>
-				Spin starts a round. +/− selects a server-provided amount. River Run opens confirmation
-				showing its total amount. Stop speeds presentation where permitted and never changes an
-				outcome. Space follows Spin while the playfield is active; it leaves selectors, editable
-				fields, buttons and dialogs to their own controls, and is unavailable in restricted
-				sessions. Play repeats the same replay, with no new play. The speaker control mutes all
-				sound at any time. The menu opens these rules, sound and speed options. Less motion replaces
-				reel travel, collection flights and decorative transitions with a still presentation; your
-				device’s reduced motion setting also enables it. Fast reels shortens reel travel and
-				collection flights where permitted. These options change presentation speed only.
+				Spin starts a round. The amount selector and +/− choose a server-provided amount. River Run
+				opens confirmation showing its total amount. Stop speeds presentation where permitted and
+				never changes an outcome. Space follows Spin while the playfield is active; it leaves
+				selectors, editable fields, buttons and dialogs to their own controls, and is unavailable in
+				restricted sessions. Play repeats the same replay, with no new play. The speaker control
+				mutes all sound at any time. The menu opens these rules, sound and speed options. Less
+				motion replaces reel travel, collection flights and decorative transitions with a still
+				presentation; your device’s reduced motion setting also enables it. Fast reels shortens reel
+				travel and collection flights where permitted. These options change presentation speed only.
 			</p>
 			<label class="motion-choice"
 				><input type="checkbox" bind:checked={lessMotion} /> Less motion {osReduced
@@ -828,7 +840,8 @@
 				/> Mute all sound</label
 			>
 			<label class="motion-choice"
-				><input type="checkbox" bind:checked={turbo} disabled={jurisdiction.disabledTurbo} /> Fast reels</label
+				><input type="checkbox" bind:checked={turbo} disabled={jurisdiction.disabledTurbo} /> Fast
+				reels{jurisdiction.disabledTurbo ? ' (unavailable in this session)' : ''}</label
 			>
 			<h3>Game operation</h3>
 			<p>
@@ -847,7 +860,7 @@
 				alt="Silver salmon"
 			/>
 			<p class="eyebrow">RIVER RUN</p>
-			<h2>Enter the river</h2>
+			<h2 id="dialog-title" tabindex="-1">Enter the river</h2>
 			<p>Six free casts. Collect silver fish with Wilds and travel to the Headwaters.</p>
 			<p class="feature-number">
 				{currencyValue(amount * riverCost)}<span>{riverCost}× THE BASE PLAY AMOUNT</span>
@@ -866,7 +879,7 @@
 			</div>
 			<img class="feature-fish" src={symbolAsset('salmon')} alt="Silver salmon" />
 			<p class="eyebrow">RIVER RUN</p>
-			<h2>Upstream awaits</h2>
+			<h2 id="dialog-title" tabindex="-1">Upstream awaits</h2>
 			<p class="feature-number">{total}<span>FREE CASTS</span></p>
 			<p>Wilds collect the silver.<br />Reach 3 fish for 2×, then 6 fish for 3× collections.</p>
 			<button class="primary" onclick={dismiss}>Start River Run</button>
@@ -874,7 +887,7 @@
 				<img src={symbolAsset('wild')} alt="" /><span>{stages[stage]}</span>
 			</div>
 			<p class="eyebrow">RIVER RUN COMPLETE</p>
-			<h2>River Run total</h2>
+			<h2 id="dialog-title" tabindex="-1">River Run total</h2>
 			<p class="feature-number" data-testid="run-total">
 				{awardValue(runAward)}<span>{collected} SILVER FISH · {current} CASTS</span>
 			</p>

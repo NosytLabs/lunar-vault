@@ -19,6 +19,9 @@
 	class="content {props.type}"
 	class:scrollX={!props.noScroll && props.type === 'row'}
 	class:scrollY={!props.noScroll && props.type === 'column'}
+	role="region"
+	aria-label="Dialog content"
+	tabindex={props.noScroll ? -1 : 0}
 >
 	{@render props.children({ element })}
 </div>
@@ -30,10 +33,18 @@
 		display: flex;
 		gap: 1rem;
 		min-height: 0;
+		min-width: 0;
+		width: 100%;
+		max-width: 100%;
 		flex-shrink: 1;
+		overscroll-behavior: contain;
+		scrollbar-color: #9a845a #071321;
+		scrollbar-width: thin;
 
 		> :global(*) {
 			flex-shrink: 0;
+			max-width: 100%;
+			box-sizing: border-box;
 		}
 
 		&.column {
@@ -47,5 +58,9 @@
 			justify-content: center;
 			max-width: 100%;
 		}
+	}
+	.content:focus-visible {
+		outline: 2px solid #f4d89c;
+		outline-offset: -2px;
 	}
 </style>

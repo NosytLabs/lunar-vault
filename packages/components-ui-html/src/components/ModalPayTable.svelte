@@ -16,7 +16,7 @@
 </script>
 
 {#if stateModal.modal?.name === 'payTable'}
-	<Popup zIndex={zIndex.modal} onclose={() => (stateModal.modal = null)}>
+	<Popup label="Symbol wins" zIndex={zIndex.modal} onclose={() => (stateModal.modal = null)}>
 		<BaseContent maxWidth="100%">
 			<BaseScrollable type="column">
 				{@render props.children()}

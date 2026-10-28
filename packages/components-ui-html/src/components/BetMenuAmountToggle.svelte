@@ -10,7 +10,7 @@
 
 	const { eventEmitter } = getContextEventEmitter<EmitterEventModal>();
 
-	const iconSize = '2.5rem';
+	const iconSize = '44px';
 </script>
 
 <OptionsToggle
@@ -23,7 +23,12 @@
 >
 	{#snippet children({ disabledDown, disabledUp, toggleDown, toggleUp })}
 		<div class="toggle-wrap">
-			<Button data-test="down-button" disabled={disabledDown} onclick={toggleDown}>
+			<Button
+				data-test="down-button"
+				aria-label="Decrease play amount"
+				disabled={disabledDown}
+				onclick={toggleDown}
+			>
 				<BaseIcon width={iconSize} height={iconSize} />
 				<BaseButtonContent>
 					<span style="font-size: 2rem;">-</span>
@@ -32,7 +37,12 @@
 
 			<span class="amount">{numberToCurrencyString(stateBet.betAmount)}</span>
 
-			<Button data-test="up-button" disabled={disabledUp} onclick={toggleUp}>
+			<Button
+				data-test="up-button"
+				aria-label="Increase play amount"
+				disabled={disabledUp}
+				onclick={toggleUp}
+			>
 				<BaseIcon width={iconSize} height={iconSize} />
 				<BaseButtonContent>
 					<span style="font-size: 2rem;">+</span>
