@@ -1,0 +1,1248 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-28",
+  "runtimeCommit": "bc9a8111f95cb46c6364603ef2cc29cc2854b465",
+  "runtimeTree": "8c7b948785ab6e97e4afc1b1b4d4d50a01a2fc33",
+  "officialPrompt": {
+    "url": "https://studio.engine.io/docs-content/prompt.md",
+    "sha256": "7e8b516503c3b94db9514420523514952f871827d5750cc49b8a0882479f603f"
+  },
+  "releaseManifest": "release-manifest-20261028.json",
+  "releaseManifestSha256": "c416ba8108152638e53baabf5b729144ac336582d401d9c8543ccba1e5139f26",
+  "archives": [
+    {
+      "game": "lunar-vault",
+      "kind": "frontend",
+      "file": "lunar-vault-frontend.zip",
+      "bytes": 7210092,
+      "sha256": "a6104504ab369900ad6867cfdf18d5493ff42670e139f8fa5dae099b7e2b681f",
+      "format": "zip-stored",
+      "fileCount": 34
+    },
+    {
+      "game": "lunar-vault",
+      "kind": "math",
+      "file": "lunar-vault-math.zip",
+      "bytes": 75340368,
+      "sha256": "ee973f629c69250cd944b1101e28632ea6f1fe32e890eecf45a98593b3a94218",
+      "format": "zip-stored",
+      "fileCount": 5
+    },
+    {
+      "game": "lunar-vault",
+      "kind": "media",
+      "file": "lunar-vault-media.zip",
+      "bytes": 8314388,
+      "sha256": "fe1964f48905dce4a9c48544034a8b49b98bcfe9dca91d29c301cd937c9b3c99",
+      "format": "zip-stored",
+      "fileCount": 13
+    },
+    {
+      "game": "salmon-run",
+      "kind": "frontend",
+      "file": "salmon-run-frontend.zip",
+      "bytes": 1997621,
+      "sha256": "6918e737724afd80d61983f187756475b8dee98e61a5c9fa3dab71e7dc10b0ca",
+      "format": "zip-stored",
+      "fileCount": 19
+    },
+    {
+      "game": "salmon-run",
+      "kind": "math",
+      "file": "salmon-run-math.zip",
+      "bytes": 42517941,
+      "sha256": "c4f8cdf891731077399c27e5eab3b24c48c0698aa9361ae1c20e7d4ccf9f7448",
+      "format": "zip-stored",
+      "fileCount": 5
+    },
+    {
+      "game": "salmon-run",
+      "kind": "media",
+      "file": "salmon-run-media.zip",
+      "bytes": 8047467,
+      "sha256": "4dfa030c4356318b23619a56e6bb9d122288d0ccec898b0f6bfb89ad0a787e34",
+      "format": "zip-stored",
+      "fileCount": 13
+    }
+  ],
+  "builds": [
+    {
+      "path": "apps/lunar-vault/build/_app/env.js",
+      "bytes": 19,
+      "sha256": "3c588b75cde522990022a70ade17b3a6db7068f685ac4cb8b31a104f7e258706"
+    },
+    {
+      "path": "apps/lunar-vault/build/_app/immutable/assets/style.BAOjlYup.css",
+      "bytes": 20776,
+      "sha256": "89f03bc93e0adfa82470523062803bdf40b14b2db8f67959a0359d5d9d31c8c6"
+    },
+    {
+      "path": "apps/lunar-vault/build/_app/immutable/bundle.SjWMbrUk.js",
+      "bytes": 1138070,
+      "sha256": "ce2139c059faefacbc7753bad5c2e7fe21a6b58d536733d57f4cd5072e33505b"
+    },
+    {
+      "path": "apps/salmon-run/dist/assets/index-BzIUtORk.js",
+      "bytes": 63892,
+      "sha256": "4920b3b1456258dcb219890fbf4fd1f1c0341d222683006239e31a498a3dd19b"
+    },
+    {
+      "path": "apps/salmon-run/dist/assets/index-DkyT2mbV.css",
+      "bytes": 23809,
+      "sha256": "8805d49993c6d28850eee6d02f6ef667ba4745f6071371c692be4c287f5419fd"
+    }
+  ],
+  "browser": {
+    "executable": "/tmp/lunar-headless-shell-1161/chrome-linux/headless_shell",
+    "revision": 1161,
+    "version": "Chromium134.0.6998.35",
+    "workers": 1,
+    "walletEndpoints": "mocked",
+    "nativeWindowFocusVerified": false
+  },
+  "stats": {
+    "startTime": "2026-10-28T15:16:50.259Z",
+    "duration": 888626.983,
+    "expected": 100,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "counts": {
+    "total": 100,
+    "passed": 100,
+    "failed": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "lunar-vault": 68,
+    "salmon-run": 32,
+    "retainedScenariosRerun": 79,
+    "newRegressions": 21
+  },
+  "unitCases": {
+    "passed": 31,
+    "failed": 0,
+    "npmRunnerFiles": 5,
+    "newCases": 6
+  },
+  "rawResult": {
+    "file": "browser-results-recheck-main-20261028.json",
+    "sha256": "e92077ffb68b38022d532353ba3b67bbdc623f0e42a01624123c4a95aa2462a6"
+  },
+  "evidenceFiles": [
+    {
+      "file": "browser-recheck-20261028.log",
+      "sha256": "de30f49efe841a039cc260d986ccab9682c516fe3b82ae8280183b9adbe75486"
+    },
+    {
+      "file": "session-unit-recheck-20261028.log",
+      "sha256": "921c24722f4782ccb52976376aea875ba5b5e89371c32078dea7646d51623ac9"
+    },
+    {
+      "file": "browser-recheck-runner-20261028.mjs",
+      "sha256": "bded73e66dbe66daca807b151c64a04c5fa18cbf8304540eaea93a0cc9a59862"
+    },
+    {
+      "file": "browser-recheck-baseline-20261028.log",
+      "sha256": "82e7efae50470b7c47ba80685a33f3247273171ae4b19ecec999e16bdc08b821"
+    },
+    {
+      "file": "replay-currency-recheck-red-20261028.log",
+      "sha256": "61fb42c82e2786612434d43dbb6a3bfb26a54a9935eac73fb5c14c2fdf8cdcdc"
+    }
+  ],
+  "baseline": {
+    "browserExpectedFailures": 3,
+    "browserUnexpectedPasses": 0,
+    "currencyFailure": "Inherited currency metadata lookup threw TypeError before the fix.",
+    "rawResultSha256": "69876b96076661dc8e936b8111bc6dfa3e1b6036ca8ca0ee5d6ef43665932158"
+  },
+  "historicalEvidence": {
+    "file": "browser-results-20261028.json",
+    "sha256": "6120b6ef577d0fee9e2fc880f63ad73285373bd080cd626b5d30d3e88a50baa7",
+    "latestDistinctPassingScenarios": 79,
+    "usage": "Preserved history only; all79were rerun on current builds."
+  },
+  "screenshots": [
+    {
+      "path": "docs/quality/screenshots/20261028-recheck/lunar-feature-400x225.png",
+      "source": "/tmp/engine-review-recheck-20261028/full-results/lunar-presentation-feature-0b482-trols-and-survives-rotation-lunar-presentation-fresh/running-retrigger.png",
+      "sha256": "c4b37aa52dea55ed7fc150dd260f9670472626cfc18b1d0671bd742c51eab7fd",
+      "bytes": 112382
+    },
+    {
+      "path": "docs/quality/screenshots/20261028-recheck/lunar-feature-800x450.png",
+      "source": "/tmp/engine-review-recheck-20261028/full-results/lunar-presentation-feature-8e864-trols-and-survives-rotation-lunar-presentation-fresh/running-retrigger.png",
+      "sha256": "e377b8d4da098dc7e88b1f7bbc3f7c357a88c0f038a1411be8224492686a217a",
+      "bytes": 416596
+    },
+    {
+      "path": "docs/quality/screenshots/20261028-recheck/lunar-feature-425x812.png",
+      "source": "/tmp/engine-review-recheck-20261028/full-results/lunar-presentation-feature-9c7f3-trols-and-survives-rotation-lunar-presentation-fresh/running-retrigger.png",
+      "sha256": "d8d6856df3e1580316ae08f536297d1762a2ae3382644c9aadba96b3c5d89eb7",
+      "bytes": 270038
+    },
+    {
+      "path": "docs/quality/screenshots/20261028-recheck/lunar-feature-1024x576.png",
+      "source": "/tmp/engine-review-recheck-20261028/full-results/lunar-presentation-feature-b542f-trols-and-survives-rotation-lunar-presentation-fresh/running-retrigger.png",
+      "sha256": "74caf0f53a4a27d3a0383a82f5efb23fe4cca2d1a746b3da6018390495a5c2ed",
+      "bytes": 660476
+    },
+    {
+      "path": "docs/quality/screenshots/20261028-recheck/lunar-confirmation-total.png",
+      "source": "/tmp/engine-review-recheck-20261028/full-results/lunar-presentation-rules-a-a1671-ter-sound-without-dismissal-lunar-presentation-fresh/confirmation-modal-mute.png",
+      "sha256": "24767627749e4b6e35b04c7621612098eec4b703c7ec93cf454f4542dc346dda",
+      "bytes": 18975
+    },
+    {
+      "path": "docs/quality/screenshots/20261028-recheck/lunar-rules-mute.png",
+      "source": "/tmp/engine-review-recheck-20261028/full-results/lunar-presentation-rules-a-a1671-ter-sound-without-dismissal-lunar-presentation-fresh/rules-modal-mute.png",
+      "sha256": "da65d3dd7308fc298eb2d124efbe49d8dd84ffd184dbb6b0d3ca25013ab96e68",
+      "bytes": 36627
+    },
+    {
+      "path": "docs/quality/screenshots/20261028-recheck/lunar-feature-replay-400x225.png",
+      "source": "/tmp/engine-review-recheck-20261028/full-results/lunar-presentation-small-f-cd0b6-mation-without-wallet-calls-lunar-presentation-fresh/small-feature-replay.png",
+      "sha256": "bccd30c6a803c9bcf669daac8162a2cb364d47350a94bdeafe773480896f2b21",
+      "bytes": 110916
+    },
+    {
+      "path": "docs/quality/screenshots/20261028-recheck/lunar-feature-completion.png",
+      "source": "/tmp/engine-review-recheck-20261028/full-results/lunar-presentation-final-f-a1a7a--scene-to-ordinary-controls-lunar-presentation-fresh/feature-completion.png",
+      "sha256": "7e894a15b33f3590f2dec0253df47c57ebed5da502b5350cd45491c9294f497f",
+      "bytes": 325375
+    },
+    {
+      "path": "docs/quality/screenshots/20261028-recheck/salmon-feature-1024x576.png",
+      "source": "/tmp/engine-review-recheck-20261028/full-results/salmon-after-play-River-Ru-bb4c0-touch-controls-fit-1024x576-salmon-contracts-fresh/salmon-after-play-1024x576.png",
+      "sha256": "38b12d92e6b8329ff1475be690dde38df05e6ae6921b6d74d633de47ad73a0dc",
+      "bytes": 843008
+    },
+    {
+      "path": "docs/quality/screenshots/20261028-recheck/salmon-feature-400x225.png",
+      "source": "/tmp/engine-review-recheck-20261028/full-results/salmon-after-play-River-Ru-f07e4--touch-controls-fit-400x225-salmon-contracts-fresh/salmon-after-play-400x225.png",
+      "sha256": "45773dad32cfc5ff49b6056dc488e4344dcd1db932aa74de4c27876756f608ce",
+      "bytes": 141063
+    },
+    {
+      "path": "docs/quality/screenshots/20261028-recheck/salmon-feature-425x812.png",
+      "source": "/tmp/engine-review-recheck-20261028/full-results/salmon-after-play-River-Ru-75018--touch-controls-fit-425x812-salmon-contracts-fresh/salmon-after-play-425x812.png",
+      "sha256": "d691b82b8c789e103e71edce12e826005a889c7a703bdcca491eb356223d759d",
+      "bytes": 358695
+    },
+    {
+      "path": "docs/quality/screenshots/20261028-recheck/salmon-feature-800x450.png",
+      "source": "/tmp/engine-review-recheck-20261028/full-results/salmon-after-play-River-Ru-78ffe--touch-controls-fit-800x450-salmon-contracts-fresh/salmon-after-play-800x450.png",
+      "sha256": "5454f6f4921a2e972112c2faa57a954f6b50ba1d36d076cb37bc3995e146af10",
+      "bytes": 550643
+    },
+    {
+      "path": "docs/quality/screenshots/20261028-recheck/salmon-collection.png",
+      "source": "/tmp/engine-review-recheck-20261028/full-results/salmon-River-Run-shows-val-f2163-d-settles-the-complete-book-salmon-collection-recheck/salmon-v3-collection.png",
+      "bytes": 1384683,
+      "sha256": "e9069c3e9b625f54a2c485c9234fadf75e53a9e1cd4fa8285d2077ebf4b830db"
+    }
+  ],
+  "cases": [
+    {
+      "id": "d6db94e79ba5ca3d42ab-702d3363741125a82b45",
+      "game": "lunar-vault",
+      "project": "lunar-presentation-fresh",
+      "file": "tests/lunar-presentation.spec.ts",
+      "line": 154,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts \u203a rules and confirmation retain reachable master sound without dismissal",
+      "status": "passed",
+      "durationMs": 21996
+    },
+    {
+      "id": "d6db94e79ba5ca3d42ab-0cf3e1fac8a536dcacec",
+      "game": "lunar-vault",
+      "project": "lunar-presentation-fresh",
+      "file": "tests/lunar-presentation.spec.ts",
+      "line": 187,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts \u203a requested session disclosures show authenticated values in a compact popout",
+      "status": "passed",
+      "durationMs": 4127
+    },
+    {
+      "id": "d6db94e79ba5ca3d42ab-fddb63deebd8f14883f8",
+      "game": "lunar-vault",
+      "project": "lunar-presentation-fresh",
+      "file": "tests/lunar-presentation.spec.ts",
+      "line": 205,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts \u203a final free spin returns through completion scene to ordinary controls",
+      "status": "passed",
+      "durationMs": 29222
+    },
+    {
+      "id": "d6db94e79ba5ca3d42ab-e0ab64cbef54d9e95e3c",
+      "game": "lunar-vault",
+      "project": "lunar-presentation-fresh",
+      "file": "tests/lunar-presentation.spec.ts",
+      "line": 238,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts \u203a small feature replay retains progress and full amount information without wallet calls",
+      "status": "passed",
+      "durationMs": 7169
+    },
+    {
+      "id": "d6db94e79ba5ca3d42ab-a8d8711374f11bcf27c0",
+      "game": "lunar-vault",
+      "project": "lunar-presentation-fresh",
+      "file": "tests/lunar-presentation.spec.ts",
+      "line": 132,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts \u203a feature presentation 1024x576 \u203a recovered retrigger count is visible inside controls and survives rotation",
+      "status": "passed",
+      "durationMs": 38357
+    },
+    {
+      "id": "d6db94e79ba5ca3d42ab-42d7da22f99866c43a18",
+      "game": "lunar-vault",
+      "project": "lunar-presentation-fresh",
+      "file": "tests/lunar-presentation.spec.ts",
+      "line": 132,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts \u203a feature presentation 800x450 \u203a recovered retrigger count is visible inside controls and survives rotation",
+      "status": "passed",
+      "durationMs": 33292
+    },
+    {
+      "id": "d6db94e79ba5ca3d42ab-a33036f3469c95c2631d",
+      "game": "lunar-vault",
+      "project": "lunar-presentation-fresh",
+      "file": "tests/lunar-presentation.spec.ts",
+      "line": 132,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts \u203a feature presentation 400x225 \u203a recovered retrigger count is visible inside controls and survives rotation",
+      "status": "passed",
+      "durationMs": 11956
+    },
+    {
+      "id": "d6db94e79ba5ca3d42ab-b06e4635a37d948430ee",
+      "game": "lunar-vault",
+      "project": "lunar-presentation-fresh",
+      "file": "tests/lunar-presentation.spec.ts",
+      "line": 132,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts \u203a feature presentation 425x812 \u203a recovered retrigger count is visible inside controls and survives rotation",
+      "status": "passed",
+      "durationMs": 32452
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-015166f54f832af0ed15",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 282,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a win settles once, dialogs render once and block space",
+      "status": "passed",
+      "durationMs": 52213
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-94e0e1825011b0e7d450",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 318,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a restricted session disables controls and space; feature menu only lists the implemented mode",
+      "status": "passed",
+      "durationMs": 18519
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-e40b963445ec09e8b439",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 343,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a autoplay can be cancelled when slam-stop is forbidden",
+      "status": "passed",
+      "durationMs": 26464
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-9255d2b5a3751b703fd9",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 495,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a wallet play uses integer micro-units for a 2.01 amount",
+      "status": "passed",
+      "durationMs": 10424
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-2257655f776c6b1d829e",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 514,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a phone currency USD uses exact server amount and native formatting",
+      "status": "passed",
+      "durationMs": 9366
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-74b310765d07a89f27f6",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 514,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a phone currency EUR uses exact server amount and native formatting",
+      "status": "passed",
+      "durationMs": 9582
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-a490e2d81ab47e15459b",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 514,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a phone currency CAD uses exact server amount and native formatting",
+      "status": "passed",
+      "durationMs": 9757
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-7b7b916a1c4189b1c241",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 514,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a phone currency MXN uses exact server amount and native formatting",
+      "status": "passed",
+      "durationMs": 12465
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-ee9deca3f6d362d09cd5",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 514,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a phone currency JPY uses exact server amount and native formatting",
+      "status": "passed",
+      "durationMs": 12126
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-38d9f8c10f0fad038f93",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 514,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a phone currency XSC uses exact server amount and native formatting",
+      "status": "passed",
+      "durationMs": 22530
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-66d18fe83f1bbdef22b6",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 514,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a phone currency XGC uses exact server amount and native formatting",
+      "status": "passed",
+      "durationMs": 15553
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-ff598072b305bfd1c6f0",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 532,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a explicit HTTPS RGS address works and unknown language falls back to English",
+      "status": "passed",
+      "durationMs": 16691
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-38b4f1549110cf80f602",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 542,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a zero balance explains disabled spin and sends no play request",
+      "status": "passed",
+      "durationMs": 11150
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-33807a4c2a1be7b1eef2",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 565,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a an interrupted sprite fetch retries without entering a broken game",
+      "status": "passed",
+      "durationMs": 9398
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-330d54664bbabadbc6b9",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 576,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a active round keeps its non-default amount after recovery and on the next play",
+      "status": "passed",
+      "durationMs": 16904
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-a1939c407038718136b2",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 588,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a a sub-cent award stays visible at the correct precision",
+      "status": "passed",
+      "durationMs": 21028
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-a9c828e3092ea37cf2b8",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 596,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a small social replay displays the server mode cost and exposes no wagering menu",
+      "status": "passed",
+      "durationMs": 3782
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-dfff136be1abc8064e2d",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 614,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a a permanently missing sprite shows recovery instead of an incomplete game",
+      "status": "passed",
+      "durationMs": 1914
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-dac43ffcfc7ce59bd382",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 629,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a per-mode server maximum blocks feature entry while allowing the base amount",
+      "status": "passed",
+      "durationMs": 13195
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-4ae95eda4f6fbfccba19",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 645,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a an invalid RGS host shows a clear failure without another destination",
+      "status": "passed",
+      "durationMs": 1037
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-efb28c00a5d52bbbe2c0",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 659,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a master mute remains available on the feature introduction without dismissing it",
+      "status": "passed",
+      "durationMs": 10816
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-52a3edad02bd9a12cf88",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 677,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a an interrupted play preserves the last board and stops decorative reel travel",
+      "status": "passed",
+      "durationMs": 10935
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-dcb8e1313e584ccbcfc7",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 709,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a an already closed positive round never sends end-round",
+      "status": "passed",
+      "durationMs": 12396
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-dd83fd9318aecc71cc48",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 718,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a active round checkpoints advance only after each completed event and precede settlement",
+      "status": "passed",
+      "durationMs": 8285
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-cc78e84c48c4cc16bba3",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 734,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a documented uppercase wallet mode is preserved in the actual play request",
+      "status": "passed",
+      "durationMs": 8844
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-055c5b4eecf99f3ab6e4",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 747,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a invalid advertised modes block all wagering: {\"modeCost\":20}",
+      "status": "passed",
+      "durationMs": 922
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-e1ea42d4c01ebed78e19",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 747,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a invalid advertised modes block all wagering: {\"gameModes\":[{\"mode\":\"BONUS\",\"costMultiplier\":100,\"maxBet\":1000000}]}",
+      "status": "passed",
+      "durationMs": 798
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-79f08599552686f33030",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 756,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a server-only social flag overrides URL social=false throughout rules and feature dialogs",
+      "status": "passed",
+      "durationMs": 23714
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-e73b92fdb4e7f81f6167",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 795,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a replay JSON ERR_VAL remains readable with no wallet escape",
+      "status": "passed",
+      "durationMs": 1203
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-99fb26ec541c18f7456f",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 795,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a replay malformed 200 remains readable with no wallet escape",
+      "status": "passed",
+      "durationMs": 1001
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-7a1ebb62ff2510427bb3",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 795,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a replay HTTP failure JSON remains readable with no wallet escape",
+      "status": "passed",
+      "durationMs": 956
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-bf719c3f9e37a60713b3",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 795,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a replay invalid event payload remains readable with no wallet escape",
+      "status": "passed",
+      "durationMs": 924
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-ad755665aa1122ed2918",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 809,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a positive undocumented round-duration requirement blocks play with a readable explanation",
+      "status": "passed",
+      "durationMs": 851
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-b69e0e3c38f1b949d9c8",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 821,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a base maximum and full feature cost prevent pointer, Space and autoplay requests",
+      "status": "passed",
+      "durationMs": 11484
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-6fd2c4891548c1c35df2",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 834,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a empty HTTP replay failure stays readable and never calls the wallet",
+      "status": "passed",
+      "durationMs": 989
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-856ac72d10181997c717",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 840,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a replay optional amount currency and language use safe defaults and can repeat",
+      "status": "passed",
+      "durationMs": 10640
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-2cd5f0c4af133dc85914",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 850,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a original publication base book checkpoints and settles exactly once",
+      "status": "passed",
+      "durationMs": 17121
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-cbef9115cba7bc015c31",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 873,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a original publication Eclipse Chamber confirms full cost and completes all twelve spins",
+      "status": "passed",
+      "durationMs": 39404
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-e388a1f44dd9d413d6c5",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 909,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a current publication Eclipse Chamber replay displays the full 100\u00d7 cost without wallet traffic",
+      "status": "passed",
+      "durationMs": 6307
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-c646632fa5c439be0726",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 924,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a base-only session disables unavailable feature and keeps base pointer Space and autoplay on BASE",
+      "status": "passed",
+      "durationMs": 14197
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-f8146b9ab1491f08eb40",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 959,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a base-only session recovers a known unfinished Eclipse Chamber without a new feature play",
+      "status": "passed",
+      "durationMs": 11684
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-3a3cf40a8af680731bf3",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 994,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a held Space stops future rounds after focus moves to mute before release",
+      "status": "passed",
+      "durationMs": 15292
+    },
+    {
+      "id": "28ec0fa8410aca9d6ec7-959599814350b82cfa07",
+      "game": "lunar-vault",
+      "project": "lunar-contracts-fresh",
+      "file": "tests/lunar-vault.spec.ts",
+      "line": 994,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts \u203a held Space stops future rounds after window blur event",
+      "status": "passed",
+      "durationMs": 14494
+    },
+    {
+      "id": "d5b3449581b87559c118-41b4203ab47a14d5b1da",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 281,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a mid-feature recovery restores progress without another entry or debit",
+      "status": "passed",
+      "durationMs": 2419
+    },
+    {
+      "id": "d5b3449581b87559c118-5922b0076feae2607fa7",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 292,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a replay uses only its endpoint, displays cost and can play again at 400x225",
+      "status": "passed",
+      "durationMs": 2457
+    },
+    {
+      "id": "d5b3449581b87559c118-6a0ab67eed092c58c7b0",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 322,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a mute is available during motion and in feature prompts",
+      "status": "passed",
+      "durationMs": 3020
+    },
+    {
+      "id": "d5b3449581b87559c118-d0599a95290bbd0c2553",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 334,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a zero balance prevents pointer and keyboard play with an explanation",
+      "status": "passed",
+      "durationMs": 850
+    },
+    {
+      "id": "d5b3449581b87559c118-24a59ebce94e44187f0b",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 351,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a dynamic USD amounts and readable native formatting",
+      "status": "passed",
+      "durationMs": 3037
+    },
+    {
+      "id": "d5b3449581b87559c118-ac94626235867d7d07fd",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 351,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a dynamic EUR amounts and readable native formatting",
+      "status": "passed",
+      "durationMs": 3048
+    },
+    {
+      "id": "d5b3449581b87559c118-8b65767833d341f30224",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 351,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a dynamic JPY amounts and readable native formatting",
+      "status": "passed",
+      "durationMs": 3702
+    },
+    {
+      "id": "d5b3449581b87559c118-f58c0da4cba2e1e4a021",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 351,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a dynamic XSC amounts and readable native formatting",
+      "status": "passed",
+      "durationMs": 3596
+    },
+    {
+      "id": "d5b3449581b87559c118-9f1b0d8470ed13a1f204",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 351,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a dynamic XGC amounts and readable native formatting",
+      "status": "passed",
+      "durationMs": 3128
+    },
+    {
+      "id": "d5b3449581b87559c118-d770f725d0e46f8fc483",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 351,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a dynamic CAD amounts and readable native formatting",
+      "status": "passed",
+      "durationMs": 3057
+    },
+    {
+      "id": "d5b3449581b87559c118-5113800a5551f44f27fc",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 351,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a dynamic MXN amounts and readable native formatting",
+      "status": "passed",
+      "durationMs": 3364
+    },
+    {
+      "id": "d5b3449581b87559c118-f7198be5648a33789c83",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 364,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a social rules describe matching math without restricted wording",
+      "status": "passed",
+      "durationMs": 931
+    },
+    {
+      "id": "d5b3449581b87559c118-9dbad1450f08e02a9f6c",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 377,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a invalid RGS reports failure without a fallback destination",
+      "status": "passed",
+      "durationMs": 493
+    },
+    {
+      "id": "d5b3449581b87559c118-b7ba1f8b7775d17e9c17",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 401,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a base mode limit blocks pointer and keyboard play before a request",
+      "status": "passed",
+      "durationMs": 1003
+    },
+    {
+      "id": "d5b3449581b87559c118-8d9b72aa0a32297d89fe",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 516,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a active event checkpoints use an explicit next-unpresented cursor before one settlement",
+      "status": "passed",
+      "durationMs": 3476
+    },
+    {
+      "id": "d5b3449581b87559c118-960d937909a90e83d34b",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 529,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a Space protects the amount selector and editable fields while playfield Space still spins",
+      "status": "passed",
+      "durationMs": 1896
+    },
+    {
+      "id": "d5b3449581b87559c118-d85af5137ad41be8213b",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 553,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a documented array limits block unavailable River Run and keep exact server request spelling",
+      "status": "passed",
+      "durationMs": 1919
+    },
+    {
+      "id": "d5b3449581b87559c118-910154838306a5d2e4f6",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 570,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a malformed array costs fail before any play can start",
+      "status": "passed",
+      "durationMs": 529
+    },
+    {
+      "id": "d5b3449581b87559c118-5e07b553d507c6210f56",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 581,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a River Run replay uses its full feature name and authoritative cost",
+      "status": "passed",
+      "durationMs": 556
+    },
+    {
+      "id": "d5b3449581b87559c118-4993a082328808b884bb",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 594,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a after-play River Run progress and touch controls fit 400x225",
+      "status": "passed",
+      "durationMs": 5488
+    },
+    {
+      "id": "d5b3449581b87559c118-694e8d3afecc0f48bdd7",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 594,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a after-play River Run progress and touch controls fit 800x450",
+      "status": "passed",
+      "durationMs": 5142
+    },
+    {
+      "id": "d5b3449581b87559c118-82fcbaeaf84f222ee2dd",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 594,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a after-play River Run progress and touch controls fit 1024x576",
+      "status": "passed",
+      "durationMs": 5447
+    },
+    {
+      "id": "d5b3449581b87559c118-a3f56b54e9e2d775dcee",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 594,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a after-play River Run progress and touch controls fit 425x812",
+      "status": "passed",
+      "durationMs": 4965
+    },
+    {
+      "id": "d5b3449581b87559c118-c94fc51a825dff85d5b8",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 686,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a positive undocumented jurisdiction duration fails visibly before any play",
+      "status": "passed",
+      "durationMs": 490
+    },
+    {
+      "id": "d5b3449581b87559c118-3d8fb0b90ae538ba5c23",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 697,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a server-only social flag protects controls and every feature dialog when URL says false",
+      "status": "passed",
+      "durationMs": 5348
+    },
+    {
+      "id": "d5b3449581b87559c118-13faeeaea9c5ece3512e",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 724,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a base-only session hides River Run and sends exact BASE for an ordinary play",
+      "status": "passed",
+      "durationMs": 1794
+    },
+    {
+      "id": "d5b3449581b87559c118-9086f0fccab12ec8bb28",
+      "game": "salmon-run",
+      "project": "salmon-contracts-fresh",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 737,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a base-only session recovers known River Run and settles without another feature entry",
+      "status": "passed",
+      "durationMs": 1092
+    },
+    {
+      "id": "d5b3449581b87559c118-04b51016462ba7fce681",
+      "game": "salmon-run",
+      "project": "salmon-collection-recheck",
+      "file": "apps/salmon-run/tests/salmon.spec.ts",
+      "line": 442,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts \u203a River Run shows value collection, advances to 3x and settles the complete book",
+      "status": "passed",
+      "durationMs": 24241
+    },
+    {
+      "id": "a83c357fa45808593abb-ef1e31fd8598d3fd614d",
+      "game": "lunar-vault",
+      "project": "lunar-edges-recheck",
+      "file": "tests/lunar-recheck.spec.ts",
+      "line": 60,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts \u203a invalid optional replay amount \"abc\" falls back without blocking replay",
+      "status": "passed",
+      "durationMs": 11397
+    },
+    {
+      "id": "a83c357fa45808593abb-331395e894fa97fcb711",
+      "game": "lunar-vault",
+      "project": "lunar-edges-recheck",
+      "file": "tests/lunar-recheck.spec.ts",
+      "line": 60,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts \u203a invalid optional replay amount \"0\" falls back without blocking replay",
+      "status": "passed",
+      "durationMs": 7639
+    },
+    {
+      "id": "a83c357fa45808593abb-a6353c178a1f97850854",
+      "game": "lunar-vault",
+      "project": "lunar-edges-recheck",
+      "file": "tests/lunar-recheck.spec.ts",
+      "line": 60,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts \u203a invalid optional replay amount \"-1\" falls back without blocking replay",
+      "status": "passed",
+      "durationMs": 4156
+    },
+    {
+      "id": "a83c357fa45808593abb-ac187ac6cc4d5bed48bc",
+      "game": "lunar-vault",
+      "project": "lunar-edges-recheck",
+      "file": "tests/lunar-recheck.spec.ts",
+      "line": 60,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts \u203a invalid optional replay amount \"NaN\" falls back without blocking replay",
+      "status": "passed",
+      "durationMs": 3698
+    },
+    {
+      "id": "a83c357fa45808593abb-5d52ffa78368afe83fd3",
+      "game": "lunar-vault",
+      "project": "lunar-edges-recheck",
+      "file": "tests/lunar-recheck.spec.ts",
+      "line": 60,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts \u203a invalid optional replay amount \"Infinity\" falls back without blocking replay",
+      "status": "passed",
+      "durationMs": 5068
+    },
+    {
+      "id": "a83c357fa45808593abb-bf4937f5e3cb11582ca2",
+      "game": "lunar-vault",
+      "project": "lunar-edges-recheck",
+      "file": "tests/lunar-recheck.spec.ts",
+      "line": 60,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts \u203a invalid optional replay amount \"1.5\" falls back without blocking replay",
+      "status": "passed",
+      "durationMs": 5457
+    },
+    {
+      "id": "a83c357fa45808593abb-a723eae5b2569d3e94ac",
+      "game": "lunar-vault",
+      "project": "lunar-edges-recheck",
+      "file": "tests/lunar-recheck.spec.ts",
+      "line": 60,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts \u203a invalid optional replay amount \"9007199254740992\" falls back without blocking replay",
+      "status": "passed",
+      "durationMs": 4555
+    },
+    {
+      "id": "a83c357fa45808593abb-c7861a62ab2cb12316ea",
+      "game": "lunar-vault",
+      "project": "lunar-edges-recheck",
+      "file": "tests/lunar-recheck.spec.ts",
+      "line": 60,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts \u203a invalid optional replay amount \"\" falls back without blocking replay",
+      "status": "passed",
+      "durationMs": 3802
+    },
+    {
+      "id": "a83c357fa45808593abb-65d1afa17c799537bf46",
+      "game": "lunar-vault",
+      "project": "lunar-edges-recheck",
+      "file": "tests/lunar-recheck.spec.ts",
+      "line": 72,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts \u203a invalid optional replay currency constructor falls back safely",
+      "status": "passed",
+      "durationMs": 6324
+    },
+    {
+      "id": "a83c357fa45808593abb-b2acab7e7acaa271968a",
+      "game": "lunar-vault",
+      "project": "lunar-edges-recheck",
+      "file": "tests/lunar-recheck.spec.ts",
+      "line": 72,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts \u203a invalid optional replay currency toString falls back safely",
+      "status": "passed",
+      "durationMs": 6723
+    },
+    {
+      "id": "a83c357fa45808593abb-64ef6eda2507755d7987",
+      "game": "lunar-vault",
+      "project": "lunar-edges-recheck",
+      "file": "tests/lunar-recheck.spec.ts",
+      "line": 72,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts \u203a invalid optional replay currency __proto__ falls back safely",
+      "status": "passed",
+      "durationMs": 5989
+    },
+    {
+      "id": "a83c357fa45808593abb-34da04a302315521b0b9",
+      "game": "lunar-vault",
+      "project": "lunar-edges-recheck",
+      "file": "tests/lunar-recheck.spec.ts",
+      "line": 72,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts \u203a invalid optional replay currency ZZZ falls back safely",
+      "status": "passed",
+      "durationMs": 4645
+    },
+    {
+      "id": "a83c357fa45808593abb-52da1833f26d4146fb97",
+      "game": "lunar-vault",
+      "project": "lunar-edges-recheck",
+      "file": "tests/lunar-recheck.spec.ts",
+      "line": 79,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts \u203a missing replay cost is a readable failure with no invented price or wallet escape",
+      "status": "passed",
+      "durationMs": 955
+    },
+    {
+      "id": "a83c357fa45808593abb-360a98c141556d0994ff",
+      "game": "lunar-vault",
+      "project": "lunar-edges-recheck",
+      "file": "tests/lunar-recheck.spec.ts",
+      "line": 92,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts \u203a prototype error code constructor uses generic guidance without raw server text",
+      "status": "passed",
+      "durationMs": 803
+    },
+    {
+      "id": "a83c357fa45808593abb-e8b3996de6abaa1b7267",
+      "game": "lunar-vault",
+      "project": "lunar-edges-recheck",
+      "file": "tests/lunar-recheck.spec.ts",
+      "line": 92,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts \u203a prototype error code toString uses generic guidance without raw server text",
+      "status": "passed",
+      "durationMs": 2100
+    },
+    {
+      "id": "a83c357fa45808593abb-40385ec6aaaadc335323",
+      "game": "lunar-vault",
+      "project": "lunar-edges-recheck",
+      "file": "tests/lunar-recheck.spec.ts",
+      "line": 92,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts \u203a prototype error code __proto__ uses generic guidance without raw server text",
+      "status": "passed",
+      "durationMs": 862
+    },
+    {
+      "id": "a83c357fa45808593abb-d251a4d872bc2fe573be",
+      "game": "lunar-vault",
+      "project": "lunar-edges-recheck",
+      "file": "tests/lunar-recheck.spec.ts",
+      "line": 105,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts \u203a known error code keeps actionable guidance and ignores server detail",
+      "status": "passed",
+      "durationMs": 1030
+    },
+    {
+      "id": "0a9ddc73bb864b128f50-75641089fd129d855aef",
+      "game": "salmon-run",
+      "project": "salmon-edges-recheck",
+      "file": "apps/salmon-run/tests/recheck.spec.ts",
+      "line": 7,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/recheck.spec.ts \u203a invalid optional replay currency constructor defaults without a wallet request",
+      "status": "passed",
+      "durationMs": 1422
+    },
+    {
+      "id": "0a9ddc73bb864b128f50-d0da2851176b23f5832d",
+      "game": "salmon-run",
+      "project": "salmon-edges-recheck",
+      "file": "apps/salmon-run/tests/recheck.spec.ts",
+      "line": 7,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/recheck.spec.ts \u203a invalid optional replay currency toString defaults without a wallet request",
+      "status": "passed",
+      "durationMs": 1991
+    },
+    {
+      "id": "0a9ddc73bb864b128f50-80d47513a8a3bcb54669",
+      "game": "salmon-run",
+      "project": "salmon-edges-recheck",
+      "file": "apps/salmon-run/tests/recheck.spec.ts",
+      "line": 7,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/recheck.spec.ts \u203a invalid optional replay currency __proto__ defaults without a wallet request",
+      "status": "passed",
+      "durationMs": 1484
+    },
+    {
+      "id": "0a9ddc73bb864b128f50-185dd324786999161948",
+      "game": "salmon-run",
+      "project": "salmon-edges-recheck",
+      "file": "apps/salmon-run/tests/recheck.spec.ts",
+      "line": 7,
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/recheck.spec.ts \u203a invalid optional replay currency ZZZ defaults without a wallet request",
+      "status": "passed",
+      "durationMs": 2349
+    }
+  ]
+}

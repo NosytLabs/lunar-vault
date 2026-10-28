@@ -1,0 +1,353 @@
+{
+  "config": {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/scratch/87411a2f3bc3/lunar-vault/node_modules/@playwright/test/cli.js",
+      "test",
+      "--config",
+      "/tmp/engine-review-recheck-20261028/red.config.mjs",
+      "--grep",
+      "invalid optional replay amount \"abc\"|missing replay cost|prototype error code constructor"
+    ],
+    "configFile": "/tmp/engine-review-recheck-20261028/red.config.mjs",
+    "rootDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/tmp/engine-review-recheck-20261028/red-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "lunar-recheck.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/tmp/engine-review-recheck-20261028/red-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "snapshotDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "testIgnore": [],
+        "testMatch": "lunar-recheck.spec.ts",
+        "timeout": 45000,
+        "use": {
+          "baseURL": "http://127.0.0.1:4173",
+          "viewport": {
+            "width": 800,
+            "height": 450
+          },
+          "reducedMotion": "reduce",
+          "screenshot": "only-on-failure",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "executablePath": "/tmp/lunar-headless-shell-1161/chrome-linux/headless_shell",
+            "args": [
+              "--no-sandbox"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/tmp/engine-review-recheck-20261028/red-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": {
+      "command": "python3 tools/serve-static.py --port 4173 --directory apps/lunar-vault/build",
+      "cwd": "/workspace/scratch/87411a2f3bc3/lunar-vault",
+      "url": "http://127.0.0.1:4173",
+      "reuseExistingServer": true
+    }
+  },
+  "suites": [
+    {
+      "title": "lunar-recheck.spec.ts",
+      "file": "lunar-recheck.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "invalid optional replay amount \"abc\" falls back without blocking replay",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 11905,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n\nCall Log:\n- Timeout 10000ms exceeded while waiting on the predicate",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n\nCall Log:\n- Timeout 10000ms exceeded while waiting on the predicate\n    at /workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts:64:87",
+                    "location": {
+                      "file": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts",
+                      "column": 87,
+                      "line": 64
+                    },
+                    "snippet": "  62 | \t}) => {\n  63 | \t\tconst s = await connect(page, { amount });\n> 64 | \t\tawait expect.poll(() => s.calls.filter((p) => p.startsWith('/bet/replay/')).length).toBe(1);\n     | \t\t                                                                                    ^\n  65 | \t\tawait enterReplay(page);\n  66 | \t\tawait expect(page.locator('.replay-cost')).toContainText('PLAY AMOUNT $1.00');\n  67 | \t\tawait expect(page.locator('.replay-cost')).toContainText('TOTAL PLAY $1.00');"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts",
+                        "column": 87,
+                        "line": 64
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n\nCall Log:\n- Timeout 10000ms exceeded while waiting on the predicate\n\n  62 | \t}) => {\n  63 | \t\tconst s = await connect(page, { amount });\n> 64 | \t\tawait expect.poll(() => s.calls.filter((p) => p.startsWith('/bet/replay/')).length).toBe(1);\n     | \t\t                                                                                    ^\n  65 | \t\tawait enterReplay(page);\n  66 | \t\tawait expect(page.locator('.replay-cost')).toContainText('PLAY AMOUNT $1.00');\n  67 | \t\tawait expect(page.locator('.replay-cost')).toContainText('TOTAL PLAY $1.00');\n    at /workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts:64:87"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T15:02:45.629Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/engine-review-recheck-20261028/red-results/lunar-recheck-invalid-opti-7bc4e-ack-without-blocking-replay/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/tmp/engine-review-recheck-20261028/red-results/lunar-recheck-invalid-opti-7bc4e-ack-without-blocking-replay/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/tmp/engine-review-recheck-20261028/red-results/lunar-recheck-invalid-opti-7bc4e-ack-without-blocking-replay/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts",
+                    "column": 87,
+                    "line": 64
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a83c357fa45808593abb-4439743f4b008944a27b",
+          "file": "lunar-recheck.spec.ts",
+          "line": 60,
+          "column": 6
+        },
+        {
+          "title": "missing replay cost is a readable failure with no invented price or wallet escape",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 11963,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('alert')\nExpected substring: \u001b[32m\"This replay is unavailable\"\u001b[39m\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('alert') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert')\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('alert')\nExpected substring: \u001b[32m\"This replay is unavailable\"\u001b[39m\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('alert') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert')\u001b[22m\n\n    at /workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts:83:40",
+                    "location": {
+                      "file": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts",
+                      "column": 40,
+                      "line": 83
+                    },
+                    "snippet": "  81 | }) => {\n  82 | \tconst s = await connect(page, { payload: { payoutMultiplier: 0, state: loss.events } });\n> 83 | \tawait expect(page.getByRole('alert')).toContainText('This replay is unavailable');\n     | \t                                      ^\n  84 | \tawait page.keyboard.press('Escape');\n  85 | \tawait page.keyboard.press('Space');\n  86 | \tawait expect(page.getByRole('alert')).toBeVisible();"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts",
+                        "column": 40,
+                        "line": 83
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('alert')\nExpected substring: \u001b[32m\"This replay is unavailable\"\u001b[39m\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('alert') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert')\u001b[22m\n\n\n  81 | }) => {\n  82 | \tconst s = await connect(page, { payload: { payoutMultiplier: 0, state: loss.events } });\n> 83 | \tawait expect(page.getByRole('alert')).toContainText('This replay is unavailable');\n     | \t                                      ^\n  84 | \tawait page.keyboard.press('Escape');\n  85 | \tawait page.keyboard.press('Space');\n  86 | \tawait expect(page.getByRole('alert')).toBeVisible();\n    at /workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts:83:40"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T15:02:59.034Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/engine-review-recheck-20261028/red-results/lunar-recheck-missing-repl-a5513-nted-price-or-wallet-escape/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/tmp/engine-review-recheck-20261028/red-results/lunar-recheck-missing-repl-a5513-nted-price-or-wallet-escape/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/tmp/engine-review-recheck-20261028/red-results/lunar-recheck-missing-repl-a5513-nted-price-or-wallet-escape/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts",
+                    "column": 40,
+                    "line": 83
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a83c357fa45808593abb-529487342f5907f5a9d3",
+          "file": "lunar-recheck.spec.ts",
+          "line": 79,
+          "column": 5
+        },
+        {
+          "title": "prototype error code constructor uses generic guidance without raw server text",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 12092,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('alert')\nExpected substring: \u001b[32m\"\u001b[7mConne\u001b[27mction \u001b[7minterrupted. Reload to recover any unfinished round.\u001b[27m\"\u001b[39m\nReceived string:    \u001b[31m\"\u001b[7mfun\u001b[27mction \u001b[7mObject() { [native code] }\u001b[27m\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('alert') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert')\u001b[22m\n\u001b[2m    22 × locator resolved to <p role=\"alert\" class=\"svelte-1x0do4j\">function Object() { [native code] }</p>\u001b[22m\n\u001b[2m       - unexpected value \"function Object() { [native code] }\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('alert')\nExpected substring: \u001b[32m\"\u001b[7mConne\u001b[27mction \u001b[7minterrupted. Reload to recover any unfinished round.\u001b[27m\"\u001b[39m\nReceived string:    \u001b[31m\"\u001b[7mfun\u001b[27mction \u001b[7mObject() { [native code] }\u001b[27m\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('alert') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert')\u001b[22m\n\u001b[2m    22 × locator resolved to <p role=\"alert\" class=\"svelte-1x0do4j\">function Object() { [native code] }</p>\u001b[22m\n\u001b[2m       - unexpected value \"function Object() { [native code] }\"\u001b[22m\n\n    at /workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts:98:41",
+                    "location": {
+                      "file": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts",
+                      "column": 41,
+                      "line": 98
+                    },
+                    "snippet": "   96 | \t\t\tauthError: { error: code, message: 'UNSAFE RAW SERVER DETAIL' },\n   97 | \t\t});\n>  98 | \t\tawait expect(page.getByRole('alert')).toContainText(\n      | \t\t                                      ^\n   99 | \t\t\t'Connection interrupted. Reload to recover any unfinished round.',\n  100 | \t\t);\n  101 | \t\tawait expect(page.getByRole('alert')).not.toContainText('UNSAFE RAW SERVER DETAIL');"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts",
+                        "column": 41,
+                        "line": 98
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('alert')\nExpected substring: \u001b[32m\"\u001b[7mConne\u001b[27mction \u001b[7minterrupted. Reload to recover any unfinished round.\u001b[27m\"\u001b[39m\nReceived string:    \u001b[31m\"\u001b[7mfun\u001b[27mction \u001b[7mObject() { [native code] }\u001b[27m\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('alert') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert')\u001b[22m\n\u001b[2m    22 × locator resolved to <p role=\"alert\" class=\"svelte-1x0do4j\">function Object() { [native code] }</p>\u001b[22m\n\u001b[2m       - unexpected value \"function Object() { [native code] }\"\u001b[22m\n\n\n   96 | \t\t\tauthError: { error: code, message: 'UNSAFE RAW SERVER DETAIL' },\n   97 | \t\t});\n>  98 | \t\tawait expect(page.getByRole('alert')).toContainText(\n      | \t\t                                      ^\n   99 | \t\t\t'Connection interrupted. Reload to recover any unfinished round.',\n  100 | \t\t);\n  101 | \t\tawait expect(page.getByRole('alert')).not.toContainText('UNSAFE RAW SERVER DETAIL');\n    at /workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts:98:41"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T15:03:12.639Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/engine-review-recheck-20261028/red-results/lunar-recheck-prototype-er-ee45c-nce-without-raw-server-text/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/tmp/engine-review-recheck-20261028/red-results/lunar-recheck-prototype-er-ee45c-nce-without-raw-server-text/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/tmp/engine-review-recheck-20261028/red-results/lunar-recheck-prototype-er-ee45c-nce-without-raw-server-text/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-recheck.spec.ts",
+                    "column": 41,
+                    "line": 98
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a83c357fa45808593abb-76f1d239694a1707b684",
+          "file": "lunar-recheck.spec.ts",
+          "line": 92,
+          "column": 6
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-28T15:02:44.514Z",
+    "duration": 41069.162000000004,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}

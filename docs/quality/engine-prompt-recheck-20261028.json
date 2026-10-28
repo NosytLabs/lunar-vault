@@ -10,7 +10,7 @@
     "byteIdenticalToPrevious": true,
     "scrapeId": "01a182fd-b29b-73be-af5a-a29b895ca9dc"
   },
-  "scope": "Source and evidence recheck of both games. Prior runtime tests and 400,000-book math audit are retained as evidence for their recorded versions, not described as a new run.",
+  "scope": "Complete 41-guideline review of both games, narrow fixes, and a completed current-runtime 100-case mocked-RGS browser run. The earlier 79-case history is retained separately. The unchanged math packages retain their existing exhaustive 400,000-book audit.",
   "findings": [
     {
       "guidelineIds": [
@@ -20,7 +20,14 @@
       "verdictAtReviewedCommit": "FAIL",
       "finding": "An invalid optional replay amount throws instead of using a safe default, preventing replay loading.",
       "evidence": "packages/state-shared/src/stateUrl.svelte.ts:38",
-      "resolution": "Requires client fix and regression."
+      "resolution": "Invalid or absent optional replay amounts now default to 1,000,000 micro-units; valid positive safe integers are preserved. Eight new browser amount cases and the unit case pass.",
+      "requiredFixAtReview": "Requires client fix and regression.",
+      "finalStatus": "RESOLVED",
+      "currentEvidence": [
+        "packages/utils-shared/replayOptions.ts:3",
+        "packages/state-shared/src/stateUrl.svelte.ts:39"
+      ],
+      "verifiedRuntimeSourceCommit": "bc9a8111f95cb46c6364603ef2cc29cc2854b465"
     },
     {
       "guidelineIds": [
@@ -34,7 +41,14 @@
         "packages/utils-shared/roundValidation.ts:26",
         "packages/components-shared/src/components/Authenticate.svelte:220"
       ],
-      "resolution": "Require a positive finite response cost and remove local-cost substitution; preserve valid historical costs."
+      "resolution": "Replay responses require a positive finite authoritative cost; Lunar uses that cost directly. Missing cost fails readably without an invented price or wallet calls; historical42x remains supported. Unfinished wallet responses do not require this replay-only field.",
+      "requiredFixAtReview": "Require a positive finite response cost and remove local-cost substitution; preserve valid historical costs.",
+      "finalStatus": "RESOLVED",
+      "currentEvidence": [
+        "packages/utils-shared/roundValidation.ts:46",
+        "packages/components-shared/src/components/Authenticate.svelte:223"
+      ],
+      "verifiedRuntimeSourceCommit": "bc9a8111f95cb46c6364603ef2cc29cc2854b465"
     },
     {
       "guidelineIds": [
@@ -45,7 +59,14 @@
       "verdictAtReviewedCommit": "FAIL",
       "finding": "The normal service-error message map can resolve inherited object properties for untrusted error codes instead of a readable generic message.",
       "evidence": "packages/components-ui-html/src/components/ModalError.svelte:19",
-      "resolution": "String and own-property allowlist plus regression."
+      "resolution": "Only string own keys in the fixed message allowlist select service guidance. Prototype-name and unknown codes use readable generic recovery text, and raw service detail is not rendered. New prototype-code and known-code browser regressions pass.",
+      "requiredFixAtReview": "String and own-property allowlist plus regression.",
+      "finalStatus": "RESOLVED",
+      "currentEvidence": [
+        "packages/utils-shared/gameErrorMessage.ts:10",
+        "packages/components-ui-html/src/components/ModalError.svelte:6"
+      ],
+      "verifiedRuntimeSourceCommit": "bc9a8111f95cb46c6364603ef2cc29cc2854b465"
     },
     {
       "guidelineIds": [
@@ -55,7 +76,15 @@
       "verdictAtReviewedCommit": "FAIL",
       "finding": "Invalid replay currency values such as constructor, toString or __proto__ can select inherited metadata properties and throw during formatting.",
       "evidence": "packages/utils-shared/formatCurrency.ts:63",
-      "resolution": "Safe metadata lookup and invalid optional replay currency handling, without relabelling authenticated wallet currencies."
+      "resolution": "Shared currency metadata lookups reject inherited properties. Unsupported optional replay currencies default to USD in both games. Unknown authenticated codes retain their own label instead of being relabelled. Eight new browser currency cases and unit checks pass.",
+      "requiredFixAtReview": "Safe metadata lookup and invalid optional replay currency handling, without relabelling authenticated wallet currencies.",
+      "finalStatus": "RESOLVED",
+      "currentEvidence": [
+        "packages/utils-shared/formatCurrency.ts:53",
+        "packages/utils-shared/replayOptions.ts:7",
+        "apps/salmon-run/src/engine.ts:152"
+      ],
+      "verifiedRuntimeSourceCommit": "bc9a8111f95cb46c6364603ef2cc29cc2854b465"
     },
     {
       "guidelineIds": [
@@ -68,7 +97,49 @@
         "apps/lunar-vault/src/routes/+layout.svelte:14",
         "apps/salmon-run/index.html:7"
       ],
-      "resolution": "Publisher clearance remains required. No unilateral title change; Salmon's existing close-title reference is retained."
+      "resolution": "Both proposed titles still require publisher naming/originality clearance. Their titles were not changed. Salmon retains the documented close-title reference.",
+      "requiredFixAtReview": "Publisher clearance remains required. No unilateral title change; Salmon's existing close-title reference is retained.",
+      "finalStatus": "AT RISK",
+      "currentEvidence": [
+        "media/STUDIO-SETUP.md",
+        "apps/lunar-vault/src/routes/+layout.svelte:14",
+        "apps/salmon-run/index.html:7"
+      ],
+      "verifiedRuntimeSourceCommit": "bc9a8111f95cb46c6364603ef2cc29cc2854b465"
     }
+  ],
+  "finalRuntimeSourceCommit": "bc9a8111f95cb46c6364603ef2cc29cc2854b465",
+  "verification": {
+    "browser": {
+      "status": "passed",
+      "cases": 100,
+      "lunarVault": 68,
+      "salmonRun": 32,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0,
+      "unexpectedErrors": 0,
+      "durationMs": 888626.983,
+      "rawResults": "docs/quality/browser-results-recheck-main-20261028.json",
+      "canonicalResults": "docs/quality/browser-results-recheck-20261028.json",
+      "report": "docs/quality/browser-qa-recheck-20261028.md",
+      "reportSha256": "779634ab4214de2a4a4d194567c89963f03e600c94185a06b3ad23d486459fa8",
+      "canonicalSha256": "323fd15720b45010fe33ac01b353786c14e7d013579a776c9190e2da4b06579d",
+      "rawSha256": "e92077ffb68b38022d532353ba3b67bbdc623f0e42a01624123c4a95aa2462a6"
+    },
+    "sessionUnits": {
+      "status": "passed",
+      "logicalCases": 31,
+      "files": 5,
+      "command": "npm run test:session",
+      "rawLog": "docs/quality/session-unit-recheck-20261028.log"
+    },
+    "manifestSha256": "c416ba8108152638e53baabf5b729144ac336582d401d9c8543ccba1e5139f26",
+    "boundary": "Local source, unit, math and mocked-browser evidence does not grant Engine or Stake approval."
+  },
+  "studioAccessObservation": "docs/quality/engine-studio-access-recheck-20261028.json",
+  "baselineFailureEvidence": [
+    "docs/quality/browser-results-recheck-red-20261028.json",
+    "docs/quality/replay-currency-recheck-red-20261028.log"
   ]
 }

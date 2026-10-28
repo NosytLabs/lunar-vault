@@ -1,0 +1,39 @@
+✔ documented mode array becomes validated canonical configuration retaining request spelling (10.255551ms)
+✔ mismatched documented mode cost fails before exposing a playable session (2.609017ms)
+✔ a base-only playable subset does not grant a feature configuration (1.355591ms)
+✔ a session without the required base mode fails visibly (1.053217ms)
+✔ invalid payout multipliers cannot pass round reconciliation as NaN (1.329933ms)
+✔ replay without authoritative cost fails without wallet traffic (1.091444ms)
+✔ positive undocumented jurisdiction pacing fails clearly before play (1.721568ms)
+✔ malformed wallet balances are rejected before presentation (0.689524ms)
+✔ invalid active checkpoints fail instead of skipping the supplied presentation (12.962142ms)
+✔ malformed indexed events return a readable validation error (1.358071ms)
+✔ a malformed amount array returns a readable configuration error (1.399311ms)
+✔ structured ERR_VAL HTTP rejection keeps the safe session guidance (1.931581ms)
+✔ unknown, prototype-key and transport failures retain the generic safe message (4.116672ms)
+✔ a rejected replay retains replay-specific guidance even for a known service code (1.124586ms)
+✔ animated ordinary awards do not grow six artificial decimal places (24.167089ms)
+✔ exact final sub-cent and fractional-native awards are retained (1.883846ms)
+✔ intermediate display never overshoots the award or becomes negative (1.308117ms)
+✔ invalid animation values stay visibly invalid (0.191652ms)
+✔ unrecognized authenticated currency codes remain readable without inherited metadata or relabeling (1.794764ms)
+✔ invalid optional replay amounts default while valid micro-unit amounts are preserved (0.33532ms)
+✔ optional replay currency rejects inherited and unknown names while supported currencies retain their symbols (0.850221ms)
+✔ only own whitelisted service codes select guidance; raw server detail cannot become visible (0.710849ms)
+✔ recorded replay cost is required and positive while historical authoritative costs are retained (0.933886ms)
+✔ unfinished wallet rounds do not require a replay-only cost field (11.931512ms)
+✔ documented wallet array preserves exact server mode and lower feature maximum (0.460216ms)
+✔ invalid or incomplete advertised modes fail closed instead of using local limits (1.215133ms)
+✔ documented base-only playable subset does not synthesize an unavailable feature (0.29252ms)
+✔ real SDK loss win and feature fixtures validate before playback (20.165068ms)
+✔ JSON service errors missing state invalid awards and mismatched multipliers fail before playback (1.421226ms)
+✔ unknown event payloads invalid symbols and broken final totals fail before handlers access them (0.921893ms)
+✔ recovery checkpoints accept next-event completion but never skip beyond the book (0.344566ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1757.688011

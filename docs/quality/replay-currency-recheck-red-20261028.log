@@ -1,0 +1,37 @@
+✖ unrecognized authenticated currency codes remain readable without inherited metadata or relabeling (2.490257ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 96.030979
+
+✖ failing tests:
+
+test at tests/unit/replay-option-errors.mjs:4:1
+✖ unrecognized authenticated currency codes remain readable without inherited metadata or relabeling (2.490257ms)
+  AssertionError [ERR_ASSERTION]: Got unwanted exception.
+  Actual message: "function is not iterable (cannot read property Symbol(Symbol.iterator))"
+      at TestContext.<anonymous> (file:///workspace/scratch/87411a2f3bc3/lunar-vault/tests/unit/replay-option-errors.mjs:6:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: TypeError: function is not iterable (cannot read property Symbol(Symbol.iterator))
+        at formatCurrencyAmount (file:///workspace/scratch/87411a2f3bc3/lunar-vault/packages/utils-shared/formatCurrency.ts:63:28)
+        at file:///workspace/scratch/87411a2f3bc3/lunar-vault/tests/unit/replay-option-errors.mjs:6:29
+        at getActual (node:assert:611:5)
+        at strict.doesNotThrow (node:assert:779:32)
+        at TestContext.<anonymous> (file:///workspace/scratch/87411a2f3bc3/lunar-vault/tests/unit/replay-option-errors.mjs:6:10)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1402:25)
+        at Test.start (node:internal/test_runner/test:1262:17)
+        at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17),
+    expected: undefined,
+    operator: 'doesNotThrow',
+    diff: 'simple'
+  }

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "observation": "Read-only browser accessibility state recheck",
+  "recordedAtUtc": "2026-10-28 15:27:27 UTC",
+  "url": "https://studio.engine.io/signin?redirect=/teams/nosyt?",
+  "title": "Sign in",
+  "privacyPolicyChecked": false,
+  "gameLicenceTermsChecked": false,
+  "signedIn": false,
+  "studioDetailsOrAssetsWritten": false,
+  "handoff": "Existing handoff preserved; no duplicate takeover request issued.",
+  "blocker": "The page still requires account sign-in and acceptance of its Privacy Policy and Game Licence Terms. The responsible account holder must review and authorize the binding terms at the point of acceptance."
+}

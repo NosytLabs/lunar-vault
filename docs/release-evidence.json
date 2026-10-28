@@ -1,21 +1,23 @@
 {
   "schemaVersion": 2,
   "release": "2026-10-28",
-  "runtimeSourceCommit": "159efd249f09ba9387f39062c6bffb707458875f",
+  "runtimeSourceCommit": "bc9a8111f95cb46c6364603ef2cc29cc2854b465",
   "games": {
     "lunar-vault": {
-      "frontendSha256": "4d7465d8a42eeb87c57305516cc80a28ce52e2c0ff7f43de091ec4fcecb15c80",
+      "frontendSha256": "a6104504ab369900ad6867cfdf18d5493ff42670e139f8fa5dae099b7e2b681f",
       "mathSha256": "ee973f629c69250cd944b1101e28632ea6f1fe32e890eecf45a98593b3a94218",
       "local": {
         "browser": {
           "status": "verified",
-          "report": "docs/quality/browser-qa-20261028.md",
+          "report": "docs/quality/browser-qa-recheck-20261028.md",
           "reviewer": "ChatGPT engineering review; production frontends with intercepted mock-wallet responses",
-          "frontendSha256": "4d7465d8a42eeb87c57305516cc80a28ce52e2c0ff7f43de091ec4fcecb15c80",
+          "frontendSha256": "a6104504ab369900ad6867cfdf18d5493ff42670e139f8fa5dae099b7e2b681f",
           "mathSha256": "ee973f629c69250cd944b1101e28632ea6f1fe32e890eecf45a98593b3a94218",
           "results": {
-            "passed": 51,
-            "failed": 0
+            "passed": 68,
+            "failed": 0,
+            "skipped": 0,
+            "flaky": 0
           },
           "viewports": [
             "400x225",
@@ -24,7 +26,7 @@
             "425x812"
           ],
           "touch": true,
-          "reportSha256": "7ddf17be15242afeef7d707683280469117808e88f52ec7ff3f70ea4a630c65e"
+          "reportSha256": "779634ab4214de2a4a4d194567c89963f03e600c94185a06b3ad23d486459fa8"
         }
       },
       "checks": {
@@ -55,18 +57,20 @@
       }
     },
     "salmon-run": {
-      "frontendSha256": "423c81f28a9b640d39dd9f1ffd7b495f6bdab2fe7475e52cadbf45601d6e39ab",
+      "frontendSha256": "6918e737724afd80d61983f187756475b8dee98e61a5c9fa3dab71e7dc10b0ca",
       "mathSha256": "c4f8cdf891731077399c27e5eab3b24c48c0698aa9361ae1c20e7d4ccf9f7448",
       "local": {
         "browser": {
           "status": "verified",
-          "report": "docs/quality/browser-qa-20261028.md",
+          "report": "docs/quality/browser-qa-recheck-20261028.md",
           "reviewer": "ChatGPT engineering review; production frontends with intercepted mock-wallet responses",
-          "frontendSha256": "423c81f28a9b640d39dd9f1ffd7b495f6bdab2fe7475e52cadbf45601d6e39ab",
+          "frontendSha256": "6918e737724afd80d61983f187756475b8dee98e61a5c9fa3dab71e7dc10b0ca",
           "mathSha256": "c4f8cdf891731077399c27e5eab3b24c48c0698aa9361ae1c20e7d4ccf9f7448",
           "results": {
-            "passed": 28,
-            "failed": 0
+            "passed": 32,
+            "failed": 0,
+            "skipped": 0,
+            "flaky": 0
           },
           "viewports": [
             "400x225",
@@ -75,7 +79,7 @@
             "425x812"
           ],
           "touch": true,
-          "reportSha256": "7ddf17be15242afeef7d707683280469117808e88f52ec7ff3f70ea4a630c65e"
+          "reportSha256": "779634ab4214de2a4a4d194567c89963f03e600c94185a06b3ad23d486459fa8"
         }
       },
       "checks": {
@@ -107,7 +111,8 @@
     }
   },
   "notes": [
-    "Local browser evidence covers 79 distinct latest passing scenarios across recorded runs; the original 75-pass/3-failure batch and bounded follow-ups remain in the report.",
+    "Current local browser evidence is one clean 100-case run: 68 Lunar Vault and 32 Salmon Run, with zero failures, skips or flaky outcomes. All 79 previous scenarios and 21 new regressions were rerun against frozen current builds.",
+    "The original 75-pass/3-failure main run and its resolution to 79 latest passing scenarios remain preserved in browser-qa-20261028.md and its raw records as history, not substituted for current evidence.",
     "Local checks do not grant Engine or Stake approval. Independent review records must identify the exact frontend and math archives.",
     "Positive minimumRoundDuration profiles remain unsupported until Engine supplies authoritative units and timing semantics.",
     "Headless window-blur event checks do not establish native OS focus-loss behavior; physical-device performance and audible mute require human review."

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "checkedAtUtc": "2026-10-28 15:42:40 UTC",
+  "runtimeSourceCommit": "bc9a8111f95cb46c6364603ef2cc29cc2854b465",
+  "manifest": "docs/quality/release-manifest-20261028.json",
+  "manifestSha256": "c416ba8108152638e53baabf5b729144ac336582d401d9c8543ccba1e5139f26",
+  "browserReport": "docs/quality/browser-qa-recheck-20261028.md",
+  "browserReportSha256": "779634ab4214de2a4a4d194567c89963f03e600c94185a06b3ad23d486459fa8",
+  "canonicalResultsSha256": "323fd15720b45010fe33ac01b353786c14e7d013579a776c9190e2da4b06579d",
+  "releaseEvidenceSha256": "eba2ec8a605ca654b448bc2ae20ef1e34b021d652709868e974da9fcc5d0bff4",
+  "local": {
+    "command": "node tools/release-gate.mjs --local",
+    "exitCode": 0,
+    "stdout": "Local release consistency: RECORDS PRESENT (lunar-vault, salmon-run)\nA local pass checks packaged consistency and recorded browser evidence only. It does not clear Engine/human approval gates.\n"
+  },
+  "independent": {
+    "command": "node tools/release-gate.mjs",
+    "exitCode": 1,
+    "missingCount": 16,
+    "missing": [
+      "lunar-vault/matchedMath: missing independent, version-bound evidence.",
+      "lunar-vault/engineStaging: missing independent, version-bound evidence.",
+      "lunar-vault/activeRoundRecovery: missing independent, version-bound evidence.",
+      "lunar-vault/replay: missing independent, version-bound evidence.",
+      "lunar-vault/jurisdiction: missing independent, version-bound evidence.",
+      "lunar-vault/assetRights: missing independent, version-bound evidence.",
+      "lunar-vault/studioMedia: missing independent, version-bound evidence.",
+      "lunar-vault/engineApproval: missing independent, version-bound evidence.",
+      "salmon-run/matchedMath: missing independent, version-bound evidence.",
+      "salmon-run/engineStaging: missing independent, version-bound evidence.",
+      "salmon-run/activeRoundRecovery: missing independent, version-bound evidence.",
+      "salmon-run/replay: missing independent, version-bound evidence.",
+      "salmon-run/jurisdiction: missing independent, version-bound evidence.",
+      "salmon-run/assetRights: missing independent, version-bound evidence.",
+      "salmon-run/studioMedia: missing independent, version-bound evidence.",
+      "salmon-run/engineApproval: missing independent, version-bound evidence."
+    ],
+    "stdout": "Independent release evidence: BLOCKED (lunar-vault, salmon-run)\n - lunar-vault/matchedMath: missing independent, version-bound evidence.\n - lunar-vault/engineStaging: missing independent, version-bound evidence.\n - lunar-vault/activeRoundRecovery: missing independent, version-bound evidence.\n - lunar-vault/replay: missing independent, version-bound evidence.\n - lunar-vault/jurisdiction: missing independent, version-bound evidence.\n - lunar-vault/assetRights: missing independent, version-bound evidence.\n - lunar-vault/studioMedia: missing independent, version-bound evidence.\n - lunar-vault/engineApproval: missing independent, version-bound evidence.\n - salmon-run/matchedMath: missing independent, version-bound evidence.\n - salmon-run/engineStaging: missing independent, version-bound evidence.\n - salmon-run/activeRoundRecovery: missing independent, version-bound evidence.\n - salmon-run/replay: missing independent, version-bound evidence.\n - salmon-run/jurisdiction: missing independent, version-bound evidence.\n - salmon-run/assetRights: missing independent, version-bound evidence.\n - salmon-run/studioMedia: missing independent, version-bound evidence.\n - salmon-run/engineApproval: missing independent, version-bound evidence.\nRecords do not certify math, establish asset rights or legal compliance, grant Engine/Stake approval, or authorize deployment. Verify external records with their issuers.\n"
+  },
+  "boundary": "Local consistency passes. The 16 missing independent records are external approval boundaries, not silently manufactured by local tests."
+}

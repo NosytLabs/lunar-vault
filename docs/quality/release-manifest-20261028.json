@@ -15,12 +15,12 @@
     }
   ],
   "sharedSource": {
-    "directorySha256": "3edd288bf5d5e38db05505361b0c3955829aba185c9250595083c48987b032f7",
+    "directorySha256": "3f7e605fbefa887eb555a5bc04742172cd51a4ff320d5c742865ee46781e9102",
     "files": [
       {
         "path": "package.json",
-        "bytes": 2167,
-        "sha256": "a5844698cb0b7811435bffc9a511846be0868c376e465f7ef71132d70c91a997"
+        "bytes": 2203,
+        "sha256": "3097faceb7d3e6e4f5bfb3b0353746da4942a6cba1c995d2eceeecf2a65ffc9e"
       },
       {
         "path": "packages/components-layout/index.ts",
@@ -159,8 +159,8 @@
       },
       {
         "path": "packages/components-shared/src/components/Authenticate.svelte",
-        "bytes": 8220,
-        "sha256": "c9f0d71c6c41a308210b1432bd4d295e12e8a085157201b7db809ace2ddb85a6"
+        "bytes": 8093,
+        "sha256": "2ddcd6f6695a7f3936a1249583771c599b691a018c6686d81348e894090a46c5"
       },
       {
         "path": "packages/components-shared/src/components/BoardContext.svelte",
@@ -469,8 +469,8 @@
       },
       {
         "path": "packages/components-ui-html/src/components/ModalError.svelte",
-        "bytes": 1725,
-        "sha256": "be87d8689e0e2ad555c2cdf52ce7d5af8d79d67133b7b4d950323d8ec9893f87"
+        "bytes": 1118,
+        "sha256": "ed37814402826432725c894e180437705ed857aa3db69ac6d0fb9841f83c8483"
       },
       {
         "path": "packages/components-ui-html/src/components/ModalGameRules.svelte",
@@ -1399,8 +1399,8 @@
       },
       {
         "path": "packages/state-shared/src/stateUrl.svelte.ts",
-        "bytes": 1686,
-        "sha256": "ba2a89cab69ad176cf633a600e97ae694d0f1d466cbd77160475f3437c1fedc1"
+        "bytes": 1645,
+        "sha256": "8286a9ae954ddc8db4503f3039ed432d42947812a5830672fd57df995bdf3895"
       },
       {
         "path": "packages/state-shared/svelte.config.js",
@@ -1579,8 +1579,13 @@
       },
       {
         "path": "packages/utils-shared/formatCurrency.ts",
-        "bytes": 2575,
-        "sha256": "c03c045bf488d1c5ba3556370371c42909f23b38183c9a3b47892f272dba316e"
+        "bytes": 2849,
+        "sha256": "15d4a9e4fba5058a7b46feb446db5755189b8c20f7320ab750226ac304d1eab5"
+      },
+      {
+        "path": "packages/utils-shared/gameErrorMessage.ts",
+        "bytes": 880,
+        "sha256": "2e77d2c0aab8fb4870c02755769044a54180bcd876c78d65fe2e013299bf6eb3"
       },
       {
         "path": "packages/utils-shared/gameModes.ts",
@@ -1618,9 +1623,14 @@
         "sha256": "cfc4f6347708cc3a175a05077bec3146aa5a5b262efaef6bc9c7eadc158985b0"
       },
       {
+        "path": "packages/utils-shared/replayOptions.ts",
+        "bytes": 411,
+        "sha256": "18cec46903e1a67e247d7e8de7c410c3170a27f5c42b05cfd82e9a34b7c53512"
+      },
+      {
         "path": "packages/utils-shared/roundValidation.ts",
-        "bytes": 2134,
-        "sha256": "9381426e9a1b93ab499d25885f66adccbcbca128ea6b526e1f352c947e7d7c7c"
+        "bytes": 2467,
+        "sha256": "32751203057fb2f1dd2af3f177e19addd5295450861c3c4cd2237051055d87ed"
       },
       {
         "path": "packages/utils-shared/scroll.ts",
@@ -2248,7 +2258,7 @@
       },
       "frontend": {
         "directory": "apps/lunar-vault/build",
-        "directorySha256": "f8f9cff6c36a80c039ec6bde8317f5c1cae5b8fb0657175affc1277711118ca4",
+        "directorySha256": "fd591e9c80955e89445e1c5039f78d9d0d5694524b28e4b95fd8fc49ba662e5f",
         "files": [
           {
             "path": "_app/env.js",
@@ -2261,14 +2271,14 @@
             "sha256": "89f03bc93e0adfa82470523062803bdf40b14b2db8f67959a0359d5d9d31c8c6"
           },
           {
-            "path": "_app/immutable/bundle.BjI8IWMl.js",
-            "bytes": 1137833,
-            "sha256": "e4f8fddf3e03f2196a8137ce90b68d6298d2326c4c62fadc6cefd0053ae2901b"
+            "path": "_app/immutable/bundle.SjWMbrUk.js",
+            "bytes": 1138070,
+            "sha256": "ce2139c059faefacbc7753bad5c2e7fe21a6b58d536733d57f4cd5072e33505b"
           },
           {
             "path": "_app/version.json",
             "bytes": 27,
-            "sha256": "347ffc61fd8e1c4bc933c6b2235889a74425507a5375483b022c4e1cf77c5a8b"
+            "sha256": "edda0428d669a4a29cd0b5be36cf0cc1c43907b198bca77b053ff446166c32a3"
           },
           {
             "path": "assets/audio/nosyt-sprite.wav",
@@ -2417,14 +2427,14 @@
           },
           {
             "path": "index.html",
-            "bytes": 1159302,
-            "sha256": "8556ca59b75c81a3fcbfacad8e9d7b1dc17aef3f1739bbbe4c603a013d40cf32"
+            "bytes": 1159539,
+            "sha256": "9db7a246e3eb3db9f8445019606375a8a83aafe79553b884b5c8ad6418dc1c7d"
           }
         ],
         "archive": {
           "file": "lunar-vault-frontend.zip",
-          "bytes": 7209618,
-          "sha256": "4d7465d8a42eeb87c57305516cc80a28ce52e2c0ff7f43de091ec4fcecb15c80",
+          "bytes": 7210092,
+          "sha256": "a6104504ab369900ad6867cfdf18d5493ff42670e139f8fa5dae099b7e2b681f",
           "format": "zip-stored",
           "fileCount": 34
         }
@@ -2504,12 +2514,12 @@
       },
       "media": {
         "directory": "media/lunar-vault",
-        "directorySha256": "aa031cac094f1da1e8085f79ab97ac2d8054eeae53a8af072724efb0b12c0ff7",
+        "directorySha256": "a244f8416d9a1b5451751b2b651a381a5aad659b265a4d957d9499179aa991b2",
         "files": [
           {
             "path": "STUDIO-SETUP.md",
-            "bytes": 4713,
-            "sha256": "b42f8650af88b03984f1da4200634270b46eaad34c94f8554457ab1f565899b9",
+            "bytes": 5119,
+            "sha256": "8c3c5b7a9f85fe925b08229eb515ee5dda29f8255f4c3f6d956c2fb40370ac7f",
             "source": "media/STUDIO-SETUP.md"
           },
           {
@@ -2579,18 +2589,18 @@
         ],
         "archive": {
           "file": "lunar-vault-media.zip",
-          "bytes": 8313982,
-          "sha256": "87c118d030b6188dba3af7a07334b6ff7490211d5dfb4424c1aa94c098e3c419",
+          "bytes": 8314388,
+          "sha256": "fe1964f48905dce4a9c48544034a8b49b98bcfe9dca91d29c301cd937c9b3c99",
           "format": "zip-stored",
           "fileCount": 13
         }
       },
-      "frontendSha256": "4d7465d8a42eeb87c57305516cc80a28ce52e2c0ff7f43de091ec4fcecb15c80",
+      "frontendSha256": "a6104504ab369900ad6867cfdf18d5493ff42670e139f8fa5dae099b7e2b681f",
       "mathSha256": "ee973f629c69250cd944b1101e28632ea6f1fe32e890eecf45a98593b3a94218"
     },
     "salmon-run": {
       "source": {
-        "directorySha256": "d1bc3363698b0f094ada2ebe8cf7884a02255db10120e1f47b5538ed82680303",
+        "directorySha256": "20f9ac74e08d53799a5c448eff1f7cfcbf8d247e5f169e4ad2cd33d271fdebd6",
         "files": [
           {
             "path": "apps/salmon-run/background-prompt-v3.json",
@@ -2639,8 +2649,8 @@
           },
           {
             "path": "apps/salmon-run/src/engine.ts",
-            "bytes": 8662,
-            "sha256": "26ee61626734a986dbdd8089ae98a6addbbc9af12423fd6812988dc4c72c721b"
+            "bytes": 8789,
+            "sha256": "c29bb90e4bd868cce066a8f6f06f96ac9dc1ef4ee09f8103a61152b68633a87b"
           },
           {
             "path": "apps/salmon-run/src/main.ts",
@@ -2656,7 +2666,7 @@
       },
       "frontend": {
         "directory": "apps/salmon-run/dist",
-        "directorySha256": "64682d0b81d54d22c579514bb7ceec1909b8ebaa37c6b83e9bcbb0c11412c82a",
+        "directorySha256": "ba9180b784faaf26caa77ec27c4a118b915f8a3625b7be9b22b8d4dc629c5b43",
         "files": [
           {
             "path": "assets/headwaters-v4.webp",
@@ -2664,9 +2674,9 @@
             "sha256": "0b1995f8a1bf7db32a267603db7dfc5c9920396164e62e5cf34c16f641f9dbbe"
           },
           {
-            "path": "assets/index-B1VPVeVk.js",
-            "bytes": 63747,
-            "sha256": "9c5d215ee975a1a7c578659622e876dd1cfd745d6be013799df778c3e1df22c9"
+            "path": "assets/index-BzIUtORk.js",
+            "bytes": 63892,
+            "sha256": "4920b3b1456258dcb219890fbf4fd1f1c0341d222683006239e31a498a3dd19b"
           },
           {
             "path": "assets/index-DkyT2mbV.css",
@@ -2751,13 +2761,13 @@
           {
             "path": "index.html",
             "bytes": 465,
-            "sha256": "3724a4d7ae203a22d401cbe364b4db09be651417c1d7c01430f79b3cea4176a5"
+            "sha256": "14b2f88d259bfc600494d146f3294bae84cc0e0eb8632dc1b84b4843feab2565"
           }
         ],
         "archive": {
           "file": "salmon-run-frontend.zip",
-          "bytes": 1997476,
-          "sha256": "423c81f28a9b640d39dd9f1ffd7b495f6bdab2fe7475e52cadbf45601d6e39ab",
+          "bytes": 1997621,
+          "sha256": "6918e737724afd80d61983f187756475b8dee98e61a5c9fa3dab71e7dc10b0ca",
           "format": "zip-stored",
           "fileCount": 19
         }
@@ -2837,12 +2847,12 @@
       },
       "media": {
         "directory": "media/salmon-run",
-        "directorySha256": "888eaa541163727bbf2ee16b10339518bec12034646d29a2f4aac7fe0ee37818",
+        "directorySha256": "ac1e02ee9c6db8110a96470f5ffe40b60545f48fa697e06232eb7105185f27f2",
         "files": [
           {
             "path": "STUDIO-SETUP.md",
-            "bytes": 4713,
-            "sha256": "b42f8650af88b03984f1da4200634270b46eaad34c94f8554457ab1f565899b9",
+            "bytes": 5119,
+            "sha256": "8c3c5b7a9f85fe925b08229eb515ee5dda29f8255f4c3f6d956c2fb40370ac7f",
             "source": "media/STUDIO-SETUP.md"
           },
           {
@@ -2912,13 +2922,13 @@
         ],
         "archive": {
           "file": "salmon-run-media.zip",
-          "bytes": 8047061,
-          "sha256": "48c740dbcc4657fcb8afa54cfdc5a782b3996492e362d9a0902ec2f43cd15aba",
+          "bytes": 8047467,
+          "sha256": "4dfa030c4356318b23619a56e6bb9d122288d0ccec898b0f6bfb89ad0a787e34",
           "format": "zip-stored",
           "fileCount": 13
         }
       },
-      "frontendSha256": "423c81f28a9b640d39dd9f1ffd7b495f6bdab2fe7475e52cadbf45601d6e39ab",
+      "frontendSha256": "6918e737724afd80d61983f187756475b8dee98e61a5c9fa3dab71e7dc10b0ca",
       "mathSha256": "c4f8cdf891731077399c27e5eab3b24c48c0698aa9361ae1c20e7d4ccf9f7448"
     }
   }

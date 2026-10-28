@@ -1,0 +1,63 @@
+{
+  "candidateOnly": true,
+  "browserQA": {
+    "status": "passed",
+    "cases": 100,
+    "failures": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "runtimeSourceCommit": "bc9a8111f95cb46c6364603ef2cc29cc2854b465",
+    "rawReport": "docs/quality/browser-results-recheck-main-20261028.json"
+  },
+  "sourceFreeze": "Root and Shared explicitly confirmed successful frozen builds before pruning/packaging",
+  "runtimeSourceCommit": "bc9a8111f95cb46c6364603ef2cc29cc2854b465",
+  "tree": "8c7b948785ab6e97e4afc1b1b4d4d50a01a2fc33",
+  "bundles": {
+    "lunar-vault": "bundle.SjWMbrUk.js",
+    "salmon-run": "index-BzIUtORk.js"
+  },
+  "repeatPackaging": "all six archive bytes/SHA and complete manifest identical",
+  "verifiedZIPEntries": true,
+  "changedArchives": [
+    "lunar-vault/frontend",
+    "lunar-vault/media",
+    "salmon-run/frontend",
+    "salmon-run/media"
+  ],
+  "manifestSha256": "c416ba8108152638e53baabf5b729144ac336582d401d9c8543ccba1e5139f26",
+  "manifestBytes": 113700,
+  "candidateBoundary": "Packages have completed local verification; they still require independent publisher and Engine approval.",
+  "generatedPruning": {
+    "games": [
+      {
+        "game": "lunar-vault",
+        "kept": [
+          "_app/immutable/assets/style.BAOjlYup.css",
+          "_app/immutable/bundle.SjWMbrUk.js"
+        ],
+        "removed": [
+          {
+            "path": "_app/immutable/assets/style.I3sAE-V3.css",
+            "bytes": 20710,
+            "sha256": "8fafc673c97100aeba5df25c8f4cc16300920c74fb4ec10437d8f2e6d3c6f3f1"
+          },
+          {
+            "path": "_app/immutable/bundle.BjI8IWMl.js",
+            "bytes": 1137833,
+            "sha256": "e4f8fddf3e03f2196a8137ce90b68d6298d2326c4c62fadc6cefd0053ae2901b"
+          }
+        ],
+        "policy": "Only graph-unreachable generated hashed JS/CSS; current index references and exact inline CSS retained."
+      },
+      {
+        "game": "salmon-run",
+        "kept": [
+          "assets/index-BzIUtORk.js",
+          "assets/index-DkyT2mbV.css"
+        ],
+        "removed": [],
+        "policy": "Only graph-unreachable generated hashed JS/CSS; current index references and exact inline CSS retained."
+      }
+    ]
+  }
+}
