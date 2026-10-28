@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "checkedAtUtc": "2026-10-28 16:54:02 UTC",
+  "runtimeSourceCommit": "7810f66931341a8a94489df469bf653b564a87fe",
+  "qaReportSha256": "20b3a83d79fc2d6bbaadacee4faee8825f0a406c15ae04652f880505fa93d46a",
+  "canonicalResultsSha256": "41759f29ca28ec42a682d3c379c1f1fa7a933d847b1cf88e373fdfe8ab18daa8",
+  "rawReports": [
+    {
+      "run": "main",
+      "file": "docs/quality/browser-ui-main-20261028.json",
+      "sha256": "ac6b3f7daef815e9d0efbc816179b842f74033b2a01beaa83895c7afa9e0b5a4"
+    },
+    {
+      "run": "presentation-followup",
+      "file": "docs/quality/browser-ui-followup-20261028.json",
+      "sha256": "823ab050dd93173e527973e7b5574b98c46212aa911b5350a5c1acd1b5a01eba"
+    }
+  ],
+  "releaseEvidenceSha256": "55b3eb75c727dca2c7977c344b3265a7905be872b0fe5ae6a276b8bf9670c637",
+  "manifestSha256": "0a97485051846e4fb3c7e645af855ed7630b899db26d943aef66b940e79d4c9d",
+  "local": {
+    "command": "node tools/release-gate.mjs --local",
+    "exitCode": 0,
+    "status": "passed",
+    "output": "Local release consistency: RECORDS PRESENT (lunar-vault, salmon-run)\nA local pass checks packaged consistency and recorded browser evidence only. It does not clear Engine/human approval gates.\n"
+  },
+  "independent": {
+    "command": "node tools/release-gate.mjs",
+    "exitCode": 1,
+    "status": "blocked",
+    "missingVersionBoundChecks": 16,
+    "output": "Independent release evidence: BLOCKED (lunar-vault, salmon-run)\n - lunar-vault/matchedMath: missing independent, version-bound evidence.\n - lunar-vault/engineStaging: missing independent, version-bound evidence.\n - lunar-vault/activeRoundRecovery: missing independent, version-bound evidence.\n - lunar-vault/replay: missing independent, version-bound evidence.\n - lunar-vault/jurisdiction: missing independent, version-bound evidence.\n - lunar-vault/assetRights: missing independent, version-bound evidence.\n - lunar-vault/studioMedia: missing independent, version-bound evidence.\n - lunar-vault/engineApproval: missing independent, version-bound evidence.\n - salmon-run/matchedMath: missing independent, version-bound evidence.\n - salmon-run/engineStaging: missing independent, version-bound evidence.\n - salmon-run/activeRoundRecovery: missing independent, version-bound evidence.\n - salmon-run/replay: missing independent, version-bound evidence.\n - salmon-run/jurisdiction: missing independent, version-bound evidence.\n - salmon-run/assetRights: missing independent, version-bound evidence.\n - salmon-run/studioMedia: missing independent, version-bound evidence.\n - salmon-run/engineApproval: missing independent, version-bound evidence.\nRecords do not certify math, establish asset rights or legal compliance, grant Engine/Stake approval, or authorize deployment. Verify external records with their issuers.\n"
+  }
+}

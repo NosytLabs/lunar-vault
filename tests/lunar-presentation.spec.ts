@@ -94,9 +94,31 @@ async function expectContainedCounter(page: Page) {
 	const counter = page.locator('.feature-progress');
 	await expect(counter).toBeVisible();
 	await expect(counter).toContainText('ECLIPSE CHAMBER');
-	const bounds = await counter.boundingBox();
-	const rail = await page.locator('.mini-controls, .replay-bar').boundingBox();
-	const text = await counter.locator('strong').boundingBox();
+	// Read one coherent layout snapshot instead of one browser round trip per rectangle.
+	const { bounds, rail, text, buttons } = await counter.evaluate((element) => {
+		const rectangle = (node: Element | null) => {
+			if (!node) return null;
+			const style = getComputedStyle(node);
+			const box = node.getBoundingClientRect();
+			if (
+				style.visibility === 'hidden' ||
+				style.visibility === 'collapse' ||
+				box.width === 0 ||
+				box.height === 0
+			)
+				return null;
+			return { x: box.x, y: box.y, width: box.width, height: box.height };
+		};
+		return {
+			bounds: rectangle(element),
+			rail: rectangle(document.querySelector('.mini-controls, .replay-bar')),
+			text: rectangle(element.querySelector('strong')),
+			buttons: Array.from(
+				document.querySelectorAll('.mini-controls button, .replay-bar button'),
+				(button) => rectangle(button),
+			),
+		};
+	});
 	expect(bounds).toBeTruthy();
 	expect(rail).toBeTruthy();
 	expect(text).toBeTruthy();
@@ -109,8 +131,7 @@ async function expectContainedCounter(page: Page) {
 		expect(box.x + box.width).toBeLessThanOrEqual(viewport.width);
 		expect(box.y + box.height).toBeLessThanOrEqual(viewport.height);
 	}
-	for (const button of await page.locator('.mini-controls button, .replay-bar button').all()) {
-		const box = await button.boundingBox();
+	for (const box of buttons) {
 		if (!box) continue;
 		const overlaps =
 			text!.x < box.x + box.width &&

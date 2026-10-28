@@ -1,0 +1,515 @@
+{
+  "config": {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/scratch/87411a2f3bc3/lunar-vault/node_modules/@playwright/test/cli.js",
+      "test",
+      "-c",
+      "/tmp/slot-ux-20261028/presentation-followup.config.mjs"
+    ],
+    "configFile": "/tmp/slot-ux-20261028/presentation-followup.config.mjs",
+    "rootDir": "/tmp/slot-ux-20261028",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/tmp/slot-ux-20261028/presentation-followup/full-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "lunar-presentation-fresh",
+        "name": "lunar-presentation-fresh",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "lunar-presentation.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "/tmp/slot-ux-20261028/presentation-followup/full-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "lunar-ux-release",
+        "name": "lunar-ux-release",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "ux-accessibility.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/tmp/slot-ux-20261028/presentation-followup/full-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "lunar-presentation-fresh",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "snapshotDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "testIgnore": [],
+        "testMatch": "lunar-presentation.spec.ts",
+        "timeout": 45000,
+        "use": {
+          "screenshot": "on",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "executablePath": "/tmp/lunar-headless-shell-1161/chrome-linux/headless_shell",
+            "args": [
+              "--no-sandbox"
+            ]
+          },
+          "baseURL": "http://127.0.0.1:4173"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "lunar-presentation-fresh"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/tmp/slot-ux-20261028/presentation-followup/full-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "lunar-ux-release",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "snapshotDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "testIgnore": [],
+        "testMatch": "ux-accessibility.spec.ts",
+        "timeout": 45000,
+        "use": {
+          "screenshot": "only-on-failure",
+          "trace": "off",
+          "launchOptions": {
+            "executablePath": "/tmp/lunar-headless-shell-1161/chrome-linux/headless_shell",
+            "args": [
+              "--no-sandbox"
+            ]
+          },
+          "baseURL": "http://127.0.0.1:4173"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "lunar-ux-release"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/tmp/slot-ux-20261028/presentation-followup/full-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+      "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "final free spin returns through completion scene to ordinary controls",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-presentation-fresh",
+              "projectName": "lunar-presentation-fresh",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 16713,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:51:23.495Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/slot-ux-20261028/presentation-followup/full-results/lunar-presentation-final-f-a1a7a--scene-to-ordinary-controls-lunar-presentation-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d6db94e79ba5ca3d42ab-fddb63deebd8f14883f8",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+          "line": 226,
+          "column": 5
+        },
+        {
+          "title": "small feature replay retains progress and full amount information without wallet calls",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-presentation-fresh",
+              "projectName": "lunar-presentation-fresh",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6730,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:51:40.236Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/slot-ux-20261028/presentation-followup/full-results/lunar-presentation-small-f-cd0b6-mation-without-wallet-calls-lunar-presentation-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d6db94e79ba5ca3d42ab-e0ab64cbef54d9e95e3c",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+          "line": 259,
+          "column": 5
+        }
+      ],
+      "suites": [
+        {
+          "title": "feature presentation 1024x576",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+          "line": 151,
+          "column": 7,
+          "specs": [
+            {
+              "title": "recovered retrigger count is visible inside controls and survives rotation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "lunar-presentation-fresh",
+                  "projectName": "lunar-presentation-fresh",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 9313,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-28T16:50:54.664Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/tmp/slot-ux-20261028/presentation-followup/full-results/lunar-presentation-feature-b542f-trols-and-survives-rotation-lunar-presentation-fresh/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d6db94e79ba5ca3d42ab-a8d8711374f11bcf27c0",
+              "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+              "line": 153,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "feature presentation 800x450",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+          "line": 151,
+          "column": 7,
+          "specs": [
+            {
+              "title": "recovered retrigger count is visible inside controls and survives rotation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "lunar-presentation-fresh",
+                  "projectName": "lunar-presentation-fresh",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6385,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-28T16:51:04.182Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/tmp/slot-ux-20261028/presentation-followup/full-results/lunar-presentation-feature-8e864-trols-and-survives-rotation-lunar-presentation-fresh/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d6db94e79ba5ca3d42ab-42d7da22f99866c43a18",
+              "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+              "line": 153,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "feature presentation 400x225",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+          "line": 151,
+          "column": 7,
+          "specs": [
+            {
+              "title": "recovered retrigger count is visible inside controls and survives rotation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "lunar-presentation-fresh",
+                  "projectName": "lunar-presentation-fresh",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4089,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-28T16:51:10.641Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/tmp/slot-ux-20261028/presentation-followup/full-results/lunar-presentation-feature-0b482-trols-and-survives-rotation-lunar-presentation-fresh/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d6db94e79ba5ca3d42ab-a33036f3469c95c2631d",
+              "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+              "line": 153,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "feature presentation 425x812",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+          "line": 151,
+          "column": 7,
+          "specs": [
+            {
+              "title": "recovered retrigger count is visible inside controls and survives rotation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "lunar-presentation-fresh",
+                  "projectName": "lunar-presentation-fresh",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 8722,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-28T16:51:14.756Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/tmp/slot-ux-20261028/presentation-followup/full-results/lunar-presentation-feature-9c7f3-trols-and-survives-rotation-lunar-presentation-fresh/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d6db94e79ba5ca3d42ab-b06e4635a37d948430ee",
+              "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+              "line": 153,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts",
+      "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "INFO dialog names itself, contains keyboard focus and closes on Escape",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-ux-release",
+              "projectName": "lunar-ux-release",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 32094,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:51:47.606Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-885bcf4699eb47dc2dd6",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts",
+          "line": 93,
+          "column": 6
+        },
+        {
+          "title": "PAYTABLE dialog names itself, contains keyboard focus and closes on Escape",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-ux-release",
+              "projectName": "lunar-ux-release",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 31642,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:52:19.851Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-d8c26663ddd585ffef9d",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts",
+          "line": 93,
+          "column": 6
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-28T16:50:53.711Z",
+    "duration": 117931.706,
+    "expected": 8,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

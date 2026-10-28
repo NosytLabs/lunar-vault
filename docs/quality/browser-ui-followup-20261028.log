@@ -1,0 +1,17 @@
+
+Running 8 tests using 1 worker
+
+(node:495545) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [lunar-presentation-fresh] › tests/lunar-presentation.spec.ts:153:7 › feature presentation 1024x576 › recovered retrigger count is visible inside controls and survives rotation (9.3s)
+  ✓  2 [lunar-presentation-fresh] › tests/lunar-presentation.spec.ts:153:7 › feature presentation 800x450 › recovered retrigger count is visible inside controls and survives rotation (6.4s)
+  ✓  3 [lunar-presentation-fresh] › tests/lunar-presentation.spec.ts:153:7 › feature presentation 400x225 › recovered retrigger count is visible inside controls and survives rotation (4.1s)
+  ✓  4 [lunar-presentation-fresh] › tests/lunar-presentation.spec.ts:153:7 › feature presentation 425x812 › recovered retrigger count is visible inside controls and survives rotation (8.7s)
+  ✓  5 [lunar-presentation-fresh] › tests/lunar-presentation.spec.ts:226:5 › final free spin returns through completion scene to ordinary controls (16.7s)
+  ✓  6 [lunar-presentation-fresh] › tests/lunar-presentation.spec.ts:259:5 › small feature replay retains progress and full amount information without wallet calls (6.7s)
+(node:496050) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  7 [lunar-ux-release] › tests/ux-accessibility.spec.ts:93:6 › INFO dialog names itself, contains keyboard focus and closes on Escape (32.1s)
+  ✓  8 [lunar-ux-release] › tests/ux-accessibility.spec.ts:93:6 › PAYTABLE dialog names itself, contains keyboard focus and closes on Escape (31.6s)
+
+  8 passed (2.0m)

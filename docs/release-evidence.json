@@ -1,20 +1,20 @@
 {
   "schemaVersion": 2,
   "release": "2026-10-28",
-  "runtimeSourceCommit": "bc9a8111f95cb46c6364603ef2cc29cc2854b465",
+  "runtimeSourceCommit": "7810f66931341a8a94489df469bf653b564a87fe",
   "games": {
     "lunar-vault": {
-      "frontendSha256": "a6104504ab369900ad6867cfdf18d5493ff42670e139f8fa5dae099b7e2b681f",
+      "frontendSha256": "5c36b14ef4f70cafd1ab08553586949204bf23fcbb4c56ed81be0e4109460cfb",
       "mathSha256": "ee973f629c69250cd944b1101e28632ea6f1fe32e890eecf45a98593b3a94218",
       "local": {
         "browser": {
           "status": "verified",
-          "report": "docs/quality/browser-qa-recheck-20261028.md",
+          "report": "docs/quality/browser-qa-ui-20261028.md",
           "reviewer": "ChatGPT engineering review; production frontends with intercepted mock-wallet responses",
-          "frontendSha256": "a6104504ab369900ad6867cfdf18d5493ff42670e139f8fa5dae099b7e2b681f",
+          "frontendSha256": "5c36b14ef4f70cafd1ab08553586949204bf23fcbb4c56ed81be0e4109460cfb",
           "mathSha256": "ee973f629c69250cd944b1101e28632ea6f1fe32e890eecf45a98593b3a94218",
           "results": {
-            "passed": 68,
+            "passed": 79,
             "failed": 0,
             "skipped": 0,
             "flaky": 0
@@ -26,7 +26,8 @@
             "425x812"
           ],
           "touch": true,
-          "reportSha256": "779634ab4214de2a4a4d194567c89963f03e600c94185a06b3ad23d486459fa8"
+          "reportSha256": "20b3a83d79fc2d6bbaadacee4faee8825f0a406c15ae04652f880505fa93d46a",
+          "resultBasis": "Latest per distinct scenario after the preserved main run and eight-case focused follow-up; see report for both original timeouts. The zero failed/flaky counts describe resolved latest results, not one clean run."
         }
       },
       "checks": {
@@ -57,17 +58,17 @@
       }
     },
     "salmon-run": {
-      "frontendSha256": "6918e737724afd80d61983f187756475b8dee98e61a5c9fa3dab71e7dc10b0ca",
+      "frontendSha256": "5c03f2cc558892342bd15f7de9571dbdc16b274f25cfe0b61fd022c9d30131e5",
       "mathSha256": "c4f8cdf891731077399c27e5eab3b24c48c0698aa9361ae1c20e7d4ccf9f7448",
       "local": {
         "browser": {
           "status": "verified",
-          "report": "docs/quality/browser-qa-recheck-20261028.md",
+          "report": "docs/quality/browser-qa-ui-20261028.md",
           "reviewer": "ChatGPT engineering review; production frontends with intercepted mock-wallet responses",
-          "frontendSha256": "6918e737724afd80d61983f187756475b8dee98e61a5c9fa3dab71e7dc10b0ca",
+          "frontendSha256": "5c03f2cc558892342bd15f7de9571dbdc16b274f25cfe0b61fd022c9d30131e5",
           "mathSha256": "c4f8cdf891731077399c27e5eab3b24c48c0698aa9361ae1c20e7d4ccf9f7448",
           "results": {
-            "passed": 32,
+            "passed": 38,
             "failed": 0,
             "skipped": 0,
             "flaky": 0
@@ -79,7 +80,8 @@
             "425x812"
           ],
           "touch": true,
-          "reportSha256": "779634ab4214de2a4a4d194567c89963f03e600c94185a06b3ad23d486459fa8"
+          "reportSha256": "20b3a83d79fc2d6bbaadacee4faee8825f0a406c15ae04652f880505fa93d46a",
+          "resultBasis": "Latest per distinct scenario after the preserved main run and eight-case focused follow-up; see report for both original timeouts. The zero failed/flaky counts describe resolved latest results, not one clean run."
         }
       },
       "checks": {
@@ -111,10 +113,10 @@
     }
   },
   "notes": [
-    "Current local browser evidence is one clean 100-case run: 68 Lunar Vault and 32 Salmon Run, with zero failures, skips or flaky outcomes. All 79 previous scenarios and 21 new regressions were rerun against frozen current builds.",
-    "The original 75-pass/3-failure main run and its resolution to 79 latest passing scenarios remain preserved in browser-qa-20261028.md and its raw records as history, not substituted for current evidence.",
-    "Local checks do not grant Engine or Stake approval. Independent review records must identify the exact frontend and math archives.",
+    "Current local evidence contains 117 distinct scenarios with passing latest results: 79 Lunar and 38 Salmon. Both original main-run timeouts and eight targeted follow-up results are preserved in browser-qa-ui-20261028.md, not presented as one clean 117-case run.",
+    "The earlier 100-case runtime review and 79-scenario pre-recheck history remain separate historical evidence.",
+    "Local checks do not grant Engine or Stake approval. All eight independent version-bound records per game remain missing.",
     "Positive minimumRoundDuration profiles remain unsupported until Engine supplies authoritative units and timing semantics.",
-    "Headless window-blur event checks do not establish native OS focus-loss behavior; physical-device performance and audible mute require human review."
+    "Headless blur-event tests do not establish native OS focus loss; real-device performance, comparative originality and audible mute remain human checks."
   ]
 }

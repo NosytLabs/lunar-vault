@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "scenario": "INFO dialog names itself, contains keyboard focus and closes on Escape",
+  "runtimeSourceCommit": "7810f66931341a8a94489df469bf653b564a87fe",
+  "originalTrace": {
+    "path": "/tmp/slot-ux-20261028/acceptance/full-results/ux-accessibility-INFO-dial-04f04--focus-and-closes-on-Escape-lunar-ux-release/trace.zip",
+    "bytes": 12118735,
+    "sha256": "95a65441c9dbed408186d4272fe9bd5406b34f41c95717c39c6939dfde3439fa"
+  },
+  "eventsArchive": {
+    "path": "docs/quality/traces/20261028-ui/lunar-info-timeout-events.zip",
+    "bytes": 33490,
+    "sha256": "e700cb7ec841ea61c7d41e679dfc8f67575bd2d1682eedd06b5ec312b8cce0be",
+    "scope": "Exact unmodified .trace event streams only, extracted from original trace.zip. Excludes screenshots, screencast image bytes, network stream, source files and binary attachments. Not a complete standalone Playwright visual trace.",
+    "entries": [
+      {
+        "name": "test.trace",
+        "bytes": 32642,
+        "sha256": "9d574e2c29495dc53999131f8837e27aba99a16e70f3001fe1ac9eddd86f9f9a"
+      },
+      {
+        "name": "1-trace.trace",
+        "bytes": 205279,
+        "sha256": "9904e3813049c559f26bb25e9b39c8f78c8f9d475aab370fe2251cb0af02335a"
+      },
+      {
+        "name": "0-trace.trace",
+        "bytes": 329,
+        "sha256": "934d84cf90adecbb86756c3870a7d64f7a11b924061f5ba8bd1575f19dc71791"
+      }
+    ]
+  },
+  "orderedFacts": [
+    {
+      "callId": "olnh@218",
+      "title": "Expect \"toBe\"",
+      "startTimeMs": 837599.186,
+      "endTimeMs": 837599.31,
+      "durationMs": 0.124,
+      "error": null
+    },
+    {
+      "callId": "olnh@225",
+      "title": "Expect \"toBe\"",
+      "startTimeMs": 840466.715,
+      "endTimeMs": 840466.923,
+      "durationMs": 0.208,
+      "error": null
+    },
+    {
+      "callId": "olnh@232",
+      "title": "Expect \"toBe\"",
+      "startTimeMs": 843128.236,
+      "endTimeMs": 843128.433,
+      "durationMs": 0.197,
+      "error": null
+    },
+    {
+      "callId": "olnh@239",
+      "title": "Expect \"toBe\"",
+      "startTimeMs": 846645.395,
+      "endTimeMs": 846645.481,
+      "durationMs": 0.086,
+      "error": null
+    },
+    {
+      "callId": "olnh@246",
+      "title": "Expect \"toBe\"",
+      "startTimeMs": 851548.226,
+      "endTimeMs": 851548.359,
+      "durationMs": 0.133,
+      "error": null
+    },
+    {
+      "callId": "olnh@253",
+      "title": "Expect \"toBe\"",
+      "startTimeMs": 852867.571,
+      "endTimeMs": 852867.773,
+      "durationMs": 0.202,
+      "error": null
+    },
+    {
+      "callId": "olnh@260",
+      "title": "Expect \"toBe\"",
+      "startTimeMs": 859658.675,
+      "endTimeMs": 859658.779,
+      "durationMs": 0.104,
+      "error": null
+    },
+    {
+      "callId": "olnh@267",
+      "title": "Expect \"toBe\"",
+      "startTimeMs": 863567.155,
+      "endTimeMs": 863567.253,
+      "durationMs": 0.098,
+      "error": null
+    },
+    {
+      "callId": "olnh@272",
+      "title": "Expect \"toBeFocused\"",
+      "startTimeMs": 866745.932,
+      "endTimeMs": 867411.838,
+      "durationMs": 665.906,
+      "error": null
+    },
+    {
+      "callId": "olnh@290",
+      "title": "Expect \"toBeGreaterThan\"",
+      "startTimeMs": 870068.028,
+      "endTimeMs": 870068.653,
+      "durationMs": 0.625,
+      "error": null
+    },
+    {
+      "callId": "olnh@293",
+      "title": "Expect \"toEqual\"",
+      "startTimeMs": 871371.8,
+      "endTimeMs": 871371.989,
+      "durationMs": 0.189,
+      "error": null
+    },
+    {
+      "callId": "olnh@294",
+      "title": "Press \"Escape\"",
+      "startTimeMs": 871372.408,
+      "endTimeMs": 871828.368,
+      "durationMs": 455.96,
+      "error": null
+    },
+    {
+      "callId": "olnh@295",
+      "title": "Expect \"toHaveCount\"",
+      "startTimeMs": 871830.074,
+      "endTimeMs": 872044.111,
+      "durationMs": 214.037,
+      "error": null
+    },
+    {
+      "callId": "olnh@297",
+      "title": "Expect \"toBeFocused\"",
+      "startTimeMs": 872045.381,
+      "endTimeMs": 872102.42,
+      "durationMs": 57.039,
+      "error": {
+        "name": "",
+        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeFocused\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Menu', exact: true })\nExpected: focused\nError: Test timeout of 45000ms exceeded.\n\nCall log:\n\u001b[2m  - Expect \"toBeFocused\" getByRole('button', { name: 'Menu', exact: true }) with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Menu', exact: true })\u001b[22m\n\u001b[2m  - Test timeout of 45000ms exceeded.\u001b[22m\n",
+        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeFocused\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Menu', exact: true })\nExpected: focused\nError: Test timeout of 45000ms exceeded.\n\nCall log:\n\u001b[2m  - Expect \"toBeFocused\" getByRole('button', { name: 'Menu', exact: true }) with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Menu', exact: true })\u001b[22m\n\u001b[2m  - Test timeout of 45000ms exceeded.\u001b[22m\n\n    at /workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts:122:73"
+      }
+    }
+  ],
+  "snapshotObservation": {
+    "source": "/tmp/slot-ux-20261028/acceptance/full-results/ux-accessibility-INFO-dial-04f04--focus-and-closes-on-Escape-lunar-ux-release/error-context.md",
+    "sha256": "aed6a687f4be5de7ab31af5bb62badad3b1018d7c74da30db53cc0996d4678bf",
+    "observation": "Failure page snapshot marks button Menu [active]; dialog absent. Final focus assertion was interrupted by overall test timeout, not a completed wrong-focus comparison.",
+    "preservedCopy": "docs/quality/traces/20261028-ui/lunar-info-timeout-context.md"
+  },
+  "main": {
+    "report": "/tmp/slot-ux-20261028/acceptance/full-results.json",
+    "project": "lunar-ux-release",
+    "status": "timedOut",
+    "durationMs": 49013,
+    "attempts": 1,
+    "caseTimeoutMs": 45000,
+    "trace": "retain-on-failure",
+    "screenshot": "on",
+    "recordedDomSnapshots": 68,
+    "recordedScreencastFrames": 167
+  },
+  "preflight": {
+    "report": "/tmp/slot-ux-20261028/final-ux-results.json",
+    "reportSha256": "8ea90a12047d65eb6237bf57a4e1f5bef4289baab429d8cd5fd658017beb82ff",
+    "project": "lunar",
+    "status": "passed",
+    "durationMs": 27009,
+    "attempts": 1,
+    "caseTimeoutMs": 45000,
+    "trace": "off (not configured)",
+    "screenshot": "only-on-failure",
+    "qualification": "Earlier 17-case preflight predates the final compact menu stacking fix. Comparison is not a controlled isolation of recording overhead."
+  },
+  "conclusion": "All eight focus-containment assertions, named scroll-region focus and End scrolling, Space no-play, Escape and zero-dialog assertions completed successfully. Overall timeout occurred at final Menu focus assertion, while failure snapshot shows Menu active. Trace records long per-operation durations; recording settings differ from successful preflight. This establishes a budget/workload timeout, but does not isolate an exact CPU cause.",
+  "followup": {
+    "report": "docs/quality/browser-ui-followup-20261028.json",
+    "status": "passed",
+    "caseTimeoutMs": 45000,
+    "trace": "off",
+    "screenshot": "only-on-failure",
+    "assertionsUnchanged": true,
+    "runtimeUnchanged": true
+  }
+}

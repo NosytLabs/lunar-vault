@@ -1,0 +1,93 @@
+[
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-retrigger-400x225.png",
+    "source": "/tmp/slot-ux-20261028/presentation-followup/full-results/lunar-presentation-feature-0b482-trols-and-survives-rotation-lunar-presentation-fresh/running-retrigger.png",
+    "run": "followup",
+    "bytes": 111828,
+    "sha256": "ac7751432ebacd2d2f5505bc70ee28d0e4ea2739dab046dff2632c0c772c3fd8"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-retrigger-800x450.png",
+    "source": "/tmp/slot-ux-20261028/presentation-followup/full-results/lunar-presentation-feature-8e864-trols-and-survives-rotation-lunar-presentation-fresh/running-retrigger.png",
+    "run": "followup",
+    "bytes": 417292,
+    "sha256": "570e42577929dec7480aa48f326db28f976789f6a9dc160ba4f5abd9a2c3f64e"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-retrigger-425x812.png",
+    "source": "/tmp/slot-ux-20261028/presentation-followup/full-results/lunar-presentation-feature-9c7f3-trols-and-survives-rotation-lunar-presentation-fresh/running-retrigger.png",
+    "run": "followup",
+    "bytes": 270038,
+    "sha256": "d8d6856df3e1580316ae08f536297d1762a2ae3382644c9aadba96b3c5d89eb7"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-retrigger-1024x576.png",
+    "source": "/tmp/slot-ux-20261028/presentation-followup/full-results/lunar-presentation-feature-b542f-trols-and-survives-rotation-lunar-presentation-fresh/running-retrigger.png",
+    "run": "followup",
+    "bytes": 660476,
+    "sha256": "74caf0f53a4a27d3a0383a82f5efb23fe4cca2d1a746b3da6018390495a5c2ed"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-feature-completion.png",
+    "source": "/tmp/slot-ux-20261028/presentation-followup/full-results/lunar-presentation-final-f-a1a7a--scene-to-ordinary-controls-lunar-presentation-fresh/feature-completion.png",
+    "run": "followup",
+    "bytes": 326564,
+    "sha256": "10f3044f11d2cafa5260f277d3444089fa511b9a20f6e7643907c669073f9dfd"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-feature-replay-400x225.png",
+    "source": "/tmp/slot-ux-20261028/presentation-followup/full-results/lunar-presentation-small-f-cd0b6-mation-without-wallet-calls-lunar-presentation-fresh/small-feature-replay.png",
+    "run": "followup",
+    "bytes": 111385,
+    "sha256": "bb21fce191c7001ea73c63009a3fd844b02c33051a45f5844c046242207f72c2"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-bonus-replay-cost-400x225.png",
+    "source": "/tmp/slot-ux-20261028/acceptance/full-results/lunar-vault-current-public-987fe-cost-without-wallet-traffic-lunar-contracts-fresh/current-bonus-replay-cost.png",
+    "run": "main",
+    "bytes": 74267,
+    "sha256": "6826fa56cdc4a589f5d011a281c71988e5ac7c79b088b658ae16843f529e775c"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-feature-confirmation-400x225.png",
+    "source": "/tmp/slot-ux-20261028/acceptance/full-results/ux-accessibility-feature-c-5e6b4-d-confirm-control-reachable-lunar-ux-release/feature-confirmation-400x225.png",
+    "run": "main",
+    "bytes": 46304,
+    "sha256": "d4c3a5f0836bd8e98eed27b07db3af98456acaccd33735d7710d5392cb7f6b69"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-collection.png",
+    "source": "/tmp/slot-ux-20261028/acceptance/full-results/salmon-River-Run-shows-val-f2163-d-settles-the-complete-book-salmon-collection-recheck/salmon-v3-collection.png",
+    "run": "main",
+    "bytes": 1332450,
+    "sha256": "56181e849abbb9dd08c8d56e8d51bc2e5132a0e8cccee685e96b6437276e0b86"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-feature-afterplay-425x812.png",
+    "source": "/tmp/slot-ux-20261028/acceptance/full-results/salmon-after-play-River-Ru-75018--touch-controls-fit-425x812-salmon-contracts-fresh/salmon-after-play-425x812.png",
+    "run": "main",
+    "bytes": 357055,
+    "sha256": "b99f5629702f6bb395b3acbd6486ca91a5378b3de385d6fd4a26fef28545e6a3"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-feature-afterplay-800x450.png",
+    "source": "/tmp/slot-ux-20261028/acceptance/full-results/salmon-after-play-River-Ru-78ffe--touch-controls-fit-800x450-salmon-contracts-fresh/salmon-after-play-800x450.png",
+    "run": "main",
+    "bytes": 547149,
+    "sha256": "d8555a042502e398cf122304f6397d347b50069980de4c4e0d9512cfe23dcc65"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-feature-afterplay-1024x576.png",
+    "source": "/tmp/slot-ux-20261028/acceptance/full-results/salmon-after-play-River-Ru-bb4c0-touch-controls-fit-1024x576-salmon-contracts-fresh/salmon-after-play-1024x576.png",
+    "run": "main",
+    "bytes": 839534,
+    "sha256": "daee53aabc1af8b5e91a35c4a9ea4672598a3ad625f2cf78d850477793114756"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-feature-afterplay-400x225.png",
+    "source": "/tmp/slot-ux-20261028/acceptance/full-results/salmon-after-play-River-Ru-f07e4--touch-controls-fit-400x225-salmon-contracts-fresh/salmon-after-play-400x225.png",
+    "run": "main",
+    "bytes": 138120,
+    "sha256": "56eaf5351665f9b9a39ee1780c4cd2630fe0fa15c61f953b05ccb82992f1bdf5"
+  }
+]

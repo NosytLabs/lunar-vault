@@ -1,0 +1,147 @@
+[
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-1024x576-idle.png",
+    "bytes": 517680,
+    "sha256": "e46f46519113cc33cf34c7fdf94d6a4bdd1e96107b48b3e16a7218495d1f1e43"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-1024x576-rules.png",
+    "bytes": 203168,
+    "sha256": "fb8653c8c712200738fa332cbff4001dee7db7fe8fcc7ce932291f6f0045ea0f"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-400x225-idle.png",
+    "bytes": 84360,
+    "sha256": "5bbf0d85c40ca487feff86031ab8bcb295c2042a54015bfbf658d9566ca2f8b0"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-400x225-rules.png",
+    "bytes": 36586,
+    "sha256": "44e003e9b685c3484409159a2f3aa8c246363aa710ba144540ca7fbf7ece371f"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-425x812-idle.png",
+    "bytes": 240167,
+    "sha256": "7dfb5aa9ed60f139e3aea477cdf68f522a2315083095140c54d518bf287e6212"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-425x812-rules.png",
+    "bytes": 138444,
+    "sha256": "75a60d884828a2f61416eca5b6f5157a66c30387e6011b9536563b7d83186d8f"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-800x450-idle.png",
+    "bytes": 317740,
+    "sha256": "dc4a1b4fae9ef7efa0e034d194b6091b862b6f75c58e9f8c3eed1b8e87185daa"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-800x450-rules.png",
+    "bytes": 143549,
+    "sha256": "3cba9e8235b391be7247efdf9db386920c48097e69502cd4127b9001fdc035e1"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-bonus-replay-cost-400x225.png",
+    "bytes": 74267,
+    "sha256": "6826fa56cdc4a589f5d011a281c71988e5ac7c79b088b658ae16843f529e775c"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-feature-completion.png",
+    "bytes": 326564,
+    "sha256": "10f3044f11d2cafa5260f277d3444089fa511b9a20f6e7643907c669073f9dfd"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-feature-confirmation-400x225.png",
+    "bytes": 46304,
+    "sha256": "d4c3a5f0836bd8e98eed27b07db3af98456acaccd33735d7710d5392cb7f6b69"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-feature-replay-400x225.png",
+    "bytes": 111385,
+    "sha256": "bb21fce191c7001ea73c63009a3fd844b02c33051a45f5844c046242207f72c2"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-retrigger-1024x576.png",
+    "bytes": 660476,
+    "sha256": "74caf0f53a4a27d3a0383a82f5efb23fe4cca2d1a746b3da6018390495a5c2ed"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-retrigger-400x225.png",
+    "bytes": 111828,
+    "sha256": "ac7751432ebacd2d2f5505bc70ee28d0e4ea2739dab046dff2632c0c772c3fd8"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-retrigger-425x812.png",
+    "bytes": 270038,
+    "sha256": "d8d6856df3e1580316ae08f536297d1762a2ae3382644c9aadba96b3c5d89eb7"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/lunar-retrigger-800x450.png",
+    "bytes": 417292,
+    "sha256": "570e42577929dec7480aa48f326db28f976789f6a9dc160ba4f5abd9a2c3f64e"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-1024x576-idle.png",
+    "bytes": 657978,
+    "sha256": "ae208f77b19c82ad5a8bc3151dddecd1ed6771e9cd3fb71c96c9bc5bb769a683"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-1024x576-rules.png",
+    "bytes": 108575,
+    "sha256": "70800e94ec70840a9e860fd66eebb64a393ca2961d24388d127cefb83a1784db"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-400x225-idle.png",
+    "bytes": 103213,
+    "sha256": "7381bc71d805822e0e642082a8d2cd215ab08ff80ea46a113a9b9d07f7986ee5"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-400x225-rules.png",
+    "bytes": 19113,
+    "sha256": "cf3c8b5152b3c7c4a9ef82f2e17c04774ac549df4728098fa61d5a8f6f3900f6"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-425x812-idle.png",
+    "bytes": 299871,
+    "sha256": "1a1ab34e17ae0fab71f19a97012186a5b4162fc39eb36fd44503d9f8343e5a9c"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-425x812-rules.png",
+    "bytes": 66994,
+    "sha256": "e683e572261c014304a03d03d1c8ceacec4159f1459115accec44a675b2989b3"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-800x450-idle.png",
+    "bytes": 386630,
+    "sha256": "96395d7b7c8c9905b1874eaf7a28bafbe359077465bea1e693e6913a4d8b427e"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-800x450-rules.png",
+    "bytes": 66945,
+    "sha256": "19402ec2316955e7c394c32a8c864e385401549b45c1a531e5232c23cf3764f5"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-collection.png",
+    "bytes": 1332450,
+    "sha256": "56181e849abbb9dd08c8d56e8d51bc2e5132a0e8cccee685e96b6437276e0b86"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-feature-afterplay-1024x576.png",
+    "bytes": 839534,
+    "sha256": "daee53aabc1af8b5e91a35c4a9ea4672598a3ad625f2cf78d850477793114756"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-feature-afterplay-400x225.png",
+    "bytes": 138120,
+    "sha256": "56eaf5351665f9b9a39ee1780c4cd2630fe0fa15c61f953b05ccb82992f1bdf5"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-feature-afterplay-425x812.png",
+    "bytes": 357055,
+    "sha256": "b99f5629702f6bb395b3acbd6486ca91a5378b3de385d6fd4a26fef28545e6a3"
+  },
+  {
+    "file": "docs/quality/screenshots/20261028-ui/salmon-feature-afterplay-800x450.png",
+    "bytes": 547149,
+    "sha256": "d8555a042502e398cf122304f6397d347b50069980de4c4e0d9512cfe23dcc65"
+  }
+]
