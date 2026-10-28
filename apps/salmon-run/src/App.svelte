@@ -3,13 +3,17 @@
 	import Reels from './Reels.svelte';
 	import {
 		EngineSession,
+		symbolAsset,
 		type Round,
 		type Symbol,
 		type Position,
 		type BookEvent,
 		type Jurisdiction,
+		type AuthenticatedGameMode,
 	} from './engine';
 	import { RiverAudio } from './audio';
+	import { canonicalModeName } from 'utils-shared/gameModes';
+	import { validateRoundCheckpoint } from 'utils-shared/roundValidation';
 	import { formatCurrencyAmount } from 'utils-shared/formatCurrency';
 	import math from '../../../math/salmon-run/config.json';
 	import report from '../../../math/salmon-run/report.json';
@@ -43,9 +47,15 @@
 		amount = $state(100000),
 		roundAmount = $state(100000),
 		jurisdiction = $state<Jurisdiction>({});
-	let serverModes = $state<Record<string, { costMultiplier: number; maxBet: number }>>({});
+	let openingBalance = $state(0),
+		openedAt = 0,
+		elapsedSeconds = $state(0);
+	let sessionTimer: ReturnType<typeof setInterval>;
+	let serverModes = $state<Record<string, AuthenticatedGameMode>>({});
 	let mode = $state('base'),
 		replayCost = $state(1),
+		roundCost = $state(1),
+		roundPayout = $state(0),
 		savedReplay: Round;
 	let win = $state(0),
 		runAward = $state(0),
@@ -62,6 +72,9 @@
 	let collection = $state<{
 		fish: { position: Position; value: number }[];
 		collector: Position;
+		multiplier: number;
+		award: number;
+		landed: boolean;
 	} | null>(null);
 	let stageNotice = $state('');
 	let modal = $state<'guide' | 'entry' | 'complete' | 'confirm' | null>(null),
@@ -78,18 +91,59 @@
 		osReduced = $state(false),
 		turbo = $state(false),
 		muted = $state(false);
+	let presentationNotBefore = 0;
+	let pacingTimer: ReturnType<typeof setTimeout>;
+	let resolvePacing: (() => void) | undefined;
+	const finishPacing = () =>
+		new Promise<void>((resolve) => {
+			resolvePacing = () => {
+				clearTimeout(pacingTimer);
+				resolvePacing = undefined;
+				resolve();
+			};
+			pacingTimer = setTimeout(
+				resolvePacing,
+				Math.max(0, presentationNotBefore - performance.now()),
+			);
+		});
 	let disposed = false,
 		delayTimer: ReturnType<typeof setTimeout>,
 		resolveDelay: (() => void) | undefined;
 	const audio = new RiverAudio();
 	const busy = $derived(phase !== 'idle');
 	const reduced = $derived(lessMotion || osReduced);
-	const riverCost = $derived(serverModes.river?.costMultiplier ?? math.modes.river.cost);
+	const sessionClock = $derived(
+		`${Math.floor(elapsedSeconds / 3600)
+			.toString()
+			.padStart(2, '0')}:${Math.floor((elapsedSeconds / 60) % 60)
+			.toString()
+			.padStart(2, '0')}:${(elapsedSeconds % 60).toString().padStart(2, '0')}`,
+	);
+	const sessionVisible = $derived(
+		!replay &&
+			(jurisdiction.displayRTP ||
+				jurisdiction.displayNetPosition ||
+				jurisdiction.displaySessionTimer),
+	);
+	const positiveResult = $derived(roundPayout > roundCost * 100);
+	const riverCost = $derived(
+		serverModes.river?.costMultiplier ??
+			(replay && canonicalModeName(mode) === 'river' ? replayCost : math.modes.river.cost),
+	);
 	const currencyValue = (micro: number) => formatCurrencyAmount(micro / 1e6, currency, 'en-US');
 	const awardValue = (units: number) => currencyValue(Math.round((roundAmount * units) / 100));
 	const fundsAvailable = $derived(balance >= amount && amount > 0);
 	const baseAvailable = $derived(
-		fundsAvailable && amount <= (serverModes.base?.maxBet ?? Infinity),
+		!!serverModes.base &&
+			fundsAvailable &&
+			levels.includes(amount) &&
+			amount <= serverModes.base.maxBet,
+	);
+	const riverAvailable = $derived(
+		!!serverModes.river &&
+			levels.includes(amount) &&
+			amount <= serverModes.river.maxBet &&
+			balance >= amount * serverModes.river.costMultiplier,
 	);
 	const wait = (ms: number) =>
 		new Promise<void>((resolve) => {
@@ -176,17 +230,26 @@
 							value: shownBoard[position.reel][position.row].value ?? 0,
 						})),
 						collector: award.meta.collectorPositions[0],
+						multiplier: award.meta.multiplier,
+						award: award.win,
+						landed: reduced,
 					};
-					if (!reduced) await wait(600);
+					if (!reduced)
+						await wait(
+							(turbo && !jurisdiction.disabledTurbo ? 360 : 620) +
+								Math.max(0, collection.fish.length - 1) *
+									(turbo && !jurisdiction.disabledTurbo ? 30 : 65),
+						);
+					collection.landed = true;
 					win += award.win;
-					audio.collect();
-					message = `Collected ${awardValue(award.win)}`;
+					if (positiveResult) audio.collect();
+					message = `Wild collection · ${collection.fish.length} fish · ${collection.multiplier}× stage`;
 					await wait(reduced ? 300 : 420);
 					collection = null;
 				} else {
 					win += award.win;
 					message = `Line ${line} · ${awardValue(award.win)}`;
-					audio.award();
+					if (positiveResult) audio.award();
 					await wait(reduced ? 180 : 380);
 				}
 				if (disposed) return;
@@ -232,11 +295,19 @@
 			await prompt('complete');
 		} else if (e.type === 'finalWin') {
 			win = e.amount;
-			message = e.amount > 0 ? `Round win · ${awardValue(e.amount)}` : 'No win · Spin again';
+			message =
+				e.amount > 0
+					? `${positiveResult ? 'Round win' : 'Round return'} · ${awardValue(e.amount)}`
+					: 'No win · Spin again';
 		} else throw new Error('This round needs a different game version.');
 	}
 	async function playback(round: Round, resume = false) {
 		roundAmount = round.amount;
+		const configuration = serverModes[canonicalModeName(round.mode)];
+		if (!replay && !configuration)
+			throw new Error('This round mode is unavailable in the session.');
+		roundCost = replay ? replayCost : configuration.costMultiplier;
+		roundPayout = round.state.at(-1)?.amount ?? 0;
 		mode = round.mode;
 		win = 0;
 		runAward = 0;
@@ -246,9 +317,7 @@
 		total = 0;
 		inRun = false;
 		positions = [];
-		const stored = Number(round.event);
-		const cursor =
-			resume && Number.isInteger(stored) && stored > 0 ? Math.min(stored, round.state.length) : 0;
+		const cursor = resume ? validateRoundCheckpoint(round.event, round.state.length) : 0;
 		if (cursor) snapshot(round.state.slice(0, cursor));
 		for (const e of round.state.slice(cursor)) {
 			if (disposed) return;
@@ -257,6 +326,8 @@
 			// Store the next unpresented event, so a reload restores completed work once.
 			if (!replay && round.active) await client.record(e.index + 1);
 		}
+		await finishPacing();
+		if (disposed) return;
 		if (!replay && round.active) {
 			const settled = await client.settle();
 			balance = settled.balance.amount;
@@ -274,8 +345,8 @@
 			social = client.social;
 			currency = client.currency;
 			preview = client.params.get('localPreview') === 'true';
-			const assets = math.symbols.map(
-				(name) =>
+			const assets = [...math.symbols.map(symbolAsset), './assets/headwaters-v4.webp'].map(
+				(src) =>
 					new Promise<void>((resolve, reject) => {
 						const image = new Image();
 						image.onload = () =>
@@ -285,9 +356,10 @@
 								.catch(reject);
 						image.onerror = () =>
 							reject(new Error('Artwork could not be loaded. Reload the game.'));
-						image.src = `./assets/sprites/${name}.webp`;
+						image.src = src;
 					}),
 			);
+			const artwork = Promise.allSettled([...assets, document.fonts.ready]);
 			if (replay) {
 				const data = await client.loadReplay();
 				savedReplay = data.round;
@@ -299,16 +371,19 @@
 			} else {
 				const data = await client.authenticate();
 				balance = data.balance.amount;
+				openingBalance = balance;
 				currency = data.balance.currency;
 				social = client.social;
 				jurisdiction = data.config.jurisdiction ?? {};
 				levels = data.config.betLevels;
 				amount = data.round?.active ? data.round.amount : data.config.defaultBetLevel;
 				roundAmount = amount;
-				serverModes = data.config.gameModes ?? {};
+				serverModes = data.config.gameModes;
 				if (data.round?.active) savedReplay = data.round;
 			}
-			await Promise.all([...assets, document.fonts.ready]);
+			const loaded = await artwork;
+			const failed = loaded.find((result) => result.status === 'rejected');
+			if (failed?.status === 'rejected') throw failed.reason;
 			if (disposed) return;
 			ready = true;
 			await tick();
@@ -323,6 +398,10 @@
 		}
 	}
 	onMount(() => {
+		openedAt = performance.now();
+		sessionTimer = setInterval(() => {
+			elapsedSeconds = Math.floor((performance.now() - openedAt) / 1000);
+		}, 1000);
 		const media = matchMedia('(prefers-reduced-motion: reduce)');
 		const update = () => (osReduced = media.matches);
 		update();
@@ -332,7 +411,9 @@
 	});
 	onDestroy(() => {
 		disposed = true;
+		clearInterval(sessionTimer);
 		resolveDelay?.();
+		resolvePacing?.();
 		modalResolve?.();
 		audio.dispose();
 	});
@@ -346,6 +427,7 @@
 			return;
 		}
 		if (replay) {
+			presentationNotBefore = 0;
 			phase = 'spinning';
 			await audio.unlock().catch(() => {});
 			try {
@@ -357,12 +439,18 @@
 			return;
 		}
 		if (selected === 'river' && jurisdiction.disabledBuyFeature) return;
-		const cost = serverModes[selected]?.costMultiplier ?? (math.modes as any)[selected]?.cost;
-		const maximum = serverModes[selected]?.maxBet ?? Infinity;
-		if (!cost || !levels.includes(amount) || amount > maximum || balance < amount * cost) {
+		const configuration = serverModes[canonicalModeName(selected)];
+		if (
+			!configuration ||
+			!levels.includes(amount) ||
+			amount > configuration.maxBet ||
+			balance < amount * configuration.costMultiplier
+		) {
 			message = 'Balance or session amount limit does not allow this play.';
 			return;
 		}
+		// Presentation pacing only; this never converts the undocumented jurisdiction timing field.
+		presentationNotBefore = performance.now() + (turbo && !jurisdiction.disabledTurbo ? 350 : 700);
 		phase = 'request';
 		message = 'Spinning…';
 		await reels?.start(reduced);
@@ -370,12 +458,13 @@
 		win = 0;
 		await audio.unlock().catch(() => {});
 		try {
-			const data = await client.play(amount, selected);
+			const data = await client.play(amount, configuration.mode);
 			balance = data.balance.amount;
 			currency = data.balance.currency;
 			await playback(data.round);
 		} catch (e) {
 			reels?.cancel();
+			audio.cancel();
 			error = (e as Error).message;
 			phase = 'idle';
 		}
@@ -384,9 +473,23 @@
 		if (
 			e.code !== 'Space' ||
 			e.repeat ||
+			e.defaultPrevented ||
+			e.isComposing ||
+			e.altKey ||
+			e.ctrlKey ||
+			e.metaKey ||
 			modal ||
 			jurisdiction.disabledSpacebar ||
-			(e.target instanceof HTMLElement && e.target.closest('button,input,dialog'))
+			e
+				.composedPath()
+				.some(
+					(target) =>
+						target instanceof HTMLElement &&
+						(target.isContentEditable ||
+							target.closest(
+								'button,input,select,textarea,dialog,a,[role=button],[role=combobox],[role=textbox],[contenteditable]:not([contenteditable=false])',
+							)),
+				)
 		)
 			return;
 		e.preventDefault();
@@ -400,9 +503,10 @@
 </script>
 
 <svelte:window onkeydown={keydown} />
-<main class:reduced class:river-run={inRun}>
+<main class:reduced class:fast-reels={turbo && !jurisdiction.disabledTurbo} class:river-run={inRun}>
+	<div class="feature-scene" class:visible={inRun || modal === 'complete'} aria-hidden="true"></div>
 	<div class="scene-shade"></div>
-	<header class="brand">
+	<header class="brand" class:has-session={sessionVisible}>
 		<svg class="brand-mark" width="62" height="36" viewBox="0 0 70 40" aria-hidden="true"
 			><path
 				d="M7 20C19 3 40 3 53 14L65 7V33L53 26C40 37 19 37 7 20Z"
@@ -418,12 +522,24 @@
 		>
 		<h1>Salmon <em>Run</em></h1>
 		{#if preview}<span class="demo-badge">DEMO</span>{/if}
+		{#if sessionVisible}<div class="session-status" aria-label="Session information">
+				{#if jurisdiction.displayRTP}<span>RTP <b>96.50%</b></span>{/if}
+				{#if jurisdiction.displayNetPosition}<span
+						>NET SINCE OPEN <b
+							>{balance >= openingBalance ? '+' : '−'}{currencyValue(
+								Math.abs(balance - openingBalance),
+							)}</b
+						></span
+					>{/if}
+				{#if jurisdiction.displaySessionTimer}<span>TIME OPEN <b>{sessionClock}</b></span>{/if}
+			</div>{/if}
 	</header>
 	{#if ready}
 		<section class="game" aria-label="Salmon Run playfield">
 			<div
 				class="river-track"
 				class:feature-track={inRun}
+				style={`--river-progress:${Math.min(1, collected / 6) * 100}%`}
 				aria-label={inRun ? `River progress: ${collected} collected fish` : '20 winning lines'}
 			>
 				{#if inRun}
@@ -435,7 +551,11 @@
 								><b>{i + 1}×</b><small>{name}</small></span
 							>{/each}
 					</div>
-					<span class="fish-count">{collected} FISH</span>
+					<span class="fish-count"
+						>{collected} FISH<small
+							>{stage < 2 ? `${(stage + 1) * 3 - collected} TO ${stage + 2}×` : 'HEADWATERS'}</small
+						></span
+					>
 				{:else}<span>20 LINES</span><span>{replay ? 'REPLAY' : 'WILDS COLLECT IN RIVER RUN'}</span
 					>{/if}
 			</div>
@@ -467,12 +587,24 @@
 								fill="#ffe6a4"
 							/>{/each}</svg
 					>{/if}
-				{#if collection && !reduced}<div class="collection-layer" aria-hidden="true">
-						{#each collection.fish as fish}<span
-								class="catch-token"
-								style={`--from-x:${fish.position.reel * 20 + 10}%;--from-y:${((fish.position.row - 1) * 100) / 3 + 100 / 6}%;--to-x:${collection.collector.reel * 20 + 10}%;--to-y:${((collection.collector.row - 1) * 100) / 3 + 100 / 6}%`}
-								>{fish.value}×</span
-							>{/each}
+				{#if collection}<div class="collection-layer" aria-hidden="true">
+						{#if !reduced}{#each collection.fish as fish, fishIndex}<span
+									class="catch-token"
+									style={`--catch-delay:${fishIndex * (turbo && !jurisdiction.disabledTurbo ? 30 : 65)}ms;--from-x:${fish.position.reel * 20 + 10}%;--from-y:${((fish.position.row - 1) * 100) / 3 + 100 / 6}%;--to-x:${collection.collector.reel * 20 + 10}%;--to-y:${((collection.collector.row - 1) * 100) / 3 + 100 / 6}%`}
+									><img src={symbolAsset('salmon')} alt="" /><b>{fish.value}×</b></span
+								>{/each}{/if}
+						<div
+							class="collector-ring"
+							class:landed={collection.landed}
+							style={`left:${collection.collector.reel * 20 + 10}%;top:${((collection.collector.row - 1) * 100) / 3 + 100 / 6}%`}
+						></div>
+						<div class="catch-receipt" class:landed={collection.landed}>
+							<small
+								>{collection.landed
+									? `${collection.fish.length} FISH · ${collection.multiplier}× STAGE`
+									: `COLLECTING ${collection.fish.length} FISH`}</small
+							>{#if collection.landed}<strong>{awardValue(collection.award)}</strong>{/if}
+						</div>
 					</div>{/if}
 				{#if stageNotice}<div class="stage-notice" role="status">{stageNotice}</div>{/if}
 				<div class="waterline"></div>
@@ -518,7 +650,8 @@
 				<div><span>WIN</span><strong data-testid="win">{awardValue(win)}</strong></div>
 			</div>
 			{#if replay}<div class="replay-details">
-					<span>REPLAY · {mode.toUpperCase()}</span><b>{currencyValue(amount)} · {replayCost}×</b
+					<span>REPLAY · {canonicalModeName(mode) === 'river' ? 'RIVER RUN' : 'BASE'}</span><b
+						>{currencyValue(amount)} · {replayCost}×</b
 					><span>TOTAL PLAY {currencyValue(amount * replayCost)}</span>
 				</div>
 			{:else}<div class="amount-control">
@@ -561,9 +694,7 @@
 			>
 			{#if !replay && !jurisdiction.disabledBuyFeature}<button
 					class="run-preview"
-					disabled={busy ||
-						balance < amount * riverCost ||
-						amount > (serverModes.river?.maxBet ?? Infinity)}
+					disabled={busy || !riverAvailable}
 					onclick={() => (modal = 'confirm')}
 					><span>FEATURE</span><b>RIVER RUN</b><small
 						>{riverCost}× · {currencyValue(amount * riverCost)}</small
@@ -586,6 +717,7 @@
 		</div>{/if}
 	<dialog
 		bind:this={dialog}
+		class:feature-dialog={modal === 'entry' || modal === 'complete'}
 		oncancel={(e) => {
 			e.preventDefault();
 			if (modal === 'guide' || modal === 'confirm') dismiss();
@@ -627,7 +759,7 @@
 			<table>
 				<thead><tr><th>Symbol</th><th>3</th><th>4</th><th>5</th></tr></thead><tbody
 					>{#each Object.entries(math.paytable) as [name, values]}<tr
-							><th><img src={`./assets/sprites/${name}.webp`} alt="" />{labels[name]}</th><td
+							><th><img src={symbolAsset(name)} alt="" />{labels[name]}</th><td
 								>{values['3'] / 100}×</td
 							><td>{values['4'] / 100}×</td><td>{values['5'] / 100}×</td></tr
 						>{/each}</tbody
@@ -646,10 +778,10 @@
 						<figcaption>{i + 1}</figcaption>
 					</figure>{/each}
 			</div>
-			<h3>The Upstream Run</h3>
+			<h3>River Run</h3>
 			<p>
 				3 / 4 / 5 or more River arches award 6 / 8 / 10 free casts. Three or more arches during the
-				run add 2 casts, up to 12 total. River mode opens a six-cast run directly for {riverCost}×
+				run add 2 casts, up to 12 total. River Run opens a six-cast run directly for {riverCost}×
 				the base play amount, after confirmation.
 			</p>
 			<p>
@@ -659,18 +791,24 @@
 				multiplier active before it advances the river.
 			</p>
 			<p>
-				Base mode: 1× per play, maximum {report.modes.base.maximumWinX}×. River mode: {riverCost}×
+				Base mode: 1× per play, maximum {report.modes.base.maximumWinX}×. River Run: {riverCost}×
 				per play, maximum {report.modes.river.maximumWinX}×. Both development lookup distributions
-				compute 96.50% RTP. These are finite weighted-book maxima, with independent local
-				verification; certification and live acceptance remain open.
+				compute 96.50% RTP. Both maxima multiply the selected base play amount; River Run’s maximum
+				is {(report.modes.river.maximumWinX / math.modes.river.cost).toFixed(2)}× its full feature
+				amount. These are finite weighted-book maxima, with independent local verification;
+				certification and live acceptance remain open.
 			</p>
 			<h3>Controls and sound</h3>
 			<p>
 				Spin starts a round. +/− selects a server-provided amount. River Run opens confirmation
 				showing its total amount. Stop speeds presentation where permitted and never changes an
-				outcome. Space follows Spin, except in dialogs or restricted sessions. Play repeats the same
-				replay, with no new play. The speaker control mutes all sound at any time. The menu opens
-				these rules, sound and speed options.
+				outcome. Space follows Spin while the playfield is active; it leaves selectors, editable
+				fields, buttons and dialogs to their own controls, and is unavailable in restricted
+				sessions. Play repeats the same replay, with no new play. The speaker control mutes all
+				sound at any time. The menu opens these rules, sound and speed options. Less motion replaces
+				reel travel, collection flights and decorative transitions with a still presentation; your
+				device’s reduced motion setting also enables it. Fast reels shortens reel travel and
+				collection flights where permitted. These options change presentation speed only.
 			</p>
 			<label class="motion-choice"
 				><input type="checkbox" bind:checked={lessMotion} /> Less motion {osReduced
@@ -703,10 +841,10 @@
 			</div>
 		{:else if modal === 'confirm'}<img
 				class="feature-fish"
-				src="./assets/sprites/salmon.webp"
+				src={symbolAsset('salmon')}
 				alt="Silver salmon"
 			/>
-			<p class="eyebrow">THE UPSTREAM RUN</p>
+			<p class="eyebrow">RIVER RUN</p>
 			<h2>Enter the river</h2>
 			<p>Six free casts. Collect silver fish with Wilds and travel to the Headwaters.</p>
 			<p class="feature-number">
@@ -721,18 +859,20 @@
 					}}>Confirm River Run</button
 				>
 			</div>
-		{:else if modal === 'entry'}<img
-				class="feature-fish"
-				src="./assets/sprites/salmon.webp"
-				alt="Silver salmon"
-			/>
+		{:else if modal === 'entry'}<div class="feature-crest" aria-hidden="true">
+				<img src={symbolAsset('wild')} alt="" /><span>RIVER RUN</span>
+			</div>
+			<img class="feature-fish" src={symbolAsset('salmon')} alt="Silver salmon" />
 			<p class="eyebrow">RIVER RUN</p>
 			<h2>Upstream awaits</h2>
 			<p class="feature-number">{total}<span>FREE CASTS</span></p>
 			<p>Wilds collect the silver.<br />Reach 3 fish for 2×, then 6 fish for 3× collections.</p>
 			<button class="primary" onclick={dismiss}>Start River Run</button>
-		{:else if modal === 'complete'}<p class="eyebrow">RIVER RUN COMPLETE</p>
-			<h2>Total win</h2>
+		{:else if modal === 'complete'}<div class="feature-crest complete-crest" aria-hidden="true">
+				<img src={symbolAsset('wild')} alt="" /><span>{stages[stage]}</span>
+			</div>
+			<p class="eyebrow">RIVER RUN COMPLETE</p>
+			<h2>River Run total</h2>
 			<p class="feature-number" data-testid="run-total">
 				{awardValue(runAward)}<span>{collected} SILVER FISH · {current} CASTS</span>
 			</p>

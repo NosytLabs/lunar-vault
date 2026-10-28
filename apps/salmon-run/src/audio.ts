@@ -2,8 +2,11 @@
 export class RiverAudio {
 	private context?: AudioContext;
 	private master?: GainNode;
+	private active = new Set<() => void>();
+	private disposed = false;
 	muted = false;
 	async unlock() {
+		if (this.disposed) return;
 		if (!this.context) {
 			this.context = new AudioContext();
 			this.master = this.context.createGain();
@@ -18,7 +21,7 @@ export class RiverAudio {
 	}
 	note(frequency: number, duration = 0.1, delay = 0) {
 		const ctx = this.context;
-		if (!ctx || ctx.state !== 'running' || !this.master) return;
+		if (this.disposed || !ctx || ctx.state !== 'running' || !this.master) return;
 		const tone = ctx.createOscillator(),
 			gain = ctx.createGain();
 		tone.type = 'sine';
@@ -29,6 +32,18 @@ export class RiverAudio {
 		gain.gain.setValueAtTime(0, start);
 		gain.gain.linearRampToValueAtTime(0.8, start + 0.008);
 		gain.gain.exponentialRampToValueAtTime(0.001, start + duration);
+		const release = () => {
+			this.active.delete(cancel);
+			tone.disconnect();
+			gain.disconnect();
+		};
+		const cancel = () => {
+			tone.onended = null;
+			tone.stop();
+			release();
+		};
+		this.active.add(cancel);
+		tone.onended = release;
 		tone.start(start);
 		tone.stop(start + duration + 0.02);
 	}
@@ -41,7 +56,16 @@ export class RiverAudio {
 	collect() {
 		[392, 494, 587, 784].forEach((n, i) => this.note(n, 0.23, i * 0.09));
 	}
+	cancel() {
+		for (const cancel of this.active) cancel();
+		this.active.clear();
+	}
 	dispose() {
-		void this.context?.close();
+		this.disposed = true;
+		this.cancel();
+		this.master?.disconnect();
+		if (this.context && this.context.state !== 'closed') void this.context.close().catch(() => {});
+		this.context = undefined;
+		this.master = undefined;
 	}
 }

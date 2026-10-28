@@ -23,6 +23,13 @@ async function boot(
 		serverMax?: number;
 		corruptActive?: boolean;
 		expectError?: string;
+		minimumRoundDuration?: number;
+		playError?: boolean;
+		gameModes?: unknown;
+		replayCost?: number;
+		checkpointGate?: { cursor: number; wait: Promise<void> };
+		displaySessionInfo?: boolean;
+		serverSocial?: boolean;
 	} = {},
 ) {
 	const calls: { path: string; body: any }[] = [],
@@ -68,12 +75,20 @@ async function boot(
 					betLevels: [
 						...new Set([10000, 50000, amount, 500000, 1000000, Math.max(amount * 2, 2000000)]),
 					].sort((a, b) => a - b),
-					gameModes: {
-						base: { costMultiplier: 1, maxBet: options.serverMax ?? Math.max(amount * 2, 2000000) },
-						river: { costMultiplier: 20, maxBet: Math.max(amount, 1000000) },
-					},
+					gameModes: options.gameModes ?? [
+						{
+							mode: 'base',
+							costMultiplier: 1,
+							maxBet: options.serverMax ?? Math.max(amount * 2, 2000000),
+						},
+						{ mode: 'river', costMultiplier: 20, maxBet: Math.max(amount, 1000000) },
+					],
 					jurisdiction: {
-						socialCasino: currency.startsWith('X'),
+						socialCasino: options.serverSocial ?? currency.startsWith('X'),
+						minimumRoundDuration: options.minimumRoundDuration ?? 0,
+						displayRTP: options.displaySessionInfo ?? false,
+						displayNetPosition: options.displaySessionInfo ?? false,
+						displaySessionTimer: options.displaySessionInfo ?? false,
 						...(options.restricted
 							? {
 									disabledSpacebar: true,
@@ -90,16 +105,19 @@ async function boot(
 			await options.gate;
 			expect(active).toBeNull();
 			const mode = body.mode,
-				cost = mode === 'river' ? 20 : 1;
+				cost = mode.toLowerCase() === 'river' ? 20 : 1;
 			expect(body.amount).toBe(amount);
 			balance -= body.amount * cost;
-			const selected = options.book ?? (mode === 'river' ? river : baseLoss);
+			const selected = options.book ?? (mode.toLowerCase() === 'river' ? river : baseLoss);
 			const result = { ...round(selected, mode), amount: body.amount };
 			active = result.active ? result : null;
-			data = { balance: { amount: balance, currency }, round: result };
+			data = options.playError
+				? { error: 'ERR_GEN' }
+				: { balance: { amount: balance, currency }, round: result };
 		} else if (path === '/bet/event') {
 			expect(active).not.toBeNull();
 			active.event = body.event;
+			if (Number(body.event) === options.checkpointGate?.cursor) await options.checkpointGate.wait;
 			data = { event: body.event };
 		} else if (path === '/wallet/end-round') {
 			expect(active).not.toBeNull();
@@ -111,7 +129,7 @@ async function boot(
 			data = {
 				state: selected.events,
 				payoutMultiplier: selected.payoutMultiplier / 100,
-				costMultiplier: options.mode === 'river' ? 20 : 1,
+				costMultiplier: options.replayCost ?? (options.mode?.toLowerCase() === 'river' ? 20 : 1),
 			};
 		} else throw new Error('Unexpected endpoint ' + path);
 		await route.fulfill({ json: data });
@@ -436,7 +454,265 @@ test('River Run shows value collection, advances to 3x and settles the complete 
 	await expect(page.getByRole('button', { name: 'Return to the river' })).toBeVisible({
 		timeout: 45000,
 	});
+	await expect(page.getByRole('heading', { name: 'River Run total' })).toBeVisible();
 	await expect(page.getByTestId('run-total')).toContainText('8 SILVER FISH');
+	await page.getByRole('button', { name: 'Return to the river' }).click();
+	await expect(page.getByRole('button', { name: 'Spin', exact: true })).toBeEnabled();
+	expect(s.calls.filter((c) => c.path === '/wallet/end-round')).toHaveLength(1);
+	expect(s.errors).toEqual([]);
+});
+
+test('a failed request leaves fifteen stationary symbols and blocks new plays until recovery', async ({
+	page,
+}) => {
+	const s = await boot(page, { playError: true });
+	const before = await page
+		.locator('.reel-symbol img')
+		.evaluateAll((nodes) => nodes.map((n) => (n as HTMLImageElement).src));
+	await page.getByRole('button', { name: 'Spin', exact: true }).click();
+	await expect(page.getByRole('alert')).toContainText('game service');
+	await expect(page.locator('.reel-column.running')).toHaveCount(0);
+	expect(
+		await page
+			.locator('.reel-symbol img')
+			.evaluateAll((nodes) => nodes.map((n) => (n as HTMLImageElement).src)),
+	).toEqual(before);
+	await page.keyboard.press('Space');
+	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(1);
+});
+
+test('a return below the full feature cost uses neutral audio and outcome wording', async ({
+	page,
+}) => {
+	await page.addInitScript(() => {
+		(window as any).__notes = [];
+		const original = AudioContext.prototype.createOscillator;
+		AudioContext.prototype.createOscillator = function () {
+			const oscillator = original.call(this),
+				start = oscillator.start.bind(oscillator);
+			oscillator.start = (...args) => {
+				(window as any).__notes.push(oscillator.frequency.value);
+				start(...args);
+			};
+			return oscillator;
+		};
+	});
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	const s = await boot(page, { book: river });
+	await page.getByRole('button', { name: 'RIVER RUN', exact: false }).click();
+	await page.getByRole('button', { name: 'Confirm River Run' }).click();
+	await expect(page.getByRole('button', { name: 'Start River Run' })).toBeVisible();
+	await completeRun(page);
+	await expect(page.locator('.result')).toContainText('Round return');
+	const notes = await page.evaluate(() => (window as any).__notes as number[]);
+	expect(notes.some((frequency) => [330, 440, 550, 392, 494, 587, 784].includes(frequency))).toBe(
+		false,
+	);
+	expect(s.calls.filter((c) => c.path === '/wallet/end-round')).toHaveLength(1);
+});
+
+test('active event checkpoints use an explicit next-unpresented cursor before one settlement', async ({
+	page,
+}) => {
+	const s = await boot(page, { book: baseWin });
+	await page.getByRole('button', { name: 'Spin', exact: true }).click();
+	await expect(page.getByRole('button', { name: 'Spin', exact: true })).toBeEnabled();
+	expect(s.calls.filter((c) => c.path === '/bet/event').map((c) => c.body.event)).toEqual(
+		baseWin.events.map((event: any) => String(event.index + 1)),
+	);
+	expect(s.calls.at(-1)!.path).toBe('/wallet/end-round');
+	expect(s.errors).toEqual([]);
+});
+
+test('Space protects the amount selector and editable fields while playfield Space still spins', async ({
+	page,
+}) => {
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	const s = await boot(page);
+	await page.getByRole('combobox', { name: 'Play amount' }).focus();
+	await page.keyboard.press('Space');
+	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
+	await page.evaluate(() => {
+		const editable = document.createElement('div');
+		editable.contentEditable = 'true';
+		editable.setAttribute('aria-label', 'Editable test field');
+		document.body.append(editable);
+		editable.focus();
+	});
+	await page.keyboard.press('Space');
+	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
+	await page.evaluate(() => (document.activeElement as HTMLElement).blur());
+	await page.keyboard.press('Space');
+	await expect(page.getByRole('button', { name: 'Spin', exact: true })).toBeEnabled();
+	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(1);
+	expect(s.errors).toEqual([]);
+});
+
+test('documented array limits block unavailable River Run and keep exact server request spelling', async ({
+	page,
+}) => {
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	const s = await boot(page, {
+		gameModes: [
+			{ mode: 'BASE', costMultiplier: 1, maxBet: 1000000 },
+			{ mode: 'RIVER', costMultiplier: 20, maxBet: 50000 },
+		],
+	});
+	await expect(page.locator('.run-preview')).toBeDisabled();
+	await page.getByRole('button', { name: 'Spin', exact: true }).click();
+	await expect(page.getByRole('button', { name: 'Spin', exact: true })).toBeEnabled();
+	expect(s.calls.find((c) => c.path === '/wallet/play')!.body.mode).toBe('BASE');
+	expect(s.errors).toEqual([]);
+});
+
+test('malformed array costs fail before any play can start', async ({ page }) => {
+	const s = await boot(page, {
+		gameModes: [
+			{ mode: 'base', costMultiplier: 1, maxBet: 1000000 },
+			{ mode: 'river', costMultiplier: 2, maxBet: 1000000 },
+		],
+		expectError: 'mode configuration',
+	});
+	expect(s.calls.map((c) => c.path)).toEqual(['/wallet/authenticate']);
+});
+
+test('River Run replay uses its full feature name and authoritative cost', async ({ page }) => {
+	await page.setViewportSize({ width: 400, height: 225 });
+	await boot(page, { replay: true, mode: 'river', book: river });
+	await expect(page.locator('.replay-details')).toContainText('RIVER RUN');
+	await expect(page.locator('.replay-details')).toContainText('TOTAL PLAY $2.00');
+});
+
+for (const [width, height] of [
+	[400, 225],
+	[800, 450],
+	[1024, 576],
+	[425, 812],
+]) {
+	test(`after-play River Run progress and touch controls fit ${width}x${height}`, async ({
+		browser,
+	}, info) => {
+		const context = await browser.newContext({
+			viewport: { width, height },
+			hasTouch: true,
+			isMobile: width === 425,
+			reducedMotion: 'reduce',
+			baseURL: 'http://127.0.0.1:4174',
+		});
+		const page = await context.newPage();
+		let release!: () => void;
+		const wait = new Promise<void>((resolve) => {
+			release = resolve;
+		});
+		const s = await boot(page, {
+			book: river,
+			displaySessionInfo: true,
+			checkpointGate: { cursor: 3, wait },
+		});
+		await page.locator('.run-preview').tap();
+		await page.getByRole('button', { name: 'Confirm River Run' }).tap();
+		await page.getByRole('button', { name: 'Start River Run' }).tap();
+		await expect
+			.poll(() => s.calls.filter((c) => c.path === '/bet/event' && c.body.event === '3').length)
+			.toBe(1);
+		await expect(page.locator('.run-counter')).toContainText('1 / 6');
+		await expect(page.locator('.reel-column.running')).toHaveCount(0);
+		await expect(page.locator('.reel-symbol')).toHaveCount(15);
+		const controls = (await page.locator('.controls').boundingBox())!;
+		for (const selector of [
+			'.board-frame',
+			'.feature-track',
+			'.run-counter',
+			'.cast-button',
+			'.controls',
+			'.session-status',
+		]) {
+			const box = (await page.locator(selector).boundingBox())!;
+			expect(box.x).toBeGreaterThanOrEqual(0);
+			expect(box.y).toBeGreaterThanOrEqual(0);
+			expect(box.x + box.width).toBeLessThanOrEqual(width + 1);
+			expect(box.y + box.height).toBeLessThanOrEqual(height + 1);
+			if (selector === '.feature-track' || selector === '.board-frame')
+				expect(box.y + box.height).toBeLessThanOrEqual(controls.y);
+		}
+		if (width === 400) {
+			for (const [selector, minimum] of [
+				['.session-status', 9],
+				['.session-status b', 9],
+				['.run-counter > b', 10],
+				['.run-counter strong', 10],
+				['.stage-track b', 10],
+				['.stage-track small', 8],
+				['.run-counter small', 8],
+				['.fish-count small', 8],
+				['.readouts span', 8],
+			] as const) {
+				const sizes = await page
+					.locator(selector)
+					.evaluateAll((elements) =>
+						elements.map((element) => Number.parseFloat(getComputedStyle(element).fontSize)),
+					);
+				expect(sizes.every((size) => size >= minimum)).toBe(true);
+			}
+			const board = (await page.locator('.board-frame').boundingBox())!;
+			expect(board.width).toBeGreaterThanOrEqual(200);
+			const mute = (await page.locator('.sound-toggle').boundingBox())!;
+			const session = (await page.locator('.session-status').boundingBox())!;
+			expect(session.x + session.width).toBeLessThanOrEqual(mute.x);
+			for (const selector of ['.board-frame', '.feature-track', '.controls']) {
+				const box = (await page.locator(selector).boundingBox())!;
+				const overlap =
+					mute.x < box.x + box.width &&
+					mute.x + mute.width > box.x &&
+					mute.y < box.y + box.height &&
+					mute.y + mute.height > box.y;
+				expect(overlap).toBe(false);
+			}
+			await expect(page.locator('.river-run .result')).toBeHidden();
+		}
+		await expect(page.locator('.session-status')).toContainText('96.50%');
+		await expect(page.locator('.session-status')).toContainText('−$2.00');
+		await page.screenshot({ path: info.outputPath(`salmon-after-play-${width}x${height}.png`) });
+		release();
+		await completeRun(page);
+		expect(s.calls.filter((c) => c.path === '/wallet/end-round')).toHaveLength(1);
+		expect(s.errors).toEqual([]);
+		await context.close();
+	});
+}
+
+test('positive undocumented jurisdiction duration fails visibly before any play', async ({
+	page,
+}) => {
+	const s = await boot(page, {
+		minimumRoundDuration: 2,
+		expectError: 'timing requirement is not supported',
+	});
+	expect(s.calls.map((c) => c.path)).toEqual(['/wallet/authenticate']);
+	await expect(page.getByRole('button', { name: 'Spin', exact: true })).toHaveCount(0);
+});
+
+test('server-only social flag protects controls and every feature dialog when URL says false', async ({
+	page,
+}) => {
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	const s = await boot(page, { serverSocial: true, currency: 'XSC', query: '&social=false' });
+	const prohibited =
+		/\b(bet|bets|buy|cash|credit|currency|fund|gamble|money|paid|pay|pays|purchase|stake|wager|withdraw)\b/i;
+	expect(await page.locator('main').innerText()).not.toMatch(prohibited);
+	await page.getByRole('button', { name: 'Open field guide' }).click();
+	expect(await page.getByRole('dialog').innerText()).not.toMatch(prohibited);
+	await page.getByRole('button', { name: 'Back to the river' }).click();
+	await page.locator('.run-preview').click();
+	expect(await page.getByRole('dialog').innerText()).not.toMatch(prohibited);
+	await page.getByRole('button', { name: 'Confirm River Run' }).click();
+	await expect(page.getByRole('button', { name: 'Start River Run' })).toBeVisible();
+	expect(await page.getByRole('dialog').innerText()).not.toMatch(prohibited);
+	await page.getByRole('button', { name: 'Start River Run' }).click();
+	await expect(page.getByRole('button', { name: 'Return to the river' })).toBeVisible({
+		timeout: 45000,
+	});
+	expect(await page.getByRole('dialog').innerText()).not.toMatch(prohibited);
 	await page.getByRole('button', { name: 'Return to the river' }).click();
 	await expect(page.getByRole('button', { name: 'Spin', exact: true })).toBeEnabled();
 	expect(s.calls.filter((c) => c.path === '/wallet/end-round')).toHaveLength(1);
