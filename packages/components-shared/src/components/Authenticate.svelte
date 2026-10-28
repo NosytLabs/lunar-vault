@@ -12,7 +12,11 @@
 		stateMeta,
 	} from 'state-shared';
 	import { normalizeGameModes } from 'utils-shared/gameModes';
-	import { validateReplayRound, validateRoundCheckpoint } from 'utils-shared/roundValidation';
+	import {
+		validateReplayRound,
+		validateWalletRound,
+		validateRoundCheckpoint,
+	} from 'utils-shared/roundValidation';
 	import { API_AMOUNT_MULTIPLIER, MOST_USED_BET_INDEXES } from 'constants-shared/bet';
 
 	type Props = { children: Snippet };
@@ -142,7 +146,7 @@
 			)
 				throw new Error('The session returned an invalid round status.');
 			if (authenticateData?.round?.active) {
-				const round = validateReplayRound(authenticateData.round);
+				const round = validateWalletRound(authenticateData.round);
 				stateMeta.validateBookEvents?.(round.state);
 				if (
 					typeof round.amount !== 'number' ||
@@ -217,11 +221,7 @@
 		stateMeta.validateBookEvents?.(replay.state);
 		if (!stateBetDerived.activeBetMode()) throw new Error('This replay mode is unavailable.');
 		if (replay) {
-			const multiplier = replay.costMultiplier;
-			stateBet.replayCostMultiplier =
-				Number.isFinite(multiplier) && multiplier! >= 1
-					? multiplier!
-					: (stateBetDerived.activeBetMode()?.costMultiplier ?? 1);
+			stateBet.replayCostMultiplier = replay.costMultiplier;
 			// @ts-ignore
 			stateBet.betToResume = {
 				...replay,

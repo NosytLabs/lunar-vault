@@ -6,6 +6,7 @@ import {
 	requestReplay,
 } from 'rgs-requests';
 import math from '../../../math/salmon-run/config.json';
+import { replayCurrency } from 'utils-shared/replayOptions';
 import { validateRoundCheckpoint } from 'utils-shared/roundValidation';
 import {
 	normalizeGameModes,
@@ -148,7 +149,9 @@ export class EngineSession {
 		this.sessionID = this.params.get('sessionID') ?? '';
 		this.replay = this.params.get('replay') === 'true';
 		this.social = this.params.get('social') === 'true';
-		this.currency = this.params.get('currency') || 'USD';
+		this.currency = this.replay
+			? replayCurrency(this.params.get('currency'))
+			: this.params.get('currency') || 'USD';
 		if (!this.host || (!this.replay && !this.sessionID))
 			throw new Error(
 				'A valid Engine launch session is required. Open the game from its launch link.',

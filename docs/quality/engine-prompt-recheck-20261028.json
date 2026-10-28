@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "checkedAtUtc": "2026-10-28 15:02:09 UTC",
+  "reviewedCommit": "d78208cd57a13645328520a9ac383592e9b9d02f",
+  "prompt": {
+    "url": "https://studio.engine.io/docs-content/prompt.md",
+    "statusCode": 200,
+    "sha256": "7e8b516503c3b94db9514420523514952f871827d5750cc49b8a0882479f603f",
+    "lineCount": 361,
+    "byteIdenticalToPrevious": true,
+    "scrapeId": "01a182fd-b29b-73be-af5a-a29b895ca9dc"
+  },
+  "scope": "Source and evidence recheck of both games. Prior runtime tests and 400,000-book math audit are retained as evidence for their recorded versions, not described as a new run.",
+  "findings": [
+    {
+      "guidelineIds": [
+        172
+      ],
+      "game": "lunar-vault",
+      "verdictAtReviewedCommit": "FAIL",
+      "finding": "An invalid optional replay amount throws instead of using a safe default, preventing replay loading.",
+      "evidence": "packages/state-shared/src/stateUrl.svelte.ts:38",
+      "resolution": "Requires client fix and regression."
+    },
+    {
+      "guidelineIds": [
+        171,
+        174
+      ],
+      "game": "lunar-vault",
+      "verdictAtReviewedCommit": "FAIL",
+      "finding": "A replay response missing costMultiplier can pass validation and use the current local mode cost, which is not authoritative for that replay version.",
+      "evidence": [
+        "packages/utils-shared/roundValidation.ts:26",
+        "packages/components-shared/src/components/Authenticate.svelte:220"
+      ],
+      "resolution": "Require a positive finite response cost and remove local-cost substitution; preserve valid historical costs."
+    },
+    {
+      "guidelineIds": [
+        274,
+        239
+      ],
+      "game": "lunar-vault",
+      "verdictAtReviewedCommit": "FAIL",
+      "finding": "The normal service-error message map can resolve inherited object properties for untrusted error codes instead of a readable generic message.",
+      "evidence": "packages/components-ui-html/src/components/ModalError.svelte:19",
+      "resolution": "String and own-property allowlist plus regression."
+    },
+    {
+      "guidelineIds": [
+        172
+      ],
+      "game": "both",
+      "verdictAtReviewedCommit": "FAIL",
+      "finding": "Invalid replay currency values such as constructor, toString or __proto__ can select inherited metadata properties and throw during formatting.",
+      "evidence": "packages/utils-shared/formatCurrency.ts:63",
+      "resolution": "Safe metadata lookup and invalid optional replay currency handling, without relabelling authenticated wallet currencies."
+    },
+    {
+      "guidelineIds": [
+        213
+      ],
+      "game": "both",
+      "verdictAtReviewedCommit": "AT RISK",
+      "finding": "Source title and prohibited-vocabulary checks do not establish publisher name clearance or comparative uniqueness.",
+      "evidence": [
+        "apps/lunar-vault/src/routes/+layout.svelte:14",
+        "apps/salmon-run/index.html:7"
+      ],
+      "resolution": "Publisher clearance remains required. No unilateral title change; Salmon's existing close-title reference is retained."
+    }
+  ]
+}

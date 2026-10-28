@@ -19,6 +19,8 @@ All individual media files are smaller than 10 MB. Use the game's exact title on
 **Publisher display name:** Nosyt / NosytLabs, subject to the account owner's actual publisher name  
 **Category:** Slot
 
+**Publisher naming clearance:** Open. The Lunar Vault name still requires an independent publisher check; source code, original artwork and local tests do not establish title uniqueness or trademark availability.
+
 Suggested description:
 
 Explore an ancient astronomical vault across twenty celestial lines. Crown, planet and gemstone symbols surround Wilds with visible multipliers. Eclipse symbols open the Eclipse Chamber, where free spins can extend the journey. Clear controls, a full symbol guide and round replays keep every result easy to follow.
@@ -52,5 +54,7 @@ River Run's maximum is 7.78× its full entry amount. The optional feature starts
 Upload each game's matching frontend ZIP and math ZIP from the same release manifest. The frontend has `index.html` at its root. The math archive contains `index.json` and its two books/two lookup tables. Let Studio complete the math and bet-level analysis, launch actual authenticated preview and replay URLs, and record the resulting version identifiers and tests before requesting approval.
 
 Use actual account information for legal name, business address, jurisdiction, contact details and licence acceptance. None of those facts should be invented from a repository name. The prepared descriptions, images and wordmark can be reviewed and entered after account access is available.
+
+Both proposed game titles require publisher naming and originality clearance before listing approval. Retain the existing Salmon Run naming-risk review as well as the open Lunar Vault check.
 
 Local verification does not assign an Engine operator-risk rating, establish asset/title clearance or constitute Engine/Stake approval. Keep independent review records bound to the actual frontend and math ZIP hashes in `docs/release-evidence.json`.

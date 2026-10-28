@@ -1,6 +1,7 @@
 import { locales } from 'config-lingui';
 import { page } from '$app/state';
 import { stateConfig } from './stateConfig.svelte';
+import { replayAmount, replayCurrency } from '../../utils-shared/replayOptions';
 
 export type Language = (typeof locales)[number];
 
@@ -35,14 +36,7 @@ const social = () =>
 
 // params for replay
 const replay = () => getUrlSearchParam('replay') === 'true';
-const amount = () => {
-	const raw = getUrlSearchParam('amount');
-	if (raw === null) return 1000000;
-	const value = Number(raw);
-	if (!Number.isSafeInteger(value) || value <= 0)
-		throw new Error('This replay play amount is invalid.');
-	return value;
-};
+const amount = () => replayAmount(getUrlSearchParam('amount'));
 const game = () => getUrlSearchParam('game') || '';
 const version = () => getUrlSearchParam('version') || '';
 const mode = () => getUrlSearchParam('mode') || '';
@@ -56,7 +50,10 @@ export const stateUrlDerived = {
 	social,
 	// states for replay
 	replay,
-	currency: () => getUrlSearchParam('currency') || 'USD',
+	currency: () =>
+		replay()
+			? replayCurrency(getUrlSearchParam('currency'))
+			: getUrlSearchParam('currency') || 'USD',
 	amount,
 	game,
 	mode,

@@ -50,8 +50,12 @@ const metadata: Record<string, [string, number, boolean?]> = {
 	XSC: ['SC', 2, true],
 	XEC: ['SC', 2, true],
 };
+export const isSupportedCurrency = (currency: unknown): currency is string =>
+	typeof currency === 'string' && Object.hasOwn(metadata, currency);
+const currencyMetadata = (currency: string) =>
+	isSupportedCurrency(currency) ? metadata[currency] : undefined;
 function currencyFractionDigits(value: number, currency: string) {
-	const normal = metadata[currency]?.[1] ?? 2;
+	const normal = currencyMetadata(currency)?.[1] ?? 2;
 	const fraction = String(Math.abs(Math.round(value * 1e6)) % 1e6)
 		.padStart(6, '0')
 		.replace(/0+$/, '').length;
@@ -60,7 +64,7 @@ function currencyFractionDigits(value: number, currency: string) {
 
 export function formatCurrencyAmount(value: number, currency: string, locale = 'en-US') {
 	if (!Number.isFinite(value)) return '—';
-	const [symbol, , after] = metadata[currency] ?? [currency, 2, true];
+	const [symbol, , after] = currencyMetadata(currency) ?? [currency, 2, true];
 	const digits = currencyFractionDigits(value, currency);
 	let number: string;
 	try {

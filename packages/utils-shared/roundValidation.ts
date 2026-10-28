@@ -5,7 +5,7 @@ const invalid = () =>
 	);
 const nonnegative = (value: unknown): value is number =>
 	typeof value === 'number' && Number.isFinite(value) && value >= 0;
-export function validateReplayRound(value: unknown) {
+export function validateWalletRound(value: unknown) {
 	if (!value || typeof value !== 'object') throw invalid();
 	const data = value as Record<string, unknown>;
 	if (data.error || !Array.isArray(data.state) || !data.state.length) throw invalid();
@@ -24,7 +24,7 @@ export function validateReplayRound(value: unknown) {
 		!nonnegative(data.payoutMultiplier) ||
 		Math.abs(final.amount / 100 - data.payoutMultiplier) > 1e-8 ||
 		(data.costMultiplier !== undefined &&
-			(!nonnegative(data.costMultiplier) || data.costMultiplier < 1)) ||
+			(!nonnegative(data.costMultiplier) || data.costMultiplier <= 0)) ||
 		(data.amount !== undefined &&
 			(!Number.isSafeInteger(data.amount) || !nonnegative(data.amount) || data.amount === 0)) ||
 		(data.payout !== undefined && (!Number.isSafeInteger(data.payout) || !nonnegative(data.payout)))
@@ -41,6 +41,12 @@ export function validateReplayRound(value: unknown) {
 		payoutMultiplier: number;
 		costMultiplier?: number;
 	};
+}
+// Replay prices must come from the recorded version, never today's local mode table.
+export function validateReplayRound(value: unknown) {
+	const round = validateWalletRound(value);
+	if (!nonnegative(round.costMultiplier) || round.costMultiplier <= 0) throw invalid();
+	return { ...round, costMultiplier: round.costMultiplier };
 }
 export function validateRoundCheckpoint(value: unknown, length: number) {
 	const checkpoint = value === null || value === undefined ? 0 : Number(value);
