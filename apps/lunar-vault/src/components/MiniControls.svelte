@@ -540,6 +540,7 @@
 		margin-top: 3px;
 	}
 	.mini-menu {
+		z-index: 2;
 		position: absolute;
 		bottom: calc(100% + 8px);
 		left: 0;
