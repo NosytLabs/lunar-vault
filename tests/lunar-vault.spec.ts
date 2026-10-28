@@ -718,8 +718,10 @@ test('an already closed positive round never sends end-round', async ({ page }) 
 test('active round checkpoints advance only after each completed event and precede settlement', async ({
 	page,
 }) => {
+	await page.setViewportSize({ width: 800, height: 450 });
+	await page.emulateMedia({ reducedMotion: 'reduce' });
 	const s = await session(page, { book: win });
-	await clickText(page, 'SPIN');
+	await page.getByRole('button', { name: 'SPIN', exact: true }).click();
 	await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/end-round').length).toBe(1);
 	const checkpoints = s.calls.filter((c) => c.path === '/bet/event');
 	expect(checkpoints.map((c) => c.body.event)).toEqual(
@@ -922,32 +924,32 @@ test('current publication Eclipse Chamber replay displays the full 100× cost wi
 test('base-only session disables unavailable feature and keeps base pointer Space and autoplay on BASE', async ({
 	page,
 }) => {
+	await page.setViewportSize({ width: 800, height: 450 });
 	await page.emulateMedia({ reducedMotion: 'reduce' });
 	const s = await session(page, {
 		gameModes: [{ mode: 'BASE', costMultiplier: 1, maxBet: 1000000 }],
 	});
-	await expect(
-		page.getByRole('button', { name: 'BUY ECLIPSE CHAMBER', exact: true }),
-	).toBeDisabled();
-	await clickText(page, 'BUY ECLIPSE CHAMBER');
+	const feature = page.getByRole('button', { name: 'BUY ECLIPSE CHAMBER', exact: true });
+	await expect(feature).toBeDisabled();
+	const box = (await feature.boundingBox())!;
+	await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
 	await expect(page.locator('.bonus-card-wrap')).toHaveCount(0);
-	await clickText(page, 'SPIN');
+	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
+	const spin = page.getByRole('button', { name: 'SPIN', exact: true });
+	await spin.click();
 	await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(1);
-	await expect(page.getByRole('button', { name: 'SPIN', exact: true })).toBeEnabled();
+	await expect(spin).toBeEnabled();
 	await page.evaluate(() => (document.activeElement as HTMLElement)?.blur());
 	await page.keyboard.press('Space');
 	await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(2);
-	expect(
-		s.calls.filter((c) => c.path === '/wallet/play').every((c) => c.body.mode === 'BASE'),
-	).toBe(true);
-	await expect(page.getByRole('button', { name: 'SPIN', exact: true })).toBeEnabled();
-	await clickText(page, 'AUTO SPIN');
-	await page.getByText('START AUTOPLAY', { exact: true }).click();
+	await expect(spin).toBeEnabled();
+	await page.getByRole('button', { name: 'AUTO SPIN', exact: true }).click();
+	await page.getByRole('button', { name: 'START AUTOPLAY', exact: true }).click();
 	await expect
 		.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length)
 		.toBeGreaterThanOrEqual(3);
-	await clickText(page, 'CANCEL AUTO');
-	await expect(page.getByRole('button', { name: 'SPIN', exact: true })).toBeEnabled();
+	await page.getByRole('button', { name: 'CANCEL AUTO', exact: true }).click();
+	await expect(spin).toBeEnabled();
 	expect(
 		s.calls.filter((c) => c.path === '/wallet/play').every((c) => c.body.mode === 'BASE'),
 	).toBe(true);
@@ -989,25 +991,21 @@ test('base-only session recovers a known unfinished Eclipse Chamber without a ne
 });
 
 for (const blurWindow of [false, true])
-	test(`held Space stops future rounds after ${blurWindow ? 'native window blur' : 'focus moves to mute before release'}`, async ({
+	test(`held Space stops future rounds after ${blurWindow ? 'window blur event' : 'focus moves to mute before release'}`, async ({
 		page,
 	}) => {
 		let releasePlay!: () => void;
 		const playGate = new Promise<void>((resolve) => (releasePlay = resolve));
 		const s = await session(page, { playGate });
 		await page.bringToFront();
-		await expect.poll(() => page.evaluate(() => document.hasFocus())).toBe(true);
 		await page.evaluate(() => (document.activeElement as HTMLElement)?.blur());
 		await page.keyboard.down('Space');
 		await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(1);
 		const turbo = page.getByRole('button', { name: 'TURBO', exact: true });
 		await expect(turbo).toHaveAttribute('aria-pressed', 'true');
-		let other: Page | undefined;
 		if (blurWindow) {
-			other = await page.context().newPage();
-			await other.goto('about:blank');
-			await other.bringToFront();
-			await expect.poll(() => page.evaluate(() => document.hasFocus())).toBe(false);
+			// Headless shell has no native OS focus transition; exercise the real window event listener.
+			await page.evaluate(() => window.dispatchEvent(new Event('blur')));
 		} else {
 			await page.getByRole('button', { name: 'Mute all sound', exact: true }).focus();
 			await page.keyboard.up('Space');
@@ -1018,8 +1016,5 @@ for (const blurWindow of [false, true])
 		await page.waitForTimeout(1000);
 		expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(1);
 		expect(s.errors).toEqual([]);
-		if (other) {
-			await other.close();
-			await page.keyboard.up('Space');
-		}
+		if (blurWindow) await page.keyboard.up('Space');
 	});

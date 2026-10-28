@@ -62,10 +62,12 @@ const errorMessages: Record<string, string> = {
 	ERR_ACT: 'Please wait a moment before trying again.',
 	ERR_GEN: 'The game service is unavailable. Reload to recover the round.',
 };
+const serviceErrorMessage = (code: unknown) =>
+	typeof code === 'string' && Object.hasOwn(errorMessages, code) ? errorMessages[code] : undefined;
 function checked<T>(data: any): T {
 	if (!data || data.error)
 		throw new Error(
-			errorMessages[data?.error] ??
+			serviceErrorMessage(data?.error) ??
 				'Connection interrupted. Reload to recover any unfinished round.',
 		);
 	return data as T;
@@ -74,7 +76,12 @@ async function response<T>(request: Promise<unknown>, replay = false): Promise<T
 	let data: unknown;
 	try {
 		data = await request;
-	} catch {
+	} catch (error) {
+		// The shared fetcher rejects structured HTTP/service errors before checked().
+		// Keep only this client's allowlisted messages; never display raw server text.
+		const code = error && typeof error === 'object' && 'error' in error ? error.error : undefined;
+		const message = !replay ? serviceErrorMessage(code) : undefined;
+		if (message) throw new Error(message);
 		throw new Error(
 			replay
 				? 'Replay could not be loaded. Check its launch link.'

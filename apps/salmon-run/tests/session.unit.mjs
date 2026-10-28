@@ -144,3 +144,62 @@ test('a malformed amount array returns a readable configuration error', async ()
 		/invalid amount configuration/,
 	);
 });
+
+test('structured ERR_VAL HTTP rejection keeps the safe session guidance', async () => {
+	globalThis.fetch = async () =>
+		new Response(
+			JSON.stringify({
+				error: 'ERR_VAL',
+				message: 'private server diagnostic must not be displayed',
+			}),
+			{ status: 400, headers: { 'Content-Type': 'application/json' } },
+		);
+	await assert.rejects(
+		() => new EngineSession('?rgs_url=rgs.invalid&sessionID=fixture').authenticate(),
+		{ message: 'The session or selected amount is unavailable. Relaunch the game.' },
+	);
+});
+
+test('unknown, prototype-key and transport failures retain the generic safe message', async () => {
+	for (const reject of [
+		...['toString', '__proto__', 42].map(
+			(error) => async () =>
+				new Response(
+					JSON.stringify({ error, message: 'private diagnostic must not be displayed' }),
+					{ status: 400, headers: { 'Content-Type': 'application/json' } },
+				),
+		),
+		async () =>
+			new Response(
+				JSON.stringify({
+					error: 'ERR_FUTURE',
+					message: 'private server diagnostic must not be displayed',
+				}),
+				{ status: 503, headers: { 'Content-Type': 'application/json' } },
+			),
+		async () => {
+			throw new Error('private transport diagnostic must not be displayed');
+		},
+	]) {
+		globalThis.fetch = reject;
+		await assert.rejects(
+			() => new EngineSession('?rgs_url=rgs.invalid&sessionID=fixture').authenticate(),
+			{ message: 'Connection interrupted. Reload to recover any unfinished round.' },
+		);
+	}
+});
+
+test('a rejected replay retains replay-specific guidance even for a known service code', async () => {
+	globalThis.fetch = async () =>
+		new Response(
+			JSON.stringify({
+				error: 'ERR_VAL',
+				message: 'private replay diagnostic must not be displayed',
+			}),
+			{ status: 400, headers: { 'Content-Type': 'application/json' } },
+		);
+	await assert.rejects(
+		() => new EngineSession('?rgs_url=rgs.invalid&replay=true&mode=river').loadReplay(),
+		{ message: 'Replay could not be loaded. Check its launch link.' },
+	);
+});

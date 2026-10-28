@@ -1,5 +1,9 @@
 # Salmon Run Engine self-check — 26 October 2026
 
+> **Historical record — superseded for current release decisions.** This document records the 2026-10-26 build and its then-current checks. Its counts, verdicts, source line numbers and asset descriptions are not evidence for the current build. Use the [2026-10-28 root approval review](../../docs/quality/engine-approval-fix-review-20261028.md), [current QA/release evidence bindings](../../docs/release-evidence.json) and [package manifest](../../docs/quality/release-manifest-20261028.json). Follow the browser report identified in the current evidence record for actual latest results. This historical self-check does not supersede pending platform or human gates.
+
+## Historical scope and findings
+
 Scope: **25 production Chromium fixture checks**, six shared contract tests, eight math regression tests, independent recomputation of **200,000 books**, and a local weighted-server playthrough. PASS means the cited local behavior; it does not establish live Engine acceptance, certification or approval. The supplied 41-item self-check is the rubric; direct user authorization covers the fixes and tests.
 
 4 AT RISK · 32 PASS · 3 NEEDS A HUMAN · 2 N/A.
