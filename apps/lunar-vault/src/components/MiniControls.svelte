@@ -187,6 +187,7 @@
 				disabled={locked ||
 					!idle ||
 					stateConfig.jurisdiction.disabledBuyFeature ||
+					!stateBetDerived.isModeAmountAvailable('bonus') ||
 					stateBet.balanceAmount < stateBet.betAmount * 100}
 				onclick={() => modal('buyBonus')}>{social ? 'PLAY' : 'BUY'} ECLIPSE CHAMBER</button
 			>

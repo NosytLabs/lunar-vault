@@ -55,12 +55,17 @@ const isContinuousBet = () => stateBet.autoSpinsCounter > 1 || stateBet.isSpaceH
 const timeScale = () => (stateBet.isTurbo ? 2 : 1);
 const authenticatedMode = (mode = stateBet.activeBetModeKey) =>
 	stateConfig.betModeLimits[mode.trim().toLowerCase()];
+const isModeConfigured = (mode: string) => Boolean(authenticatedMode(mode));
 const modeCostMultiplier = (mode = stateBet.activeBetModeKey) =>
 	authenticatedMode(mode)?.costMultiplier ??
-	stateMeta.betModeMeta?.[mode.toUpperCase()]?.costMultiplier ??
-	stateMeta.betModeMeta?.[mode.toLowerCase()]?.costMultiplier ??
-	1;
-const requestMode = () => authenticatedMode()?.mode ?? stateBet.activeBetModeKey;
+	(stateConfig.walletReady
+		? 0
+		: (stateMeta.betModeMeta?.[mode.toUpperCase()]?.costMultiplier ??
+			stateMeta.betModeMeta?.[mode.toLowerCase()]?.costMultiplier ??
+			1));
+const requestMode = () =>
+	authenticatedMode()?.mode ?? (stateConfig.walletReady ? '' : stateBet.activeBetModeKey);
+
 const betCostMultiplier = () =>
 	stateBetDerived.activeBetMode()?.type === 'activate' ? modeCostMultiplier() : 1;
 const betCost = () => stateBet.betAmount * betCostMultiplier();
@@ -97,6 +102,7 @@ export const stateBetDerived = {
 	isModeAmountAvailable,
 	canRequestBet,
 	modeCostMultiplier,
+	isModeConfigured,
 	requestMode,
 	hasAutoBetCounter,
 };

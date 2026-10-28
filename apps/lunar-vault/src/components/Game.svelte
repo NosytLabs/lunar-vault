@@ -118,7 +118,7 @@
 	{#snippet gameRules()}<GameInformation />{/snippet}
 	{#snippet payTable()}<GameInformation paytable />{/snippet}
 	{#snippet version()}
-		<GameVersion version="0.3.0 · Development preview" />
+		<GameVersion version="0.3.0" />
 	{/snippet}
 </Modals>
 

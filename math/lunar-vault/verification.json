@@ -1,0 +1,18 @@
+{
+  "base": {
+    "verifiedBooks": 100000,
+    "rtpFraction": "193/200",
+    "maximumWinX": 287.4,
+    "standardDeviationPerCost": 4.2978554586585584,
+    "totalWeight": 114279404840,
+    "errors": 0
+  },
+  "bonus": {
+    "verifiedBooks": 100000,
+    "rtpFraction": "193/200",
+    "maximumWinX": 654.0,
+    "standardDeviationPerCost": 0.7448125849583682,
+    "totalWeight": 22100345496,
+    "errors": 0
+  }
+}

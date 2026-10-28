@@ -151,11 +151,17 @@
 				)
 					throw new Error('The saved round play amount is invalid.');
 				validateRoundCheckpoint(round.event, round.state.length);
+				const knownRoundMode =
+					typeof round.mode === 'string'
+						? (stateMeta.betModeMeta[round.mode.trim().toLowerCase()] ??
+							stateMeta.betModeMeta[round.mode.trim().toUpperCase()])
+						: null;
 				if (
-					typeof round.mode !== 'string' ||
-					!stateConfig.betModeLimits[round.mode.trim().toLowerCase()]
+					!knownRoundMode ||
+					(round.costMultiplier !== undefined &&
+						round.costMultiplier !== knownRoundMode.costMultiplier)
 				)
-					throw new Error('The saved round mode is unavailable in this session.');
+					throw new Error('The saved round mode is unavailable in this game version.');
 				// Example of authenticateData.round
 				// {
 				// 	"betID": 62277967,

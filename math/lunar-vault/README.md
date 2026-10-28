@@ -51,6 +51,6 @@ Both simulations lie within five standard errors of the exact target. All tail p
 
 ## Release boundary
 
-Commercial volatility/tail design, independent mathematical review and certification, the Engine exposure-report template, Studio math acceptance, live integration/replay validation and final platform approval remain outside this engineering result. A 96.5% exact weighted mean and a passing local verifier do not establish approval. Do not advertise a 5,000× sample maximum or certification unless a future verified distribution and approval support it.
+Commercial volatility/tail design, independent mathematical review and certification, Engine operator-risk and bet-level template analysis, Studio math acceptance, live integration/replay validation and final platform approval remain outside this engineering result. A 96.5% exact weighted mean and a passing local verifier do not establish approval. Do not advertise a 5,000× sample maximum or certification unless a future verified distribution and approval support it.
 
 Official format and review references: [publication files](https://studio.engine.io/docs/math/math-file-format), [math verification](https://studio.engine.io/docs/approval-guidelines/math-verification), [RGS](https://studio.engine.io/docs/rgs), [replay](https://studio.engine.io/docs/approval-guidelines/game-replay-requirements).

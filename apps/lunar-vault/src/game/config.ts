@@ -1,4 +1,4 @@
-// SDK sample data, NOT certified Lunar Vault math. Do not change RTP to imply approval.
+// Frontend symbols/reels and mode metadata; authoritative publication math is in math/lunar-vault.
 export default {
 	providerName: 'nosytlabs',
 	gameName: 'lunar_vault',

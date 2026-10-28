@@ -19,7 +19,7 @@ test('invalid or incomplete advertised modes fail closed instead of using local 
 		{},
 		{ base: config[0], bonus: config[1] },
 		[],
-		config.slice(0, 1),
+		config.slice(1),
 		[config[0], { ...config[1], costMultiplier: 20 }],
 		[config[0], { ...config[1], maxBet: NaN }],
 		[config[0], { ...config[1], maxBet: 0 }],
@@ -27,4 +27,11 @@ test('invalid or incomplete advertised modes fail closed instead of using local 
 		[...config, { mode: 'unknown', costMultiplier: 1, maxBet: 10 }],
 	])
 		assert.throws(() => normalizeGameModes(invalid, costs), /mode configuration/);
+});
+
+test('documented base-only playable subset does not synthesize an unavailable feature', () => {
+	const modes = normalizeGameModes(config.slice(0, 1), costs);
+	assert.equal(modes.base.mode, 'BASE');
+	assert.equal(modes.bonus, undefined);
+	assert.deepEqual(Object.keys(modes), ['base']);
 });

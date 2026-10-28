@@ -1,44 +1,49 @@
 {
-	"name": "twist-turbo",
-	"version": "0.0.0",
-	"private": true,
-	"license": "MIT",
-	"scripts": {
-		"lint": "turbo run lint",
-		"format": "turbo run format",
-		"dev": "turbo run dev",
-		"build": "turbo run build",
-		"preview": "turbo run preview",
-		"real-build-storybook": "turbo run real-build-storybook",
-		"storybook": "turbo run storybook",
-		"publish-packages": "turbo run build lint test && changeset version && changeset publish",
-		"e2e": "turbo run e2e",
-		"e2e-smoke": "turbo run e2e-smoke",
-		"e2e-mobile": "turbo run e2e-mobile",
-		"test:viewport": "playwright test",
-		"check:assets": "node tools/check-original-art.mjs && python3 tools/audit-assets.py",
-		"audit:math": "node --experimental-strip-types tools/audit-books.mjs",
-		"test:math": "node --experimental-strip-types --test tools/audit-books.test.mjs",
-		"test:contracts": "node --experimental-strip-types --test tools/engine-contracts.test.mjs"
-	},
-	"dependencies": {
-		"eslint": "9.21.0",
-		"eslint-config-custom": "workspace:*",
-		"prettier": "3.5.2",
-		"prettier-plugin-svelte": "3.3.3",
-		"turbo": "2.4.4"
-	},
-	"engines": {
-		"node": ">=22.16.0"
-	},
-	"packageManager": "pnpm@10.5.0",
-	"pnpm": {
-		"onlyBuiltDependencies": [
-			"esbuild",
-			"svelte-preprocess"
-		]
-	},
-	"devDependencies": {
-		"@playwright/test": "1.64.1"
-	}
+  "name": "twist-turbo",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "preview": "turbo run preview",
+    "real-build-storybook": "turbo run real-build-storybook",
+    "storybook": "turbo run storybook",
+    "publish-packages": "turbo run build lint test && changeset version && changeset publish",
+    "e2e": "turbo run e2e",
+    "e2e-smoke": "turbo run e2e-smoke",
+    "e2e-mobile": "turbo run e2e-mobile",
+    "test:viewport": "playwright test",
+    "check:assets": "node tools/check-original-art.mjs && python3 tools/audit-assets.py",
+    "audit:math": "node --experimental-strip-types tools/audit-books.mjs",
+    "test:math": "node --experimental-strip-types --test tools/audit-books.test.mjs",
+    "test:contracts": "node --experimental-strip-types --test tools/engine-contracts.test.mjs",
+    "test:publication": "node --experimental-strip-types --test tools/math-contracts.test.mjs && node tools/python-runner.mjs -m unittest discover -s math/lunar-vault -p test_math.py && node tools/python-runner.mjs -m unittest discover -s math/salmon-run -p test_math.py",
+    "verify:math": "node tools/python-runner.mjs math/lunar-vault/verify.py && node tools/python-runner.mjs math/salmon-run/verify.py",
+    "audit:exposure": "node tools/python-runner.mjs tools/math-exposure.py",
+    "release:local": "node tools/release-gate.mjs --local",
+    "release:gate": "node tools/release-gate.mjs"
+  },
+  "dependencies": {
+    "eslint": "9.21.0",
+    "eslint-config-custom": "workspace:*",
+    "prettier": "3.5.2",
+    "prettier-plugin-svelte": "3.3.3",
+    "turbo": "2.4.4"
+  },
+  "engines": {
+    "node": ">=22.16.0"
+  },
+  "packageManager": "pnpm@10.5.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "svelte-preprocess"
+    ]
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1"
+  }
 }

@@ -75,6 +75,7 @@ async function session(
 		playError?: boolean;
 		roundActive?: boolean;
 		resumeIndex?: number;
+		resumeMode?: string;
 		defaultBetMicro?: number;
 		balanceMicro?: number;
 		rgsAddress?: string;
@@ -102,7 +103,7 @@ async function session(
 	const round = {
 		betID: 1,
 		amount: options.resumeAmountMicro ?? defaultBet,
-		mode: 'base',
+		mode: options.resumeMode ?? 'base',
 		payout: Math.round(book.payoutMultiplier * (options.resumeAmountMicro ?? defaultBet)),
 		payoutMultiplier: book.payoutMultiplier,
 		active: options.roundActive ?? book.payoutMultiplier > 0,
@@ -738,7 +739,7 @@ test('documented uppercase wallet mode is preserved in the actual play request',
 
 for (const options of [
 	{ modeCost: 20 },
-	{ gameModes: [{ mode: 'BASE', costMultiplier: 1, maxBet: 1000000 }] },
+	{ gameModes: [{ mode: 'BONUS', costMultiplier: 100, maxBet: 1000000 }] },
 ])
 	test(`invalid advertised modes block all wagering: ${JSON.stringify(options)}`, async ({
 		page,
@@ -916,3 +917,108 @@ test('current publication Eclipse Chamber replay displays the full 100× cost wi
 	expect(s.errors).toEqual([]);
 	await page.screenshot({ path: info.outputPath('current-bonus-replay-cost.png') });
 });
+
+test('base-only session disables unavailable feature and keeps base pointer Space and autoplay on BASE', async ({
+	page,
+}) => {
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	const s = await session(page, {
+		gameModes: [{ mode: 'BASE', costMultiplier: 1, maxBet: 1000000 }],
+	});
+	await expect(
+		page.getByRole('button', { name: 'BUY ECLIPSE CHAMBER', exact: true }),
+	).toBeDisabled();
+	await clickText(page, 'BUY ECLIPSE CHAMBER');
+	await expect(page.locator('.bonus-card-wrap')).toHaveCount(0);
+	await clickText(page, 'SPIN');
+	await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(1);
+	await expect(page.getByRole('button', { name: 'SPIN', exact: true })).toBeEnabled();
+	await page.evaluate(() => (document.activeElement as HTMLElement)?.blur());
+	await page.keyboard.press('Space');
+	await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(2);
+	expect(
+		s.calls.filter((c) => c.path === '/wallet/play').every((c) => c.body.mode === 'BASE'),
+	).toBe(true);
+	await expect(page.getByRole('button', { name: 'SPIN', exact: true })).toBeEnabled();
+	await clickText(page, 'AUTO SPIN');
+	await page.getByText('START AUTOPLAY', { exact: true }).click();
+	await expect
+		.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length)
+		.toBeGreaterThanOrEqual(3);
+	await clickText(page, 'CANCEL AUTO');
+	await expect(page.getByRole('button', { name: 'SPIN', exact: true })).toBeEnabled();
+	expect(
+		s.calls.filter((c) => c.path === '/wallet/play').every((c) => c.body.mode === 'BASE'),
+	).toBe(true);
+	expect(s.errors).toEqual([]);
+});
+
+test('base-only session recovers a known unfinished Eclipse Chamber without a new feature play', async ({
+	page,
+}) => {
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	const original = originalPublication['bonus:feature'];
+	const book = { ...original, payoutMultiplier: original.payoutMultiplier / 100 } as Fixture;
+	const s = await session(page, {
+		book,
+		resume: true,
+		resumeMode: 'bonus',
+		resumeIndex: 54,
+		gameModes: [{ mode: 'BASE', costMultiplier: 1, maxBet: 1000000 }],
+	});
+	await expect
+		.poll(
+			async () => {
+				if ((await renderedText(page)).some((node) => node.text.startsWith('TAP')))
+					await page.mouse.click(15, page.viewportSize()!.height - 25);
+				return s.calls.filter((c) => c.path === '/wallet/end-round').length;
+			},
+			{ timeout: 20000 },
+		)
+		.toBe(1);
+	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
+	expect(s.calls.filter((c) => c.path === '/bet/event').map((c) => c.body.event)).toEqual([
+		'55',
+		'56',
+	]);
+	await expect(
+		page.getByRole('button', { name: 'BUY ECLIPSE CHAMBER', exact: true }),
+	).toBeDisabled();
+	expect(s.errors).toEqual([]);
+});
+
+for (const blurWindow of [false, true])
+	test(`held Space stops future rounds after ${blurWindow ? 'native window blur' : 'focus moves to mute before release'}`, async ({
+		page,
+	}) => {
+		let releasePlay!: () => void;
+		const playGate = new Promise<void>((resolve) => (releasePlay = resolve));
+		const s = await session(page, { playGate });
+		await page.bringToFront();
+		await expect.poll(() => page.evaluate(() => document.hasFocus())).toBe(true);
+		await page.evaluate(() => (document.activeElement as HTMLElement)?.blur());
+		await page.keyboard.down('Space');
+		await expect.poll(() => s.calls.filter((c) => c.path === '/wallet/play').length).toBe(1);
+		const turbo = page.getByRole('button', { name: 'TURBO', exact: true });
+		await expect(turbo).toHaveAttribute('aria-pressed', 'true');
+		let other: Page | undefined;
+		if (blurWindow) {
+			other = await page.context().newPage();
+			await other.goto('about:blank');
+			await other.bringToFront();
+			await expect.poll(() => page.evaluate(() => document.hasFocus())).toBe(false);
+		} else {
+			await page.getByRole('button', { name: 'Mute all sound', exact: true }).focus();
+			await page.keyboard.up('Space');
+		}
+		await expect(turbo).toHaveAttribute('aria-pressed', 'false');
+		releasePlay();
+		await expect(page.getByRole('button', { name: 'SPIN', exact: true })).toBeEnabled();
+		await page.waitForTimeout(1000);
+		expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(1);
+		expect(s.errors).toEqual([]);
+		if (other) {
+			await other.close();
+			await page.keyboard.up('Space');
+		}
+	});

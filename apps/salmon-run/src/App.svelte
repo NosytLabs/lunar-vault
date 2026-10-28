@@ -303,10 +303,13 @@
 	}
 	async function playback(round: Round, resume = false) {
 		roundAmount = round.amount;
-		const configuration = serverModes[canonicalModeName(round.mode)];
-		if (!replay && !configuration)
+		const modeName = canonicalModeName(round.mode) as keyof typeof math.modes;
+		const configuration = serverModes[modeName];
+		// A previously started feature must finish even when it is no longer available for new plays.
+		const cost = configuration?.costMultiplier ?? (resume && round.active ? math.modes[modeName]?.cost : undefined);
+		if (!replay && (!Number.isFinite(cost) || (cost ?? 0) <= 0))
 			throw new Error('This round mode is unavailable in the session.');
-		roundCost = replay ? replayCost : configuration.costMultiplier;
+		roundCost = replay ? replayCost : cost!;
 		roundPayout = round.state.at(-1)?.amount ?? 0;
 		mode = round.mode;
 		win = 0;
@@ -692,7 +695,7 @@
 						/>{/if}</svg
 				><b>{busy ? 'STOP' : replay ? 'PLAY' : 'SPIN'}</b></button
 			>
-			{#if !replay && !jurisdiction.disabledBuyFeature}<button
+			{#if !replay && !jurisdiction.disabledBuyFeature && serverModes.river}<button
 					class="run-preview"
 					disabled={busy || !riverAvailable}
 					onclick={() => (modal = 'confirm')}
@@ -782,7 +785,7 @@
 			<p>
 				3 / 4 / 5 or more River arches award 6 / 8 / 10 free casts. Three or more arches during the
 				run add 2 casts, up to 12 total. River Run opens a six-cast run directly for {riverCost}×
-				the base play amount, after confirmation.
+				the base play amount, after confirmation. Availability depends on the session.
 			</p>
 			<p>
 				Fish in the run show 1×, 2×, 3×, 5×, 10× or 20× values. At least one Wild collects all

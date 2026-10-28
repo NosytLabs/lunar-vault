@@ -46,8 +46,14 @@ test('mismatched documented mode cost fails before exposing a playable session',
 		/mode configuration/,
 	);
 });
-test('missing documented mode fails instead of granting an infinite limit', async () => {
+test('a base-only playable subset does not grant a feature configuration', async () => {
 	respond(auth([modes[0]]));
+	const data = await new EngineSession('?rgs_url=rgs.invalid&sessionID=fixture').authenticate();
+	assert.deepEqual(data.config.gameModes.base, modes[0]);
+	assert.equal(Object.hasOwn(data.config.gameModes, 'river'), false);
+});
+test('a session without the required base mode fails visibly', async () => {
+	respond(auth([modes[1]]));
 	await assert.rejects(
 		() => new EngineSession('?rgs_url=rgs.invalid&sessionID=fixture').authenticate(),
 		/mode configuration/,

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { stateBet, stateBetDerived, stateUrlDerived } from 'state-shared';
+import { stateBet, stateBetDerived, stateUrlDerived, stateMeta } from 'state-shared';
 import { validateSlotBook } from 'utils-shared/slotBookValidation';
 import { validateRoundCheckpoint } from 'utils-shared/roundValidation';
 import { stateGame } from './stateGame.svelte';
@@ -22,7 +22,10 @@ export const playBet = async (bet: Bet) => {
 	stateBet.winBookEventAmount = 0;
 	stateGame.roundCostMultiplier = stateUrlDerived.replay()
 		? stateBet.replayCostMultiplier
-		: stateBetDerived.modeCostMultiplier(bet.mode);
+		: ((
+				stateMeta.betModeMeta[bet.mode.trim().toLowerCase()] ??
+				stateMeta.betModeMeta[bet.mode.trim().toUpperCase()]
+			)?.costMultiplier ?? 1);
 	stateGame.roundPayout = bet.state.findLast((event) => event.type === 'finalWin')?.amount ?? 0;
 	for (const bookEvent of bet.state) {
 		if (generation !== stateGame.playbackGeneration) return;

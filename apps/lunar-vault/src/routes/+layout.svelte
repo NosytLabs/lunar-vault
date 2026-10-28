@@ -13,7 +13,7 @@
 <svelte:head
 	><title>Lunar Vault · NosytLabs Games</title><meta
 		name="description"
-		content="Explore the Lunar Vault celestial slot development preview."
+		content="Explore twenty celestial lines and the Eclipse Chamber in Lunar Vault."
 	/></svelte:head
 >
 

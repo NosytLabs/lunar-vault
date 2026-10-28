@@ -39,12 +39,18 @@
 			{/snippet}
 
 			{#snippet price()}
-				{#if !stateBetDerived.isModeAmountAvailable(betModeData.mode)}<small
-						>Choose a lower play amount for this feature.</small
-					>{/if}
-				<div class="price">
-					{`${numberToCurrencyString(stateBet.betAmount * stateBetDerived.modeCostMultiplier(betModeData.mode))}`}
-				</div>
+				{#if !stateBetDerived.isModeConfigured(betModeData.mode)}
+					<small>This feature is unavailable in this session.</small>
+				{:else}
+					{#if !stateBetDerived.isModeAmountAvailable(betModeData.mode)}<small
+							>Choose a lower play amount for this feature.</small
+						>{/if}
+					<div class="price">
+						{numberToCurrencyString(
+							stateBet.betAmount * stateBetDerived.modeCostMultiplier(betModeData.mode),
+						)}
+					</div>
+				{/if}
 			{/snippet}
 
 			{#snippet button()}

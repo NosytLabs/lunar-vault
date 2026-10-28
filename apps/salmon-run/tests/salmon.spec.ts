@@ -720,3 +720,35 @@ test('server-only social flag protects controls and every feature dialog when UR
 	expect(s.calls.filter((c) => c.path === '/wallet/end-round')).toHaveLength(1);
 	expect(s.errors).toEqual([]);
 });
+
+test('base-only session hides River Run and sends exact BASE for an ordinary play', async ({
+	page,
+}) => {
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	const s = await boot(page, { gameModes: [{ mode: 'BASE', costMultiplier: 1, maxBet: 1000000 }] });
+	await expect(page.locator('.run-preview')).toHaveCount(0);
+	await page.getByRole('button', { name: 'Spin', exact: true }).click();
+	await expect(page.getByRole('button', { name: 'Spin', exact: true })).toBeEnabled();
+	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(1);
+	expect(s.calls.find((c) => c.path === '/wallet/play')!.body.mode).toBe('BASE');
+	expect(s.errors).toEqual([]);
+});
+
+test('base-only session recovers known River Run and settles without another feature entry', async ({
+	page,
+}) => {
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	const cursor = river.events.find((event: any) => event.type === 'freeSpinEnd').index;
+	const s = await boot(page, {
+		book: river,
+		resume: true,
+		cursor,
+		mode: 'river',
+		gameModes: [{ mode: 'BASE', costMultiplier: 1, maxBet: 1000000 }],
+	});
+	await completeRun(page);
+	expect(s.calls.filter((c) => c.path === '/wallet/play')).toHaveLength(0);
+	expect(s.calls.filter((c) => c.path === '/wallet/end-round')).toHaveLength(1);
+	await expect(page.locator('.run-preview')).toHaveCount(0);
+	expect(s.errors).toEqual([]);
+});

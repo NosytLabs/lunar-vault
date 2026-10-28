@@ -1,0 +1,80 @@
+{
+  "status": "development math; not certified or approved",
+  "model": "finite weighted event-book distribution; proposal frequencies are not final odds",
+  "seed": 20261028,
+  "version": "development-1",
+  "modes": {
+    "base": {
+      "books": 100000,
+      "cost": 1,
+      "totalWeight": 114279404840,
+      "nonzeroWeightBooks": 100000,
+      "exactRtpFraction": "193/200",
+      "weightedRtp": 0.965,
+      "simulatedRtp": 0.9648810549977854,
+      "simulationSpins": 20000000,
+      "simulationSeed": 718200,
+      "standardError": 0.0009604588120566379,
+      "confidenceInterval95": [
+        0.9629985557261544,
+        0.9667635542694164
+      ],
+      "simulationWithinFiveStandardErrors": true,
+      "standardDeviationPerCost": 4.2978554586585584,
+      "weightedHitRate": 0.40457624075599796,
+      "sampledHitRate": 0.40476855,
+      "maximumWinX": 287.4,
+      "mostLikelySingleBookProbability": 2.849504689457569e-05,
+      "featureProbability": 0.012134196305462664,
+      "cvarWorstPointOnePercentX": 87.7632401599056,
+      "cvarPerCost": 87.7632401599056,
+      "tailProbabilities": {
+        "5000": 0.0,
+        "10000": 0.0,
+        "25000": 0.0,
+        "50000": 0.0,
+        "100000": 0.0
+      },
+      "uniqueEventBooks": 100000,
+      "eventsSha256": "78acc3209fe7eae8ac7996a4872263854332060dcafa66b28f9790ebc3bc3b1a",
+      "weightsSha256": "42eeee41df27f09f5df4e305d65dd213831eab9271492b784f4c3f056fa623ae",
+      "decodedEventsSha256": "b8baed23a41893952438f19672edcf4f6eac978be09ae0314dfd162f5b32c825"
+    },
+    "bonus": {
+      "books": 100000,
+      "cost": 100,
+      "totalWeight": 22100345496,
+      "nonzeroWeightBooks": 100000,
+      "exactRtpFraction": "193/200",
+      "weightedRtp": 0.965,
+      "simulatedRtp": 0.9651799085483755,
+      "simulationSpins": 20000000,
+      "simulationSeed": 718201,
+      "standardError": 0.00016663218755181574,
+      "confidenceInterval95": [
+        0.964853309460774,
+        0.9655065076359771
+      ],
+      "simulationWithinFiveStandardErrors": true,
+      "standardDeviationPerCost": 0.7448125849583682,
+      "weightedHitRate": 0.9994624575438357,
+      "sampledHitRate": 0.99946605,
+      "maximumWinX": 654.0,
+      "mostLikelySingleBookProbability": 0.00035823860769203605,
+      "featureProbability": 1.0,
+      "cvarWorstPointOnePercentX": 572.5603912876312,
+      "cvarPerCost": 5.725603912876312,
+      "tailProbabilities": {
+        "5000": 0.0,
+        "10000": 0.0,
+        "25000": 0.0,
+        "50000": 0.0,
+        "100000": 0.0
+      },
+      "uniqueEventBooks": 100000,
+      "eventsSha256": "62bcb68afddd1a203740f0c1300acc3b6c6d7d178d37d920f975d0c7c638556c",
+      "weightsSha256": "5479aad9c2db2921d64af520e0aa40b33a72d5bda280a6abc097618bc00a5c18",
+      "decodedEventsSha256": "fa4c924209a600c4efefc663e8aad37f651b2aa0dcc8e78f6c731579484ec2e7"
+    }
+  }
+}

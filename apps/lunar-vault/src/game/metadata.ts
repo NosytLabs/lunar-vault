@@ -31,7 +31,7 @@ export function initialiseMetadata() {
 						? 'Enter the Eclipse Chamber. 12 free spins: 100× play amount.'
 						: '',
 					dialog:
-						'Eclipse Chamber costs 100× the selected play amount. Development math; independent approval remains outstanding.',
+						'Enter 12 Eclipse Chamber free spins for 100× the selected play amount. Confirm the total shown below to continue.',
 					tickerIdle: '',
 					tickerSpin: '',
 				},

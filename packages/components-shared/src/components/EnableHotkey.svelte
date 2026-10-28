@@ -19,31 +19,40 @@
 			!stateModal.modal &&
 			!(e.code === 'Space' && stateConfig.jurisdiction.disabledSpacebar));
 
-	function handleKeydown(e: KeyboardEvent) {
-		if (getValidElement(e) && !e.repeat) {
-			const isSpace = e.key === ' ';
-			const key = isSpace ? 'Space' : e.key;
-			if (PREVENT_DEFAULT_KEYS.includes(key)) e.preventDefault();
-			if (key) context.eventEmitter.broadcast({ type: 'hotKey', key, action: 'keyDown' });
-		}
+	const activeKeys = new Set<string>();
+	const keyOf = (e: KeyboardEvent) => (e.key === ' ' || e.code === 'Space' ? 'Space' : e.key);
+	function releaseKey(key: string) {
+		activeKeys.delete(key);
+		context.eventEmitter.broadcast({ type: 'hotKey', key, action: 'keyUp' });
 	}
-
+	function handleKeydown(e: KeyboardEvent) {
+		if (!getValidElement(e) || e.repeat) return;
+		const key = keyOf(e);
+		if (!key) return;
+		if (PREVENT_DEFAULT_KEYS.includes(key)) e.preventDefault();
+		activeKeys.add(key);
+		context.eventEmitter.broadcast({ type: 'hotKey', key, action: 'keyDown' });
+	}
 	function handleKeyup(e: KeyboardEvent) {
-		if (getValidElement(e)) {
-			const isSpace = e.key === ' ';
-			const key = isSpace ? 'Space' : e.key;
-			if (PREVENT_DEFAULT_KEYS.includes(key)) e.preventDefault();
-			if (key) context.eventEmitter.broadcast({ type: 'hotKey', key, action: 'keyUp' });
-		}
+		const key = keyOf(e);
+		if (!key || (!activeKeys.has(key) && !getValidElement(e))) return;
+		if (PREVENT_DEFAULT_KEYS.includes(key)) e.preventDefault();
+		releaseKey(key);
+	}
+	function releaseActiveKeys() {
+		for (const key of [...activeKeys]) releaseKey(key);
 	}
 
 	onMount(() => {
 		window.addEventListener('keydown', handleKeydown);
 		window.addEventListener('keyup', handleKeyup);
+		window.addEventListener('blur', releaseActiveKeys);
 	});
 
 	onDestroy(() => {
 		window.removeEventListener('keydown', handleKeydown);
 		window.removeEventListener('keyup', handleKeyup);
+		window.removeEventListener('blur', releaseActiveKeys);
+		releaseActiveKeys();
 	});
 </script>

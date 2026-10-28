@@ -28,6 +28,6 @@ export function normalizeGameModes(
 			throw invalid();
 		modes[name] = { mode: entry.mode, costMultiplier: entry.costMultiplier, maxBet: entry.maxBet };
 	}
-	if (Object.keys(expected).some((name) => !Object.hasOwn(modes, name))) throw invalid();
+	if (!Object.hasOwn(modes, 'base')) throw invalid();
 	return modes;
 }

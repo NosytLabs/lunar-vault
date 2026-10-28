@@ -63,3 +63,7 @@ apps/lunar-vault/static/assets/audio/nosyt-sprite.wav
 # Local generated math preview cache
 math/salmon-run/.cache/
 math/**/__pycache__/
+tools/__pycache__/
+
+# Reproducible Lunar outcome streams ship in the verified math release archive.
+math/lunar-vault/publish_files/books_*.jsonl.zst
