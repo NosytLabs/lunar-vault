@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "checkedAtUtc": "2026-10-28 14:38:15 UTC",
+  "runtimeSourceCommit": "159efd249f09ba9387f39062c6bffb707458875f",
+  "releaseManifestSha256": "a045c2a3a54130f2249bb5f265e1d076710f568f63eea8750bcb88b2666faf38",
+  "browserReportSha256": "7ddf17be15242afeef7d707683280469117808e88f52ec7ff3f70ea4a630c65e",
+  "local": {
+    "command": "node tools/release-gate.mjs --local",
+    "exitCode": 0,
+    "status": "passed",
+    "output": "Local release consistency: RECORDS PRESENT (lunar-vault, salmon-run)\nA local pass checks packaged consistency and recorded browser evidence only. It does not clear Engine/human approval gates.\n"
+  },
+  "independent": {
+    "command": "node tools/release-gate.mjs",
+    "exitCode": 1,
+    "status": "blocked",
+    "missingVersionBoundChecks": 16,
+    "output": "Independent release evidence: BLOCKED (lunar-vault, salmon-run)\n - lunar-vault/matchedMath: missing independent, version-bound evidence.\n - lunar-vault/engineStaging: missing independent, version-bound evidence.\n - lunar-vault/activeRoundRecovery: missing independent, version-bound evidence.\n - lunar-vault/replay: missing independent, version-bound evidence.\n - lunar-vault/jurisdiction: missing independent, version-bound evidence.\n - lunar-vault/assetRights: missing independent, version-bound evidence.\n - lunar-vault/studioMedia: missing independent, version-bound evidence.\n - lunar-vault/engineApproval: missing independent, version-bound evidence.\n - salmon-run/matchedMath: missing independent, version-bound evidence.\n - salmon-run/engineStaging: missing independent, version-bound evidence.\n - salmon-run/activeRoundRecovery: missing independent, version-bound evidence.\n - salmon-run/replay: missing independent, version-bound evidence.\n - salmon-run/jurisdiction: missing independent, version-bound evidence.\n - salmon-run/assetRights: missing independent, version-bound evidence.\n - salmon-run/studioMedia: missing independent, version-bound evidence.\n - salmon-run/engineApproval: missing independent, version-bound evidence.\nRecords do not certify math, establish asset rights or legal compliance, grant Engine/Stake approval, or authorize deployment. Verify external records with their issuers.\n"
+  }
+}

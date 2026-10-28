@@ -1,29 +1,115 @@
 {
-	"schemaVersion": 1,
-	"checks": {
-		"matchedMath": {
-			"status": "missing"
-		},
-		"engineStaging": {
-			"status": "missing"
-		},
-		"activeRoundRecovery": {
-			"status": "missing"
-		},
-		"replay": {
-			"status": "missing"
-		},
-		"jurisdiction": {
-			"status": "missing"
-		},
-		"assetRights": {
-			"status": "missing"
-		},
-		"studioMedia": {
-			"status": "missing"
-		},
-		"engineApproval": {
-			"status": "missing"
-		}
-	}
+  "schemaVersion": 2,
+  "release": "2026-10-28",
+  "runtimeSourceCommit": "159efd249f09ba9387f39062c6bffb707458875f",
+  "games": {
+    "lunar-vault": {
+      "frontendSha256": "4d7465d8a42eeb87c57305516cc80a28ce52e2c0ff7f43de091ec4fcecb15c80",
+      "mathSha256": "ee973f629c69250cd944b1101e28632ea6f1fe32e890eecf45a98593b3a94218",
+      "local": {
+        "browser": {
+          "status": "verified",
+          "report": "docs/quality/browser-qa-20261028.md",
+          "reviewer": "ChatGPT engineering review; production frontends with intercepted mock-wallet responses",
+          "frontendSha256": "4d7465d8a42eeb87c57305516cc80a28ce52e2c0ff7f43de091ec4fcecb15c80",
+          "mathSha256": "ee973f629c69250cd944b1101e28632ea6f1fe32e890eecf45a98593b3a94218",
+          "results": {
+            "passed": 51,
+            "failed": 0
+          },
+          "viewports": [
+            "400x225",
+            "800x450",
+            "1024x576",
+            "425x812"
+          ],
+          "touch": true,
+          "reportSha256": "7ddf17be15242afeef7d707683280469117808e88f52ec7ff3f70ea4a630c65e"
+        }
+      },
+      "checks": {
+        "matchedMath": {
+          "status": "missing"
+        },
+        "engineStaging": {
+          "status": "missing"
+        },
+        "activeRoundRecovery": {
+          "status": "missing"
+        },
+        "replay": {
+          "status": "missing"
+        },
+        "jurisdiction": {
+          "status": "missing"
+        },
+        "assetRights": {
+          "status": "missing"
+        },
+        "studioMedia": {
+          "status": "missing"
+        },
+        "engineApproval": {
+          "status": "missing"
+        }
+      }
+    },
+    "salmon-run": {
+      "frontendSha256": "423c81f28a9b640d39dd9f1ffd7b495f6bdab2fe7475e52cadbf45601d6e39ab",
+      "mathSha256": "c4f8cdf891731077399c27e5eab3b24c48c0698aa9361ae1c20e7d4ccf9f7448",
+      "local": {
+        "browser": {
+          "status": "verified",
+          "report": "docs/quality/browser-qa-20261028.md",
+          "reviewer": "ChatGPT engineering review; production frontends with intercepted mock-wallet responses",
+          "frontendSha256": "423c81f28a9b640d39dd9f1ffd7b495f6bdab2fe7475e52cadbf45601d6e39ab",
+          "mathSha256": "c4f8cdf891731077399c27e5eab3b24c48c0698aa9361ae1c20e7d4ccf9f7448",
+          "results": {
+            "passed": 28,
+            "failed": 0
+          },
+          "viewports": [
+            "400x225",
+            "800x450",
+            "1024x576",
+            "425x812"
+          ],
+          "touch": true,
+          "reportSha256": "7ddf17be15242afeef7d707683280469117808e88f52ec7ff3f70ea4a630c65e"
+        }
+      },
+      "checks": {
+        "matchedMath": {
+          "status": "missing"
+        },
+        "engineStaging": {
+          "status": "missing"
+        },
+        "activeRoundRecovery": {
+          "status": "missing"
+        },
+        "replay": {
+          "status": "missing"
+        },
+        "jurisdiction": {
+          "status": "missing"
+        },
+        "assetRights": {
+          "status": "missing"
+        },
+        "studioMedia": {
+          "status": "missing"
+        },
+        "engineApproval": {
+          "status": "missing"
+        }
+      }
+    }
+  },
+  "notes": [
+    "Local browser evidence covers 79 distinct latest passing scenarios across recorded runs; the original 75-pass/3-failure batch and bounded follow-ups remain in the report.",
+    "Local checks do not grant Engine or Stake approval. Independent review records must identify the exact frontend and math archives.",
+    "Positive minimumRoundDuration profiles remain unsupported until Engine supplies authoritative units and timing semantics.",
+    "Headless window-blur event checks do not establish native OS focus-loss behavior; physical-device performance and audible mute require human review."
+  ]
 }

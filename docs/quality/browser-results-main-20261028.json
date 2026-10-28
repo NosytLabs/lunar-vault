@@ -1,0 +1,3450 @@
+{
+  "config": {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/scratch/87411a2f3bc3/lunar-vault/node_modules/@playwright/test/cli.js",
+      "test",
+      "--config",
+      "/tmp/lunar-qa-recovery-20261028/fresh-qa.config.mjs"
+    ],
+    "configFile": "/tmp/lunar-qa-recovery-20261028/fresh-qa.config.mjs",
+    "rootDir": "/tmp/lunar-qa-recovery-20261028",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/tmp/lunar-qa-recovery-20261028/fresh-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "lunar-presentation-fresh",
+        "name": "lunar-presentation-fresh",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "lunar-presentation.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "/tmp/lunar-qa-recovery-20261028/fresh-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "lunar-contracts-fresh",
+        "name": "lunar-contracts-fresh",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "lunar-vault.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "/tmp/lunar-qa-recovery-20261028/fresh-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "salmon-contracts-fresh",
+        "name": "salmon-contracts-fresh",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "salmon.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/tmp/lunar-qa-recovery-20261028/fresh-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "lunar-presentation-fresh",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "snapshotDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "testIgnore": [],
+        "testMatch": "lunar-presentation.spec.ts",
+        "timeout": 45000,
+        "use": {
+          "screenshot": "on",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "executablePath": "/tmp/lunar-headless-shell-1161/chrome-linux/headless_shell",
+            "args": [
+              "--no-sandbox"
+            ]
+          },
+          "baseURL": "http://127.0.0.1:4173"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "lunar-presentation-fresh"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/tmp/lunar-qa-recovery-20261028/fresh-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "lunar-contracts-fresh",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "snapshotDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "testIgnore": [],
+        "testMatch": "lunar-vault.spec.ts",
+        "timeout": 45000,
+        "use": {
+          "screenshot": "on",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "executablePath": "/tmp/lunar-headless-shell-1161/chrome-linux/headless_shell",
+            "args": [
+              "--no-sandbox"
+            ]
+          },
+          "baseURL": "http://127.0.0.1:4173"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "lunar-contracts-fresh"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/tmp/lunar-qa-recovery-20261028/fresh-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "salmon-contracts-fresh",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests",
+        "snapshotDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests",
+        "testIgnore": [],
+        "testMatch": "salmon.spec.ts",
+        "timeout": 45000,
+        "use": {
+          "screenshot": "on",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "executablePath": "/tmp/lunar-headless-shell-1161/chrome-linux/headless_shell",
+            "args": [
+              "--no-sandbox"
+            ]
+          },
+          "baseURL": "http://127.0.0.1:4174"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "salmon-contracts-fresh"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/tmp/lunar-qa-recovery-20261028/fresh-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+      "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "rules and confirmation retain reachable master sound without dismissal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-presentation-fresh",
+              "projectName": "lunar-presentation-fresh",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 20687,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:02:51.780Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-presentation-rules-a-a1671-ter-sound-without-dismissal-lunar-presentation-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d6db94e79ba5ca3d42ab-702d3363741125a82b45",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+          "line": 154,
+          "column": 5
+        },
+        {
+          "title": "requested session disclosures show authenticated values in a compact popout",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-presentation-fresh",
+              "projectName": "lunar-presentation-fresh",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4538,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:03:12.490Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-presentation-request-b87c6--values-in-a-compact-popout-lunar-presentation-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d6db94e79ba5ca3d42ab-0cf3e1fac8a536dcacec",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+          "line": 187,
+          "column": 5
+        },
+        {
+          "title": "final free spin returns through completion scene to ordinary controls",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-presentation-fresh",
+              "projectName": "lunar-presentation-fresh",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 25006,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:03:17.055Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-presentation-final-f-a1a7a--scene-to-ordinary-controls-lunar-presentation-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d6db94e79ba5ca3d42ab-fddb63deebd8f14883f8",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+          "line": 205,
+          "column": 5
+        },
+        {
+          "title": "small feature replay retains progress and full amount information without wallet calls",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-presentation-fresh",
+              "projectName": "lunar-presentation-fresh",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7546,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:03:42.095Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-presentation-small-f-cd0b6-mation-without-wallet-calls-lunar-presentation-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d6db94e79ba5ca3d42ab-e0ab64cbef54d9e95e3c",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+          "line": 238,
+          "column": 5
+        }
+      ],
+      "suites": [
+        {
+          "title": "feature presentation 1024x576",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+          "line": 130,
+          "column": 7,
+          "specs": [
+            {
+              "title": "recovered retrigger count is visible inside controls and survives rotation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "lunar-presentation-fresh",
+                  "projectName": "lunar-presentation-fresh",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 28172,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-28T14:01:29.311Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-presentation-feature-b542f-trols-and-survives-rotation-lunar-presentation-fresh/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d6db94e79ba5ca3d42ab-a8d8711374f11bcf27c0",
+              "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+              "line": 132,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "feature presentation 800x450",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+          "line": 130,
+          "column": 7,
+          "specs": [
+            {
+              "title": "recovered retrigger count is visible inside controls and survives rotation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "lunar-presentation-fresh",
+                  "projectName": "lunar-presentation-fresh",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 16003,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-28T14:01:57.687Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-presentation-feature-8e864-trols-and-survives-rotation-lunar-presentation-fresh/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d6db94e79ba5ca3d42ab-42d7da22f99866c43a18",
+              "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+              "line": 132,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "feature presentation 400x225",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+          "line": 130,
+          "column": 7,
+          "specs": [
+            {
+              "title": "recovered retrigger count is visible inside controls and survives rotation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "lunar-presentation-fresh",
+                  "projectName": "lunar-presentation-fresh",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6397,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-28T14:02:13.751Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-presentation-feature-0b482-trols-and-survives-rotation-lunar-presentation-fresh/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d6db94e79ba5ca3d42ab-a33036f3469c95c2631d",
+              "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+              "line": 132,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "feature presentation 425x812",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+          "line": 130,
+          "column": 7,
+          "specs": [
+            {
+              "title": "recovered retrigger count is visible inside controls and survives rotation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "lunar-presentation-fresh",
+                  "projectName": "lunar-presentation-fresh",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 31546,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-28T14:02:20.203Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-presentation-feature-9c7f3-trols-and-survives-rotation-lunar-presentation-fresh/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d6db94e79ba5ca3d42ab-b06e4635a37d948430ee",
+              "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+              "line": 132,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+      "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "win settles once, dialogs render once and block space",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 77231,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:03:50.694Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-win-settles-on-fec00-render-once-and-block-space-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-015166f54f832af0ed15",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 282,
+          "column": 5
+        },
+        {
+          "title": "restricted session disables controls and space; feature menu only lists the implemented mode",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 21316,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:05:08.140Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-restricted-ses-fb9c6--lists-the-implemented-mode-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-94e0e1825011b0e7d450",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 318,
+          "column": 5
+        },
+        {
+          "title": "autoplay can be cancelled when slam-stop is forbidden",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 28455,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:05:29.560Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-autoplay-can-b-23922-when-slam-stop-is-forbidden-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-e40b963445ec09e8b439",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 343,
+          "column": 5
+        },
+        {
+          "title": "wallet play uses integer micro-units for a 2.01 amount",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12208,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:05:58.115Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-wallet-play-us-5f1fa-cro-units-for-a-2-01-amount-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-9255d2b5a3751b703fd9",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 495,
+          "column": 5
+        },
+        {
+          "title": "phone currency USD uses exact server amount and native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8310,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:06:10.408Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-phone-currency-de3c9-mount-and-native-formatting-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-2257655f776c6b1d829e",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 514,
+          "column": 6
+        },
+        {
+          "title": "phone currency EUR uses exact server amount and native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8587,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:06:18.789Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-phone-currency-4d66e-mount-and-native-formatting-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-74b310765d07a89f27f6",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 514,
+          "column": 6
+        },
+        {
+          "title": "phone currency CAD uses exact server amount and native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 15259,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:06:27.500Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-phone-currency-ee595-mount-and-native-formatting-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-a490e2d81ab47e15459b",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 514,
+          "column": 6
+        },
+        {
+          "title": "phone currency MXN uses exact server amount and native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12958,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:06:42.838Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-phone-currency-94c5c-mount-and-native-formatting-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-7b7b916a1c4189b1c241",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 514,
+          "column": 6
+        },
+        {
+          "title": "phone currency JPY uses exact server amount and native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13048,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:06:55.817Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-phone-currency-0e977-mount-and-native-formatting-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-ee9deca3f6d362d09cd5",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 514,
+          "column": 6
+        },
+        {
+          "title": "phone currency XSC uses exact server amount and native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9095,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:07:08.919Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-phone-currency-77812-mount-and-native-formatting-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-38d9f8c10f0fad038f93",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 514,
+          "column": 6
+        },
+        {
+          "title": "phone currency XGC uses exact server amount and native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8793,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:07:18.068Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-phone-currency-10f16-mount-and-native-formatting-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-66d18fe83f1bbdef22b6",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 514,
+          "column": 6
+        },
+        {
+          "title": "explicit HTTPS RGS address works and unknown language falls back to English",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10290,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:07:26.898Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-explicit-HTTPS-04cec-guage-falls-back-to-English-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-ff598072b305bfd1c6f0",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 532,
+          "column": 5
+        },
+        {
+          "title": "zero balance explains disabled spin and sends no play request",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14903,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:07:37.258Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-zero-balance-e-c1a2c-n-and-sends-no-play-request-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-38b4f1549110cf80f602",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 542,
+          "column": 5
+        },
+        {
+          "title": "an interrupted sprite fetch retries without entering a broken game",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14739,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:07:52.199Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-an-interrupted-1065e-hout-entering-a-broken-game-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-33807a4c2a1be7b1eef2",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 565,
+          "column": 5
+        },
+        {
+          "title": "active round keeps its non-default amount after recovery and on the next play",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 18954,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:08:07.036Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-active-round-k-d6bbc-covery-and-on-the-next-play-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-330d54664bbabadbc6b9",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 576,
+          "column": 5
+        },
+        {
+          "title": "a sub-cent award stays visible at the correct precision",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 31530,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:08:26.049Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-a-sub-cent-awa-895b4-le-at-the-correct-precision-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-a1939c407038718136b2",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 588,
+          "column": 5
+        },
+        {
+          "title": "small social replay displays the server mode cost and exposes no wagering menu",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5690,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:08:57.732Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-small-social-r-7b235-nd-exposes-no-wagering-menu-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-a9c828e3092ea37cf2b8",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 596,
+          "column": 5
+        },
+        {
+          "title": "a permanently missing sprite shows recovery instead of an incomplete game",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3377,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:09:03.630Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-a-permanently--6f4f2-stead-of-an-incomplete-game-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-dfff136be1abc8064e2d",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 614,
+          "column": 5
+        },
+        {
+          "title": "per-mode server maximum blocks feature entry while allowing the base amount",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 29162,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:09:07.048Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-per-mode-serve-b59c3-le-allowing-the-base-amount-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-dac43ffcfc7ce59bd382",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 629,
+          "column": 5
+        },
+        {
+          "title": "an invalid RGS host shows a clear failure without another destination",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1481,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:09:36.294Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-an-invalid-RGS-5fb38-without-another-destination-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-4ae95eda4f6fbfccba19",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 645,
+          "column": 5
+        },
+        {
+          "title": "master mute remains available on the feature introduction without dismissing it",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 16214,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:09:37.806Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-master-mute-re-c64af-ction-without-dismissing-it-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-efb28c00a5d52bbbe2c0",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 659,
+          "column": 5
+        },
+        {
+          "title": "an interrupted play preserves the last board and stops decorative reel travel",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14607,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:09:54.041Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-an-interrupted-1bca4-tops-decorative-reel-travel-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-52a3edad02bd9a12cf88",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 677,
+          "column": 5
+        },
+        {
+          "title": "an already closed positive round never sends end-round",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 15541,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:10:08.720Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-an-already-clo-60770-round-never-sends-end-round-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-dcb8e1313e584ccbcfc7",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 709,
+          "column": 5
+        },
+        {
+          "title": "active round checkpoints advance only after each completed event and precede settlement",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 23077,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n\nCall Log:\n- Timeout 10000ms exceeded while waiting on the predicate",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n\nCall Log:\n- Timeout 10000ms exceeded while waiting on the predicate\n    at /workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts:723:88",
+                    "location": {
+                      "file": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+                      "column": 88,
+                      "line": 723
+                    },
+                    "snippet": "  721 | \tconst s = await session(page, { book: win });\n  722 | \tawait clickText(page, 'SPIN');\n> 723 | \tawait expect.poll(() => s.calls.filter((c) => c.path === '/wallet/end-round').length).toBe(1);\n      | \t                                                                                      ^\n  724 | \tconst checkpoints = s.calls.filter((c) => c.path === '/bet/event');\n  725 | \texpect(checkpoints.map((c) => c.body.event)).toEqual(\n  726 | \t\twin.events.map((event) => String(event.index + 1)),"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+                        "column": 88,
+                        "line": 723
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n\nCall Log:\n- Timeout 10000ms exceeded while waiting on the predicate\n\n  721 | \tconst s = await session(page, { book: win });\n  722 | \tawait clickText(page, 'SPIN');\n> 723 | \tawait expect.poll(() => s.calls.filter((c) => c.path === '/wallet/end-round').length).toBe(1);\n      | \t                                                                                      ^\n  724 | \tconst checkpoints = s.calls.filter((c) => c.path === '/bet/event');\n  725 | \texpect(checkpoints.map((c) => c.body.event)).toEqual(\n  726 | \t\twin.events.map((event) => String(event.index + 1)),\n    at /workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts:723:88"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:10:24.279Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-active-round-c-e1b1a-vent-and-precede-settlement-lunar-contracts-fresh/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-active-round-c-e1b1a-vent-and-precede-settlement-lunar-contracts-fresh/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-active-round-c-e1b1a-vent-and-precede-settlement-lunar-contracts-fresh/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+                    "column": 88,
+                    "line": 723
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-dd83fd9318aecc71cc48",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 718,
+          "column": 5
+        },
+        {
+          "title": "documented uppercase wallet mode is preserved in the actual play request",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 18880,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:10:52.293Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-documented-upp-985c8--in-the-actual-play-request-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-cc78e84c48c4cc16bba3",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 732,
+          "column": 5
+        },
+        {
+          "title": "invalid advertised modes block all wagering: {\"modeCost\":20}",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 994,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:11:11.541Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-invalid-advert-4fce3-k-all-wagering-modeCost-20--lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-055c5b4eecf99f3ab6e4",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 745,
+          "column": 6
+        },
+        {
+          "title": "invalid advertised modes block all wagering: {\"gameModes\":[{\"mode\":\"BONUS\",\"costMultiplier\":100,\"maxBet\":1000000}]}",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1054,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:11:12.563Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-invalid-advert-74904-tiplier-100-maxBet-1000000--lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-e1ea42d4c01ebed78e19",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 745,
+          "column": 6
+        },
+        {
+          "title": "server-only social flag overrides URL social=false throughout rules and feature dialogs",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 25023,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:11:13.657Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-server-only-so-31b6c-t-rules-and-feature-dialogs-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-79f08599552686f33030",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 754,
+          "column": 5
+        },
+        {
+          "title": "replay JSON ERR_VAL remains readable with no wallet escape",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1003,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:11:38.727Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-replay-JSON-ER-e977a-dable-with-no-wallet-escape-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-e73b92fdb4e7f81f6167",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 793,
+          "column": 6
+        },
+        {
+          "title": "replay malformed 200 remains readable with no wallet escape",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 902,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:11:39.799Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-replay-malform-98504-dable-with-no-wallet-escape-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-99fb26ec541c18f7456f",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 793,
+          "column": 6
+        },
+        {
+          "title": "replay HTTP failure JSON remains readable with no wallet escape",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1286,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:11:40.724Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-replay-HTTP-fa-3eefb-dable-with-no-wallet-escape-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-7a1ebb62ff2510427bb3",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 793,
+          "column": 6
+        },
+        {
+          "title": "replay invalid event payload remains readable with no wallet escape",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1026,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:11:42.033Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-replay-invalid-92617-dable-with-no-wallet-escape-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-bf719c3f9e37a60713b3",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 793,
+          "column": 6
+        },
+        {
+          "title": "positive undocumented round-duration requirement blocks play with a readable explanation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 862,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:11:43.079Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-positive-undoc-8bea6-with-a-readable-explanation-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-ad755665aa1122ed2918",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 807,
+          "column": 5
+        },
+        {
+          "title": "base maximum and full feature cost prevent pointer, Space and autoplay requests",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11574,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:11:43.956Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-base-maximum-a-35496-Space-and-autoplay-requests-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-b69e0e3c38f1b949d9c8",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 819,
+          "column": 5
+        },
+        {
+          "title": "empty HTTP replay failure stays readable and never calls the wallet",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1068,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:11:55.564Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-empty-HTTP-rep-c85be--and-never-calls-the-wallet-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-6fd2c4891548c1c35df2",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 832,
+          "column": 5
+        },
+        {
+          "title": "replay optional amount currency and language use safe defaults and can repeat",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14615,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:11:56.690Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-replay-optiona-65e87-afe-defaults-and-can-repeat-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-856ac72d10181997c717",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 838,
+          "column": 5
+        },
+        {
+          "title": "original publication base book checkpoints and settles exactly once",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 19924,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:12:11.337Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-original-publi-3c1ca-ts-and-settles-exactly-once-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-2cd5f0c4af133dc85914",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 848,
+          "column": 5
+        },
+        {
+          "title": "original publication Eclipse Chamber confirms full cost and completes all twelve spins",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 58760,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:12:31.306Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-original-publi-a0dde--completes-all-twelve-spins-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-cbef9115cba7bc015c31",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 871,
+          "column": 5
+        },
+        {
+          "title": "current publication Eclipse Chamber replay displays the full 100× cost without wallet traffic",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9937,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:13:30.106Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-current-public-987fe-cost-without-wallet-traffic-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-e388a1f44dd9d413d6c5",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 907,
+          "column": 5
+        },
+        {
+          "title": "base-only session disables unavailable feature and keeps base pointer Space and autoplay on BASE",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 57867,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:13:40.121Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-base-only-sess-b3c06--Space-and-autoplay-on-BASE-lunar-contracts-fresh/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-base-only-sess-b3c06--Space-and-autoplay-on-BASE-lunar-contracts-fresh/trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-c646632fa5c439be0726",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 922,
+          "column": 5
+        },
+        {
+          "title": "base-only session recovers a known unfinished Eclipse Chamber without a new feature play",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 44291,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:14:47.257Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-base-only-sess-ca2b9--without-a-new-feature-play-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-f8146b9ab1491f08eb40",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 957,
+          "column": 5
+        },
+        {
+          "title": "held Space stops future rounds after focus moves to mute before release",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 44987,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:15:32.265Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-3a3cf40a8af680731bf3",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 992,
+          "column": 6
+        },
+        {
+          "title": "held Space stops future rounds after window blur event",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contracts-fresh",
+              "projectName": "lunar-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 36217,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:16:17.343Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-vault-held-Space-sto-c1d9a-nds-after-window-blur-event-lunar-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-959599814350b82cfa07",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 992,
+          "column": 6
+        }
+      ]
+    },
+    {
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+      "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "mid-feature recovery restores progress without another entry or debit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5947,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:16:56.131Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-mid-feature-recover-2848d-hout-another-entry-or-debit-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-41b4203ab47a14d5b1da",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 281,
+          "column": 1
+        },
+        {
+          "title": "replay uses only its endpoint, displays cost and can play again at 400x225",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2788,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:17:02.805Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-replay-uses-only-it-a20ae-d-can-play-again-at-400x225-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-5922b0076feae2607fa7",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 292,
+          "column": 1
+        },
+        {
+          "title": "mute is available during motion and in feature prompts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4284,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:17:05.619Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-mute-is-available-d-eadab-tion-and-in-feature-prompts-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-6a0ab67eed092c58c7b0",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 322,
+          "column": 1
+        },
+        {
+          "title": "zero balance prevents pointer and keyboard play with an explanation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 17534,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:17:09.941Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-d0599a95290bbd0c2553",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 334,
+          "column": 1
+        },
+        {
+          "title": "dynamic USD amounts and readable native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8165,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:17:27.742Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-dynamic-USD-amounts-and-readable-native-formatting-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-24a59ebce94e44187f0b",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 351,
+          "column": 2
+        },
+        {
+          "title": "dynamic EUR amounts and readable native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5124,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:17:37.157Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-dynamic-EUR-amounts-and-readable-native-formatting-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-ac94626235867d7d07fd",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 351,
+          "column": 2
+        },
+        {
+          "title": "dynamic JPY amounts and readable native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4453,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:17:42.329Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-dynamic-JPY-amounts-and-readable-native-formatting-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-8b65767833d341f30224",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 351,
+          "column": 2
+        },
+        {
+          "title": "dynamic XSC amounts and readable native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5204,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:17:46.846Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-dynamic-XSC-amounts-and-readable-native-formatting-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-f58c0da4cba2e1e4a021",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 351,
+          "column": 2
+        },
+        {
+          "title": "dynamic XGC amounts and readable native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3949,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:17:52.109Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-dynamic-XGC-amounts-and-readable-native-formatting-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-9f1b0d8470ed13a1f204",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 351,
+          "column": 2
+        },
+        {
+          "title": "dynamic CAD amounts and readable native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3081,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:17:56.111Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-dynamic-CAD-amounts-and-readable-native-formatting-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-d770f725d0e46f8fc483",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 351,
+          "column": 2
+        },
+        {
+          "title": "dynamic MXN amounts and readable native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3594,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:17:59.210Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-dynamic-MXN-amounts-and-readable-native-formatting-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-5113800a5551f44f27fc",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 351,
+          "column": 2
+        },
+        {
+          "title": "social rules describe matching math without restricted wording",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1421,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:18:02.816Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-social-rules-descri-c4b85--without-restricted-wording-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-f7198be5648a33789c83",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 364,
+          "column": 1
+        },
+        {
+          "title": "invalid RGS reports failure without a fallback destination",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 10965,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('alert')\nExpected substring: \u001b[32m\"session or selected amount\"\u001b[39m\nReceived string:    \u001b[31m\"Unable to continue Connection interrupted. Reload to recover any unfinished round. Reload game\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('alert') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert')\u001b[22m\n\u001b[2m    23 × locator resolved to <div role=\"alert\" class=\"startup error\">…</div>\u001b[22m\n\u001b[2m       - unexpected value \"Unable to continue Connection interrupted. Reload to recover any unfinished round. Reload game\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('alert')\nExpected substring: \u001b[32m\"session or selected amount\"\u001b[39m\nReceived string:    \u001b[31m\"Unable to continue Connection interrupted. Reload to recover any unfinished round. Reload game\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('alert') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert')\u001b[22m\n\u001b[2m    23 × locator resolved to <div role=\"alert\" class=\"startup error\">…</div>\u001b[22m\n\u001b[2m       - unexpected value \"Unable to continue Connection interrupted. Reload to recover any unfinished round. Reload game\"\u001b[22m\n\n    at /workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts:386:40",
+                    "location": {
+                      "file": "/workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+                      "column": 40,
+                      "line": 386
+                    },
+                    "snippet": "  384 | \t);\n  385 | \tawait page.goto('/?rgs_url=example.com&sessionID=invalid');\n> 386 | \tawait expect(page.getByRole('alert')).toContainText('session or selected amount');\n      | \t                                      ^\n  387 | \texpect(requests).toEqual(['https://example.com/wallet/authenticate']);\n  388 | \tawait expect(page.getByRole('button', { name: 'Spin', exact: true })).toHaveCount(0);\n  389 | });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+                        "column": 40,
+                        "line": 386
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('alert')\nExpected substring: \u001b[32m\"session or selected amount\"\u001b[39m\nReceived string:    \u001b[31m\"Unable to continue Connection interrupted. Reload to recover any unfinished round. Reload game\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('alert') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert')\u001b[22m\n\u001b[2m    23 × locator resolved to <div role=\"alert\" class=\"startup error\">…</div>\u001b[22m\n\u001b[2m       - unexpected value \"Unable to continue Connection interrupted. Reload to recover any unfinished round. Reload game\"\u001b[22m\n\n\n  384 | \t);\n  385 | \tawait page.goto('/?rgs_url=example.com&sessionID=invalid');\n> 386 | \tawait expect(page.getByRole('alert')).toContainText('session or selected amount');\n      | \t                                      ^\n  387 | \texpect(requests).toEqual(['https://example.com/wallet/authenticate']);\n  388 | \tawait expect(page.getByRole('button', { name: 'Spin', exact: true })).toHaveCount(0);\n  389 | });\n    at /workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts:386:40"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:18:04.257Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-invalid-RGS-reports-1e764-hout-a-fallback-destination-salmon-contracts-fresh/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-invalid-RGS-reports-1e764-hout-a-fallback-destination-salmon-contracts-fresh/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-invalid-RGS-reports-1e764-hout-a-fallback-destination-salmon-contracts-fresh/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+                    "column": 40,
+                    "line": 386
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-9dbad1450f08e02a9f6c",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 377,
+          "column": 1
+        },
+        {
+          "title": "base mode limit blocks pointer and keyboard play before a request",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2128,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:18:16.755Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-base-mode-limit-blo-30eb7-board-play-before-a-request-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-b7ba1f8b7775d17e9c17",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 401,
+          "column": 1
+        },
+        {
+          "title": "active event checkpoints use an explicit next-unpresented cursor before one settlement",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6433,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:18:19.142Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-active-event-checkp-87d54-ursor-before-one-settlement-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-8d9b72aa0a32297d89fe",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 516,
+          "column": 1
+        },
+        {
+          "title": "Space protects the amount selector and editable fields while playfield Space still spins",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3094,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:18:25.627Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-Space-protects-the--d10b7-playfield-Space-still-spins-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-960d937909a90e83d34b",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 529,
+          "column": 1
+        },
+        {
+          "title": "documented array limits block unavailable River Run and keep exact server request spelling",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2616,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:18:28.748Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-documented-array-li-cff62-act-server-request-spelling-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-d85af5137ad41be8213b",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 553,
+          "column": 1
+        },
+        {
+          "title": "malformed array costs fail before any play can start",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 776,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:18:31.397Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-malformed-array-costs-fail-before-any-play-can-start-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-910154838306a5d2e4f6",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 570,
+          "column": 1
+        },
+        {
+          "title": "River Run replay uses its full feature name and authoritative cost",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 956,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:18:32.203Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-River-Run-replay-us-8628d-name-and-authoritative-cost-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-5e07b553d507c6210f56",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 581,
+          "column": 1
+        },
+        {
+          "title": "after-play River Run progress and touch controls fit 400x225",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7406,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:18:33.224Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-after-play-River-Ru-f07e4--touch-controls-fit-400x225-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-4993a082328808b884bb",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 594,
+          "column": 2
+        },
+        {
+          "title": "after-play River Run progress and touch controls fit 800x450",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7559,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:18:40.655Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-after-play-River-Ru-78ffe--touch-controls-fit-800x450-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-694e8d3afecc0f48bdd7",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 594,
+          "column": 2
+        },
+        {
+          "title": "after-play River Run progress and touch controls fit 1024x576",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7275,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:18:48.231Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-after-play-River-Ru-bb4c0-touch-controls-fit-1024x576-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-82fcbaeaf84f222ee2dd",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 594,
+          "column": 2
+        },
+        {
+          "title": "after-play River Run progress and touch controls fit 425x812",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6787,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:18:55.528Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-after-play-River-Ru-75018--touch-controls-fit-425x812-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-a3f56b54e9e2d775dcee",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 594,
+          "column": 2
+        },
+        {
+          "title": "positive undocumented jurisdiction duration fails visibly before any play",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 812,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:19:02.349Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-positive-undocument-d7276-ils-visibly-before-any-play-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-c94fc51a825dff85d5b8",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 686,
+          "column": 1
+        },
+        {
+          "title": "server-only social flag protects controls and every feature dialog when URL says false",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6410,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:19:03.184Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-server-only-social--d9a07--dialog-when-URL-says-false-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-3d8fb0b90ae538ba5c23",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 697,
+          "column": 1
+        },
+        {
+          "title": "base-only session hides River Run and sends exact BASE for an ordinary play",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2019,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:19:09.620Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-base-only-session-h-33090-t-BASE-for-an-ordinary-play-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-13faeeaea9c5ece3512e",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 724,
+          "column": 1
+        },
+        {
+          "title": "base-only session recovers known River Run and settles without another feature entry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-fresh",
+              "projectName": "salmon-contracts-fresh",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1302,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:19:11.674Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/fresh-results/salmon-base-only-session-r-0d408-thout-another-feature-entry-salmon-contracts-fresh/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-9086f0fccab12ec8bb28",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 737,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-28T14:01:26.956Z",
+    "duration": 1066202.192,
+    "expected": 75,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}

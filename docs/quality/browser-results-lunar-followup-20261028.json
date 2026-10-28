@@ -1,0 +1,199 @@
+{
+  "config": {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/scratch/87411a2f3bc3/lunar-vault/node_modules/@playwright/test/cli.js",
+      "test",
+      "--config",
+      "/tmp/lunar-qa-recovery-20261028/lunar-contract-followup.config.mjs"
+    ],
+    "configFile": "/tmp/lunar-qa-recovery-20261028/lunar-contract-followup.config.mjs",
+    "rootDir": "/tmp/lunar-qa-recovery-20261028",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/tmp/lunar-qa-recovery-20261028/lunar-contract-followup-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "lunar-contract-followup",
+        "name": "lunar-contract-followup",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "lunar-vault.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/tmp/lunar-qa-recovery-20261028/lunar-contract-followup-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "lunar-contract-followup",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "snapshotDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "testIgnore": [],
+        "testMatch": "lunar-vault.spec.ts",
+        "timeout": 45000,
+        "use": {
+          "screenshot": "on",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "executablePath": "/tmp/lunar-headless-shell-1161/chrome-linux/headless_shell",
+            "args": [
+              "--no-sandbox"
+            ]
+          },
+          "baseURL": "http://127.0.0.1:4173"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "lunar-contract-followup"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/tmp/lunar-qa-recovery-20261028/lunar-contract-followup-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+      "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "active round checkpoints advance only after each completed event and precede settlement",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contract-followup",
+              "projectName": "lunar-contract-followup",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8788,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:24:50.629Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/lunar-contract-followup-results/lunar-vault-active-round-c-e1b1a-vent-and-precede-settlement-lunar-contract-followup/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-9814c25fc8fbf5eb034e",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 718,
+          "column": 5
+        },
+        {
+          "title": "base-only session disables unavailable feature and keeps base pointer Space and autoplay on BASE",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar-contract-followup",
+              "projectName": "lunar-contract-followup",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12442,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:24:59.632Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/lunar-contract-followup-results/lunar-vault-base-only-sess-b3c06--Space-and-autoplay-on-BASE-lunar-contract-followup/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28ec0fa8410aca9d6ec7-43b885aa80fd954f52ca",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts",
+          "line": 924,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-28T14:24:48.958Z",
+    "duration": 23249.715,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

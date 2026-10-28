@@ -1,0 +1,1096 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-28",
+  "runtimeCommit": "159efd249f09ba9387f39062c6bffb707458875f",
+  "releaseManifest": "release-manifest-20261028.json",
+  "releaseManifestSha256": "a045c2a3a54130f2249bb5f265e1d076710f568f63eea8750bcb88b2666faf38",
+  "archives": [
+    {
+      "game": "lunar-vault",
+      "kind": "frontend",
+      "file": "lunar-vault-frontend.zip",
+      "bytes": 7209618,
+      "sha256": "4d7465d8a42eeb87c57305516cc80a28ce52e2c0ff7f43de091ec4fcecb15c80",
+      "format": "zip-stored",
+      "fileCount": 34
+    },
+    {
+      "game": "lunar-vault",
+      "kind": "math",
+      "file": "lunar-vault-math.zip",
+      "bytes": 75340368,
+      "sha256": "ee973f629c69250cd944b1101e28632ea6f1fe32e890eecf45a98593b3a94218",
+      "format": "zip-stored",
+      "fileCount": 5
+    },
+    {
+      "game": "lunar-vault",
+      "kind": "media",
+      "file": "lunar-vault-media.zip",
+      "bytes": 8313982,
+      "sha256": "87c118d030b6188dba3af7a07334b6ff7490211d5dfb4424c1aa94c098e3c419",
+      "format": "zip-stored",
+      "fileCount": 13
+    },
+    {
+      "game": "salmon-run",
+      "kind": "frontend",
+      "file": "salmon-run-frontend.zip",
+      "bytes": 1997476,
+      "sha256": "423c81f28a9b640d39dd9f1ffd7b495f6bdab2fe7475e52cadbf45601d6e39ab",
+      "format": "zip-stored",
+      "fileCount": 19
+    },
+    {
+      "game": "salmon-run",
+      "kind": "math",
+      "file": "salmon-run-math.zip",
+      "bytes": 42517941,
+      "sha256": "c4f8cdf891731077399c27e5eab3b24c48c0698aa9361ae1c20e7d4ccf9f7448",
+      "format": "zip-stored",
+      "fileCount": 5
+    },
+    {
+      "game": "salmon-run",
+      "kind": "media",
+      "file": "salmon-run-media.zip",
+      "bytes": 8047061,
+      "sha256": "48c740dbcc4657fcb8afa54cfdc5a782b3996492e362d9a0902ec2f43cd15aba",
+      "format": "zip-stored",
+      "fileCount": 13
+    }
+  ],
+  "buildFiles": {
+    "apps/lunar-vault/build/_app/immutable/bundle.BjI8IWMl.js": "e4f8fddf3e03f2196a8137ce90b68d6298d2326c4c62fadc6cefd0053ae2901b",
+    "apps/lunar-vault/build/_app/immutable/assets/style.BAOjlYup.css": "89f03bc93e0adfa82470523062803bdf40b14b2db8f67959a0359d5d9d31c8c6",
+    "apps/salmon-run/dist/assets/index-DkyT2mbV.css": "8805d49993c6d28850eee6d02f6ef667ba4745f6071371c692be4c287f5419fd",
+    "apps/salmon-run/dist/assets/index-B1VPVeVk.js": "9c5d215ee975a1a7c578659622e876dd1cfd745d6be013799df778c3e1df22c9"
+  },
+  "runs": [
+    {
+      "id": "main",
+      "stats": {
+        "startTime": "2026-10-28T14:01:26.956Z",
+        "duration": 1066202.192,
+        "expected": 75,
+        "skipped": 0,
+        "unexpected": 3,
+        "flaky": 0
+      },
+      "counts": [
+        {
+          "app": "lunar-vault",
+          "status": "passed",
+          "count": 49
+        },
+        {
+          "app": "lunar-vault",
+          "status": "failed",
+          "count": 1
+        },
+        {
+          "app": "lunar-vault",
+          "status": "timedOut",
+          "count": 1
+        },
+        {
+          "app": "salmon-run",
+          "status": "passed",
+          "count": 26
+        },
+        {
+          "app": "salmon-run",
+          "status": "failed",
+          "count": 1
+        }
+      ],
+      "rawFile": "browser-results-main-20261028.json",
+      "rawSha256": "fdd6b4e36faecc70e2d411c07fa4b11d3ba3fd89cbd4fcbf6fcbf254771c27ea",
+      "logPath": "/tmp/lunar-qa-recovery-20261028/final-headless-qa.log",
+      "logSha256": "4c0cc0b6c97ebccb2d7fe2dc10deaa7cdd77d99479e63bade8b98d6fd7975e22"
+    },
+    {
+      "id": "lunar-followup",
+      "stats": {
+        "startTime": "2026-10-28T14:24:48.958Z",
+        "duration": 23249.715,
+        "expected": 2,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "counts": [
+        {
+          "app": "lunar-vault",
+          "status": "passed",
+          "count": 2
+        }
+      ],
+      "rawFile": "browser-results-lunar-followup-20261028.json",
+      "rawSha256": "ddad0877cb52d69240b44a65975bebf26efa22cfb8ac4d30bcd483a7ec8ef130",
+      "logPath": "/tmp/lunar-qa-recovery-20261028/lunar-contract-followup.log",
+      "logSha256": "8810205cfda5dad090198630a4fbef3fec64021058fb3a3164a8e7178014e3e0"
+    },
+    {
+      "id": "salmon-final",
+      "stats": {
+        "startTime": "2026-10-28T14:28:41.506Z",
+        "duration": 116377.18100000001,
+        "expected": 28,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "counts": [
+        {
+          "app": "salmon-run",
+          "status": "passed",
+          "count": 28
+        }
+      ],
+      "rawFile": "browser-results-salmon-final-20261028.json",
+      "rawSha256": "df6741a47e897d5ee29f4c01cf089ed5a8c979c5361aac19f9a88d54abf75e08",
+      "logPath": "/tmp/lunar-qa-recovery-20261028/salmon-final.log",
+      "logSha256": "6cf1a791b0f79aa034346ba0279ed14a19c59f281b014512399e96efcfd783fb"
+    }
+  ],
+  "latestDistinct": {
+    "passed": 79,
+    "failed": 0,
+    "byApp": {
+      "lunar-vault": 51,
+      "salmon-run": 28
+    }
+  },
+  "cases": [
+    {
+      "file": "lunar-presentation.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts"
+      ],
+      "title": "rules and confirmation retain reachable master sound without dismissal",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-presentation.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts"
+      ],
+      "title": "requested session disclosures show authenticated values in a compact popout",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-presentation.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts"
+      ],
+      "title": "final free spin returns through completion scene to ordinary controls",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-presentation.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts"
+      ],
+      "title": "small feature replay retains progress and full amount information without wallet calls",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-presentation.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+        "feature presentation 1024x576"
+      ],
+      "title": "recovered retrigger count is visible inside controls and survives rotation",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-presentation.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+        "feature presentation 800x450"
+      ],
+      "title": "recovered retrigger count is visible inside controls and survives rotation",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-presentation.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+        "feature presentation 400x225"
+      ],
+      "title": "recovered retrigger count is visible inside controls and survives rotation",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-presentation.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-presentation.spec.ts",
+        "feature presentation 425x812"
+      ],
+      "title": "recovered retrigger count is visible inside controls and survives rotation",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "win settles once, dialogs render once and block space",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "restricted session disables controls and space; feature menu only lists the implemented mode",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "autoplay can be cancelled when slam-stop is forbidden",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "wallet play uses integer micro-units for a 2.01 amount",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "phone currency USD uses exact server amount and native formatting",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "phone currency EUR uses exact server amount and native formatting",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "phone currency CAD uses exact server amount and native formatting",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "phone currency MXN uses exact server amount and native formatting",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "phone currency JPY uses exact server amount and native formatting",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "phone currency XSC uses exact server amount and native formatting",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "phone currency XGC uses exact server amount and native formatting",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "explicit HTTPS RGS address works and unknown language falls back to English",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "zero balance explains disabled spin and sends no play request",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "an interrupted sprite fetch retries without entering a broken game",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "active round keeps its non-default amount after recovery and on the next play",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "a sub-cent award stays visible at the correct precision",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "small social replay displays the server mode cost and exposes no wagering menu",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "a permanently missing sprite shows recovery instead of an incomplete game",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "per-mode server maximum blocks feature entry while allowing the base amount",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "an invalid RGS host shows a clear failure without another destination",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "master mute remains available on the feature introduction without dismissing it",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "an interrupted play preserves the last board and stops decorative reel travel",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "an already closed positive round never sends end-round",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "active round checkpoints advance only after each completed event and precede settlement",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "lunar-followup"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "documented uppercase wallet mode is preserved in the actual play request",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "invalid advertised modes block all wagering: {\"modeCost\":20}",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "invalid advertised modes block all wagering: {\"gameModes\":[{\"mode\":\"BONUS\",\"costMultiplier\":100,\"maxBet\":1000000}]}",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "server-only social flag overrides URL social=false throughout rules and feature dialogs",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "replay JSON ERR_VAL remains readable with no wallet escape",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "replay malformed 200 remains readable with no wallet escape",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "replay HTTP failure JSON remains readable with no wallet escape",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "replay invalid event payload remains readable with no wallet escape",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "positive undocumented round-duration requirement blocks play with a readable explanation",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "base maximum and full feature cost prevent pointer, Space and autoplay requests",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "empty HTTP replay failure stays readable and never calls the wallet",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "replay optional amount currency and language use safe defaults and can repeat",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "original publication base book checkpoints and settles exactly once",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "original publication Eclipse Chamber confirms full cost and completes all twelve spins",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "current publication Eclipse Chamber replay displays the full 100\u00d7 cost without wallet traffic",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "base-only session disables unavailable feature and keeps base pointer Space and autoplay on BASE",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "lunar-followup"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "base-only session recovers a known unfinished Eclipse Chamber without a new feature play",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "held Space stops future rounds after focus moves to mute before release",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "lunar-vault.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/lunar-vault.spec.ts"
+      ],
+      "title": "held Space stops future rounds after window blur event",
+      "app": "lunar-vault",
+      "status": "passed",
+      "run": "main"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "mid-feature recovery restores progress without another entry or debit",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "replay uses only its endpoint, displays cost and can play again at 400x225",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "mute is available during motion and in feature prompts",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "zero balance prevents pointer and keyboard play with an explanation",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "dynamic USD amounts and readable native formatting",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "dynamic EUR amounts and readable native formatting",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "dynamic JPY amounts and readable native formatting",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "dynamic XSC amounts and readable native formatting",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "dynamic XGC amounts and readable native formatting",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "dynamic CAD amounts and readable native formatting",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "dynamic MXN amounts and readable native formatting",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "social rules describe matching math without restricted wording",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "invalid RGS reports failure without a fallback destination",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "base mode limit blocks pointer and keyboard play before a request",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "active event checkpoints use an explicit next-unpresented cursor before one settlement",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "Space protects the amount selector and editable fields while playfield Space still spins",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "documented array limits block unavailable River Run and keep exact server request spelling",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "malformed array costs fail before any play can start",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "River Run replay uses its full feature name and authoritative cost",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "after-play River Run progress and touch controls fit 400x225",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "after-play River Run progress and touch controls fit 800x450",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "after-play River Run progress and touch controls fit 1024x576",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "after-play River Run progress and touch controls fit 425x812",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "positive undocumented jurisdiction duration fails visibly before any play",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "server-only social flag protects controls and every feature dialog when URL says false",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "base-only session hides River Run and sends exact BASE for an ordinary play",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "base-only session recovers known River Run and settles without another feature entry",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    },
+    {
+      "file": "salmon.spec.ts",
+      "suites": [
+        "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts"
+      ],
+      "title": "River Run shows value collection, advances to 3x and settles the complete book",
+      "app": "salmon-run",
+      "status": "passed",
+      "run": "salmon-final"
+    }
+  ],
+  "screenshots": [
+    {
+      "description": "Lunar running retrigger 400\u00d7225",
+      "file": "screenshots/20261028/lunar-feature-400x225.png",
+      "sha256": "c4b37aa52dea55ed7fc150dd260f9670472626cfc18b1d0671bd742c51eab7fd",
+      "originalPath": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-presentation-feature-0b482-trols-and-survives-rotation-lunar-presentation-fresh/running-retrigger.png",
+      "dimensions": [
+        400,
+        225
+      ]
+    },
+    {
+      "description": "Lunar running retrigger 800\u00d7450",
+      "file": "screenshots/20261028/lunar-feature-800x450.png",
+      "sha256": "e377b8d4da098dc7e88b1f7bbc3f7c357a88c0f038a1411be8224492686a217a",
+      "originalPath": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-presentation-feature-8e864-trols-and-survives-rotation-lunar-presentation-fresh/running-retrigger.png",
+      "dimensions": [
+        800,
+        450
+      ]
+    },
+    {
+      "description": "Lunar running retrigger 425\u00d7812",
+      "file": "screenshots/20261028/lunar-feature-425x812.png",
+      "sha256": "d8d6856df3e1580316ae08f536297d1762a2ae3382644c9aadba96b3c5d89eb7",
+      "originalPath": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-presentation-feature-9c7f3-trols-and-survives-rotation-lunar-presentation-fresh/running-retrigger.png",
+      "dimensions": [
+        425,
+        812
+      ]
+    },
+    {
+      "description": "Lunar running retrigger 1024\u00d7576",
+      "file": "screenshots/20261028/lunar-feature-1024x576.png",
+      "sha256": "74caf0f53a4a27d3a0383a82f5efb23fe4cca2d1a746b3da6018390495a5c2ed",
+      "originalPath": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-presentation-feature-b542f-trols-and-survives-rotation-lunar-presentation-fresh/running-retrigger.png",
+      "dimensions": [
+        1024,
+        576
+      ]
+    },
+    {
+      "description": "Salmon running feature 425\u00d7812",
+      "file": "screenshots/20261028/salmon-feature-425x812.png",
+      "sha256": "d691b82b8c789e103e71edce12e826005a889c7a703bdcca491eb356223d759d",
+      "originalPath": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-after-play-River-Ru-75018--touch-controls-fit-425x812-salmon-contracts-final/salmon-after-play-425x812.png",
+      "dimensions": [
+        425,
+        812
+      ]
+    },
+    {
+      "description": "Salmon running feature 800\u00d7450",
+      "file": "screenshots/20261028/salmon-feature-800x450.png",
+      "sha256": "7a49cfcc158c77ca6c634f929dc0dde2de012b34b9b70c793179dcfd3bccff80",
+      "originalPath": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-after-play-River-Ru-78ffe--touch-controls-fit-800x450-salmon-contracts-final/salmon-after-play-800x450.png",
+      "dimensions": [
+        800,
+        450
+      ]
+    },
+    {
+      "description": "Salmon running feature 1024\u00d7576",
+      "file": "screenshots/20261028/salmon-feature-1024x576.png",
+      "sha256": "38b12d92e6b8329ff1475be690dde38df05e6ae6921b6d74d633de47ad73a0dc",
+      "originalPath": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-after-play-River-Ru-bb4c0-touch-controls-fit-1024x576-salmon-contracts-final/salmon-after-play-1024x576.png",
+      "dimensions": [
+        1024,
+        576
+      ]
+    },
+    {
+      "description": "Salmon running feature 400\u00d7225",
+      "file": "screenshots/20261028/salmon-feature-400x225.png",
+      "sha256": "74f08f1c0890de4f4d7a41f7e0172d58b0eae5048b444c1a027ee3dfeb361103",
+      "originalPath": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-after-play-River-Ru-f07e4--touch-controls-fit-400x225-salmon-contracts-final/salmon-after-play-400x225.png",
+      "dimensions": [
+        400,
+        225
+      ]
+    },
+    {
+      "description": "Lunar computed 100\u00d7 confirmation and reachable mute",
+      "file": "screenshots/20261028/lunar-confirmation-total.png",
+      "sha256": "24767627749e4b6e35b04c7621612098eec4b703c7ec93cf454f4542dc346dda",
+      "originalPath": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-presentation-rules-a-a1671-ter-sound-without-dismissal-lunar-presentation-fresh/confirmation-modal-mute.png",
+      "dimensions": [
+        800,
+        450
+      ]
+    },
+    {
+      "description": "Lunar running feature replay at 400\u00d7225",
+      "file": "screenshots/20261028/lunar-feature-replay-400x225.png",
+      "sha256": "ae4d649df4389edeb7c321e56dbec9b9e1862b9794d8fe1ebc826e83faa61037",
+      "originalPath": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-presentation-small-f-cd0b6-mation-without-wallet-calls-lunar-presentation-fresh/small-feature-replay.png",
+      "dimensions": [
+        400,
+        225
+      ]
+    },
+    {
+      "description": "Lunar feature completion with bounded count-up precision",
+      "file": "screenshots/20261028/lunar-feature-completion.png",
+      "sha256": "a30e61828b198221ef3ab6ac6b68263a8665ad1605d42d61467795e6b7bf9349",
+      "originalPath": "/tmp/lunar-qa-recovery-20261028/fresh-results/lunar-presentation-final-f-a1a7a--scene-to-ordinary-controls-lunar-presentation-fresh/feature-completion.png",
+      "dimensions": [
+        800,
+        450
+      ]
+    },
+    {
+      "description": "Salmon authoritative fish collection",
+      "file": "screenshots/20261028/salmon-collection.png",
+      "sha256": "10c733f5aa3e96fa0508ebf59b144dd0f5a91e0acf4c526a62830e38efc007f7",
+      "originalPath": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-River-Run-shows-val-f2163-d-settles-the-complete-book-salmon-collection-final/salmon-v3-collection.png",
+      "dimensions": [
+        1280,
+        720
+      ]
+    }
+  ],
+  "browser": {
+    "name": "Chromium headless shell",
+    "version": "134.0.6998.35",
+    "revision": 1161,
+    "workers": 1
+  },
+  "unitEvidence": {
+    "command": "npm run test:session",
+    "filesPassed": 4,
+    "logicalCases": 25,
+    "logPath": "/tmp/lunar-qa-recovery-20261028/fresh-unit-final.log",
+    "logSha256": "ab3c96c4f68b93dcc94dca1c1e520f3318cd9e52ca65900cb1fb817ea98a2fdb"
+  }
+}

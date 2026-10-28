@@ -1,0 +1,1285 @@
+{
+  "config": {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/scratch/87411a2f3bc3/lunar-vault/node_modules/@playwright/test/cli.js",
+      "test",
+      "--config",
+      "/tmp/lunar-qa-recovery-20261028/salmon-final.config.mjs"
+    ],
+    "configFile": "/tmp/lunar-qa-recovery-20261028/salmon-final.config.mjs",
+    "rootDir": "/tmp/lunar-qa-recovery-20261028",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/tmp/lunar-qa-recovery-20261028/salmon-final-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "salmon-contracts-final",
+        "name": "salmon-contracts-final",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "salmon.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "/tmp/lunar-qa-recovery-20261028/salmon-final-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "salmon-collection-final",
+        "name": "salmon-collection-final",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "salmon.spec.ts"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/tmp/lunar-qa-recovery-20261028/salmon-final-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "salmon-contracts-final",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests",
+        "snapshotDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests",
+        "testIgnore": [],
+        "testMatch": "salmon.spec.ts",
+        "timeout": 45000,
+        "use": {
+          "screenshot": "on",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "executablePath": "/tmp/lunar-headless-shell-1161/chrome-linux/headless_shell",
+            "args": [
+              "--no-sandbox"
+            ]
+          },
+          "baseURL": "http://127.0.0.1:4174"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "salmon-contracts-final"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/tmp/lunar-qa-recovery-20261028/salmon-final-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "salmon-collection-final",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests",
+        "snapshotDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests",
+        "testIgnore": [],
+        "testMatch": "salmon.spec.ts",
+        "timeout": 60000,
+        "use": {
+          "screenshot": "on",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "executablePath": "/tmp/lunar-headless-shell-1161/chrome-linux/headless_shell",
+            "args": [
+              "--no-sandbox"
+            ]
+          },
+          "baseURL": "http://127.0.0.1:4174"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "salmon-collection-final"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/tmp/lunar-qa-recovery-20261028/salmon-final-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+      "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "mid-feature recovery restores progress without another entry or debit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2235,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:28:42.409Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-mid-feature-recover-2848d-hout-another-entry-or-debit-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-85c9b722dbb77e1bf7a4",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 281,
+          "column": 1
+        },
+        {
+          "title": "replay uses only its endpoint, displays cost and can play again at 400x225",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2446,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:28:44.959Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-replay-uses-only-it-a20ae-d-can-play-again-at-400x225-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-be6d0d8673eecd44c120",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 292,
+          "column": 1
+        },
+        {
+          "title": "mute is available during motion and in feature prompts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3321,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:28:47.426Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-mute-is-available-d-eadab-tion-and-in-feature-prompts-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-8695cc5443e58d00a65a",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 322,
+          "column": 1
+        },
+        {
+          "title": "zero balance prevents pointer and keyboard play with an explanation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 951,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:28:50.777Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-zero-balance-preven-8d5f0-rd-play-with-an-explanation-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-082da1ca2a5802a38115",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 334,
+          "column": 1
+        },
+        {
+          "title": "dynamic USD amounts and readable native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3117,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:28:51.752Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-dynamic-USD-amounts-and-readable-native-formatting-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-bdcffb2aa8060ae46378",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 351,
+          "column": 2
+        },
+        {
+          "title": "dynamic EUR amounts and readable native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3619,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:28:54.916Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-dynamic-EUR-amounts-and-readable-native-formatting-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-5a98f3bef5fbc0478676",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 351,
+          "column": 2
+        },
+        {
+          "title": "dynamic JPY amounts and readable native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4287,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:28:58.567Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-dynamic-JPY-amounts-and-readable-native-formatting-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-1711352e3492b42e94af",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 351,
+          "column": 2
+        },
+        {
+          "title": "dynamic XSC amounts and readable native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4107,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:29:02.903Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-dynamic-XSC-amounts-and-readable-native-formatting-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-c9a44fef335469603b47",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 351,
+          "column": 2
+        },
+        {
+          "title": "dynamic XGC amounts and readable native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4312,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:29:07.070Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-dynamic-XGC-amounts-and-readable-native-formatting-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-9bdd6b845dbc8902a033",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 351,
+          "column": 2
+        },
+        {
+          "title": "dynamic CAD amounts and readable native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6204,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:29:11.667Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-dynamic-CAD-amounts-and-readable-native-formatting-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-11206715a7b60be964d0",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 351,
+          "column": 2
+        },
+        {
+          "title": "dynamic MXN amounts and readable native formatting",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4811,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:29:18.161Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-dynamic-MXN-amounts-and-readable-native-formatting-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-3eddb8162fac64ecb7ff",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 351,
+          "column": 2
+        },
+        {
+          "title": "social rules describe matching math without restricted wording",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1640,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:29:23.056Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-social-rules-descri-c4b85--without-restricted-wording-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-d14c8753e7554b9adc2c",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 364,
+          "column": 1
+        },
+        {
+          "title": "invalid RGS reports failure without a fallback destination",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 862,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:29:24.726Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-invalid-RGS-reports-1e764-hout-a-fallback-destination-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-43d4ea98d88f68cd1856",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 377,
+          "column": 1
+        },
+        {
+          "title": "base mode limit blocks pointer and keyboard play before a request",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1619,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:29:25.609Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-base-mode-limit-blo-30eb7-board-play-before-a-request-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-23739d4f6f153d75b21e",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 401,
+          "column": 1
+        },
+        {
+          "title": "active event checkpoints use an explicit next-unpresented cursor before one settlement",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4938,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:29:27.245Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-active-event-checkp-87d54-ursor-before-one-settlement-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-e4205ae1b12fcf7c6711",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 516,
+          "column": 1
+        },
+        {
+          "title": "Space protects the amount selector and editable fields while playfield Space still spins",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2857,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:29:32.198Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-Space-protects-the--d10b7-playfield-Space-still-spins-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-ef415ae4cdd4bce8266b",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 529,
+          "column": 1
+        },
+        {
+          "title": "documented array limits block unavailable River Run and keep exact server request spelling",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2910,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:29:35.088Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-documented-array-li-cff62-act-server-request-spelling-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-b8dded9093422d8d0320",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 553,
+          "column": 1
+        },
+        {
+          "title": "malformed array costs fail before any play can start",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 946,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:29:38.018Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-malformed-array-costs-fail-before-any-play-can-start-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-1868278f1389d57a1f2f",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 570,
+          "column": 1
+        },
+        {
+          "title": "River Run replay uses its full feature name and authoritative cost",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 751,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:29:38.989Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-River-Run-replay-us-8628d-name-and-authoritative-cost-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-86130a801e913d17a638",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 581,
+          "column": 1
+        },
+        {
+          "title": "after-play River Run progress and touch controls fit 400x225",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7935,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:29:39.773Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-after-play-River-Ru-f07e4--touch-controls-fit-400x225-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-96cd14dd308c10ba0ef8",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 594,
+          "column": 2
+        },
+        {
+          "title": "after-play River Run progress and touch controls fit 800x450",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7045,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:29:47.721Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-after-play-River-Ru-78ffe--touch-controls-fit-800x450-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-49e865ba433ba99421e6",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 594,
+          "column": 2
+        },
+        {
+          "title": "after-play River Run progress and touch controls fit 1024x576",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6121,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:29:54.785Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-after-play-River-Ru-bb4c0-touch-controls-fit-1024x576-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-179186b9d1d53e9e739a",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 594,
+          "column": 2
+        },
+        {
+          "title": "after-play River Run progress and touch controls fit 425x812",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4983,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:30:00.919Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-after-play-River-Ru-75018--touch-controls-fit-425x812-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-6b89bc7540519ae91629",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 594,
+          "column": 2
+        },
+        {
+          "title": "positive undocumented jurisdiction duration fails visibly before any play",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 667,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:30:05.923Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-positive-undocument-d7276-ils-visibly-before-any-play-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-81a82054de6c366b72c8",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 686,
+          "column": 1
+        },
+        {
+          "title": "server-only social flag protects controls and every feature dialog when URL says false",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5114,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:30:06.635Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-server-only-social--d9a07--dialog-when-URL-says-false-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-fd86a595c39cae584984",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 697,
+          "column": 1
+        },
+        {
+          "title": "base-only session hides River Run and sends exact BASE for an ordinary play",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1706,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:30:11.776Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-base-only-session-h-33090-t-BASE-for-an-ordinary-play-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-0d08830a65a1413f831d",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 724,
+          "column": 1
+        },
+        {
+          "title": "base-only session recovers known River Run and settles without another feature entry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-contracts-final",
+              "projectName": "salmon-contracts-final",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1046,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:30:13.503Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-base-only-session-r-0d408-thout-another-feature-entry-salmon-contracts-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-f9656dc958d0791c68ef",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 737,
+          "column": 1
+        },
+        {
+          "title": "River Run shows value collection, advances to 3x and settles the complete book",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon-collection-final",
+              "projectName": "salmon-collection-final",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 22199,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T14:30:15.347Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/tmp/lunar-qa-recovery-20261028/salmon-final-results/salmon-River-Run-shows-val-f2163-d-settles-the-complete-book-salmon-collection-final/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d5b3449581b87559c118-5e5b2fa4ea03549d18f6",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/salmon.spec.ts",
+          "line": 442,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-28T14:28:41.506Z",
+    "duration": 116377.18100000001,
+    "expected": 28,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
