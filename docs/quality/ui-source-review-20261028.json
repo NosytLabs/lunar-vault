@@ -1,0 +1,24 @@
+{
+  "runtimeSourceCommit": "7810f66931341a8a94489df469bf653b564a87fe",
+  "method": "Separate read-only AI source review; not an independent publisher or Engine approval",
+  "scope": [
+    "Lunar measured playfield and HUD",
+    "Menu stacking and keyboard focus",
+    "Native dialog focus, dismissal and cleanup",
+    "Dialog scroll regions and sound control labels",
+    "Feature availability messages and unchanged monetary admission guards"
+  ],
+  "remainingFindings": [],
+  "resolvedConditionalFinding": {
+    "description": "HUD balance copy uses the authenticated bonus multiplier while the existing feature button checks 100x. This is consistent for all accepted Lunar sessions.",
+    "evidence": [
+      "apps/lunar-vault/src/game/config.ts:17",
+      "apps/lunar-vault/src/game/metadata.ts:11",
+      "packages/components-shared/src/components/Authenticate.svelte:131",
+      "packages/utils-shared/gameModes.ts:18"
+    ],
+    "reason": "normalizeGameModes rejects an advertised cost that differs from the published expected cost; accepted bonus cost is100. Missing bonus receives the distinct unavailable message."
+  },
+  "runtimeEditsByReviewer": false,
+  "browserStartedByReviewer": false
+}

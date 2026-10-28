@@ -1,0 +1,112 @@
+lunar 400 225 {
+  text: 'RTP\n96.50%\nSESSION NET\n$-0.10\nSESSION TIME\n00:00:04',
+  font: '14px',
+  children: [
+    [ 'RTP', '9px' ],
+    [ '96.50%', '11px' ],
+    [ 'SESSION NET', '9px' ],
+    [ '$-0.10', '11px' ],
+    [ 'SESSION TIME', '9px' ],
+    [ '00:00:04', '11px' ]
+  ]
+}
+menu initial focus <button class="svelte-fezh80">INFO</button>
+menu Escape hidden 0
+dialog lunar 1 focus <h1 class="svelte-gqslr5" tabindex="-1">Inside the Lunar Vault</h1>
+lunar 425 812 {
+  text: 'RTP\n96.50%\nSESSION NET\n$-0.10\nSESSION TIME\n00:00:05',
+  font: '14px',
+  children: [
+    [ 'RTP', '10px' ],
+    [ '96.50%', '12px' ],
+    [ 'SESSION NET', '10px' ],
+    [ '$-0.10', '12px' ],
+    [ 'SESSION TIME', '10px' ],
+    [ '00:00:05', '12px' ]
+  ]
+}
+menu initial focus <button class="svelte-fezh80">INFO</button>
+menu Escape hidden 0
+dialog lunar 1 focus <h1 class="svelte-gqslr5" tabindex="-1">Inside the Lunar Vault</h1>
+lunar 1024 576 {
+  text: 'RTP\n96.50%\nSESSION NET\n$-0.10\nSESSION TIME\n00:00:08',
+  font: '16px',
+  children: [
+    [ 'RTP', '10px' ],
+    [ '96.50%', '12px' ],
+    [ 'SESSION NET', '10px' ],
+    [ '$-0.10', '12px' ],
+    [ 'SESSION TIME', '10px' ],
+    [ '00:00:08', '12px' ]
+  ]
+}
+menu initial focus <button class="svelte-fezh80">INFO</button>
+menu Escape hidden 0
+dialog lunar 1 focus <h1 class="svelte-gqslr5" tabindex="-1">Inside the Lunar Vault</h1>
+lunar 800 450 {
+  text: 'RTP\n96.50%\nSESSION NET\n$-0.10\nSESSION TIME\n00:00:06',
+  font: '16px',
+  children: [
+    [ 'RTP', '10px' ],
+    [ '96.50%', '12px' ],
+    [ 'SESSION NET', '10px' ],
+    [ '$-0.10', '12px' ],
+    [ 'SESSION TIME', '10px' ],
+    [ '00:00:06', '12px' ]
+  ]
+}
+menu initial focus <button class="svelte-fezh80">INFO</button>
+menu Escape hidden 0
+dialog lunar 1 focus <h1 class="svelte-gqslr5" tabindex="-1">Inside the Lunar Vault</h1>
+salmon 400 225 {
+  text: 'RTP\n96.50%\nNET SINCE OPEN\n−$0.10\nTIME OPEN\n00:00:04',
+  font: '10px',
+  children: [
+    [ 'RTP 96.50%', '10px' ],
+    [ '96.50%', '10px' ],
+    [ 'NET SINCE OPEN −$0.10', '10px' ],
+    [ '−$0.10', '10px' ],
+    [ 'TIME OPEN 00:00:04', '10px' ],
+    [ '00:00:04', '10px' ]
+  ]
+}
+dialog salmon 1 focus <h2 id="dialog-title" tabindex="-1">Follow the silver</h2>
+salmon 425 812 {
+  text: 'RTP 96.50%\nNET SINCE OPEN −$0.10\nTIME OPEN 00:00:03',
+  font: '10px',
+  children: [
+    [ 'RTP 96.50%', '10px' ],
+    [ '96.50%', '10px' ],
+    [ 'NET SINCE OPEN −$0.10', '10px' ],
+    [ '−$0.10', '10px' ],
+    [ 'TIME OPEN 00:00:03', '10px' ],
+    [ '00:00:03', '10px' ]
+  ]
+}
+dialog salmon 1 focus <h2 id="dialog-title" tabindex="-1">Follow the silver</h2>
+salmon 1024 576 {
+  text: 'RTP 96.50%\nNET SINCE OPEN −$0.10\nTIME OPEN 00:00:03',
+  font: '10px',
+  children: [
+    [ 'RTP 96.50%', '10px' ],
+    [ '96.50%', '10px' ],
+    [ 'NET SINCE OPEN −$0.10', '10px' ],
+    [ '−$0.10', '10px' ],
+    [ 'TIME OPEN 00:00:03', '10px' ],
+    [ '00:00:03', '10px' ]
+  ]
+}
+dialog salmon 1 focus <h2 id="dialog-title" tabindex="-1">Follow the silver</h2>
+salmon 800 450 {
+  text: 'RTP 96.50%\nNET SINCE OPEN −$0.10\nTIME OPEN 00:00:03',
+  font: '10px',
+  children: [
+    [ 'RTP 96.50%', '10px' ],
+    [ '96.50%', '10px' ],
+    [ 'NET SINCE OPEN −$0.10', '10px' ],
+    [ '−$0.10', '10px' ],
+    [ 'TIME OPEN 00:00:03', '10px' ],
+    [ '00:00:03', '10px' ]
+  ]
+}
+dialog salmon 1 focus <h2 id="dialog-title" tabindex="-1">Follow the silver</h2>

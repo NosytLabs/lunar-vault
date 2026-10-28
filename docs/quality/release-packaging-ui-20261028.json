@@ -1,0 +1,64 @@
+{
+  "runtimeSourceCommit": "7810f66931341a8a94489df469bf653b564a87fe",
+  "validation": "python3 tools/package-release.py --check --verify-manifest ../release-20261028/release-manifest.json",
+  "verificationExitCode": 0,
+  "mathUnchanged": true,
+  "knownGate": "Independent Engine/publisher records remain missing; local consistency is not approval.",
+  "manifestSha256": "0a97485051846e4fb3c7e645af855ed7630b899db26d943aef66b940e79d4c9d",
+  "manifestBytes": 113702,
+  "games": {
+    "lunar-vault": {
+      "frontend": {
+        "file": "lunar-vault-frontend.zip",
+        "bytes": 7223874,
+        "sha256": "5c36b14ef4f70cafd1ab08553586949204bf23fcbb4c56ed81be0e4109460cfb",
+        "format": "zip-stored",
+        "fileCount": 34,
+        "unchangedFromPriorRelease": false
+      },
+      "math": {
+        "file": "lunar-vault-math.zip",
+        "bytes": 75340368,
+        "sha256": "ee973f629c69250cd944b1101e28632ea6f1fe32e890eecf45a98593b3a94218",
+        "format": "zip-stored",
+        "fileCount": 5,
+        "unchangedFromPriorRelease": true
+      },
+      "media": {
+        "file": "lunar-vault-media.zip",
+        "bytes": 8314388,
+        "sha256": "fe1964f48905dce4a9c48544034a8b49b98bcfe9dca91d29c301cd937c9b3c99",
+        "format": "zip-stored",
+        "fileCount": 13,
+        "unchangedFromPriorRelease": true
+      }
+    },
+    "salmon-run": {
+      "frontend": {
+        "file": "salmon-run-frontend.zip",
+        "bytes": 1998470,
+        "sha256": "5c03f2cc558892342bd15f7de9571dbdc16b274f25cfe0b61fd022c9d30131e5",
+        "format": "zip-stored",
+        "fileCount": 19,
+        "unchangedFromPriorRelease": false
+      },
+      "math": {
+        "file": "salmon-run-math.zip",
+        "bytes": 42517941,
+        "sha256": "c4f8cdf891731077399c27e5eab3b24c48c0698aa9361ae1c20e7d4ccf9f7448",
+        "format": "zip-stored",
+        "fileCount": 5,
+        "unchangedFromPriorRelease": true
+      },
+      "media": {
+        "file": "salmon-run-media.zip",
+        "bytes": 8047467,
+        "sha256": "4dfa030c4356318b23619a56e6bb9d122288d0ccec898b0f6bfb89ad0a787e34",
+        "format": "zip-stored",
+        "fileCount": 13,
+        "unchangedFromPriorRelease": true
+      }
+    }
+  },
+  "artworkAndMediaUnchanged": true
+}

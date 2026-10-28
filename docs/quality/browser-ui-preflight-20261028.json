@@ -1,0 +1,749 @@
+{
+  "config": {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/scratch/87411a2f3bc3/lunar-vault/node_modules/@playwright/test/cli.js",
+      "test",
+      "-c",
+      "/tmp/slot-ux-20261028/final-ux.config.cjs"
+    ],
+    "configFile": "/tmp/slot-ux-20261028/final-ux.config.cjs",
+    "rootDir": "/tmp/slot-ux-20261028",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/tmp/slot-ux-20261028/final-ux-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "lunar",
+        "name": "lunar",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "ux-*.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "/tmp/slot-ux-20261028/final-ux-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "salmon",
+        "name": "salmon",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "ux-*.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/tmp/slot-ux-20261028/final-ux-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "lunar",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "snapshotDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/tests",
+        "testIgnore": [],
+        "testMatch": "ux-*.spec.ts",
+        "timeout": 45000,
+        "use": {
+          "launchOptions": {
+            "executablePath": "/tmp/lunar-headless-shell-1161/chrome-linux/headless_shell",
+            "args": [
+              "--no-sandbox"
+            ]
+          },
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4173"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "lunar"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/tmp/slot-ux-20261028/final-ux-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "salmon",
+        "testDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests",
+        "snapshotDir": "/workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests",
+        "testIgnore": [],
+        "testMatch": "ux-*.spec.ts",
+        "timeout": 45000,
+        "use": {
+          "launchOptions": {
+            "executablePath": "/tmp/lunar-headless-shell-1161/chrome-linux/headless_shell",
+            "args": [
+              "--no-sandbox"
+            ]
+          },
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4174"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "salmon"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/tmp/slot-ux-20261028/final-ux-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts",
+      "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "menu keyboard opening focuses its first action and Escape restores its trigger",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar",
+              "projectName": "lunar",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6623,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:23:17.474Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-fe829fdd711a5fa72398",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts",
+          "line": 73,
+          "column": 5
+        },
+        {
+          "title": "INFO dialog names itself, contains keyboard focus and closes on Escape",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar",
+              "projectName": "lunar",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 27009,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:23:24.391Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-f872bd195cbaf9e64a99",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts",
+          "line": 93,
+          "column": 6
+        },
+        {
+          "title": "PAYTABLE dialog names itself, contains keyboard focus and closes on Escape",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar",
+              "projectName": "lunar",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 27716,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:23:51.446Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-b66f67a3330870336803",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts",
+          "line": 93,
+          "column": 6
+        },
+        {
+          "title": "session disclosures remain readable at 400x225",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar",
+              "projectName": "lunar",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2228,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:24:19.227Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-71b0264eeeccb7933003",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts",
+          "line": 131,
+          "column": 6
+        },
+        {
+          "title": "session disclosures remain readable at 425x812",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar",
+              "projectName": "lunar",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3826,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:24:21.503Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-3fa119406f96cd7faec5",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts",
+          "line": 131,
+          "column": 6
+        },
+        {
+          "title": "unavailable Eclipse Chamber explains the lower amount needed without submitting a play",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar",
+              "projectName": "lunar",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4679,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:24:25.352Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-ce79d5be6380b379239e",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts",
+          "line": 144,
+          "column": 5
+        },
+        {
+          "title": "settings volume sliders have distinct names and support keyboard adjustment",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar",
+              "projectName": "lunar",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13365,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:24:30.058Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-7180eacba039393a3fa9",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts",
+          "line": 158,
+          "column": 5
+        },
+        {
+          "title": "feature confirmation at 400x225 keeps cost and confirm control reachable",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar",
+              "projectName": "lunar",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4533,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:24:43.472Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-9fd22c21d0b99543fba2",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts",
+          "line": 190,
+          "column": 5
+        },
+        {
+          "title": "base-only session explains Eclipse Chamber unavailability without suggesting a false amount fix",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar",
+              "projectName": "lunar",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7829,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:24:48.034Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-bb8b69c6bb79b0ae0f49",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts",
+          "line": 211,
+          "column": 5
+        },
+        {
+          "title": "after-play reels remain clear of session and control rails at 400x225",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar",
+              "projectName": "lunar",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7254,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:24:55.904Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-10dd608e1400bbf4396b",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts",
+          "line": 227,
+          "column": 6
+        },
+        {
+          "title": "after-play reels remain clear of session and control rails at 800x450",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "lunar",
+              "projectName": "lunar",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8123,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:25:03.214Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-ac3394bf2f34311267be",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/tests/ux-accessibility.spec.ts",
+          "line": 227,
+          "column": 6
+        }
+      ]
+    },
+    {
+      "title": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/ux-accessibility.spec.ts",
+      "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/ux-accessibility.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "field guide starts with its named heading, traps focus and restores the menu trigger",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon",
+              "projectName": "salmon",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1928,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:25:12.437Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-66c0c310f38c650b401b",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/ux-accessibility.spec.ts",
+          "line": 55,
+          "column": 1
+        },
+        {
+          "title": "River Run confirmation initially focuses its heading and Escape cancels without a play",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon",
+              "projectName": "salmon",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1712,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:25:14.719Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-6ba05632e32024a9ebc7",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/ux-accessibility.spec.ts",
+          "line": 80,
+          "column": 1
+        },
+        {
+          "title": "session information stays readable at 400x225",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon",
+              "projectName": "salmon",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 941,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:25:16.487Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-5bc41a02672b87e4024b",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/ux-accessibility.spec.ts",
+          "line": 99,
+          "column": 2
+        },
+        {
+          "title": "session information stays readable at 425x812",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon",
+              "projectName": "salmon",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1107,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:25:17.447Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-70ee2747f8783e99e479",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/ux-accessibility.spec.ts",
+          "line": 99,
+          "column": 2
+        },
+        {
+          "title": "unavailable River Run explains its limit and lower amount without a play",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon",
+              "projectName": "salmon",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1340,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:25:18.579Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-479073a2f2bef81808f0",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/ux-accessibility.spec.ts",
+          "line": 116,
+          "column": 2
+        },
+        {
+          "title": "unavailable River Run explains its balance and lower amount without a play",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "salmon",
+              "projectName": "salmon",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1875,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-28T16:25:19.964Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c2a7792736dbee76758d-6fc2ceb95fff029a0614",
+          "file": "../../workspace/scratch/87411a2f3bc3/lunar-vault/apps/salmon-run/tests/ux-accessibility.spec.ts",
+          "line": 116,
+          "column": 2
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-28T16:23:16.614Z",
+    "duration": 125647.26199999999,
+    "expected": 17,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

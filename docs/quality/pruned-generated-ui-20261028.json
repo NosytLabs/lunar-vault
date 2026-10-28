@@ -1,0 +1,83 @@
+{
+  "games": [
+    {
+      "game": "lunar-vault",
+      "kept": [
+        "_app/immutable/assets/style.BucUuDmF.css",
+        "_app/immutable/bundle.DJERx0PO.js"
+      ],
+      "removed": [
+        {
+          "path": "_app/immutable/assets/style.B-zuNgJU.css",
+          "bytes": 23060,
+          "sha256": "563de9f45727b68d953c6fd8d1e839aa44526ba834701d304595cb208729d59b"
+        },
+        {
+          "path": "_app/immutable/assets/style.BAOjlYup.css",
+          "bytes": 20776,
+          "sha256": "89f03bc93e0adfa82470523062803bdf40b14b2db8f67959a0359d5d9d31c8c6"
+        },
+        {
+          "path": "_app/immutable/assets/style.C1ByXxcT.css",
+          "bytes": 23160,
+          "sha256": "8e5452e544cc628f65f058a3bc901dbdc7b25957801af2a8420998a87546169a"
+        },
+        {
+          "path": "_app/immutable/assets/style.CMZAVlKM.css",
+          "bytes": 23508,
+          "sha256": "e264a41f07c50c70cbb46c86beeee2c75a9ff072a6a39c6791961d3d06765ae0"
+        },
+        {
+          "path": "_app/immutable/assets/style.D12jtnHK.css",
+          "bytes": 23514,
+          "sha256": "60cd2d7494e8f936b1ecace74ed0bae30f9bfd0f0faf09b5fa4bcbdb84b625ae"
+        },
+        {
+          "path": "_app/immutable/assets/style.D8675_1o.css",
+          "bytes": 23414,
+          "sha256": "c2dbd137dd88813d227617e873c15fe07de76aecf1a74b0bc044f2368f005167"
+        },
+        {
+          "path": "_app/immutable/assets/style.DoWBb4Pv.css",
+          "bytes": 23598,
+          "sha256": "c1c7376b3ec6a61dcdfc6ac46f23f99871d233399a0c34e594cae9b18d8e3496"
+        },
+        {
+          "path": "_app/immutable/assets/style.XASowss7.css",
+          "bytes": 23498,
+          "sha256": "9fb8299a515e7a01346e3165fc5b0752d85ba80147308a16b312f0fb2fd2e25f"
+        },
+        {
+          "path": "_app/immutable/bundle.DfOD2rDg.js",
+          "bytes": 1142014,
+          "sha256": "2ed2b5c669f12a7993b45850679d497e1f9070ae9083a3f72304ef76404044ea"
+        },
+        {
+          "path": "_app/immutable/bundle.M9aiILWd.js",
+          "bytes": 1142128,
+          "sha256": "068c9cff3991bd0791260de2a4630aa4f0ad57e1dee9609052f7ac06f7ed41e1"
+        },
+        {
+          "path": "_app/immutable/bundle.SjWMbrUk.js",
+          "bytes": 1138070,
+          "sha256": "ce2139c059faefacbc7753bad5c2e7fe21a6b58d536733d57f4cd5072e33505b"
+        },
+        {
+          "path": "_app/immutable/bundle.t4yWRccn.js",
+          "bytes": 1141049,
+          "sha256": "7ec13b706ed967811a848f6cdd828c11e4126c34e2d19f7357955f25d49dfaae"
+        }
+      ],
+      "policy": "Only graph-unreachable generated hashed JS/CSS; current index references and exact inline CSS retained."
+    },
+    {
+      "game": "salmon-run",
+      "kept": [
+        "assets/index-C_bF45Vh.js",
+        "assets/index-DXmGgoLe.css"
+      ],
+      "removed": [],
+      "policy": "Only graph-unreachable generated hashed JS/CSS; current index references and exact inline CSS retained."
+    }
+  ]
+}

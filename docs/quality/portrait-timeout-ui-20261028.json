@@ -1,0 +1,178 @@
+{
+  "runtimeSourceCommit": "7810f66931341a8a94489df469bf653b564a87fe",
+  "testBudgetMs": 45000,
+  "finding": "All geometry, rotation, overlap, no-play and no-error assertions completed successfully, but sequential protocol geometry reads pushed the complete test over its45s budget. Not claimed to be a clean passing run.",
+  "selectedTraceEvents": [
+    {
+      "type": "before",
+      "callId": "maam@682",
+      "startTime": 62291.793,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {
+        "locator": "locator('.mini-controls button, .replay-bar button').first()",
+        "state": "attached"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "maam@682",
+      "endTime": 69677.363
+    },
+    {
+      "type": "before",
+      "callId": "maam@687",
+      "startTime": 69699.962,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {
+        "locator": "locator('.mini-controls button, .replay-bar button').nth(1)",
+        "state": "attached"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "maam@687",
+      "endTime": 82244.386
+    },
+    {
+      "type": "before",
+      "callId": "maam@694",
+      "startTime": 82245.414,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {
+        "locator": "locator('.mini-controls button, .replay-bar button').nth(2)",
+        "state": "attached"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "maam@694",
+      "endTime": 83758.388
+    },
+    {
+      "type": "before",
+      "callId": "maam@705",
+      "startTime": 83759.182,
+      "class": "Test",
+      "method": "expect",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "maam@705",
+      "endTime": 83759.231
+    },
+    {
+      "type": "before",
+      "callId": "maam@706",
+      "startTime": 83759.801,
+      "class": "Test",
+      "method": "expect",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "maam@706",
+      "endTime": 83759.928
+    },
+    {
+      "type": "before",
+      "callId": "maam@707",
+      "startTime": 83760.687,
+      "class": "Test",
+      "method": "expect",
+      "params": {
+        "expected": "[]"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "maam@707",
+      "endTime": 83760.763
+    },
+    {
+      "type": "before",
+      "callId": "maam@682",
+      "startTime": 62292.187,
+      "class": "Frame",
+      "method": "waitForSelector",
+      "params": {
+        "selector": ".mini-controls button, .replay-bar button >> nth=0",
+        "strict": true,
+        "state": "attached"
+      }
+    },
+    {
+      "type": "log",
+      "callId": "maam@682"
+    },
+    {
+      "type": "log",
+      "callId": "maam@682"
+    },
+    {
+      "type": "after",
+      "callId": "maam@682",
+      "endTime": 69079.484
+    },
+    {
+      "type": "before",
+      "callId": "maam@687",
+      "startTime": 69700.632,
+      "class": "Frame",
+      "method": "waitForSelector",
+      "params": {
+        "selector": ".mini-controls button, .replay-bar button >> nth=1",
+        "strict": true,
+        "state": "attached"
+      }
+    },
+    {
+      "type": "log",
+      "callId": "maam@687"
+    },
+    {
+      "type": "log",
+      "callId": "maam@687"
+    },
+    {
+      "type": "after",
+      "callId": "maam@687",
+      "endTime": 81086.06
+    },
+    {
+      "type": "before",
+      "callId": "maam@694",
+      "startTime": 82245.73,
+      "class": "Frame",
+      "method": "waitForSelector",
+      "params": {
+        "selector": ".mini-controls button, .replay-bar button >> nth=2",
+        "strict": true,
+        "state": "attached"
+      }
+    },
+    {
+      "type": "log",
+      "callId": "maam@694"
+    },
+    {
+      "type": "log",
+      "callId": "maam@694"
+    },
+    {
+      "type": "after",
+      "callId": "maam@694",
+      "endTime": 83347.862
+    }
+  ],
+  "plannedResolution": "Batch equivalent DOM geometry reads in one evaluate call; preserve assertions and budget; rerun the six affected presentation scenarios after the main run finishes.",
+  "originalTraceSha256": "b6e03cc7c8aa1c85f4fef5408ed327d827cb564a829cadb6e4b2dbc203dbfbc2",
+  "originalTraceBytes": 14725000,
+  "traceEventsArchive": "docs/quality/traces/20261028-ui/lunar-portrait-timeout-events.zip",
+  "traceEventsArchiveSha256": "e98f57d4339267508fea088fac7038b3e40058ea89d5f730975d29d60fef30cd",
+  "traceEventsArchiveBytes": 29974,
+  "archiveScope": "Exact original .trace event streams only; excludes screenshots, resources and network archive. Not a standalone Playwright trace viewer bundle."
+}
