@@ -29,6 +29,8 @@ jobs:
       - run: corepack enable
       - run: corepack prepare pnpm@10.5.0 --activate
       - run: pnpm install --frozen-lockfile
+      - name: Install Python asset tooling
+        run: python3 -m pip install --quiet --break-system-packages pillow
       - run: python3 tools/generate-audio.py
       - run: node tools/check-original-art.mjs
       - run: python3 tools/audit-assets.py
