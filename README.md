@@ -86,3 +86,30 @@ audit that produced this repo.
   not part of a frontend repo: it is authored and certified on the Engine
   side. The values in `apps/lunar-vault/src/game/config.ts` describe this
   frontend and must match the certified math before submission.
+
+## RTP certification
+
+The math model is certified on the Engine, so this repository mirrors it rather
+than authoring it. The check that keeps the mirror honest is:
+
+```sh
+node apps/lunar-vault/scripts/check-certified-rtp.mjs
+```
+
+It reads the RTP the app declares for the game and for each bet mode and
+compares it with `apps/lunar-vault/src/game/certified-rtp.json`, a manifest the
+Engine certification supplies:
+
+```json
+{
+  "certifiedAt": "<iso date>",
+  "engine": "<engine reference>",
+  "rtp": { "game": 0.96, "base": 0.96, "bonus": 0.967 }
+}
+```
+
+While that manifest is missing the check fails and says so, because "the
+certified values are not here yet" is a blocker rather than a pass. The values
+currently declared in `apps/lunar-vault/src/game/config.ts` are the inherited
+sample ones. Run `node apps/lunar-vault/scripts/check-certified-rtp.mjs
+--self-test` to exercise the check itself.
