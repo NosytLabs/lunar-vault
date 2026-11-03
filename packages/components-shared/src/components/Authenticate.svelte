@@ -66,6 +66,13 @@
 				stateConfig.betMenuOptions = stateConfig.betAmountOptions.filter((_, index) =>
 					MOST_USED_BET_INDEXES.includes(index),
 				);
+
+				// Engine guideline [242]: the opening bet must come from the
+				// authenticate response, not from a hardcoded default.
+				const defaultBetLevel = authenticateData.config?.defaultBetLevel;
+				if (defaultBetLevel !== undefined && defaultBetLevel !== null) {
+					stateConfig.defaultBetLevel = defaultBetLevel / API_AMOUNT_MULTIPLIER;
+				}
 			}
 
 			// round
@@ -99,6 +106,18 @@
 				if (authenticateData.round?.mode) {
 					stateBet.activeBetModeKey = authenticateData.round.mode;
 				};
+			}
+
+			// Engine guideline [242]: with no active round the game opens on
+			// the RGS's defaultBetLevel. Guideline [187]: an active round's
+			// amount wins over it, and the stake stays that amount after the
+			// round finishes.
+			const hasActiveRound = Boolean(
+				authenticateData?.round?.amount && authenticateData.round.amount > 0,
+			);
+			if (!hasActiveRound && stateConfig.defaultBetLevel !== null) {
+				stateBet.betAmount = stateConfig.defaultBetLevel;
+				stateBet.wageredBetAmount = stateConfig.defaultBetLevel;
 			}
 		} catch (error) {
 			console.error(error);

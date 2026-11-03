@@ -13,8 +13,8 @@ could not be proven are marked `UNVERIFIED` rather than assumed.
 
 ## 1. Summary
 
-Lunar Vault now builds clean and passes 4/4 automated compliance check suites.
-**22 front-end defects were found and fixed.** Two release blockers remain that
+Lunar Vault now builds clean and passes 5/5 automated compliance check suites.
+**23 front-end defects were found and fixed.** Two release blockers remain that
 cannot be closed from code alone: the RTP is outside Engine's certified band
 (issue #4) and the game's art is borrowed from a different title.
 
@@ -218,6 +218,39 @@ and defaults to HTTPS only when no scheme is given.
 
 ---
 
+### 3.14 The opening bet was hardcoded, not taken from the RGS — guidelines [242], [187]
+
+`packages/state-shared/src/stateBet.svelte.ts` initialised `betAmount: 1`, and
+`packages/components-shared/src/components/Authenticate.svelte` never read
+`defaultBetLevel` from the authenticate response. The field was present in
+`packages/rgs-fetcher/src/schema.ts` but consumed nowhere, so the game always
+opened on $1.00 no matter what the operator configured.
+
+Engine guideline **[242]** requires `minBet`, `maxBet`, `stepBet`,
+`defaultBetLevel` and `betLevels` to come from the authenticate response.
+Guideline **[187]** requires an active round's amount to take precedence over
+the default and to survive the round ending.
+
+**Fixed:**
+
+- `stateConfig.svelte.ts` gained a `defaultBetLevel` field.
+- `Authenticate.svelte` reads `authenticateData.config.defaultBetLevel`,
+  converts it from the RGS's integer units, and applies it to both
+  `stateBet.betAmount` and `stateBet.wageredBetAmount` — but only when there
+  is no active round, so an in-flight round's amount still wins.
+- `stateBet.svelte.ts` now starts at `betAmount: 0` instead of `1`. The bet
+  button is gated on `stateBetDerived.isBetCostAvailable()`, which requires
+  `betCost() > 0`, so no zero bet can be placed while the RGS value is still
+  loading.
+
+**Verified** against a mock RGS that deliberately serves
+`defaultBetLevel: 25`: the first `/wallet/play` request carried
+`2500000000` (=$25.00), not the old hardcoded 100000000 (=$1.00).
+`tools/qa-default-bet.py` asserts this, and `tools/check-bet-config.mjs`
+guards the source against regressing.
+
+---
+
 ## 4. Verified compliant (no change needed)
 
 | Guideline | What was checked | Result |
@@ -256,15 +289,17 @@ the RGS. Verified by scanning the built JS and HTML for `http://` and
 | `tools/check-social-wording.mjs` | [225] restricted words |
 | `tools/check-game-rules.mjs` | [25] paytable, RTP, max win, modes, disclaimer, controls |
 | `tools/check-engine-compliance.mjs` | [213] title, [223] zoom, [227] no scroll, [275] loader, [219] currency |
+| `tools/check-bet-config.mjs` | [242] defaultBetLevel, [187] active-round precedence |
 
 ```
-$ for f in check-currency-format check-social-wording check-game-rules check-engine-compliance; do
+$ for f in check-currency-format check-social-wording check-game-rules check-engine-compliance check-bet-config; do
     node tools/$f.mjs && echo "PASS $f"; done
 All checks passed.
 PASS check-currency-format
 PASS check-social-wording
 PASS check-game-rules
 PASS check-engine-compliance
+PASS check-bet-config
 ```
 
 The Engine-certified RTP check (`apps/lunar-vault/scripts/check-certified-rtp.mjs`)

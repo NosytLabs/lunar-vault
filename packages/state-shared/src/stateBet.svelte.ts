@@ -8,8 +8,15 @@ export type BetModeKey = string;
 export const stateBet = $state({
 	currency: 'USD' as Currency,
 	balanceAmount: 0,
-	betAmount: 1,
-	wageredBetAmount: 1,
+	/**
+	 * The current bet.
+	 *
+	 * Engine guideline [242]: this must come from the authenticate response's
+	 * defaultBetLevel, not from a hardcoded value, so it starts empty and is
+	 * filled in once the RGS has authenticated the session.
+	 */
+	betAmount: 0,
+	wageredBetAmount: 0,
 	betToResume: null as BetToResume,
 	/**
 	 * The replay round's book events, kept so "Play Again" can replay the

@@ -116,6 +116,9 @@ def make_bet(bet_id: int, with_win: bool = True):
 
 class Handler(BaseHTTPRequestHandler):
     counter = 1000
+    # The amount of the most recent /wallet/play request, so QA can assert
+    # the opening bet came from the RGS's defaultBetLevel.
+    last_play_amount = 0
 
     def log_message(self, format, *args):
         print(f"[mock-rgs] {format % args}", flush=True)
@@ -150,6 +153,31 @@ class Handler(BaseHTTPRequestHandler):
                     "balance": {"amount": 1000 * API_AMOUNT_MULTIPLIER, "currency": "USD"},
                     "round": None,
                     "currency": "USD",
+                    # Engine guideline [242]: the RGS supplies the opening bet
+                    # and the bet levels. The game must use these rather than
+                    # a hardcoded default.
+                    "config": {
+                        "jurisdiction": {
+                            "socialCasino": False,
+                            "disabledFullscreen": False,
+                            "disabledTurbo": False,
+                            "disabledSuperTurbo": False,
+                            "disabledAutoplay": False,
+                            "disabledSlamstop": False,
+                            "disabledSpacebar": False,
+                            "disabledBuyFeature": False,
+                            "displayNetPosition": False,
+                            "displayRTP": False,
+                            "displaySessionTimer": False,
+                            "minimumRoundDuration": 0,
+                        },
+                        "betLevels": [
+                            level * API_AMOUNT_MULTIPLIER
+                            for level in (1, 5, 25, 50, 75, 100, 200, 500, 800, 1000)
+                        ],
+                        # Deliberately not 1, so a hardcoded default is visible.
+                        "defaultBetLevel": 25 * API_AMOUNT_MULTIPLIER,
+                    },
                 }
             )
             return
@@ -157,6 +185,9 @@ class Handler(BaseHTTPRequestHandler):
         if path.endswith("/wallet/play"):
             Handler.counter += 1
             amount = int(data.get("amount") or API_AMOUNT_MULTIPLIER)
+            # Recorded so QA can assert the opening bet came from the RGS's
+            # defaultBetLevel rather than a hardcoded default.
+            Handler.last_play_amount = amount
             bet = make_bet(Handler.counter)
             bet["amount"] = amount
             self._send(
@@ -178,6 +209,9 @@ class Handler(BaseHTTPRequestHandler):
         if "/bet/replay/" in path:
             Handler.counter += 1
             self._send(make_bet(Handler.counter))
+            return
+        if path.endswith("/__last-play-amount"):
+            self._send({"amount": Handler.last_play_amount})
             return
         self._send({"error": f"unknown endpoint {path}"}, 404)
 
