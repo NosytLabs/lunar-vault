@@ -127,6 +127,9 @@
 				active: true,
 				mode: stateUrlDerived.mode(),
 			};
+			// Keep a copy so "Play Again" can replay the same event locally.
+			// @ts-ignore
+			stateBet.replayBet = stateBet.betToResume;
 		}
 	};
 

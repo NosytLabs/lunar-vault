@@ -8,6 +8,7 @@
 	import BonusCard from './BonusCard.svelte';
 	import BaseButtonContent from './BaseButtonContent.svelte';
 	import { stateBonus } from '../stateBonus.svelte';
+	import { translate } from '../i18n/i18nDerived';
 	import type { EmitterEventModal } from '../types';
 
 	type Props = {
@@ -23,14 +24,14 @@
 		<BonusCard>
 			{#snippet title()}
 				<div class="title">
-					{betModeData.text.title}
+					{translate(betModeData.text.title)}
 				</div>
 			{/snippet}
 
 			{#snippet description()}
 				{#if betModeData?.text?.description}
 					<div class="description">
-						{betModeData.text.description}
+						{translate(betModeData.text.description)}
 					</div>
 				{/if}
 			{/snippet}
@@ -53,7 +54,7 @@
 				>
 					<BaseIcon width="100%" height="2rem" border="2px solid white;" />
 					<BaseButtonContent>
-						<span style="font-size: 1rem;">{betModeData.text.button}</span>
+						<span style="font-size: 1rem;">{translate(betModeData.text.button)}</span>
 					</BaseButtonContent>
 				</Button>
 			{/snippet}

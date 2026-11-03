@@ -1,4 +1,3 @@
-import WebFont from 'webfontloader';
 
 import type { PixiPoint, Sizes } from './types';
 
@@ -60,23 +59,12 @@ export function detectWebGL() {
 
 export const preloadFont = () =>
 	new Promise<void>((resolve) => {
-		try {
-			WebFont.load({
-				typekit: {
-					id: 'aba0ebl',
-				},
-				active: () => {
-					resolve();
-				},
-				inactive: () => {
-					console.error('Web font load inactive');
-					resolve();
-				},
-			});
-		} catch (error) {
-			console.error(error);
-			resolve();
-		}
+		// Engine front-end guideline: the build must not load anything from
+		// external hosts. The SDK used to pull a Typekit webfont here, which
+		// the strict content policy blocks (and which adds a render-blocking
+		// third-party request). The game's own fonts ship as static files in
+		// the Pixi spine atlases, so there is nothing to wait for.
+		resolve();
 	});
 
 export function propsSyncEffect<TProps extends object, TTarget>({

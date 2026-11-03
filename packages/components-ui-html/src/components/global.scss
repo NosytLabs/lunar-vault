@@ -1,9 +1,23 @@
+html,
+body {
+	/* Engine front-end guideline: the frame must not scroll at any reviewer
+	   screen size, and double-tap zoom must be disabled. */
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	overflow: hidden;
+	overscroll-behavior: none;
+}
+
 body {
 	font-family: 'proxima-nova', sans-serif;
 	cursor: default;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	user-select: none;
+	/* Disables the double-tap-to-zoom gesture without blocking pinch on
+	   elements that legitimately need it. */
+	touch-action: manipulation;
 }
 
 :root {

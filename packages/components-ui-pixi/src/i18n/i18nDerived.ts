@@ -1,24 +1,36 @@
-import { stateI18nDerived, stateUrlDerived } from 'state-shared';
+import { socialText, stateI18nDerived, stateUrlDerived } from 'state-shared';
+
+/**
+ * Translate a player-facing string and apply the social-mode wording.
+ *
+ * Use this for text that comes from the game metadata or any other source
+ * that is not one of the SDK's own message keys -- Engine requires the social
+ * wording to be applied to *all* player-facing text, not only the built-in
+ * translations.
+ */
+const translate = (text: string) => socialText(stateI18nDerived.translate(text), stateUrlDerived.social());
+
+export { translate };
 
 export const i18nDerived = {
-	audio: () => stateI18nDerived.translate('AUDIO'),
-	balance: () => stateI18nDerived.translate('BALANCE'),
-	win: () => stateI18nDerived.translate('WIN'),
-	bet: () => stateUrlDerived.social() ? 'SPIN' : stateI18nDerived.translate('BET'),
-	stop: () => stateI18nDerived.translate('STOP'),
-	buyBonus: () => stateUrlDerived.social() ? 'PLAY BONUS' : stateI18nDerived.translate('BUY BONUS'),
-	disable: () => stateI18nDerived.translate('DISABLE'),
-	freeSpins: () => stateI18nDerived.translate('FREE SPINS'),
+	audio: () => translate('AUDIO'),
+	balance: () => translate('BALANCE'),
+	win: () => translate('WIN'),
+	bet: () => translate('BET'),
+	stop: () => translate('STOP'),
+	buyBonus: () => translate('BUY BONUS'),
+	disable: () => translate('DISABLE'),
+	freeSpins: () => translate('FREE SPINS'),
 	//
-	decrease: () => stateI18nDerived.translate('-'),
-	increase: () => stateI18nDerived.translate('+'),
-	menu: () => stateI18nDerived.translate('MENU'),
-	turbo: () => stateI18nDerived.translate('TURBO'),
-	autoSpin: () => stateI18nDerived.translate('AUTO SPIN'),
-	payTable: () => stateI18nDerived.translate('PAYTABLE'),
-	info: () => stateI18nDerived.translate('INFO'),
-	settings: () => stateI18nDerived.translate('SETTINGS'),
-	soundOn: () => stateI18nDerived.translate('SOUND ON'),
-	soundOff: () => stateI18nDerived.translate('SOUND OFF'),
-	menuExit: () => stateI18nDerived.translate('EXIT'),
+	decrease: () => translate('-'),
+	increase: () => translate('+'),
+	menu: () => translate('MENU'),
+	turbo: () => translate('TURBO'),
+	autoSpin: () => translate('AUTO SPIN'),
+	payTable: () => translate('PAYTABLE'),
+	info: () => translate('INFO'),
+	settings: () => translate('SETTINGS'),
+	soundOn: () => translate('SOUND ON'),
+	soundOff: () => translate('SOUND OFF'),
+	menuExit: () => translate('EXIT'),
 };

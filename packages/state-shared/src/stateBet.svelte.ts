@@ -11,6 +11,12 @@ export const stateBet = $state({
 	betAmount: 1,
 	wageredBetAmount: 1,
 	betToResume: null as BetToResume,
+	/**
+	 * The replay round's book events, kept so "Play Again" can replay the
+	 * same event. A replay has no session, so the round cannot be re-fetched
+	 * from the RGS; the events are replayed locally instead.
+	 */
+	replayBet: null as BetToResume,
 	activeBetModeKey: 'BASE' as BetModeKey,
 	winBookEventAmount: 0,
 	autoSpinsLoss: 0,
@@ -54,10 +60,20 @@ const activeBetMode = () => stateMeta.betModeMeta?.[stateBet.activeBetModeKey.to
 	?? null;
 const isContinuousBet = () => stateBet.autoSpinsCounter > 1 || stateBet.isSpaceHold;
 const timeScale = () => (stateBet.isTurbo ? 2 : 1);
-const betCostMultiplier = () =>
-	stateBetDerived.activeBetMode().type === 'activate'
-		? stateBetDerived.activeBetMode().costMultiplier
-		: 1;
+/**
+ * The multiplier applied to the base bet to get the real cost of the round.
+ *
+ * 'activate' modes apply their multiplier locally to every spin they are
+ * active for. 'buy' modes are charged by the RGS at the mode's own price, so
+ * the multiplier has to be applied here too -- otherwise the bet label, the
+ * affordability check and the replay would all show the base bet instead of
+ * the price the player is actually paying.
+ */
+const betCostMultiplier = () => {
+	const mode = stateBetDerived.activeBetMode();
+	if (!mode) return 1;
+	return mode.type === 'default' ? 1 : (mode.costMultiplier ?? 1);
+};
 const betCost = () => stateBet.betAmount * betCostMultiplier();
 const isBetCostAvailable = () => betCost() > 0 && betCost() <= stateBet.balanceAmount;
 const hasAutoBetCounter = () => stateBet.autoSpinsCounter !== 0;

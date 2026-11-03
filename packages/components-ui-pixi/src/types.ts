@@ -20,7 +20,8 @@ export type EmitterEventUi =
 	// bet services
 	| { type: 'resumeBet' }
 	| { type: 'autoBet' }
-	| { type: 'bet' };
+	| { type: 'bet' }
+	| { type: 'replayPlayAgain' };
 
 export type ButtonIcon =
 	| 'decrease'
