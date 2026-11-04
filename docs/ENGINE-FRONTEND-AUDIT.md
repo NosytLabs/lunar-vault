@@ -13,10 +13,18 @@ could not be proven are marked `UNVERIFIED` rather than assumed.
 
 ## 1. Summary
 
-Lunar Vault now builds clean and passes 7/7 automated compliance check suites.
+Lunar Vault now builds clean and passes all 6 automated compliance check
+suites, the 25 package lint scripts and the `lint:tools` script.
 **34 front-end defects were found and fixed.** Two release blockers remain that
 cannot be closed from code alone: the RTP is outside Engine's certified band
 (issue #4) and the game's art is borrowed from a different title.
+
+A separate pass over the repository's own tooling found that **every one of
+the 25 package lint scripts had been failing** — the repository had no
+`eslint.config.*`, only legacy `.eslintrc.cjs` files, so ESLint 9 exited 2
+with "couldn't find an eslint.config.(js|mjs|cjs) file" on all of them. That
+defect and the six real bugs the working configuration exposed are recorded
+in section 3.27.
 
 ---
 
@@ -469,6 +477,63 @@ went wrong."* twice.
 
 ---
 
+### 3.27 The repository's lint suite was entirely broken — and hid six real bugs
+
+This is not an Engine guideline finding, but it was found while verifying
+this audit and it changed what the other checks could prove, so it is
+recorded here.
+
+**The defect.** The repository had only legacy `.eslintrc.cjs` files and no
+`eslint.config.*`. Under ESLint 9, every one of the 25 package lint scripts
+exited 2 with:
+
+```
+ESLint couldn't find an eslint.config.(js|mjs|cjs) file.
+```
+
+An earlier verification of this repository reported the lint suite as passing.
+That was a false green: the check looked for the strings `ERROR` or `✖` in
+ESLint's output, and neither appears in the missing-config message. Every
+result in this document is now checked by **exit code** instead.
+
+**The repair.** A flat ESLint 9 configuration was added:
+
+- `eslint.config.js` at the root, and `packages/eslint-config-custom/flat.js`
+  as the shared config, exported through a new `./flat` entry point.
+- `eslint-config-custom` was converted to ESM.
+- `.svelte.ts` and `.svelte.js` rune files are parsed by the Svelte parser
+  with the TypeScript parser nested inside it. The plain TypeScript parser
+  cannot read Svelte 5 runes, so every rune file was a parse error.
+- The base `no-undef` and `no-unused-vars` are off. TypeScript reports
+  undefined and unused symbols itself, and there is no
+  `@typescript-eslint/no-undef` rule to replace the base one with.
+- `any` is allowed in the SDK's generic type-parameter positions
+  (`Reel<any, any>`, `BookEventHandlerMap<any, any>`,
+  `TBookEvent extends any`, `infer U, any`, `...args: any[]`), where the
+  concrete type is supplied by the caller and `unknown` would break the
+  inference.
+
+**The six real bugs the working configuration exposed.** These were shipped
+defects, not lint noise:
+
+| Bug | Consequence |
+| --- | --- |
+| `createInterruptible` used an `async` promise executor | A rejected wait escaped as an unhandled rejection and crashed the process. The executor is now synchronous. |
+| `rgsFetcher.get` could not address the runtime-built replay path | The replay endpoint is not one of the schema's fixed endpoint keys, so it could not be typed. `rgsFetcher.getPath` was added for it. |
+| The enhance board passed an optional padding reel and padding position | `prepareToSpin` requires both. The empty values are now supplied when the board has no padding. |
+| `createPlayer` constrained its play function to `Function` | `Function` accepts any function-like value. It is now constrained to a function signature. |
+| Seven `@ts-ignore` comments | Each one hid a real type mismatch. Every one is replaced by a cast at the boundary it describes. |
+| Unkeyed Svelte loops, string-literal mustaches, unused imports and parameters | 49 violations in total, now fixed. |
+
+**Verification.** `tools/check-interruptible.ts` compares the new
+`createInterruptible` against the previous implementation across six
+scenarios — the wait starts immediately, a finished wait resolves with
+`{ interrupted: false }`, an interrupt resolves with `{ interrupted: true }`,
+the wait keeps running after an interrupt, only the first settle wins, and
+`getLength` counts pending waits. The rejection case is checked separately,
+because the previous implementation crashes on it: the new implementation
+settles through an interrupt and raises no unhandled rejection.
+
 ## 4. Verified compliant (no change needed)
 
 | Guideline | What was checked | Result |
@@ -509,6 +574,7 @@ the RGS. Verified by scanning the built JS and HTML for `http://` and
 | `tools/check-game-rules.mjs` | [25] paytable, RTP, max win, modes, disclaimer, controls |
 | `tools/check-engine-compliance.mjs` | [213] title, [223] zoom, [227] no scroll, [275] loader, [219] currency |
 | `tools/check-bet-config.mjs` | [242] defaultBetLevel, [187] active-round precedence |
+| `tools/check-interruptible.ts` | the `createInterruptible` semantics, against the previous implementation |
 
 ```
 $ for f in check-currency-format check-social-implementation check-social-wording \
@@ -527,6 +593,22 @@ PASS check-engine-compliance
 All bet-configuration checks passed.
 PASS check-bet-config
 ```
+
+The lint suites are verified by **exit code**, not by matching output text:
+
+```
+$ pnpm install --frozen-lockfile   # exit 0
+$ pnpm build --force               # exit 0
+$ pnpm run lint                    # 25 package lint scripts, all exit 0
+$ pnpm run lint:tools              # exit 0
+$ pnpm exec tsx tools/check-interruptible.ts
+All 8 interruptible checks passed.
+```
+
+A lint run that reports nothing is only meaningful if the configuration can
+actually fail. It was checked against deliberate violations in `.ts`,
+`.svelte` and `.svelte.ts` files, and the Svelte rune parser was confirmed
+active with a deliberate syntax error in a `.svelte.ts` file.
 
 The currency and social-wording checkers extract the **real** implementation
 from `packages/utils-shared/amount.ts` and
