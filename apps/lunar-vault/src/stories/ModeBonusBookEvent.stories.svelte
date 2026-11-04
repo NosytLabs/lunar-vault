@@ -22,7 +22,7 @@
 	setContext();
 </script>
 
-{#snippet template(args: TemplateArgs<any>)}
+{#snippet template(args: TemplateArgs<unknown>)}
 	<StoryGameTemplate
 		skipLoadingScreen={args.skipLoadingScreen}
 		action={async () => {

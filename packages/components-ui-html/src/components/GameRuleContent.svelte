@@ -16,7 +16,7 @@
 		kind: 'payTable' | 'gameRules';
 	};
 
-	const props = $props();
+	const props: Props = $props();
 
 	const data = $derived(
 		stateMeta.gameRuleMeta[props.kind as keyof typeof stateMeta.gameRuleMeta] as {
@@ -28,7 +28,7 @@
 	);
 </script>
 
-{#each data as section, sectionIndex}
+{#each data as section, sectionIndex (section.title + sectionIndex)}
 	<div class="section">
 		{#if section.title}
 			<h3 class="section-title">{translate(section.title)}</h3>
@@ -37,7 +37,7 @@
 			class="grid"
 			style:grid-template-columns={`repeat(${section.columns}, minmax(0, 1fr))`}
 		>
-			{#each section.containers as container}
+			{#each section.containers as container (`${container.row}-${container.column}`)}
 				<div
 					class="container"
 					style:grid-row={container.row + 1}

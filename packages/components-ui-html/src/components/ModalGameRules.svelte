@@ -10,10 +10,10 @@
 	import GameRuleContent from './GameRuleContent.svelte';
 
 	type Props = {
-		children: Snippet;
+		children?: Snippet;
 	};
 
-	const props = $props();
+	const props: Props = $props();
 </script>
 
 {#if stateModal.modal?.name === 'gameRules'}

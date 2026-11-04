@@ -53,8 +53,8 @@
 	{#snippet template()}
 		<StoryPixiApp {assets}>
 			<Container scale={0.5}>
-				{#each SYMBOLS_LEFT as symbol, rowIndex}
-					{#each SYMBOL_STATES as state, columnIndex}
+				{#each SYMBOLS_LEFT as symbol, rowIndex (rowIndex)}
+					{#each SYMBOL_STATES as state, columnIndex (columnIndex)}
 						{@const x = (columnIndex + 1) * BASE}
 						{@const y = (rowIndex + 1) * BASE}
 						<Text {x} y={y - 100} anchor={{ x: 0.5, y: 0 }} text={`${symbol.name}: ${state}`} />
@@ -64,8 +64,8 @@
 			</Container>
 
 			<Container scale={0.5} x={550}>
-				{#each SYMBOLS_RIGHT as symbol, rowIndex}
-					{#each SYMBOL_STATES as state, columnIndex}
+				{#each SYMBOLS_RIGHT as symbol, rowIndex (rowIndex)}
+					{#each SYMBOL_STATES as state, columnIndex (columnIndex)}
 						{@const x = (columnIndex + 1) * BASE}
 						{@const y = (rowIndex + 1) * BASE}
 						<Text {x} y={y - 100} anchor={{ x: 0.5, y: 0 }} text={`${symbol.name}: ${state}`} />

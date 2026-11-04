@@ -1,4 +1,6 @@
 
+/// <reference lib="dom" />
+
 import type { PixiPoint, Sizes } from './types';
 
 export const REM = 16;
@@ -35,13 +37,13 @@ export function detectWebGL() {
 	if (window && !!window.WebGLRenderingContext) {
 		let canvas = document.createElement('canvas'),
 			names = ['webgl', 'experimental-webgl', 'moz-webgl', 'webkit-3d'],
-			context = false;
+			context: RenderingContext | null = null;
 
 		for (const i in names) {
 			try {
-				// @ts-ignore
-				context = canvas.getContext(names[i]);
-				// @ts-ignore
+				// The vendor context names are not in the DOM's type, so the
+				// lookup needs a cast.
+				context = canvas.getContext(names[i] as string) as RenderingContext | null;
 				if (context && typeof context.getParameter === 'function') {
 					// WebGL is enabled.
 					return 1;
@@ -85,8 +87,10 @@ export function propsSyncEffect<TProps extends object, TTarget>({
 				.filter((key) => (ignore ? !ignore.includes(key) : true))
 				.forEach((key) => {
 					if (props[key] !== undefined) {
-						// @ts-ignore
-						targetInstance[key] = props[key];
+						// The target's index signature does not know the
+						// props' keys, so the write needs a cast.
+						(targetInstance as Record<string, unknown>)[key as string] =
+							props[key] as unknown;
 					}
 				});
 		}

@@ -3,6 +3,7 @@
 
 	import { requestAuthenticate, requestReplay } from 'rgs-requests';
 	import { stateUrlDerived, stateBet, stateConfig, stateModal, stateUi } from 'state-shared';
+	import type { BetToResume } from 'state-shared';
 	import { API_AMOUNT_MULTIPLIER, MOST_USED_BET_INDEXES } from 'constants-shared/bet';
 
 	type Props = { children: Snippet };
@@ -90,8 +91,10 @@
 				// }
 
 				if(authenticateData.round?.state) {
-					// @ts-ignore
-					stateBet.betToResume =  authenticateData.round;
+					// The RGS types the round's book events as `unknown[]`, while
+					// the game knows their concrete shape. The cast is the
+					// boundary between the two.
+					stateBet.betToResume = authenticateData.round as unknown as BetToResume;
 				}
 
 				if(authenticateData.round?.amount) {
@@ -154,15 +157,16 @@
 		}
 
 		if(data) {
-			// @ts-ignore
+			// The replay payload's book events are typed as `unknown[]` by the
+			// RGS client, while the game knows their concrete shape. The cast
+			// is the boundary between the two.
 			stateBet.betToResume = {
 				...data,
 				event: '0',
 				active: true,
 				mode: stateUrlDerived.mode(),
-			};
+			} as unknown as BetToResume;
 			// Keep a copy so "Play Again" can replay the same event locally.
-			// @ts-ignore
 			stateBet.replayBet = stateBet.betToResume;
 		}
 	};

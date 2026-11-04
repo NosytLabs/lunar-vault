@@ -15,7 +15,6 @@
 
 	let { value = $bindable(), children }: Props = $props();
 	const { eventEmitter } = getContextEventEmitter<EmitterEventModal>();
-	const ICONS = { on: 'volumeOn', off: 'volumeOff' } as const;
 </script>
 
 <div class="col">

@@ -181,7 +181,7 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 		winLevelSoundsStop();
 		eventEmitter.broadcast({ type: 'winHide' });
 	},
-	finalWin: async (bookEvent: BookEventOfType<'finalWin'>) => {
+	finalWin: async (_bookEvent: BookEventOfType<'finalWin'>) => {
 		// Do nothing
 	},
 	// customised

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { stateBet, stateModal, type BetModeData } from 'state-shared';
+	import { stateBet, type BetModeData } from 'state-shared';
 	import { Button } from 'components-shared';
 	import { getContextEventEmitter } from 'utils-event-emitter';
 	import { numberToCurrencyString } from 'utils-shared/amount';
@@ -19,7 +19,7 @@
 	const { eventEmitter } = getContextEventEmitter<EmitterEventModal>();
 </script>
 
-{#each props.list as betModeData}
+{#each props.list as betModeData (betModeData.mode)}
 	{#if betModeData.type !== 'default'}
 		<BonusCard>
 			{#snippet title()}

@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import type { RawSymbol, SymbolState } from './types';
 
 export const SYMBOL_SIZE = 120;

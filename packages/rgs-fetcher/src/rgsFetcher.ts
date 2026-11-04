@@ -52,10 +52,17 @@ export const rgsFetcher = {
 
 		return data as TResponse;
 	},
-	get: async function get<
-		T extends keyof paths,
-		TResponse = paths[T]['get']['responses'][200]['content']['application/json'],
-	>(options: { url: T; rgsUrl: string }): Promise<TResponse> {
+	/**
+	 * GET a path that is not one of the schema's fixed endpoint keys.
+	 *
+	 * The replay endpoint is built at runtime from the game, version, mode
+	 * and event, so it cannot be a key of `paths`. The path type is widened
+	 * to a string for that case.
+	 */
+	getPath: async function getPath<TResponse = unknown>(options: {
+		url: string;
+		rgsUrl: string;
+	}): Promise<TResponse> {
 		const response = await fetcher({
 			method: 'GET',
 			endpoint: buildEndpoint(options.rgsUrl, options.url),
@@ -78,5 +85,16 @@ export const rgsFetcher = {
 		}
 
 		return data as TResponse;
+	},
+
+	/**
+	 * GET one of the schema's fixed endpoint keys, with its response type
+	 * inferred.
+	 */
+	get: async function get<
+		T extends keyof paths,
+		TResponse = paths[T]['get']['responses'][200]['content']['application/json'],
+	>(options: { url: T; rgsUrl: string }): Promise<TResponse> {
+		return rgsFetcher.getPath<TResponse>(options);
 	},
 };

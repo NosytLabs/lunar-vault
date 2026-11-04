@@ -43,7 +43,7 @@ export function createPlayMusic<TSoundName extends string>(options: {
 	const soundPlayMap = {
 		new: (sound: Sound) => newMusic(sound),
 		paused: (sound: Sound) => resumeMusic(sound),
-		playing: (_: Sound) => {
+		playing: () => {
 			// Do nothing
 		},
 	};

@@ -18,7 +18,7 @@
 	{#snippet children({ key, onpress })}
 		<OnHotkey hotkey="Space" {disabled} {onpress} />
 		<Button {...props} {sizes} {onpress} {disabled}>
-			{#snippet children({ center, hovered })}
+			{#snippet children({ center })}
 				<Container {...center}>
 					<UiSprite
 						key="bet"
