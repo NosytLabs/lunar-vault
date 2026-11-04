@@ -576,6 +576,7 @@ the RGS. Verified by scanning the built JS and HTML for `http://` and
 | `tools/check-bet-config.mjs` | [242] defaultBetLevel, [187] active-round precedence |
 | `tools/check-interruptible.ts` | the `createInterruptible` semantics, against the previous implementation |
 | `tools/check-sound-mute.ts` | [107] the sound switch mutes every player, including a resumed music track |
+| `tools/qa-canvas-bounds.py` | every control is fully on the canvas at each supported size |
 
 ```
 $ for f in check-currency-format check-social-implementation check-social-wording \
@@ -606,6 +607,8 @@ $ pnpm exec tsx tools/check-interruptible.ts
 All 8 interruptible checks passed.
 $ pnpm exec tsx tools/check-sound-mute.ts
 All sound mute checks passed.
+$ python3 tools/qa-canvas-bounds.py
+Every control is fully on the canvas at every size.
 ```
 
 A lint run that reports nothing is only meaningful if the configuration can
@@ -765,4 +768,35 @@ production source, so it cannot silently drift.
 With the fix reverted the harness reports
 `a resumed music track re-applies the player volume -- volume was 0.15,
 expected 0.75` and exits 1.
+
+### 3.31 The reported Popout S cut-off controls — **NOT A DEFECT**
+
+An earlier pass reported that at the smallest landscape pop-out (400x225) the
+bet decrease and increase buttons were cut off by the bottom edge of the
+canvas. **The report was wrong.** The controls are fully on the canvas.
+
+Two independent measurements agree:
+
+- `tools/qa-canvas-bounds.py` reads the real Pixi node bounds from the running
+  game. At 400x225 the bet `-` button is at `x=[329..354] y=[168..193]` and the
+  bet `+` button at `x=[358..383] y=[168..193]`. The canvas is 400x225, so
+  both sit 32 pixels clear of the bottom edge. Every control at every tested
+  size (400x225, 640x360, 390x844, 1280x720) is fully inside the canvas.
+- The captured screenshot `04-popout-s.png` agrees. Reading the pixels
+  directly, the two grey buttons occupy `x=[329..353]` and `x=[358..381]`,
+  `y=[169..192]`, and the black information bar starts at `y=197`. The
+  buttons are complete circles and the bar does not clip them.
+
+The false positive came from reading a 400x225 screenshot at full size: the
+buttons are small, the scene behind them is dark, and the buttons sit above a
+black bar, which reads as "cut off" in a thumbnail. A geometry model of the
+source code did not reproduce it either, and the model's own numbers put the
+buttons inside the viewport.
+
+**Verification.** `tools/qa-canvas-bounds.py` is now a gate. It loads the game
+in headless Chrome, resizes the viewport to each target size, walks the Pixi
+stage and fails if any control is not fully inside the canvas, or if a
+required control is missing. Run at 200x60 it reports the controls that fall
+outside and exits 1, so it is not a gate that cannot fail.
+
 
