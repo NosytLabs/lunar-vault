@@ -130,6 +130,15 @@
 		stateBet.wageredBetAmount = (stateUrlDerived.amount() / API_AMOUNT_MULTIPLIER) || 0;
 		stateBet.activeBetModeKey = stateUrlDerived.mode();
 
+		// Engine guideline [172]: the optional URL parameters must be applied.
+		// A replay never authenticates, so the currency parameter is the only
+		// source for the display currency - without it every amount renders in
+		// the default USD, which is also wrong for the social currencies.
+		const replayCurrency = stateUrlDerived.currency();
+		if (replayCurrency) {
+			stateBet.currency = replayCurrency;
+		}
+
 		const data = await requestReplay({
 			rgsUrl: stateUrlDerived.rgsUrl(),
 			game: stateUrlDerived.game(),
@@ -137,6 +146,12 @@
 			version: stateUrlDerived.version(),
 			event: stateUrlDerived.event(),
 		});
+
+		// An RGS can answer a replay with a 200 and an error payload. That
+		// is a failed replay too, and it must not be played back as a round.
+		if (data?.error) {
+			throw Object.assign(new Error(String(data.error)), { data });
+		}
 
 		if(data) {
 			// @ts-ignore
@@ -155,7 +170,25 @@
 	onMount(async () => {
 		if(stateUrlDerived.replay()) {
 			stateUi.config.mode = 'replay';
-			await handleReplay();
+			// Engine guideline [171]: a failed replay must surface an error.
+			// Without this the rejection escapes onMount, the children never
+			// render and the player gets a blank screen with no explanation.
+			//
+			// The error modal lives inside the children, so the children have
+			// to render even when the replay failed. Otherwise the modal is
+			// never mounted and the player still gets a blank screen.
+			try {
+				await handleReplay();
+			} catch (error) {
+				console.error(error);
+				// Keep the RGS's own error payload when there is one - it is
+				// player-facing text and the error modal shows it.
+				const data = (error as { data?: unknown })?.data;
+				stateModal.modal = {
+					name: 'error',
+					error: data ?? error,
+				};
+			}
 		} else {
 			stateUi.config.mode = 'default';
 			await authenticate();

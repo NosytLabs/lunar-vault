@@ -20,6 +20,7 @@
 	import BoardFrame from './BoardFrame.svelte';
 	import Board from './Board.svelte';
 	import Anticipations from './Anticipations.svelte';
+	import GlobalMultiplier from './GlobalMultiplier.svelte';
 	import Win from './Win.svelte';
 	import FreeSpinIntro from './FreeSpinIntro.svelte';
 	import FreeSpinCounter from './FreeSpinCounter.svelte';
@@ -63,6 +64,7 @@
 		<MainContainer>
 			<Board />
 			<Anticipations />
+			<GlobalMultiplier />
 		</MainContainer>
 
 		<UI>

@@ -208,6 +208,12 @@ class Handler(BaseHTTPRequestHandler):
         path = self.path.split("?")[0]
         if "/bet/replay/" in path:
             Handler.counter += 1
+            # A replay whose event id is "fail" returns an error, so QA can
+            # verify the game shows an error instead of a blank screen
+            # (Engine guideline [171]).
+            if "fail" in path:
+                self._send({"error": "ERR_REPLAY_NOT_FOUND", "message": "replay not found"}, 404)
+                return
             self._send(make_bet(Handler.counter))
             return
         if path.endswith("/__last-play-amount"):

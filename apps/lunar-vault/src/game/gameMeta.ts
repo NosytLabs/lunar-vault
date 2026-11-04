@@ -121,7 +121,7 @@ const LUNAR_VAULT_GAME_RULE_META = {
 			],
 			rows: 3,
 			columns: 1,
-			title: 'PAYTABLE',
+			title: 'WIN TABLE',
 		},
 		{
 			containers: [
@@ -350,7 +350,7 @@ const LUNAR_VAULT_GAME_RULE_META = {
 				{
 					title: 'DISCLAIMER',
 					text:
-						'Malfunction voids all wins and plays. A consistent internet connection is required. In the event of a disconnection, reload the game to finish any uncompleted rounds. The expected return is calculated over many plays. The game display is not representative of any physical device and is for illustrative purposes only. Winnings are settled according to the amount received from the Remote Game Server and not from events within the web browser.',
+						'Malfunction voids all wins and plays. A consistent internet connection is required. In the event of a disconnection, reload the game to finish any uncompleted rounds. The expected return is calculated over many plays. The game display is not representative of any physical device and is for illustrative purposes only. Winnings are settled according to the amount received from the Remote Game Server and not from events within the web browser. TM and © 2026 Engine.',
 					image: '',
 					imagePosition: 'left',
 					row: 0,

@@ -31,5 +31,9 @@
   "total bet": "total play",
   "wager": "play",
   "win feature": "play feature",
-  "withdraw": "redeem"
+  "withdraw": "redeem",
+  "paytable": "win table",
+  "pay tables": "win tables",
+  "payout": "win",
+  "payouts": "wins"
 }

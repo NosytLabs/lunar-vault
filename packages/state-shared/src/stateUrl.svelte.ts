@@ -29,6 +29,14 @@ const lang = () =>
 const sessionID = () => getUrlSearchParam('sessionID') || '';
 const rgsUrl = () => getUrlSearchParam('rgs_url') || '';
 const social = () => getUrlSearchParam('social') === 'true';
+/**
+ * The currency from the URL.
+ *
+ * Engine guideline [172]: optional URL parameters must be applied. In normal
+ * play the currency comes from the authenticate response, but a replay has
+ * no authenticate response, so the parameter is the only source.
+ */
+const currency = () => getUrlSearchParam('currency') || '';
 
 // params for replay
 const replay = () => getUrlSearchParam('replay') === 'true';
@@ -44,6 +52,7 @@ export const stateUrlDerived = {
 	sessionID,
 	rgsUrl,
 	social,
+	currency,
 	// states for replay
 	replay,
 	amount,

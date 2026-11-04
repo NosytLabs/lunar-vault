@@ -37,8 +37,19 @@ export const rgsFetcher = {
 			endpoint: buildEndpoint(options.rgsUrl, options.url),
 		});
 
-		if (response.status !== 200) console.error('error', response);
 		const data = await response.json();
+
+		// A failed response has to be an error, not a value. The caller
+		// checks for an `error` field in the payload, and a failed wallet
+		// call must never be treated as a successful round.
+		if (response.status !== 200) {
+			console.error('error', response);
+			throw Object.assign(new Error(`RGS request failed with status ${response.status}`), {
+				status: response.status,
+				data,
+			});
+		}
+
 		return data as TResponse;
 	},
 	get: async function get<
@@ -50,8 +61,22 @@ export const rgsFetcher = {
 			endpoint: buildEndpoint(options.rgsUrl, options.url),
 		});
 
-		if (response.status !== 200) console.error('error', response);
 		const data = await response.json();
+
+		// A failed response has to be an error, not a value.
+		//
+		// The replay endpoint returns the error payload with a non-200
+		// status. Returning it as a normal value meant the caller treated
+		// it as a successful replay, so a failed replay left the player on
+		// the loading screen with no explanation (Engine guideline [171]).
+		if (response.status !== 200) {
+			console.error('error', response);
+			throw Object.assign(new Error(`RGS request failed with status ${response.status}`), {
+				status: response.status,
+				data,
+			});
+		}
+
 		return data as TResponse;
 	},
 };

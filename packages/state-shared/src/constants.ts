@@ -200,7 +200,7 @@ const DEFAULT_GAME_RULE_META = {
 			],
 			rows: 3,
 			columns: 1,
-			title: 'PAYTABLE',
+			title: 'WIN TABLE',
 		},
 		{
 			containers: [

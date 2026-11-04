@@ -31,11 +31,38 @@ type BookEventFreeSpinTrigger = {
 	positions: Position[];
 };
 
+/**
+ * A free-spin re-trigger.
+ *
+ * The sample books emit this during a feature round when more scatters land,
+ * adding more free spins to the running total. It has the same shape as
+ * freeSpinTrigger but happens mid-round, so it only updates the counter
+ * instead of starting the feature.
+ */
+type BookEventFreeSpinRetrigger = {
+	index: number;
+	type: 'freeSpinRetrigger';
+	totalFs: number;
+	positions: Position[];
+};
+
 type BookEventUpdateFreeSpin = {
 	index: number;
 	type: 'updateFreeSpin';
 	amount: number;
 	total: number;
+};
+
+/**
+ * The global multiplier changes during a feature round.
+ *
+ * The resume snapshot preserves this event type, so the books are expected
+ * to contain it.
+ */
+type BookEventUpdateGlobalMult = {
+	index: number;
+	type: 'updateGlobalMult';
+	multiplier: number;
 };
 
 type BookEventSetWin = {
@@ -83,7 +110,9 @@ export type BookEvent =
 	| BookEventWinInfo
 	| BookEventSetTotalWin
 	| BookEventFreeSpinTrigger
+	| BookEventFreeSpinRetrigger
 	| BookEventUpdateFreeSpin
+	| BookEventUpdateGlobalMult
 	| BookEventCreateBonusSnapshot
 	| BookEventFinalWin
 	| BookEventSetWin

@@ -49,6 +49,12 @@ const PHRASES = [
 	['rebet', 'respin'],
 	['auto spin', 'auto play'],
 	['auto spins', 'auto plays'],
+	// Engine's common-misses list forbids "paytable" outright. The whole-word
+	// "pay" rule cannot match it, because "paytable" is one word.
+	['paytable', 'win table'],
+	['pay tables', 'win tables'],
+	['payouts', 'wins'],
+	['payout', 'win'],
 ];
 
 const WORDS = {
@@ -195,6 +201,35 @@ const RENDERED = [
 ];
 
 /**
+ * Plain TypeScript string literals that are shown to the player.
+ *
+ * The RENDERED patterns above only catch text inside a Svelte template. A
+ * label defined in a .ts file - `title: 'PAYTABLE'` in the game metadata -
+ * is also player-facing, and the previous version of this checker missed
+ * exactly that case.
+ *
+ * Only object properties whose name is a known player-facing label are
+ * collected, so event names, type unions and comparison literals are not
+ * flagged.
+ */
+const PLAYER_FACING_LABELS = [
+	'title',
+	'text',
+	'label',
+	'description',
+	'buttonText',
+	'buttonLabel',
+	'placeholder',
+	'heading',
+	'subtitle',
+	'content',
+];
+
+const LITERAL_LABELS = PLAYER_FACING_LABELS.map(
+	(label) => new RegExp(`\\b${label}\\s*:\\s*(['"\`])((?:\\\\.|(?!\\1)[^\\\\])*)\\1`, 'g'),
+);
+
+/**
  * Expressions that compare against a literal rather than render it.
  *
  * `stateBetDerived.activeBetMode().type === 'buy'` is a mode-type check;
@@ -243,6 +278,16 @@ for (const root of sourceRoots) {
 				// Template text outside quotes.
 				const bare = m[0].replace(/['"`][^'"`]*['"`]/g, ' ').trim();
 				if (bare) rendered.add(bare);
+			}
+		}
+
+		// Player-facing labels defined in plain TypeScript, such as the
+		// game's metadata: { title: 'PAYTABLE' }.
+		for (const pattern of LITERAL_LABELS) {
+			const re = new RegExp(pattern.source, 'g');
+			let m;
+			while ((m = re.exec(src)) !== null) {
+				rendered.add(m[2]);
 			}
 		}
 

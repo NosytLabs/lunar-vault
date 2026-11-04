@@ -67,6 +67,12 @@ const SOCIAL_PHRASES: [string, string][] = [
 	// house uses PLAY consistently, and the SDK's own social map did too.
 	['auto spin', 'auto play'],
 	['auto spins', 'auto plays'],
+	// Engine's common-misses list forbids "paytable" outright, and the
+	// whole-word "pay" rule cannot match it because it is one word.
+	['paytable', 'win table'],
+	['pay tables', 'win tables'],
+	['payouts', 'wins'],
+	['payout', 'win'],
 ];
 
 /** Single words, matched as whole words only. */

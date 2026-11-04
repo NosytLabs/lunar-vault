@@ -109,6 +109,42 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 		stateUi.freeSpinCounterCurrent = bookEvent.amount + 1;
 		stateUi.freeSpinCounterTotal = bookEvent.total;
 	},
+	/**
+	 * A free-spin re-trigger: more scatters landed during the feature round,
+	 * so the running total of free spins goes up.
+	 *
+	 * The books emit this event and the handler map had no entry for it, so
+	 * createPlayBookUtils logged "Missing bookEventHandler" and the extra
+	 * spins were never announced to the player.
+	 */
+	freeSpinRetrigger: async (bookEvent: BookEventOfType<'freeSpinRetrigger'>) => {
+		// animate the scatters that caused the re-trigger
+		eventEmitter.broadcast({ type: 'soundOnce', name: 'sfx_scatter_win_v2' });
+		await animateSymbols({ positions: bookEvent.positions });
+
+		eventEmitter.broadcast({ type: 'freeSpinCounterShow' });
+		stateUi.freeSpinCounterShow = true;
+		eventEmitter.broadcast({
+			type: 'freeSpinCounterUpdate',
+			current: undefined,
+			total: bookEvent.totalFs,
+		});
+		stateUi.freeSpinCounterTotal = bookEvent.totalFs;
+	},
+	/**
+	 * The global multiplier changes during a feature round.
+	 *
+	 * The resume snapshot explicitly preserves this event type, so the books
+	 * are expected to contain it. Without a handler the resume path logged a
+	 * missing-handler error and the multiplier was never shown.
+	 */
+	updateGlobalMult: async (bookEvent: BookEventOfType<'updateGlobalMult'>) => {
+		eventEmitter.broadcast({ type: 'globalMultiplierShow' });
+		eventEmitter.broadcast({
+			type: 'globalMultiplierUpdate',
+			multiplier: bookEvent.multiplier,
+		});
+	},
 	freeSpinEnd: async (bookEvent: BookEventOfType<'freeSpinEnd'>) => {
 		const winLevelData = winLevelMap[bookEvent.winLevel as WinLevel];
 
