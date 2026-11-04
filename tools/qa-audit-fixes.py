@@ -134,6 +134,36 @@ class Browser:
             or []
         )
 
+    def wait_for_play_count(self, baseline, timeout=30):
+        """Wait until more /wallet/play requests exist than `baseline`."""
+        deadline = time.time() + timeout
+        while time.time() < deadline:
+            try:
+                count = len([c for c in self.rgs_calls() if "/wallet/play" in c])
+                if count > baseline:
+                    return True
+            except Exception:
+                pass
+            time.sleep(0.5)
+        return False
+
+    def wait_for_rgs_call(self, needle, timeout=45):
+        """Wait until a request matching `needle` has actually been made.
+
+        Reading the resource timeline once after a fixed sleep is a race: on a
+        loaded machine the request may not have landed yet, and the check then
+        fails even though the game is correct. Poll for the condition instead.
+        """
+        deadline = time.time() + timeout
+        while time.time() < deadline:
+            try:
+                if any(needle in call for call in self.rgs_calls()):
+                    return True
+            except Exception:
+                pass
+            time.sleep(0.5)
+        return False
+
     def console_errors(self):
         return self.cdp.evaluate("window.__errs ? window.__errs.join('|') : ''") or ""
 
@@ -233,15 +263,20 @@ def main():
     )
     try:
         b.wait_for_canvas()
-        time.sleep(12)
 
-        # The replay request must have been made to the mock RGS.
+        # The replay request must have been made to the mock RGS. Wait for it
+        # rather than assuming a fixed delay is long enough.
+        reached = b.wait_for_rgs_call("/bet/replay/")
         replay_calls = [c for c in b.rgs_calls() if "/bet/replay/" in c]
         check(
             "the replay request reaches the RGS",
-            len(replay_calls) >= 1,
+            reached and len(replay_calls) >= 1,
             f"rgs calls: {b.rgs_calls()[:3]}",
         )
+
+        # Give the round a moment to play so the console check below sees
+        # whatever the replay produced.
+        time.sleep(6)
 
         # The currency is applied in the game state. The state is not
         # exported to window, so read it from the rendered canvas through
@@ -284,7 +319,10 @@ def main():
         if opened:
             time.sleep(1.5)
             b.cdp.key(" ", "Space", 32)
-            time.sleep(4.0)
+            # A bet that slips through would arrive within a second or two.
+            # Waiting the same window the positive check needs keeps the
+            # comparison fair: both sides get the same time to answer.
+            time.sleep(8.0)
             after = play_count()
             check(
                 "no /wallet/play request while the bet modal is open",
@@ -305,16 +343,17 @@ def main():
                 "could not open the bet modal by clicking the canvas",
             )
 
-        # With the modal closed the space bar must place a bet.
+        # With the modal closed the space bar must place a bet. Wait for the
+        # request rather than assuming a fixed delay is long enough.
         b.cdp.key("Escape", "Escape", 27)
         time.sleep(1.5)
         before = play_count()
         b.cdp.key(" ", "Space", 32)
-        time.sleep(6.0)
+        placed = b.wait_for_play_count(before, timeout=30)
         after = play_count()
         check(
             "the space bar places a bet when nothing is open",
-            after > before,
+            placed and after > before,
             f"{after - before} play request(s) went out",
         )
         b.cdp.screenshot(str(OUT / "space-bet.png"))

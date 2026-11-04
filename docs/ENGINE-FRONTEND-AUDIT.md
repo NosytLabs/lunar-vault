@@ -15,7 +15,7 @@ could not be proven are marked `UNVERIFIED` rather than assumed.
 
 Lunar Vault now builds clean and passes all 6 automated compliance check
 suites, the 25 package lint scripts and the `lint:tools` script.
-**35 front-end defects were found and fixed.** Two release blockers remain that
+**36 front-end defects were found and fixed.** Two release blockers remain that
 cannot be closed from code alone: the RTP is outside Engine's certified band
 (issue #4) and the game's art is borrowed from a different title.
 
@@ -575,6 +575,7 @@ the RGS. Verified by scanning the built JS and HTML for `http://` and
 | `tools/check-engine-compliance.mjs` | [213] title, [223] zoom, [227] no scroll, [275] loader, [219] currency |
 | `tools/check-bet-config.mjs` | [242] defaultBetLevel, [187] active-round precedence |
 | `tools/check-interruptible.ts` | the `createInterruptible` semantics, against the previous implementation |
+| `tools/check-sound-mute.ts` | [107] the sound switch mutes every player, including a resumed music track |
 
 ```
 $ for f in check-currency-format check-social-implementation check-social-wording \
@@ -603,6 +604,8 @@ $ pnpm run lint                    # 25 package lint scripts, all exit 0
 $ pnpm run lint:tools              # exit 0
 $ pnpm exec tsx tools/check-interruptible.ts
 All 8 interruptible checks passed.
+$ pnpm exec tsx tools/check-sound-mute.ts
+All sound mute checks passed.
 ```
 
 A lint run that reports nothing is only meaningful if the configuration can
@@ -717,3 +720,26 @@ headless Chrome against the mock RGS for three scenarios:
 
 With the fix reverted, the `closed-round` scenario opens on 7 instead of 25
 and the harness exits 1.
+
+### 3.29 The browser suites raced their own timing — **FIXED**
+
+Three of the browser QA harnesses read a result once after a fixed sleep.
+On a loaded machine the request they were waiting for had not arrived yet, so
+the check reported a failure for a game that was working:
+
+- `qa-audit-fixes.py` read the request timeline once, 12 seconds after the
+  canvas appeared, and failed "the replay request reaches the RGS".
+- `qa-default-bet.py` read the amount the mock RGS had recorded once, after an
+  8-second sleep.
+- `qa-active-round.py` did the same.
+
+The fix polls for the condition instead of assuming a delay is long enough:
+`wait_for_rgs_call(needle)`, `wait_for_play_count(baseline)`, and a poll on
+the mock's recorded amount. The check that asserts a bet did **not** happen
+now waits the same window the positive check needs, so both sides of the
+comparison get the same time to answer.
+
+A suite that flakes under load is not a gate. This one passed in isolation and
+failed when four suites ran back to back, which is exactly the situation a
+release check runs in.
+

@@ -136,8 +136,11 @@ def play_amount_for(session_id):
         except Exception as exc:
             return None, f'could not place the bet: {exc}'
 
+        # Wait for the play request to arrive. A fixed sleep is a race on a
+        # loaded machine.
         amount = None
-        for _ in range(40):
+        deadline = time.time() + 40
+        while time.time() < deadline:
             time.sleep(0.5)
             try:
                 raw = json.loads(

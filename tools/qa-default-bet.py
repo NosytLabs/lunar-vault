@@ -97,19 +97,37 @@ def main():
         # Drain any queued events by issuing a call.
         cdp.call('Runtime.evaluate', {'expression': '1'})
 
-        # Place the bet, then capture what was sent.
+        # Place the bet, then capture what was sent. Wait for the request
+        # to actually arrive instead of assuming a fixed delay is long
+        # enough: on a loaded machine the read used to race it and report a
+        # stale amount.
         cdp.key(' ', 'Space', 32)
-        time.sleep(8)
+        recorded = None
+        deadline = time.time() + 30
+        while time.time() < deadline:
+            time.sleep(0.5)
+            try:
+                raw = json.loads(
+                    urllib.request.urlopen(
+                        f'{RGS}/__last-play-amount', timeout=5).read()
+                )
+            except Exception:
+                continue
+            if raw.get('amount'):
+                recorded = raw
+                break
 
         # Fetch the captured request bodies from the performance timeline is
         # not enough - use the CDP network log we collected.
         for entry in bodies:
             print('  request:', entry)
 
-        # Fallback: read the amount the mock RGS recorded.
-        recorded = urllib.request.urlopen(
-            f'{RGS}/__last-play-amount', timeout=5
-        ).read().decode()
+        # The amount the mock RGS recorded for the bet above.
+        if recorded is None:
+            recorded = json.loads(
+                urllib.request.urlopen(
+                    f'{RGS}/__last-play-amount', timeout=5).read()
+            )
         print(f'RGS recorded last play amount = {recorded}')
 
         observed = json.loads(recorded)
