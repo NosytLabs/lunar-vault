@@ -122,7 +122,9 @@ def main():
         for entry in bodies:
             print('  request:', entry)
 
-        # The amount the mock RGS recorded for the bet above.
+        # The amount the mock RGS recorded for the bet above. If the poll
+        # above timed out, read it once more so the failure below reports
+        # what the mock actually saw instead of crashing.
         if recorded is None:
             recorded = json.loads(
                 urllib.request.urlopen(
@@ -130,7 +132,8 @@ def main():
             )
         print(f'RGS recorded last play amount = {recorded}')
 
-        observed = json.loads(recorded)
+        # `recorded` is already the decoded JSON object.
+        observed = recorded
         observed_units = observed['amount'] / API_AMOUNT_MULTIPLIER
 
         print(f'\nexpected opening bet = {expected}')
