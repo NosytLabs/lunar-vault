@@ -97,7 +97,11 @@
 					stateBet.betToResume = authenticateData.round as unknown as BetToResume;
 				}
 
-				if(authenticateData.round?.amount) {
+				// Engine guideline [187]: only an ACTIVE round's amount
+				// becomes the stake. A closed round carries an amount too,
+				// and applying it here would leave the game opening on the
+				// previous round's stake instead of the RGS's default.
+				if (authenticateData.round?.active && authenticateData.round?.amount) {
 					const betAmountValue =
 						authenticateData.round.amount > 0
 							? authenticateData.round.amount / API_AMOUNT_MULTIPLIER
@@ -115,9 +119,14 @@
 			// the RGS's defaultBetLevel. Guideline [187]: an active round's
 			// amount wins over it, and the stake stays that amount after the
 			// round finishes.
-			const hasActiveRound = Boolean(
-				authenticateData?.round?.amount && authenticateData.round.amount > 0,
-			);
+			//
+			// The RGS sends the last round's details even when that round is
+			// finished, and a finished round still carries an amount. Only
+			// `active: true` means there is a round to resume, so that is
+			// the flag that decides whether the round's stake wins over the
+			// default. Treating "has an amount" as "is active" left the game
+			// opening on a closed round's stale stake.
+			const hasActiveRound = Boolean(authenticateData?.round?.active);
 			if (!hasActiveRound && stateConfig.defaultBetLevel !== null) {
 				stateBet.betAmount = stateConfig.defaultBetLevel;
 				stateBet.wageredBetAmount = stateConfig.defaultBetLevel;

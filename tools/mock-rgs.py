@@ -148,10 +148,30 @@ class Handler(BaseHTTPRequestHandler):
         path = self.path.split("?")[0]
 
         if path.endswith("/wallet/authenticate"):
+            # Engine guideline [187]: the RGS may return a round. A round
+            # with active:true is an unfinished round the game must resume.
+            # A round with active:false is a CLOSED round -- it still carries
+            # an amount, and the game must NOT treat it as the active stake.
+            # The sessionID selects the scenario so QA can drive both.
+            session_id = str(data.get("sessionID") or "")
+            round_payload = None
+            if "active-round" in session_id:
+                round_payload = make_bet(Handler.counter)
+                round_payload["active"] = True
+                round_payload["event"] = 0
+                round_payload["amount"] = 7 * API_AMOUNT_MULTIPLIER
+                round_payload["state"] = round_payload["state"][:1]
+            elif "closed-round" in session_id:
+                round_payload = make_bet(Handler.counter)
+                round_payload["active"] = False
+                round_payload["event"] = 0
+                round_payload["amount"] = 7 * API_AMOUNT_MULTIPLIER
+                round_payload["state"] = round_payload["state"][:1]
+
             self._send(
                 {
                     "balance": {"amount": 1000 * API_AMOUNT_MULTIPLIER, "currency": "USD"},
-                    "round": None,
+                    "round": round_payload,
                     "currency": "USD",
                     # Engine guideline [242]: the RGS supplies the opening bet
                     # and the bet levels. The game must use these rather than
@@ -218,6 +238,13 @@ class Handler(BaseHTTPRequestHandler):
             return
         if path.endswith("/__last-play-amount"):
             self._send({"amount": Handler.last_play_amount})
+            return
+        if path.endswith("/__reset"):
+            # QA resets the recorded play amount between scenarios, so a
+            # stale value from the previous scenario cannot be mistaken for
+            # this one's.
+            Handler.last_play_amount = 0
+            self._send({"reset": True})
             return
         self._send({"error": f"unknown endpoint {path}"}, 404)
 

@@ -15,7 +15,7 @@ could not be proven are marked `UNVERIFIED` rather than assumed.
 
 Lunar Vault now builds clean and passes all 6 automated compliance check
 suites, the 25 package lint scripts and the `lint:tools` script.
-**34 front-end defects were found and fixed.** Two release blockers remain that
+**35 front-end defects were found and fixed.** Two release blockers remain that
 cannot be closed from code alone: the RTP is outside Engine's certified band
 (issue #4) and the game's art is borrowed from a different title.
 
@@ -672,3 +672,48 @@ All browser audit-fix checks passed.
 3. The `rtp97.svg` and bet-mode art in the SDK defaults were emptied, not
    replaced. Any game that relies on the SDK's sample metadata now shows blank
    images rather than another game's assets.
+
+### 3.28 A closed round overrode the opening bet — **FIXED**
+
+Engine guideline [187] says an active round's amount becomes the stake, and
+that with no active round the game opens on the RGS's `defaultBetLevel`. The
+deciding field is `round.active`.
+
+`packages/components-shared/src/components/Authenticate.svelte` decided it
+from the amount instead:
+
+```ts
+const hasActiveRound = Boolean(
+    authenticateData?.round?.amount && authenticateData.round.amount > 0,
+);
+```
+
+and applied the amount with the same test. The RGS sends the last round's
+details even when that round is finished, and a finished round still carries
+an amount. So a player whose previous round had closed came back into the
+game on that round's stale stake instead of the stake the operator had
+configured.
+
+The resume machine already had this right — `createPrimaryMachines.ts` checks
+`betToResume.active` — so the game resumed only genuinely active rounds while
+the stake followed any round that carried an amount. The two disagreed.
+
+Now only `round.active` decides:
+
+```ts
+const hasActiveRound = Boolean(authenticateData?.round?.active);
+```
+
+and the amount is applied only for an active round.
+
+Verified with `tools/qa-active-round.py`, which drives the real game in
+headless Chrome against the mock RGS for three scenarios:
+
+| Scenario | RGS authenticate returns | Opening bet |
+| --- | --- | --- |
+| `default-bet` | no round | 25 (the `defaultBetLevel`) |
+| `active-round` | round with `active: true` | 7 (the round's amount) |
+| `closed-round` | round with `active: false` | 25 (the `defaultBetLevel`) |
+
+With the fix reverted, the `closed-round` scenario opens on 7 instead of 25
+and the harness exits 1.
