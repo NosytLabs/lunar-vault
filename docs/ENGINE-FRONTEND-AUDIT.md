@@ -15,7 +15,7 @@ could not be proven are marked `UNVERIFIED` rather than assumed.
 
 Lunar Vault now builds clean and passes all 6 automated compliance check
 suites, the 25 package lint scripts and the `lint:tools` script.
-**36 front-end defects were found and fixed.** Two release blockers remain that
+**37 front-end defects were found and fixed.** Two release blockers remain that
 cannot be closed from code alone: the RTP is outside Engine's certified band
 (issue #4) and the game's art is borrowed from a different title.
 
@@ -721,25 +721,48 @@ headless Chrome against the mock RGS for three scenarios:
 With the fix reverted, the `closed-round` scenario opens on 7 instead of 25
 and the harness exits 1.
 
-### 3.29 The browser suites raced their own timing — **FIXED**
+### 3.30 A resumed music track came back at a stale volume — **FIXED**
 
-Three of the browser QA harnesses read a result once after a fixed sleep.
-On a loaded machine the request they were waiting for had not arrived yet, so
-the check reported a failure for a game that was working:
+`createPlayMusic`'s `resumeMusic` branch replayed a paused sound without
+re-applying the player's volume:
 
-- `qa-audit-fixes.py` read the request timeline once, 12 seconds after the
-  canvas appeared, and failed "the replay request reaches the RGS".
-- `qa-default-bet.py` read the amount the mock RGS had recorded once, after an
-  8-second sleep.
-- `qa-active-round.py` did the same.
+```ts
+const resumeMusic = (sound: Sound) => {
+	pauseAllMusic();
+	options.howl.play(sound.soundId);
+	options.getSoundMap()[sound.soundName] = { ...sound, soundState: 'playing' };
+	// no initSoundVolume here
+};
+```
 
-The fix polls for the condition instead of assuming a delay is long enough:
-`wait_for_rgs_call(needle)`, `wait_for_play_count(baseline)`, and a poll on
-the mock's recorded amount. The check that asserts a bet did **not** happen
-now waits the same window the positive check needs, so both sides of the
-comparison get the same time to answer.
+Every sibling path applies the volume — `newMusic`, `createPlayLoop.playLoop`
+and `createPlayOnce.playOnce` all call `options.initSoundVolume(...)`. Howler
+keeps whatever volume a sound was last set to, and `howl.play()` applies that
+stored value to the node gain, so a resumed track plays at its last stored
+volume rather than the player's current one.
 
-A suite that flakes under load is not a gate. This one passed in isolation and
-failed when four suites ran back to back, which is exactly the situation a
-release check runs in.
+**The mute case did not reproduce.** The obvious reading of this defect is
+"pause the music, mute the game, resume, and the music is audible". That does
+not happen: `createPlayer.volume()` iterates the sound map and applies the new
+volume to every entry, and a paused sound stays in the map, so the mute
+reaches it and the resumed track is silent. The first draft of the harness
+asserted exactly that and passed with the fix removed — a false green.
+
+**The case that does reproduce** is a volume that changed *other than* through
+the player's own mute. `createPlayer.fade` writes the fade target straight
+into the sound's stored volume, and Howler's `pause()` stops a running fade
+and leaves the sound at that target. So a track that was faded down, paused,
+and resumed comes back at the faded value instead of the player's volume.
+
+**Verification.** `tools/check-sound-mute.ts` drives the real
+`createPlayMusic` / `createPlayLoop` / `createPlayOnce` modules over a Howl
+stub that models the three Howler 2.2.4 behaviours the code depends on
+(`volume()` stores `sound._volume`; `play()` applies it to the gain; `pause()`
+stops a running fade and leaves the sound at its target). The harness also
+asserts that its copy of `createPlayer`'s volume calculation still matches the
+production source, so it cannot silently drift.
+
+With the fix reverted the harness reports
+`a resumed music track re-applies the player volume -- volume was 0.15,
+expected 0.75` and exits 1.
 
