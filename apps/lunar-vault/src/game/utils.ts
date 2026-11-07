@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { stateBet } from 'state-shared';
 import { createPlayBookUtils } from 'utils-book';
 import { createGetEmptyPaddedBoard } from 'utils-slots';

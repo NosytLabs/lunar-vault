@@ -7,9 +7,10 @@
 
 	import BaseContent from './BaseContent.svelte';
 	import BaseScrollable from './BaseScrollable.svelte';
+	import GameRuleContent from './GameRuleContent.svelte';
 
 	type Props = {
-		children: Snippet;
+		children?: Snippet;
 	};
 
 	const props: Props = $props();
@@ -19,7 +20,7 @@
 	<Popup zIndex={zIndex.modal} onclose={() => (stateModal.modal = null)}>
 		<BaseContent maxWidth="100%">
 			<BaseScrollable type="column">
-				<span>ADD YOUR PAY TABLE</span>
+				<GameRuleContent kind="payTable" />
 				{@render props.children()}
 			</BaseScrollable>
 		</BaseContent>

@@ -24,8 +24,9 @@ const config: LinguiConfig = {
     default: "en",
   },
   "sourceLocale": "en",
-  // @ts-ignore string[]
-  locales,
+  // The exported `locales` is a readonly tuple, while Lingui's config
+  // expects a mutable string array.
+  locales: [...locales],
 };
 
 export default config;

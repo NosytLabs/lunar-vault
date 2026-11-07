@@ -5,6 +5,7 @@
 	import { Sprite } from 'pixi-svelte';
 
 	import { getContext } from '../game/context';
+	import { spriteTextLanguage } from '../game/spriteTextLanguage';
 
 	type Props = {
 		onpress: () => void;
@@ -16,7 +17,7 @@
 
 <MainContainer alignVertical="bottom">
 	<Sprite
-		key="pressToContinueText_{stateUrlDerived.lang()}.png"
+		key="pressToContinueText_{spriteTextLanguage(stateUrlDerived.lang())}.png"
 		width={800}
 		height={134}
 		anchor={{ x: 0.5, y: 1 }}

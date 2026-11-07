@@ -80,9 +80,10 @@ export const requestReplay = async (options: {
 	event: string;
 	rgsUrl: string;
 }) => {
-	const data = await rgsFetcher.get({
+	// The replay path is built at runtime, so it is not one of the schema's
+	// fixed endpoint keys.
+	const data = await rgsFetcher.getPath({
 		rgsUrl: options.rgsUrl,
-		// @ts-ignore TODO: update the schema.ts
 		url: `/bet/replay/${options.game}/${options.version}/${options.mode}/${options.event}`,
 	});
 

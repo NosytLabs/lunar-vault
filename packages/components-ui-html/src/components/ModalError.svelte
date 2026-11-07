@@ -4,6 +4,7 @@
 	import { stateModal } from 'state-shared';
 
 	import BaseContent from './BaseContent.svelte';
+	import { translate } from '../i18n/i18nDerived';
 </script>
 
 {#if stateModal.modal?.name === 'error'}
@@ -14,10 +15,17 @@
 			<div class="scrollY error-text">
 				{#if error}
 					{#if error?.error && error?.message}
-						<span>{JSON.stringify(error.error || 'unknown')}</span>
-						<p>{JSON.stringify(error.message || 'unknown')}</p>
+						<!-- Engine guideline [77]: the RGS's own error text is
+						     player-facing, so it has to pass through the social
+						     wording layer like every other string. -->
+						<span>{translate(String(error.error))}</span>
+						<p>{translate(String(error.message))}</p>
+					{:else if typeof error === 'string'}
+						<p>{translate(error)}</p>
+					{:else if error?.message}
+						<p>{translate(String(error.message))}</p>
 					{:else}
-						<p>{error}</p>
+						<p>{translate(String(error))}</p>
 					{/if}
 				{:else}
 					<span>unknown error</span>

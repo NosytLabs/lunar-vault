@@ -5,7 +5,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
-	import { stateBet, stateBetDerived } from 'state-shared';
+	import { stateBet, stateBetDerived, stateModal, stateUi } from 'state-shared';
 
 	import { getContext } from '../context';
 
@@ -25,7 +25,14 @@
 
 	let stopDisabled = $state(false);
 
+	// Engine guideline [228]: space must do exactly what the bet button does.
+	// The bet button is covered by an open modal or menu, so the space bar has
+	// to be covered by them too - otherwise space starts a real-money round
+	// behind a modal, which the player cannot see or stop.
+	const isBlockedByOverlay = $derived(stateModal.modal !== null || stateUi.menuOpen);
+
 	const bet = () => {
+		if (isBlockedByOverlay) return;
 		if (stateBetDerived.activeBetMode()?.type === 'buy') stateBet.activeBetModeKey = 'BASE';
 		context.eventEmitter.broadcast({ type: 'bet' });
 	};

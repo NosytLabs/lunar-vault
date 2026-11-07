@@ -33,10 +33,16 @@
 	});
 </script>
 
-<div>
-	{@render props.children()}
-</div>
+<!--
+	Engine guideline: a modal must show its content once.
 
+	The content used to be rendered twice - once in a bare <div> outside the
+	overlay and once inside .top-layer. The bare copy had no styling and
+	appeared above the modal, so every modal showed its text twice (the
+	error modal read "Sorry, something went wrong." twice).
+
+	Only the copy inside the overlay is rendered.
+-->
 <OnHotkey hotkey="Escape" onpress={closeModal} />
 
 <div class="pop-up-wrap" class:disabled style={`z-index: ${props.zIndex};`}>

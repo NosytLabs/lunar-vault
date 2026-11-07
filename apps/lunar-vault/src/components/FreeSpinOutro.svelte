@@ -17,6 +17,7 @@
 	import { stateUrlDerived } from 'state-shared';
 
 	import { getContext } from '../game/context';
+	import { spriteTextLanguage } from '../game/spriteTextLanguage';
 	import FreeSpinAnimation from './FreeSpinAnimation.svelte';
 	import PressToContinue from './PressToContinue.svelte';
 	import WinCoins from './WinCoins.svelte';
@@ -60,14 +61,14 @@
 								anchor={{ x: 0.5, y: 1.2 }}
 								width={500 * 2.2}
 								height={156 * 2.2}
-								key="freespins_{stateUrlDerived.lang()}.png"
+								key="freespins_{spriteTextLanguage(stateUrlDerived.lang())}.png"
 							/>
 						{:else}
 							<Sprite
 								anchor={{ x: 0.5, y: 1.2 }}
 								width={500 * 4.5}
 								height={80 * 4.5}
-								key="winsmall_{stateUrlDerived.lang()}.png"
+								key="winsmall_{spriteTextLanguage(stateUrlDerived.lang())}.png"
 							/>
 						{/if}
 

@@ -18,6 +18,7 @@
 	import { getContext } from '../context';
 	import type { LayoutUiProps } from '../types';
 	import LabelFreeSpinCounter from './LabelFreeSpinCounter.svelte';
+	import ButtonReplayPlayAgain from './ButtonReplayPlayAgain.svelte';
 
 	type Props = {
 		gameName: LayoutUiProps['gameName'];
@@ -60,6 +61,14 @@
 			scale={0.8}
 		>
 			<LabelBet stacked />
+		</Container>
+
+		<Container
+			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
+			y={context.stateLayoutDerived.mainLayoutStandard().height - 60}
+			scale={0.8}
+		>
+			<ButtonReplayPlayAgain />
 		</Container>
 
 		<Container

@@ -26,7 +26,7 @@
 </script>
 
 <Button {...buttonProps}>
-	{#snippet children({ center, hovered, pressed })}
+	{#snippet children({ center })}
 		<UiSprite
 			{...center}
 			anchor={0.5}

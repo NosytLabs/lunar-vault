@@ -1,4 +1,5 @@
-import WebFont from 'webfontloader';
+
+/// <reference lib="dom" />
 
 import type { PixiPoint, Sizes } from './types';
 
@@ -36,13 +37,13 @@ export function detectWebGL() {
 	if (window && !!window.WebGLRenderingContext) {
 		let canvas = document.createElement('canvas'),
 			names = ['webgl', 'experimental-webgl', 'moz-webgl', 'webkit-3d'],
-			context = false;
+			context: RenderingContext | null = null;
 
 		for (const i in names) {
 			try {
-				// @ts-ignore
-				context = canvas.getContext(names[i]);
-				// @ts-ignore
+				// The vendor context names are not in the DOM's type, so the
+				// lookup needs a cast.
+				context = canvas.getContext(names[i] as string) as RenderingContext | null;
 				if (context && typeof context.getParameter === 'function') {
 					// WebGL is enabled.
 					return 1;
@@ -60,23 +61,12 @@ export function detectWebGL() {
 
 export const preloadFont = () =>
 	new Promise<void>((resolve) => {
-		try {
-			WebFont.load({
-				typekit: {
-					id: 'aba0ebl',
-				},
-				active: () => {
-					resolve();
-				},
-				inactive: () => {
-					console.error('Web font load inactive');
-					resolve();
-				},
-			});
-		} catch (error) {
-			console.error(error);
-			resolve();
-		}
+		// Engine front-end guideline: the build must not load anything from
+		// external hosts. The SDK used to pull a Typekit webfont here, which
+		// the strict content policy blocks (and which adds a render-blocking
+		// third-party request). The game's own fonts ship as static files in
+		// the Pixi spine atlases, so there is nothing to wait for.
+		resolve();
 	});
 
 export function propsSyncEffect<TProps extends object, TTarget>({
@@ -97,8 +87,10 @@ export function propsSyncEffect<TProps extends object, TTarget>({
 				.filter((key) => (ignore ? !ignore.includes(key) : true))
 				.forEach((key) => {
 					if (props[key] !== undefined) {
-						// @ts-ignore
-						targetInstance[key] = props[key];
+						// The target's index signature does not know the
+						// props' keys, so the write needs a cast.
+						(targetInstance as Record<string, unknown>)[key as string] =
+							props[key] as unknown;
 					}
 				});
 		}

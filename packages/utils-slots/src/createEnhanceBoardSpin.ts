@@ -56,16 +56,18 @@ export function createEnhanceBoardSpin<TReel extends Reel<any, any>>({
 			const isAnticipated = (revealEvent.anticipation?.[reelIndex] || 0) > 0;
 			const spinType = getSpinType({ noStop, isAnticipated });
 			const symbols = revealEvent.board[reelIndex] as TRawSymbol[];
-			const paddingReel = paddingBoard?.[reelIndex];
-			const paddingPosition = revealEvent?.paddingPositions?.[reelIndex];
+			// The enhance board may have no padding for this reel. The
+			// spinning reel's `prepareToSpin` expects a padding reel and a
+			// padding position, so the empty values are supplied when the
+			// board has none.
+			const paddingReel = paddingBoard?.[reelIndex] ?? [];
+			const paddingPosition = revealEvent?.paddingPositions?.[reelIndex] ?? 0;
 
 			const paddingSize = reel.prepareToSpin({
 				noStop,
 				spinType,
 				symbols,
-				// @ts-ignore Ignored because paddingReel is not required by createCascadingReel
 				paddingReel,
-				// @ts-ignore Ignored because paddingPosition is not required by createCascadingReel
 				paddingPosition,
 				previousPaddingSize,
 				onSpinFinishing: () => {

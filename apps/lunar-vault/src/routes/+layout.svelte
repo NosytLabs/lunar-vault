@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { type Snippet } from 'svelte';
 	import { GlobalStyle } from 'components-ui-html';
-	import { Authenticate, LoaderStakeEngine, LoaderExample, LoadI18n } from 'components-shared';
+	import { Authenticate, LoaderExample, LoadI18n } from 'components-shared';
 	import Game from '../components/Game.svelte';
 	import { setContext } from '../game/context';
 
@@ -13,11 +13,18 @@
 
 	let showYourLoader = $state(false);
 
-	const loaderUrlStakeEngine = new URL('../../stake-engine-loader.gif', import.meta.url).href;
+	// Engine's approval guideline: the game must not show a Stake Engine
+	// loader. The SDK's LoaderStakeEngine rendered the Stake Engine branding
+	// before the game's own loader, so only the game's own loader is used.
 	const loaderUrl = new URL('../../loader.gif', import.meta.url).href;
 
 	setContext();
 </script>
+
+<svelte:head>
+	<title>Lunar Vault</title>
+	<meta name="description" content="Lunar Vault - a five reel, twenty payline slot game." />
+</svelte:head>
 
 <GlobalStyle>
 	<Authenticate>
@@ -27,12 +34,9 @@
 	</Authenticate>
 </GlobalStyle>
 
-<LoaderStakeEngine src={loaderUrlStakeEngine} oncomplete={() => (showYourLoader = true)} />
-
 {#if showYourLoader}
-	<LoaderExample src={loaderUrl} />
-	<!-- '/loader.gif' is served from static folder of sveltekit -->
-	<!-- File location: apps/scatter/static/loader.gif -->
+	<LoaderExample src={loaderUrl} oncomplete={() => (showYourLoader = false)} />
+	<!-- '/loader.gif' is served from the static folder of sveltekit -->
 {/if}
 
 {@render props.children()}

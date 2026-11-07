@@ -1,24 +1,37 @@
-import { stateI18nDerived } from 'state-shared';
+import { socialText, stateI18nDerived, stateUrlDerived } from 'state-shared';
+
+/**
+ * Translate a player-facing string and apply the social-mode wording.
+ *
+ * Use this for text that comes from the game metadata or any other source
+ * that is not one of the SDK's own message keys -- Engine requires the social
+ * wording to be applied to *all* player-facing text, not only the built-in
+ * translations.
+ */
+const translate = (text: string) => socialText(stateI18nDerived.translate(text), stateUrlDerived.social());
+
+export { translate };
 
 export const i18nDerived = {
-	bet: () => stateI18nDerived.translate('BET'),
-	max: () => stateI18nDerived.translate('MAX'),
-	betMenu: () => stateI18nDerived.translate('BET MENU'),
-	selectYourBet: () => stateI18nDerived.translate('SELECT YOUR BET'),
-	confirm: () => stateI18nDerived.translate('CONFIRM'),
-	masterVolume: () => stateI18nDerived.translate('MASTER VOLUME'),
-	musicVolume: () => stateI18nDerived.translate('MUSIC VOLUME'),
-	soundEffectVolume: () => stateI18nDerived.translate('SOUND EFFECT VOLUME'),
-	autoSpins: () => stateI18nDerived.translate('AUTO SPINS'),
-	numberOfRounds: () => stateI18nDerived.translate('NUMBER OF ROUNDS'),
-	advanced: () => stateI18nDerived.translate('ADVANCED'),
-	singleWinLimit: () => stateI18nDerived.translate('SINGLE WIN LIMIT'),
-	lossLimit: () => stateI18nDerived.translate('LOSS LIMIT'),
-	startAutoplay: () => stateI18nDerived.translate('START AUTOPLAY'),
-	notification: () => stateI18nDerived.translate('NOTIFICATION'),
-	autoSpinsStopInfo: () => stateI18nDerived.translate('AUTO PLAY HAS STOPPED DUE TO'),
-	insufficientFunds: () => stateI18nDerived.translate('INSUFFICIENT FUNDS TO PLACE THIS BET. PLEASE ADD FUNDS TO YOUR ACCOUNT OR LOWER THE BET LEVEL.'),
-	lossLimitReached: () => stateI18nDerived.translate('LOSS LIMIT REACHED'),
-	singleWinLimitReached: () => stateI18nDerived.translate('SINGLE WIN LIMIT REACHED'),
-	settings: () => stateI18nDerived.translate('SETTINGS'),
+	bet: () => translate('BET'),
+	max: () => translate('MAX'),
+	betMenu: () => translate('BET MENU'),
+	selectYourBet: () => translate('SELECT YOUR BET'),
+	confirm: () => translate('CONFIRM'),
+	masterVolume: () => translate('MASTER VOLUME'),
+	musicVolume: () => translate('MUSIC VOLUME'),
+	soundEffectVolume: () => translate('SOUND EFFECT VOLUME'),
+	autoSpins: () => translate('AUTO SPINS'),
+	numberOfRounds: () => translate('NUMBER OF ROUNDS'),
+	advanced: () => translate('ADVANCED'),
+	singleWinLimit: () => translate('SINGLE WIN LIMIT'),
+	lossLimit: () => translate('LOSS LIMIT'),
+	startAutoplay: () => translate('START AUTOPLAY'),
+	notification: () => translate('NOTIFICATION'),
+	autoSpinsStopInfo: () => translate('AUTO PLAY HAS STOPPED DUE TO'),
+	insufficientFunds: () => translate('INSUFFICIENT FUNDS TO PLACE THIS BET. PLEASE ADD FUNDS TO YOUR ACCOUNT OR LOWER THE BET LEVEL.'),
+	lossLimitReached: () => translate('LOSS LIMIT REACHED'),
+	singleWinLimitReached: () => translate('SINGLE WIN LIMIT REACHED'),
+	settings: () => translate('SETTINGS'),
+	playAgain: () => translate('PLAY AGAIN'),
 };

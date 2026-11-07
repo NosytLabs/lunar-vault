@@ -38,12 +38,17 @@ export function createPlayMusic<TSoundName extends string>(options: {
 			...sound,
 			soundState: 'playing',
 		};
+		// Re-apply the current volume. Howler keeps whatever volume a sound
+		// was last set to, so a resumed track comes back at that stale value
+		// unless the player volume is applied again. `newMusic` does this;
+		// the resume path did not.
+		options.initSoundVolume(sound.soundName);
 	};
 
 	const soundPlayMap = {
 		new: (sound: Sound) => newMusic(sound),
 		paused: (sound: Sound) => resumeMusic(sound),
-		playing: (_: Sound) => {
+		playing: () => {
 			// Do nothing
 		},
 	};

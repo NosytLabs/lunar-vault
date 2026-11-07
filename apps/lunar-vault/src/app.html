@@ -3,8 +3,15 @@
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.svg" />
-		<link rel="stylesheet" href="https://use.typekit.net/aba0ebl.css" />
-		<meta name="viewport" content="width=device-width" />
+		<!-- Engine front-end guideline: the build must not load anything from
+		     external hosts. The SDK shipped a Typekit webfont here; the game's
+		     own fonts are static files inside the Pixi spine atlases. -->
+		<!-- Engine front-end guideline: double-tap zoom must be disabled, and the
+		     frame must not scroll at any reviewer screen size. -->
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+		/>
 		%sveltekit.head%
 	</head>
 	<body style="margin: 0; padding: 0; overflow: hidden; background-color: black">

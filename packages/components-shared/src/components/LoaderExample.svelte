@@ -3,32 +3,21 @@
 
 	type Props = {
 		src: string;
+		oncomplete?: () => void;
 	};
 
 	const props: Props = $props();
-
-	let showText = $state(true);
 </script>
 
+<!--
+	The SDK shipped this with an "Add Your Loader" placeholder over the
+	animation. Engine's approval guidelines treat visible placeholder text as
+	a failure, so the loader shows the game's own artwork only.
+-->
 <LoaderBase
 	maxWidth={200}
-	backgroundColor={'#000000'}
+	backgroundColor="#000000"
 	timeout={2000}
 	src={props.src}
-	oncomplete={() => (showText = false)}
+	oncomplete={props.oncomplete}
 />
-
-{#if showText}
-	<span class="add-your-loader">Add Your Loader</span>
-{/if}
-
-<style lang="scss">
-	.add-your-loader {
-		z-index: 999;
-		color: white;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, 10px);
-	}
-</style>

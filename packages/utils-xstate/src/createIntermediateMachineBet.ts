@@ -12,6 +12,16 @@ const checkSpaceHold = fromPromise(async () => {
 			return;
 		}
 
+		// Engine guideline [222]: the request must not go out when the
+		// balance cannot cover the bet. The click, autoplay and bonus-buy
+		// paths all check this, but the space-hold loop did not, so holding
+		// space through a loss kept sending /wallet/play and the RGS
+		// answered ERR_IPB. The hold ends instead.
+		if (!stateBetDerived.isBetCostAvailable()) {
+			stateBet.isSpaceHold = false;
+			throw Error('insufficient balance');
+		}
+
 		return;
 	}
 	throw Error('end bet');

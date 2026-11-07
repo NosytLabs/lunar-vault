@@ -24,7 +24,7 @@ export function createPlayLoop<TSoundName extends string>(options: {
 	const soundPlayMap = {
 		new: (sound: Sound) => playLoop(sound),
 		paused: (sound: Sound) => playLoop(sound),
-		playing: (_: Sound) => {
+		playing: () => {
 			// Do nothing
 		},
 	};

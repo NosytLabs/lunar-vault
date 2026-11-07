@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 
 	import { Text } from 'pixi-svelte';
+	import { stateBet } from 'state-shared';
 
 	import { gameActor } from '../game/actor';
 	import { getContext } from '../game/context';
@@ -34,6 +35,15 @@
 		bet: () => gameActor.send({ type: 'BET' }),
 		autoBet: () => gameActor.send({ type: 'AUTO_BET' }),
 		resumeBet: () => gameActor.send({ type: 'RESUME_BET' }),
+		// Engine requires a replay to offer "Play Again". A replay has no
+		// session, so the same book events are replayed locally rather than
+		// requesting a new round from the RGS.
+		replayPlayAgain: () => {
+			const replayBet = stateBet.replayBet;
+			if (!replayBet) return;
+			stateBet.betToResume = replayBet;
+			gameActor.send({ type: 'RESUME_BET' });
+		},
 	});
 </script>
 
