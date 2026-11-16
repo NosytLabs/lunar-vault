@@ -1,11 +1,14 @@
 export default {
-	loader: {
-		type: 'spine',
-		src: {
-			atlas: new URL('../../assets/spines/loader/loader.atlas', import.meta.url).href,
-			skeleton: new URL('../../assets/spines/loader/loader.json', import.meta.url).href,
-			scale: 2,
-		},
+	// Original Lunar Vault title art (generated 2026-11-16). Replaces
+	// the borrowed Mining Mayhem loader spine — a miner character and
+	// the "MINING MAYHEM" title — which was a release blocker in
+	// docs/ENGINE-FRONTEND-AUDIT.md (borrowed sample art). A static
+	// sprite is the SDK's documented alternative where a Spine
+	// animation is not available.
+	titleLogo: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/titleLogo/lunar-vault-title.png', import.meta.url)
+			.href,
 		preload: true,
 	},
 	pressToContinueText: {
@@ -189,22 +192,22 @@ export default {
 			scale: 2,
 		},
 	},
-	foregroundAnimation: {
-		type: 'spine',
-		src: {
-			atlas: new URL('../../assets/spines/foregroundAnimation/mm_bg.atlas', import.meta.url).href,
-			skeleton: new URL('../../assets/spines/foregroundAnimation/mm_bg.json', import.meta.url).href,
-			scale: 2,
-		},
+	// Original Lunar Vault backgrounds (generated 2026-11-16),
+	// authored at the game's background ratio (2039/1000, see
+	// stateLayout.ts). They replace the borrowed Mining Mayhem
+	// foreground spines (mm_bg / mm_bg_feature — a mine scene with a
+	// mine cart), the second borrowed-art release blocker in
+	// docs/ENGINE-FRONTEND-AUDIT.md. The spines' looping "dust"
+	// overlay track has no equivalent in a static sprite; the scenes
+	// themselves are fully replaced.
+	backgroundBase: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/backgrounds/bg-base.webp', import.meta.url).href,
 		preload: true,
 	},
-	foregroundFeatureAnimation: {
-		type: 'spine',
-		src: {
-			atlas: new URL('../../assets/spines/foregroundFeatureAnimation/mm_bg_feature.atlas', import.meta.url).href,
-			skeleton: new URL('../../assets/spines/foregroundFeatureAnimation/mm_bg_feature.json', import.meta.url).href,
-			scale: 2,
-		},
+	backgroundFeature: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/backgrounds/bg-feature.webp', import.meta.url).href,
 		preload: true,
 	},
 	tumble_multiplier: {
