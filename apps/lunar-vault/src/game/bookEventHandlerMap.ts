@@ -44,6 +44,10 @@ const animateSymbols = async ({ positions }: { positions: Position[] }) => {
 	});
 };
 
+// BookEventHandlerMap is keyed by BookEvent['type'], so this map must contain
+// a handler for every member of the BookEvent union — a missing handler is a
+// compile-time error here, and an unknown event type at runtime throws in
+// createPlayBookUtils instead of being silently dropped mid-round.
 export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContext> = {
 	reveal: async (bookEvent: BookEventOfType<'reveal'>, { bookEvents }: BookEventContext) => {
 		const isBonusGame = checkIsMultipleRevealEvents({ bookEvents });
