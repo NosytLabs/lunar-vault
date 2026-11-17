@@ -39,7 +39,7 @@ base/feature crossfade (`FadeContainer`, 1s) is unchanged.
 
 Symbol **win-state Spine animations** (`spines/symbols*`, incl. the
 shared explosion), `bigwin`, `fsIntro`, `anticipation`,
-`bonusButton`, `clusterWin`, `tumbleWin`, `globalMultiplier`,
+`clusterWin`, `tumbleWin`, `globalMultiplier`,
 `reelhouse`, `transition`, the Mining Mayhem bitmap fonts
 (`mm_gold`, `mm_silver`, `mm_purple`, `miningfont_gold_blur`), the
 audio sound sprite, `sprites/coin/SD2_Coin.png`,
