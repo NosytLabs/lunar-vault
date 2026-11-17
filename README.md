@@ -79,9 +79,11 @@ audit that produced this repo.
   drawn into the existing spritesheet frames by `tools/reskin-symbols.py`
   (frame geometry, rotations and trims are unchanged, so the manifest and
   paytable wiring are untouched).
-- Spine win animations, background and feature screens are still the SDK
-  sample art. They are licensed sample placeholders from the SDK and must
-  be replaced with final Spine exports before an Engine review submission.
+- Backgrounds and the title logo are original art (PR #10;
+  docs/ASSET-MANIFEST-2026-11-16.md). Spine win animations and feature
+  screens are still the SDK sample art. They are licensed sample
+  placeholders from the SDK and must be replaced with final Spine exports
+  before an Engine review submission.
 - The server-side **math model** (reel strips, paytable weights, RTP) is
   not part of a frontend repo: it is authored and certified on the Engine
   side. The values in `apps/lunar-vault/src/game/config.ts` describe this
