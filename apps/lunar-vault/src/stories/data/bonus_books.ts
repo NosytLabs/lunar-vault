@@ -26488,7 +26488,7 @@ export default [
 			{
 				index: 49,
 				type: 'freeSpinEnd',
-				amount: 769,
+				amount: 770,
 				winLevel: 3,
 			},
 			{
@@ -30773,7 +30773,7 @@ export default [
 			{
 				index: 47,
 				type: 'freeSpinEnd',
-				amount: 549,
+				amount: 550,
 				winLevel: 3,
 			},
 			{
@@ -77379,7 +77379,7 @@ export default [
 			{
 				index: 31,
 				type: 'freeSpinEnd',
-				amount: 1019,
+				amount: 1020,
 				winLevel: 4,
 			},
 			{
@@ -85384,7 +85384,7 @@ export default [
 			{
 				index: 31,
 				type: 'freeSpinEnd',
-				amount: 509,
+				amount: 510,
 				winLevel: 3,
 			},
 			{
@@ -103885,7 +103885,7 @@ export default [
 			{
 				index: 29,
 				type: 'freeSpinEnd',
-				amount: 229,
+				amount: 230,
 				winLevel: 2,
 			},
 			{
