@@ -15,10 +15,16 @@ export function recordBookEvent<TBookEvent extends BaseBookEvent>({
 	}
 
 	try {
+		// requestEndEvent is async, so the try/catch alone cannot catch its
+		// failures: a rejected promise (a non-200 from the RGS, a network
+		// error) escaped as an unhandled rejection. The call stays
+		// fire-and-forget, but its rejection is now handled and logged.
 		requestEndEvent({
 			eventIndex: bookEvent.index,
 			rgsUrl: stateUrlDerived.rgsUrl(),
 			sessionID: stateUrlDerived.sessionID(),
+		}).catch((error) => {
+			console.error(error);
 		});
 	} catch (error) {
 		console.error(error);
