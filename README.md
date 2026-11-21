@@ -75,10 +75,10 @@ audit that produced this repo.
 
 ## Art status
 
-- Static reel symbols (H1–H5, L1–L4) are an original Lunar Vault set —
-  drawn into the existing spritesheet frames by `tools/reskin-symbols.py`
-  (frame geometry, rotations and trims are unchanged, so the manifest and
-  paytable wiring are untouched).
+- Static reel symbols (H1–H4, L1–L5, plus the W wild and S scatter) are an
+  original Lunar Vault set — drawn into the existing spritesheet frames by
+  `tools/reskin-symbols.py` (frame geometry, rotations and trims are
+  unchanged, so the manifest and paytable wiring are untouched).
 - Backgrounds and the title logo are original art (PR #10;
   docs/ASSET-MANIFEST-2026-11-16.md). Spine win animations and feature
   screens are still the SDK sample art. They are licensed sample
